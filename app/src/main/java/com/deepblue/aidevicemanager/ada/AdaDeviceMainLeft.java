@@ -29,11 +29,11 @@ public class AdaDeviceMainLeft extends MAdapter<String>{
  	@Override
     public View getview(int position, View convertView, ViewGroup parent) {
         String item = get(position);
-        if (convertView == null) {
-            convertView = DeviceMainLeft.getView(getContext(), parent);;
-        }
-        DeviceMainLeft mDeviceMainLeft=(DeviceMainLeft) convertView.getTag();
-        mDeviceMainLeft.set(item);
+//        if (convertView == null) {
+//            convertView = DeviceMainLeft.Companion.getView(getContext(), parent);;
+//        }
+//        DeviceMainLeft mDeviceMainLeft=(DeviceMainLeft) convertView.getTag();
+//        mDeviceMainLeft.set(item);
         return convertView;
     }
 }
