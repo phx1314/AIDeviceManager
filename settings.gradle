@@ -1,0 +1,8 @@
+include ':app'
+rootProject.name='AIDeviceManager'
+include ':tcp'
+project(':tcp').projectDir = new File(settingsDir, '../DeepblueLibraries/tcp')
+include ':utils'
+project(':utils').projectDir = new File(settingsDir, '../DeepblueLibraries/utils')
+include ':klog'
+project(':klog').projectDir = new File(settingsDir, '../DeepblueLibraries/klog')
