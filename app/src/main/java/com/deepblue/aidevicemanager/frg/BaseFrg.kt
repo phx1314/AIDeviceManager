@@ -21,6 +21,7 @@ import com.mdx.framework.service.subscriber.S
 import com.mdx.framework.util.AbAppUtil
 import com.mdx.framework.util.Frame
 import com.mdx.framework.util.Helper
+import com.mdx.framework.view.Headlayout
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -63,26 +64,14 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
                 .subscribe(s)
     }
 
-//    fun load(methodName: String, vararg mparams: Any) {
-//        HttpUtil.loadGet(
-//                context,
-//                this,
-//                methodName,
-//                HttpResponseListener(context, this, methodName, true),
-//                *mparams
-//        )
-//    }
 
     override fun onDestroy() {
         compositeDisposable.dispose()
         Thread(Runnable {}).start()
-//        compositeDisposable.forEach {
-//            if (it != null && !it.isUnsubscribed) {
-//                if (it.mProgressDialog.isShowing) it.mProgressDialog.dismiss()
-//                it.unsubscribe()
-//            }
-//        }
-//        OkHttpUtils.getInstance().cancelTag(this)
         super.onDestroy()
+    }
+
+    override fun setActionBar(mHeadlayout: Headlayout?) {
+        mHeadlayout?.visibility=View.GONE
     }
 }
