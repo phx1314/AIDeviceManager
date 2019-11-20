@@ -13,10 +13,14 @@ package com.deepblue.aidevicemanager.act
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
 
 
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.frg.FrgLogin
 import com.deepblue.library.tcp.TcpClient
+import com.mdx.framework.activity.IndexAct
+import com.mdx.framework.util.Helper
 
 class ActLoading : Activity() {
 
@@ -29,6 +33,9 @@ class ActLoading : Activity() {
 
 
     fun loaddata() {
+        Handler().postDelayed({
+            Helper.startActivity(this, FrgLogin::class.java, IndexAct::class.java)
+        },2)
     }
 
 

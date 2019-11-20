@@ -36,4 +36,5 @@ dependencies {
     implementation 'com.github.phx1314:Frame:1.5'
     implementation project(':tcp')
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.jungly:gridPasswordView:0.3'
 }
