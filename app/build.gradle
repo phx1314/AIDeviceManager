@@ -5,6 +5,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('D:\\Temp\\keystore.jks')
+            storePassword '1q2w3e4r'
+            keyAlias = 'key0'
+            keyPassword '1q2w3e4r'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -37,4 +45,5 @@ dependencies {
     implementation project(':tcp')
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.jungly:gridPasswordView:0.3'
+    implementation files('libs/BaiduLBS_Android.jar')
 }
