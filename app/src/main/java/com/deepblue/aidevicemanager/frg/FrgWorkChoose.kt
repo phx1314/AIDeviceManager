@@ -1,7 +1,7 @@
 //
-//  FrgDetailDj
+//  FrgWorkChoose
 //
-//  Created by 86139 on 2019-11-20 19:06:03
+//  Created by 86139 on 2019-11-21 09:29:17
 //  Copyright (c) 86139 All rights reserved.
 
 
@@ -15,12 +15,13 @@ import android.os.Bundle
 
 import com.deepblue.aidevicemanager.R
 
+import com.mdx.framework.view.pullview.AbPullListView
+import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.ExpandableListView
 import android.widget.Button
 
 
-class FrgDetailDj : BaseFrg() {
+class FrgWorkChoose : BaseFrg() {
     override fun initView() {
     }
 
@@ -29,7 +30,7 @@ class FrgDetailDj : BaseFrg() {
 
 
     override fun create(savedInstanceState: Bundle) {
-        setContentView(R.layout.frg_detail_dj)
+        setContentView(R.layout.frg_work_choose)
     }
 
 

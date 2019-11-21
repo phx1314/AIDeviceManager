@@ -19,17 +19,18 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <ExpandableListView
-            android:background="#000"
-            android:id="@+id/mExpandableListView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"></ExpandableListView>
+<!--        <ExpandableListView-->
+<!--            android:background="#000"-->
+<!--            android:visibility="invisible"-->
+<!--            android:id="@+id/mExpandableListView"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"></ExpandableListView>-->
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:layout_weight="4"
             android:padding="40dp">
 

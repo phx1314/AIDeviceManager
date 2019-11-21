@@ -1,7 +1,7 @@
 //
-//  AdaDeviceMainRight
+//  AdaDialogSet
 //
-//  Created by 86139 on 2019-11-20 17:00:09
+//  Created by 86139 on 2019-11-21 10:03:46
 //  Copyright (c) 86139 All rights reserved.
 
 
@@ -17,11 +17,11 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.view.View;
 
-import com.deepblue.aidevicemanager.item.DeviceMainRight;
+import com.deepblue.aidevicemanager.item.DialogSet;
 
-public class AdaDeviceMainRight extends MAdapter<String>{
+public class AdaDialogSet extends MAdapter<String>{
 
-   public AdaDeviceMainRight(Context context, List<String> list) {
+   public AdaDialogSet(Context context, List<String> list) {
         super(context, list);
     }
 
@@ -30,10 +30,10 @@ public class AdaDeviceMainRight extends MAdapter<String>{
     public View getview(int position, View convertView, ViewGroup parent) {
         String item = get(position);
         if (convertView == null) {
-            convertView =new DeviceMainRight (getContext() );
+            convertView =new DialogSet (getContext() );
         }
-        DeviceMainRight mDeviceMainRight=(DeviceMainRight) convertView ;
-        mDeviceMainRight.set(item);
+        DialogSet mDialogSet=(DialogSet) convertView ;
+        mDialogSet.set(item);
         return convertView;
     }
 }

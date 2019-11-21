@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#393D49"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/text_style_15_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置选项" />
+
+        <ImageButton
+            android:id="@+id/mImageButton_dc"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginTop="10dp"
+            android:background="#00000000"
+            android:src="@drawable/battery_full_black_u1719" />
+
+        <ImageButton
+            android:id="@+id/mImageButton_cgq"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:layout_marginTop="10dp"
+            android:background="#00000000"
+            android:src="@drawable/highlight_u1717" />
+
+        <ImageButton
+            android:id="@+id/mImageButton_set"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:layout_marginTop="10dp"
+            android:background="#00000000"
+            android:src="@drawable/build_u1715" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/mLinearLayout_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000"
+            android:orientation="vertical" />
+
+        <ImageButton
+            android:id="@+id/mImageButton_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="#00000000"
+            android:padding="15dp"
+            android:src="@drawable/u1695" />
+    </RelativeLayout>
+</LinearLayout>
