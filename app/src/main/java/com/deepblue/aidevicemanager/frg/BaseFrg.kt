@@ -13,6 +13,7 @@ package com.deepblue.aidevicemanager.frg
 
 import android.app.ProgressDialog
 import android.view.View
+import android.widget.LinearLayout
 import com.mdx.framework.activity.MFragment
 import com.mdx.framework.service.ApiService
 import com.mdx.framework.service.subscriber.HttpResult
@@ -21,7 +22,6 @@ import com.mdx.framework.service.subscriber.S
 import com.mdx.framework.util.AbAppUtil
 import com.mdx.framework.util.Frame
 import com.mdx.framework.util.Helper
-import com.mdx.framework.view.Headlayout
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -34,7 +34,6 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     final override fun initV() {
         initView()
         loaddata()
-
     }
 
     abstract fun initView()
@@ -52,16 +51,17 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     }
 
     fun <T> load(o: Observable<HttpResult<T>>, m: String, isShow: Boolean = true) {
-        var s = S<T>(this, ProgressDialog(context).apply { this.setMessage("加载中,请稍后...") }, m, isShow)
+        var s =
+            S<T>(this, ProgressDialog(context).apply { this.setMessage("加载中,请稍后...") }, m, isShow)
         compositeDisposable.add(s)
         if (!AbAppUtil.isNetworkAvailable(Frame.CONTEXT)) {
             Helper.toast("无可用网络，请检查网络连接")
         }
         o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { if (s.isShow) s.mProgressDialog.show() }
-                .doFinally { if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss() }
-                .subscribe(s)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { if (s.isShow) s.mProgressDialog.show() }
+            .doFinally { if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss() }
+            .subscribe(s)
     }
 
 
@@ -71,7 +71,7 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
         super.onDestroy()
     }
 
-    override fun setActionBar(mHeadlayout: Headlayout?) {
-        mHeadlayout?.visibility=View.GONE
+    override fun setActionBar(actionBar: LinearLayout?) {
+        actionBar?.visibility = View.GONE
     }
 }

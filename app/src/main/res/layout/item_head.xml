@@ -1,12 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fff"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="48dip"
+    android:background="#000"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/mImageButton_back"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:background="#00000000"
+        android:src="@drawable/arrows_left" />
+
+    <RelativeLayout
+        android:id="@+id/mRelativeLayout_user"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/mImageView_user"
+            android:layout_width="24dp"
+            android:layout_height="26dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/u440" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_yuan" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/mImageView_logo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/u127"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+
+    <LinearLayout
+        android:id="@+id/mLinearLayout_status"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <ImageView
+            android:id="@+id/mImageView"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/lian" />
+
+        <TextView
+            android:id="@+id/mTextView_d_status"
+            style="@style/text_style_15_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="设备未连接" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/text_style_11_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GPS" />
+
+        <ImageView
+            android:id="@+id/mImageView_gps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/mImageView_wifi"
+        android:layout_width="26dp"
+        android:layout_height="19dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/wifi" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingRight="10dp">
 
 
+        <ImageView
+            android:id="@+id/mImageView_4g"
+            android:layout_width="22dp"
+            android:layout_height="19dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/fourg" />
+
+        <TextView
+            style="@style/text_style_11_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="4G" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/mTextView_dc"
+        style="@style/text_style_15_white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:drawableLeft="@drawable/dchi"
+        android:drawablePadding="3dp"
+        android:gravity="center"
+        android:paddingRight="@dimen/j10dp"
+        android:text="N/A" />
+
+    <ImageButton
+        android:layout_width="45dp"
+        android:padding="10dp"
+        android:layout_height="match_parent"
+        android:background="#00000000"
+        android:scaleType="fitXY"
+        android:src="@drawable/set" />
 </LinearLayout>
+
