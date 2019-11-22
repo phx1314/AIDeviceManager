@@ -19,9 +19,12 @@ import android.os.Bundle
 import com.mdx.framework.view.Headlayout
 import android.view.View
 import com.deepblue.aidevicemanager.R
+import com.mdx.framework.activity.IndexAct
+import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.permissions.PermissionRequest
 import com.mdx.framework.util.Helper
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.frg_login.*
 import timber.log.Timber
 
 
@@ -43,6 +46,10 @@ class FrgLogin : BaseFrg() {
 
                 }
             })
+
+        mTextView.setOnClickListener {
+            Helper.startActivity(context, FrgWorkDetail::class.java, TitleAct::class.java)
+        }
     }
 
 
