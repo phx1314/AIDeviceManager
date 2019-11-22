@@ -22,7 +22,6 @@ class FrgWorkDetail : BaseFrg() {
     }
 
     override fun initView() {
-
         iv_leftbottom_switch.setOnClickListener(this)
         fragments = hashMapOf(
             PAGE_DIANYUN to FrgWDOverView(),
@@ -30,9 +29,12 @@ class FrgWorkDetail : BaseFrg() {
             PAGE_OVERVIEW to FrgWDOverView(),
             PAGE_ROUTE to FrgWDRoute()
         )
-        childFragmentManager.beginTransaction().add(R.id.ll_quanjing, fragments[PAGE_OVERVIEW]!!)
-            .add(R.id.ll_route, fragments[PAGE_ROUTE]!!)
+        childFragmentManager.beginTransaction()
+            .add(R.id.ll_quanjing, fragments[PAGE_OVERVIEW]!!, PAGE_OVERVIEW.toString())
+            .add(R.id.ll_route, fragments[PAGE_ROUTE]!!, PAGE_ROUTE.toString())
             .commit()
+
+//        childFragmentManager.tag
     }
 
     override fun loaddata() {
@@ -42,14 +44,10 @@ class FrgWorkDetail : BaseFrg() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.iv_leftbottom_switch -> {
-                val a = fragments[PAGE_OVERVIEW]!!.view!!.parent as FrameLayout
-                val b = a!!
-                val c = b.id
-                Toast.makeText(
-                    context,
-                    "a" + a + "b" + b + "c" + c + ":" + R.id.ll_quanjing,
-                    Toast.LENGTH_SHORT
-                ).show()
+                val a = (fragments[PAGE_DIANYUN]!!.view!!.parent as FrameLayout).id
+                val b = (fragments[PAGE_VEDIO]!!.view!!.parent as FrameLayout).id
+                val c = (fragments[PAGE_OVERVIEW]!!.view!!.parent as FrameLayout).id
+                val d = (fragments[PAGE_ROUTE]!!.view!!.parent as FrameLayout).id
 //                childFragmentManager.popBackStackImmediate(
 //                    null,
 //                    FragmentManager.POP_BACK_STACK_INCLUSIVE
