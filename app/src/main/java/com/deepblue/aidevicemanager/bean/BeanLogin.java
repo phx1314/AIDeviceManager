@@ -5,7 +5,13 @@ package com.deepblue.aidevicemanager.bean;
  */
 
 public class BeanLogin {
-    int a=0;
-    public String username="admin";
-    public String password="pass";
+    public String userName = "";
+    public String messageCode = "";
+    public String password = "";
+
+    public BeanLogin(String userName, String messageCode, String password) {
+        this.userName = userName;
+        this.messageCode = messageCode;
+        this.password = password;
+    }
 }

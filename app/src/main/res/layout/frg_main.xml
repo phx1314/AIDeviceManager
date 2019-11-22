@@ -8,99 +8,25 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/mTextView_gs"
         style="@style/text_style_20_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="深兰科技（上海）有限公司 >" />
+        android:text="" />
 
-    <LinearLayout
+
+    <GridView
+        android:id="@+id/mMGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:horizontalSpacing="20dp"
+        android:numColumns="3"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp"
+        android:scrollbars="none"
+        android:verticalSpacing="20dp" />
 
-<!--        <ExpandableListView-->
-<!--            android:background="#000"-->
-<!--            android:visibility="invisible"-->
-<!--            android:id="@+id/mExpandableListView"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="1"></ExpandableListView>-->
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="4"
-            android:padding="40dp">
-
-            <RelativeLayout
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:background="@drawable/shape_logink"
-                android:elevation="2dp">
-
-                <ImageView
-                    android:id="@+id/mImageView_slw"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/test_clean"></ImageView>
-
-                <TextView
-                    style="@style/text_style_15_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/mImageView_slw"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="AI智能扫路机"></TextView>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:gravity="right"
-                    android:text="18"
-                    android:textColor="@color/green"
-                    android:textSize="20sp"></TextView>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginLeft="60dp"
-                android:background="@drawable/shape_logink"
-                android:elevation="2dp">
-
-                <ImageView
-                    android:id="@+id/mImageView_slw2"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/test_clean"></ImageView>
-
-                <TextView
-                    style="@style/text_style_15_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/mImageView_slw2"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="AI智能扫路机"></TextView>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:gravity="right"
-                    android:text="18"
-                    android:textColor="@color/green"
-                    android:textSize="20sp"></TextView>
-            </RelativeLayout>
-        </LinearLayout>
-    </LinearLayout>
 </LinearLayout>

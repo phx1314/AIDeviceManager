@@ -14,8 +14,8 @@ package com.deepblue.aidevicemanager.frg
 import android.app.ProgressDialog
 import android.view.View
 import android.widget.LinearLayout
+import com.deepblue.aidevicemanager.R
 import com.mdx.framework.activity.MFragment
-import com.mdx.framework.service.ApiService
 import com.mdx.framework.service.subscriber.HttpResult
 import com.mdx.framework.service.subscriber.HttpResultSubscriberListener
 import com.mdx.framework.service.subscriber.S
@@ -28,10 +28,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 
-fun gB() = com.mdx.framework.service.gB(ApiService::class.java, "http://www.wanandroid.com/")
 abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriberListener {
     var compositeDisposable = CompositeDisposable()
-    final override fun initV() {
+    final override fun initV(view:View) {
         initView()
         loaddata()
     }
@@ -42,8 +41,7 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
 
     }
 
-    override fun onSuccess(data: Any?, method: String) {
-
+    override fun onSuccess(data: String?, method: String) {
     }
 
     override fun onError(status: String?, msg: String?) {
@@ -52,10 +50,15 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
 
     fun <T> load(o: Observable<HttpResult<T>>, m: String, isShow: Boolean = true) {
         var s =
-            S<T>(this, ProgressDialog(context).apply { this.setMessage("加载中,请稍后...") }, m, isShow)
+            S<T>(
+                this,
+                ProgressDialog(context).apply { this.setMessage(getString(R.string.loading)) },
+                m,
+                isShow
+            )
         compositeDisposable.add(s)
         if (!AbAppUtil.isNetworkAvailable(Frame.CONTEXT)) {
-            Helper.toast("无可用网络，请检查网络连接")
+            Helper.toast(getString(R.string.net_error))
         }
         o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
@@ -72,6 +75,8 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     }
 
     override fun setActionBar(actionBar: LinearLayout?) {
-        actionBar?.visibility = View.GONE
+//        actionBar?.addView(Head(context))
     }
+
+
 }
