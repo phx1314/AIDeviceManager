@@ -1,18 +1,10 @@
 package com.deepblue.aidevicemanager
 
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import android.text.TextUtils
 import com.deepblue.aidevicemanager.model.Modellogin
 import com.deepblue.aidevicemanager.service.ApiService
-
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.mdx.framework.util.Frame
-import com.squareup.okhttp.MediaType
-import com.squareup.okhttp.RequestBody
-
-import java.util.HashMap
+import com.mdx.framework.Frame
 
 object F {
     var mModellogin: Modellogin? = null

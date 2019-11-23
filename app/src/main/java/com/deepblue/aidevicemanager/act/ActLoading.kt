@@ -20,6 +20,7 @@ import com.deepblue.aidevicemanager.F.mModellogin
 
 
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.frg.FrgDeviceMain
 import com.deepblue.aidevicemanager.frg.FrgLogin
 import com.deepblue.aidevicemanager.frg.FrgMain
 import com.deepblue.library.tcp.TcpClient
@@ -45,7 +46,7 @@ class ActLoading : Activity() {
                 Helper.startActivity(this, FrgMain::class.java, IndexAct::class.java)
             }
             finish()
-        }, 2000)
+        }, 3000)
     }
 
 

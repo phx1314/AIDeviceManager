@@ -12,15 +12,18 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.app.ProgressDialog
+import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.item.Head
+import com.mdx.framework.Frame
 import com.mdx.framework.activity.MFragment
 import com.mdx.framework.service.subscriber.HttpResult
 import com.mdx.framework.service.subscriber.HttpResultSubscriberListener
 import com.mdx.framework.service.subscriber.S
 import com.mdx.framework.util.AbAppUtil
-import com.mdx.framework.util.Frame
 import com.mdx.framework.util.Helper
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,7 +33,7 @@ import io.reactivex.schedulers.Schedulers
 
 abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriberListener {
     var compositeDisposable = CompositeDisposable()
-    final override fun initV(view:View) {
+    final override fun initV(view: View) {
         initView()
         loaddata()
     }
@@ -75,7 +78,11 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     }
 
     override fun setActionBar(actionBar: LinearLayout?) {
-//        actionBar?.addView(Head(context))
+        actionBar?.addView(
+            Head(context),
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
     }
 
 

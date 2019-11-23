@@ -14,7 +14,9 @@ package com.deepblue.aidevicemanager.frg
 import android.os.Bundle
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
-import kotlinx.android.synthetic.main.frg_main.*
+import com.mdx.framework.activity.TitleAct
+import com.mdx.framework.util.Helper
+import kotlinx.android.synthetic.main.frg_device_main.*
 
 
 class FrgDeviceMain : BaseFrg() {
@@ -27,6 +29,7 @@ class FrgDeviceMain : BaseFrg() {
 
 
     override fun loaddata() {
+
         mTextView_gs?.text = F.mModellogin?.merchant?.contactName + " >"
     }
 

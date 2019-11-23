@@ -5,9 +5,9 @@ import android.content.Context
 import android.support.multidex.MultiDex
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
+import com.mdx.framework.Frame
 import com.mdx.framework.util.CrashReportingTree
 
-import com.mdx.framework.util.Frame
 import timber.log.Timber
 
 class Mapplication : Application() {
