@@ -25,6 +25,7 @@ import com.mdx.framework.service.subscriber.HttpResultSubscriberListener
 import com.mdx.framework.service.subscriber.S
 import com.mdx.framework.util.AbAppUtil
 import com.mdx.framework.util.Helper
+import com.zhy.http.okhttp.OkHttpUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -73,7 +74,7 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
 
     override fun onDestroy() {
         compositeDisposable.dispose()
-        Thread(Runnable {}).start()
+        OkHttpUtils.getInstance().cancelTag(this)
         super.onDestroy()
     }
 
