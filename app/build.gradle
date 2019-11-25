@@ -42,8 +42,8 @@ android {
 }
 
 dependencies {
-    implementation project(':frameWidget')
-//    implementation 'com.github.phx1314:Frame:2.3'
+//    implementation project(':frameWidget')
+    implementation 'com.github.phx1314:Frame:2.3'
     implementation project(':tcp')
     implementation 'com.android.support:multidex:1.0.3'
     implementation files('libs/BaiduLBS_Android.jar')

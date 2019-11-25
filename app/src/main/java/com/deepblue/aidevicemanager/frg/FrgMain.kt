@@ -27,8 +27,8 @@ import kotlinx.android.synthetic.main.frg_main.*
 
 class FrgMain : BaseFrg() {
     var mFrgMainSon: FrgMainSon = FrgMainSon()
-    var groupString = arrayOf<String>("用户", "消息中心", "帮助", "用户条款", "隐私政策", "关于", "推出登录")
-    var childString = arrayOf<Array<String>>(arrayOf<String>("信息更改", "密码更改", "帮助", "用户条款", "隐私政策", "关于", "推出登录"), arrayOf<String>("作业任务消息", "报警消息", "故障消息"))
+    var groupString = arrayOf<String>("用户", "消息中心", "帮助", "用户条款", "隐私政策", "关于", "退出登录")
+    var childString = arrayOf<Array<String>>(arrayOf<String>("信息更改", "密码更改"), arrayOf<String>("作业任务消息", "报警消息", "故障消息"))
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_main)
     }
@@ -42,8 +42,8 @@ class FrgMain : BaseFrg() {
         mTextView_name.text = F.mModellogin?.merchant?.name
 //        mMGridView.adapter = AdaMain(context, List<ModelMain>(5) { ModelMain() })
         chageFrgment(mFrgMainSon)
-
-        mExpandableListView.adapter = ExpandableListviewAdapter(context, groupString, childString)
+        mExpandableListView.setGroupIndicator(null);
+        mExpandableListView.setAdapter(ExpandableListviewAdapter(context, groupString, childString))
     }
 
     override fun onSuccess(data: String?, method: String) {

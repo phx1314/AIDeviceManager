@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 
+import com.deepblue.aidevicemanager.F;
 import com.deepblue.aidevicemanager.R;
 import com.deepblue.aidevicemanager.item.EpOne;
 import com.deepblue.aidevicemanager.item.EpTwo;
@@ -35,7 +36,8 @@ public class ExpandableListviewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-        return childs[i].length;
+
+        return childs.length > i ? childs[i].length : 0;
     }
 
     @Override
@@ -79,6 +81,25 @@ public class ExpandableListviewAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = new EpOne(context);
         }
+        ((EpOne) convertView).set(groups[groupPosition], isExpanded,groupPosition);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (groupPosition) {
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        F.INSTANCE.logOut(context);
+                        break;
+                }
+            }
+        });
         return convertView;
     }
 
@@ -86,8 +107,9 @@ public class ExpandableListviewAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = new EpTwo(context);
-
         }
+        ((EpTwo) convertView).set(childs[groupPosition][childPosition]);
+
         return convertView;
     }
 

@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.R
+import kotlinx.android.synthetic.main.item_ep_one.view.*
 
 
 class EpOne(context: Context?) : LinearLayout(context) {
@@ -24,7 +25,11 @@ class EpOne(context: Context?) : LinearLayout(context) {
         flater.inflate(R.layout.item_ep_one, this)
     }
 
-    fun set(item: String) {
+    fun set(item: String, isExpanded: Boolean, groupPosition: Int) {
+        mTextView.text = item
+        if (groupPosition > 1) mImageView_fx.visibility = View.GONE else mImageView_fx.visibility = View.VISIBLE
+        if (isExpanded) mImageView_fx.setBackgroundResource(R.drawable.ic_expand_more_black_24dp) else mImageView_fx.setBackgroundResource(R.drawable.ic_expand_more_fan)
+
     }
 
 

@@ -11,7 +11,7 @@
 
     <TextView
         android:id="@+id/mTextView"
-        style="@style/text_style_15_white"
+        style="@style/text_style_15_gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="用户"></TextView>
@@ -20,6 +20,7 @@
         android:id="@+id/mImageView_issue"
         android:layout_width="10dp"
         android:layout_height="10dp"
+        android:visibility="gone"
         android:layout_marginLeft="10dp"
         android:background="@drawable/shape_red_yuan"></ImageView>
 

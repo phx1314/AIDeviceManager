@@ -13,6 +13,7 @@ package com.deepblue.aidevicemanager.frg
 
 import android.os.Bundle
 import android.os.Handler
+import android.text.InputType
 import android.text.TextUtils
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.F.data2Model
@@ -22,99 +23,94 @@ import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelLogin
 import com.deepblue.aidevicemanager.util.DesEncryptDecrypt
 import com.mdx.framework.activity.IndexAct
-import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.permissions.PermissionRequest
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_login.*
+import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+import android.text.InputType.TYPE_CLASS_TEXT
+import android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+import com.deepblue.aidevicemanager.util.PhoneFormatCheckUtils
+import com.mdx.framework.activity.TitleAct
+import kotlinx.android.synthetic.main.frg_input_new.*
+import kotlinx.android.synthetic.main.frg_login.mEditText_pass
+import kotlinx.android.synthetic.main.frg_login.mImageView_kan
 
 
 class FrgLogin : BaseFrg() {
+    //    18151735217
+//    559860
+    var isChecked = true
 
-    var times = 60
-    var mhandler: Handler? = null
-    var runnable: Runnable? = null
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_login)
     }
 
     override fun initView() {
         Helper.requestPermissions(
-            arrayOf(
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.READ_PHONE_STATE,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ), object : PermissionRequest() {
-                override fun onGrant(var1: Array<out String>?, var2: IntArray?) {
+                arrayOf(
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.READ_PHONE_STATE,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                ), object : PermissionRequest() {
+            override fun onGrant(var1: Array<out String>?, var2: IntArray?) {
 
-                }
-            })
-        mTextView_get.setOnClickListener {
-            Helper.startActivity(context, FrgWorkDetail::class.java, TitleAct::class.java)
-//            if (TextUtils.isEmpty(mEditText_phone.getText().toString())) {
-//                Helper.toast(getString(R.string.i_phone))
-//                return@setOnClickListener
-//            }
-//            if (mEditText_phone.getText().toString().length != 11) {
-//                Helper.toast(getString(R.string.i_phone_length))
-//                return@setOnClickListener
-//            }
-//            load(
-//                gB().sendSms(
-//                    mEditText_phone.getText().toString()
-//                ), "sendSms"
-//            )
+            }
+        })
 
+        mImageView_kan.setOnClickListener {
+            if (isChecked) {
+                // 显示密码
+                mEditText_pass.setInputType(TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
+                mEditText_pass.setSelection(mEditText_pass.text.length)
+                mImageView_kan.setImageResource(R.drawable.mima2)
+            } else {
+                // 隐藏密码
+                mEditText_pass.setInputType(TYPE_CLASS_TEXT or TYPE_TEXT_VARIATION_PASSWORD)
+                mEditText_pass.setSelection(mEditText_pass.text.length)
+                mImageView_kan.setImageResource(R.drawable.mima1)
+            }
+            isChecked = !isChecked
         }
         mTextView.setOnClickListener {
-            if (TextUtils.isEmpty(mEditText_phone.getText().toString())) {
+            if (TextUtils.isEmpty(mEditText_phone.text.toString())) {
                 Helper.toast(getString(R.string.i_phone))
                 return@setOnClickListener
             }
-            if (mEditText_phone.getText().toString().length != 11) {
+            if (mEditText_phone.text.toString().trim().length != 11) {
                 Helper.toast(getString(R.string.i_phone_length))
                 return@setOnClickListener
             }
-            if (TextUtils.isEmpty(mEditText_code.getText().toString()) && TextUtils.isEmpty(
-                    mEditText_pass.getText().toString()
-                )
+            if (!PhoneFormatCheckUtils.isPhoneLegal(mEditText_phone.text.toString().trim())) {
+                Helper.toast(getString(R.string.i_phone_length))
+                return@setOnClickListener
+            }
+            if (TextUtils.isEmpty(
+                            mEditText_pass.text.toString()
+                    )
             ) {
                 Helper.toast(getString(R.string.i_porc_length))
                 return@setOnClickListener
             }
             load(
-                gB().login(
-                    mEditText_phone.getText().toString(),
-                    DesEncryptDecrypt.getInstance().encrypt(mEditText_pass.getText().toString()),
-                    mEditText_code.getText().toString()
-                ), "login"
+                    gB().login(
+                            mEditText_phone.getText().toString(),
+                            DesEncryptDecrypt.getInstance().encrypt(mEditText_pass.getText().toString()),
+                            ""
+                    ), "login"
             )
+        }
+        mTextView_forget.setOnClickListener {
+            Helper.startActivity(context, FrgForget::class.java, TitleAct::class.java)
         }
     }
 
-    fun doTimer() {
-        mhandler = Handler()
-        runnable = Runnable {
-            if (times > 0) {
-                times--
-                mTextView_get.text = times.toString() + "s"
-                mTextView_get.isClickable = false
-                handler.postDelayed(runnable, 1000)
-            } else if (times == 0) {
-                mTextView_get.isClickable = true
-                mTextView_get.text = "获取验证码"
-            }
-        }
-        handler.post(runnable)
-    }
 
     override fun loaddata() {
     }
 
     override fun onSuccess(data: String?, method: String) {
-        if (method.equals("sendSms")) {
-            doTimer()
-        } else if (method.equals("login")) {
+        if (method.equals("login")) {
             mModellogin = data2Model(data, ModelLogin::class.java)
             F.saveJson("mModellogin", data)
             Helper.startActivity(context, FrgMain::class.java, IndexAct::class.java)

@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.R
+import kotlinx.android.synthetic.main.item_ep_one.view.*
 
 
 class EpTwo(context: Context?) : LinearLayout(context) {
@@ -25,6 +26,7 @@ class EpTwo(context: Context?) : LinearLayout(context) {
     }
 
     fun set(item: String) {
+        mTextView.text = item
     }
 
 
