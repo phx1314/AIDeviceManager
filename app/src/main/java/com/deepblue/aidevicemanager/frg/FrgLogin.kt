@@ -22,6 +22,7 @@ import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelLogin
 import com.deepblue.aidevicemanager.util.DesEncryptDecrypt
 import com.mdx.framework.activity.IndexAct
+import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.permissions.PermissionRequest
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_login.*
@@ -49,19 +50,20 @@ class FrgLogin : BaseFrg() {
                 }
             })
         mTextView_get.setOnClickListener {
-            if (TextUtils.isEmpty(mEditText_phone.getText().toString())) {
-                Helper.toast(getString(R.string.i_phone))
-                return@setOnClickListener
-            }
-            if (mEditText_phone.getText().toString().length != 11) {
-                Helper.toast(getString(R.string.i_phone_length))
-                return@setOnClickListener
-            }
-            load(
-                gB().sendSms(
-                    mEditText_phone.getText().toString()
-                ), "sendSms"
-            )
+            Helper.startActivity(context, FrgWorkDetail::class.java, TitleAct::class.java)
+//            if (TextUtils.isEmpty(mEditText_phone.getText().toString())) {
+//                Helper.toast(getString(R.string.i_phone))
+//                return@setOnClickListener
+//            }
+//            if (mEditText_phone.getText().toString().length != 11) {
+//                Helper.toast(getString(R.string.i_phone_length))
+//                return@setOnClickListener
+//            }
+//            load(
+//                gB().sendSms(
+//                    mEditText_phone.getText().toString()
+//                ), "sendSms"
+//            )
 
         }
         mTextView.setOnClickListener {
