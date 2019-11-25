@@ -1,25 +1,28 @@
 package com.deepblue.aidevicemanager.frg
 
+import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
+import com.baidu.mapapi.model.LatLngBounds
 import com.deepblue.aidevicemanager.R
 import kotlinx.android.synthetic.main.frg_wd_route.*
-import java.util.ArrayList
+import java.util.*
+import com.baidu.mapapi.map.MapStatusUpdateFactory
+import com.baidu.mapapi.map.MapStatusUpdate
+
 
 class FrgWDRoute : BaseFrg() {
     private val mMap by lazy { baidumap_route.map }
 
     private var mPolyline: Polyline? = null
     private var mMoveMarker: Marker? = null
-    private val mBitmapCar = BitmapDescriptorFactory.fromResource(R.drawable.car)
+    private val mBitmapCar = BitmapDescriptorFactory.fromResource(R.drawable.u2274)
     private val DISTANCE = 0.00002  //默认间隔移动距离
-    private val mPolylineWith = 15  //路线宽度
-    private val mHasRunPolylineWith = 14    //已行驶路线宽度
-    private val mPolylineColor = -0x55010000    //路线颜色
-    private val mHasRunPolylineColor = -0x550100ff  //已行驶路线颜色
+    private val mPolylineWith = 18  //路线宽度
+    private val mHasRunPolylineWith = 17    //已行驶路线宽度
+    private val mPolylineColor = Color.parseColor("#FFF72D05")    //路线颜色
+    private val mHasRunPolylineColor = Color.parseColor("#FF0082FA")  //已行驶路线颜色
 
     //模拟数据
     private val latlngs = arrayOf(
@@ -45,11 +48,13 @@ class FrgWDRoute : BaseFrg() {
 
     override fun initView() {
         val builder = MapStatus.Builder()
-        builder.zoom(16.0f).target(LatLng(31.8233, 120.021009))
+//        builder.zoom(19.0f).target(LatLng(31.818067, 120.022194))
         mMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
 
         mMap.mapType = BaiduMap.MAP_TYPE_SATELLITE //地图卫星
         mMap.isTrafficEnabled = true  //交通
+        baidumap_route.showZoomControls(false)
+        baidumap_route.logoPosition = LogoPosition.logoPostionRightBottom //logo位置
 
         drawPolyLine()
         moveLooper()
@@ -63,6 +68,17 @@ class FrgWDRoute : BaseFrg() {
         for (index in latlngs.indices) {
             polylines.add(latlngs[index])
         }
+        //*************************************************************************************
+        var builder1 = LatLngBounds.Builder()
+        for (p in polylines) {
+            builder1 = builder1.include(p)
+        }
+        val mapStatusUpdate = MapStatusUpdateFactory.newLatLngBounds(builder1.build())
+        mMap.setMapStatus(mapStatusUpdate)
+        val msu = MapStatusUpdateFactory.zoomBy(3f)
+        mMap.setMapStatus(msu)
+//        mMap.getZoomToBound()
+        //*************************************************************************************
         polylines.add(latlngs[0])
         val mOverlayOptions = PolylineOptions()
             .width(mPolylineWith)
@@ -72,9 +88,10 @@ class FrgWDRoute : BaseFrg() {
 
         // 添加小车marker
         mMoveMarker = mMap.addOverlay(
-            MarkerOptions().flat(true).anchor(0.5f, 0.5f).icon(mBitmapCar).zIndex(10).position(
-                polylines[0]
-            ).rotate(getAngle(0).toFloat())
+            MarkerOptions().flat(true).anchor(0.5f, 0.5f)
+                .icon(mBitmapCar).zIndex(10).position(
+                    polylines[0]
+                ).rotate(getAngle(0).toFloat())
         ) as Marker
     }
 
@@ -225,4 +242,6 @@ class FrgWDRoute : BaseFrg() {
             DISTANCE
         } else Math.abs(DISTANCE * slope / Math.sqrt(1 + slope * slope))
     }
+
+
 }

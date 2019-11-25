@@ -5,4 +5,8 @@
     <string name="i_porc_length" translatable="false">请输入验证码或者密码</string>
     <string name="loading" translatable="false">加载中,请稍后...</string>
     <string name="net_error" translatable="false">无可用网络，请检查网络连接</string>
+    <string name="button_startwork">自动作业</string>
+    <string name="button_stopwork">暂停作业</string>
+    <string name="button_endwork">停止作业</string>
+    <string name="button_continuwork">继续作业</string>
 </resources>

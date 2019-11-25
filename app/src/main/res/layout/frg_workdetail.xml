@@ -4,23 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/j8dp"
+    android:paddingTop="@dimen/dp_15"
+    android:paddingEnd="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_15">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <FrameLayout
                 android:id="@+id/ll_lefttop"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="#ff0" />
+                android:layout_height="match_parent"
+                android:background="@color/workbgcolor" />
 
             <ImageView
                 android:id="@+id/iv_lefttop_switch"
@@ -36,13 +41,15 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1">
 
             <FrameLayout
                 android:id="@+id/ll_leftcenter"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="#f0f" />
+                android:layout_height="match_parent"
+                android:background="@color/workbgcolor" />
 
             <ImageView
                 android:id="@+id/iv_leftcenter_switch"
@@ -59,14 +66,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="#0ff">
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1" >
 
             <FrameLayout
                 android:id="@+id/ll_leftbottom"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#0ff"
+                android:background="@color/workbgcolor"
                 android:orientation="horizontal" />
 
             <ImageView
@@ -86,10 +93,55 @@
 
     <FrameLayout
         android:id="@+id/ll_right"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="#f44"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_weight="3"
+        android:background="@color/workbgcolor"
         android:orientation="horizontal" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp_10">
+
+        <Button
+            android:id="@+id/btn_startwork"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/j50dp"
+            android:background="@drawable/shape_work_gray_b"
+            android:text="@string/button_startwork"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_stopwork"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/j50dp"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/shape_work_gray_b"
+            android:text="@string/button_stopwork"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_endwork"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/j50dp"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/shape_work_gray_b"
+            android:text="@string/button_endwork"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_continuework"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/j50dp"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/shape_work_gray_b"
+            android:text="@string/button_continuwork"
+            android:visibility="invisible" />
+
+    </LinearLayout>
 
 </LinearLayout>
