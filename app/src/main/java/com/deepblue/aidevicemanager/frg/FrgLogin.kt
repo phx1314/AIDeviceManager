@@ -21,9 +21,7 @@ import com.deepblue.aidevicemanager.F.mModellogin
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelLogin
 import com.deepblue.aidevicemanager.util.DesEncryptDecrypt
-import com.google.gson.Gson
 import com.mdx.framework.activity.IndexAct
-import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.permissions.PermissionRequest
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_login.*
