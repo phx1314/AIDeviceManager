@@ -13,6 +13,7 @@ package com.deepblue.aidevicemanager.ada;
 
 import java.util.List;
 
+import com.deepblue.aidevicemanager.model.ModelModels;
 import com.mdx.framework.adapter.MAdapter;
 
 import android.content.Context;
@@ -21,16 +22,16 @@ import android.view.View;
 
 import com.deepblue.aidevicemanager.item.DeviceMainLeft;
 
-public class AdaDeviceMainLeft extends MAdapter<String> {
+public class AdaDeviceMainLeft extends MAdapter<ModelModels> {
 
-    public AdaDeviceMainLeft(Context context, List<String> list) {
+    public AdaDeviceMainLeft(Context context, List<ModelModels> list) {
         super(context, list);
     }
 
 
     @Override
     public View getview(int position, View convertView, ViewGroup parent) {
-        String item = get(position);
+        ModelModels item = get(position);
         if (convertView == null) {
             convertView = new DeviceMainLeft(getContext());
         }

@@ -1,8 +1,9 @@
 package com.deepblue.aidevicemanager.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ModelMain {
+public class ModelMain implements Serializable {
 
 
     /**
@@ -37,7 +38,7 @@ public class ModelMain {
     public DeviceStatusCountBean deviceStatusCount;
     public List<DeviceListBean> deviceList;
 
-    public static class DeviceStatusCountBean {
+    public static class DeviceStatusCountBean implements Serializable{
         /**
          * noActive : 3.0
          * offLine : 0.0
@@ -65,7 +66,7 @@ public class ModelMain {
         public double createMap;
     }
 
-    public static class DeviceListBean {
+    public static class DeviceListBean implements Serializable{
         /**
          * id : 355.0
          * deviceCode : 00000043cAYW

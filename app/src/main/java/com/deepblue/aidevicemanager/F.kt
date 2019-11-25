@@ -8,10 +8,11 @@ import com.mdx.framework.Frame
 
 object F {
     var mModellogin: ModelLogin? = null
+    val baseUrl = "http://192.168.113.47:8081/robotos/cleanApp/"
     fun gB() =
         com.mdx.framework.service.gB(
             ApiService::class.java,
-            "http://192.168.123.135:8081/robotos/cleanApp/",
+            baseUrl,
             mModellogin?.token
         )
 

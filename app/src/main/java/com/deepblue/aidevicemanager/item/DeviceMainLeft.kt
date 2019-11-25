@@ -21,6 +21,8 @@ import android.view.ViewGroup
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.deepblue.aidevicemanager.model.ModelModels
+import kotlinx.android.synthetic.main.item_device_main_left.view.*
 
 
 class DeviceMainLeft(context: Context?) : LinearLayout(context) {
@@ -29,7 +31,8 @@ class DeviceMainLeft(context: Context?) : LinearLayout(context) {
         flater.inflate(R.layout.item_device_main_left, this)
     }
 
-    fun set(item: String) {
+    fun set(item: ModelModels) {
+        mTextView.text = item.modelName
     }
 
 

@@ -6,33 +6,37 @@
 
 
 /**
-   
-*/
+ *
+ */
 
 package com.deepblue.aidevicemanager.ada;
 
 import java.util.List;
+
+import com.deepblue.aidevicemanager.model.ModelData;
+import com.deepblue.aidevicemanager.model.ModelDevices;
 import com.mdx.framework.adapter.MAdapter;
+
 import android.content.Context;
 import android.view.ViewGroup;
 import android.view.View;
 
 import com.deepblue.aidevicemanager.item.DeviceMainRight;
 
-public class AdaDeviceMainRight extends MAdapter<String>{
+public class AdaDeviceMainRight extends MAdapter<ModelData<ModelDevices.DataBean.RowsBean>> {
 
-   public AdaDeviceMainRight(Context context, List<String> list) {
+    public AdaDeviceMainRight(Context context, List<ModelData<ModelDevices.DataBean.RowsBean>> list) {
         super(context, list);
     }
 
 
- 	@Override
+    @Override
     public View getview(int position, View convertView, ViewGroup parent) {
-        String item = get(position);
+        ModelData<ModelDevices.DataBean.RowsBean> item = get(position);
         if (convertView == null) {
-            convertView =new DeviceMainRight (getContext() );
+            convertView = new DeviceMainRight(getContext());
         }
-        DeviceMainRight mDeviceMainRight=(DeviceMainRight) convertView ;
+        DeviceMainRight mDeviceMainRight = (DeviceMainRight) convertView;
         mDeviceMainRight.set(item);
         return convertView;
     }

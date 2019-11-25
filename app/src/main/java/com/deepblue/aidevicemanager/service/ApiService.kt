@@ -19,4 +19,12 @@ interface ApiService {
     @GET("device/queryDeviceSeriesList")
     fun queryDeviceSeriesList(): Observable<HttpResult<Any>>
 
+    @POST("device/queryAllModelBySeries")
+    @FormUrlEncoded
+    fun queryAllModelBySeries(@Field("deviceSeriesId") deviceSeriesId: Int): Observable<HttpResult<Any>>
+
+    @POST("user/forgetPassword")
+    @FormUrlEncoded
+    fun forgetPassword(@Field("newPassword") newPassword : String,@Field("mobile") mobile  : String,@Field("smsCode") smsCode  : String): Observable<HttpResult<Any>>
+
 }

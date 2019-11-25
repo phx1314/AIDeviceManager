@@ -2,7 +2,8 @@
     <string name="app_name">AIDeviceManager</string>
     <string name="i_phone" translatable="false">请输入手机号</string>
     <string name="i_phone_length" translatable="false">手机号格式不正确</string>
-    <string name="i_porc_length" translatable="false">请输入验证码或者密码</string>
+    <string name="i_porc_length" translatable="false">请输入密码</string>
+    <string name="i_yzm" translatable="false">请输入验证码</string>
     <string name="loading" translatable="false">加载中,请稍后...</string>
     <string name="net_error" translatable="false">无可用网络，请检查网络连接</string>
     <string name="button_startwork">自动作业</string>

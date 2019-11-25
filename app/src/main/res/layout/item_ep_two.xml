@@ -13,6 +13,8 @@
         android:id="@+id/mTextView"
         style="@style/text_style_15_white"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></TextView>
+        android:layout_height="wrap_content"
+        android:text="用户"></TextView>
+
 
 </LinearLayout>

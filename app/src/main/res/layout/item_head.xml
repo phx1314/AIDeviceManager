@@ -12,7 +12,15 @@
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:background="#00000000"
-        android:src="@drawable/arrows_left" />
+        android:src="@drawable/arrows_left"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/mImageView_logo"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/u127" />
 
     <RelativeLayout
         android:id="@+id/mRelativeLayout_user"
@@ -37,13 +45,6 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/mImageView_logo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/u127"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
 
     <LinearLayout
         android:id="@+id/mLinearLayout_status"
@@ -84,7 +85,8 @@
             style="@style/text_style_11_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GPS" />
+            android:text="GPS"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/mImageView_gps"
@@ -118,7 +120,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="4G" />
+            android:text="4G"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <TextView
@@ -126,7 +129,7 @@
         style="@style/text_style_15_white"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:drawableLeft="@drawable/dchi"
+        android:drawableLeft="@drawable/ic_battery_charging_full_black_24dp"
         android:drawablePadding="3dp"
         android:gravity="center"
         android:paddingRight="@dimen/j10dp"
@@ -134,9 +137,9 @@
 
     <ImageButton
         android:layout_width="44dip"
-        android:padding="10dp"
         android:layout_height="match_parent"
         android:background="#00000000"
+        android:padding="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/set" />
 </LinearLayout>

@@ -43,7 +43,7 @@ public class AdaMain extends MAdapter<ModelMain> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Helper.startActivity(getContext(), FrgDeviceMain.class, TitleAct.class);
+                Helper.startActivity(getContext(), FrgDeviceMain.class, TitleAct.class, "item", item);
             }
         });
         return convertView;
