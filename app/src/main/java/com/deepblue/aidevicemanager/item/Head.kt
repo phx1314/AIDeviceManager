@@ -30,8 +30,6 @@ class Head(context: Context?) : LinearLayout(context) {
     init {
         val flater = LayoutInflater.from(context)
         flater.inflate(R.layout.item_head, this)
-
-
     }
 
     fun set(item: String) {

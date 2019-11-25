@@ -33,6 +33,7 @@ import io.reactivex.schedulers.Schedulers
 
 
 abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriberListener {
+    lateinit var mHead: Head
     var compositeDisposable = CompositeDisposable()
     final override fun initV(view: View) {
         initView()
@@ -79,8 +80,9 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     }
 
     override fun setActionBar(actionBar: LinearLayout?) {
+        mHead = Head(context)
         actionBar?.addView(
-            Head(context),
+            mHead,
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )

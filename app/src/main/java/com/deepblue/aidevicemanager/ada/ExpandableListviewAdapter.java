@@ -11,6 +11,7 @@ import com.deepblue.aidevicemanager.F;
 import com.deepblue.aidevicemanager.R;
 import com.deepblue.aidevicemanager.item.EpOne;
 import com.deepblue.aidevicemanager.item.EpTwo;
+import com.mdx.framework.Frame;
 
 /**
  * Created by fyf on 2019/3/1.
@@ -81,25 +82,7 @@ public class ExpandableListviewAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = new EpOne(context);
         }
-        ((EpOne) convertView).set(groups[groupPosition], isExpanded,groupPosition);
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (groupPosition) {
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                    case 6:
-                        F.INSTANCE.logOut(context);
-                        break;
-                }
-            }
-        });
+        ((EpOne) convertView).set(groups[groupPosition], isExpanded, groupPosition);
         return convertView;
     }
 
@@ -109,7 +92,6 @@ public class ExpandableListviewAdapter extends BaseExpandableListAdapter {
             convertView = new EpTwo(context);
         }
         ((EpTwo) convertView).set(childs[groupPosition][childPosition]);
-
         return convertView;
     }
 

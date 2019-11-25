@@ -59,8 +59,8 @@ class FrgDeviceMain : BaseFrg() {
                 --position
                 mAbPullListView.postDelayed(Runnable {
                     mAbPullListView.smoothScrollToPositionFromTop(
-                            position,
-                            mAbPullListView.height / 2
+                        position,
+                        mAbPullListView.height / 2
                     )
                 }, 100)
 
@@ -71,7 +71,7 @@ class FrgDeviceMain : BaseFrg() {
                 ++position
                 mAbPullListView.postDelayed(Runnable {
                     mAbPullListView.smoothScrollToPosition(
-                            position
+                        position
                     )
                 }, 100)
             }
@@ -113,10 +113,10 @@ class FrgDeviceMain : BaseFrg() {
             mListView.adapter = AdaDeviceMainLeft(context, mModelModels.toMutableList())
             if (mModelModels.isNotEmpty()) {
                 mAbPullListView.setApiLoadParams(
-                        "${baseUrl}device/queryCleanRobotDeviceListByModel",
-                        "POST",
-                        this,
-                        mModellogin?.token, "deviceModelId", mModelModels[0].id.toInt()
+                    "${baseUrl}device/queryCleanRobotDeviceListByModel",
+                    "POST",
+                    this,
+                    mModellogin?.token, "deviceModelId", mModelModels[0].id.toInt()
                 )
             }
         }

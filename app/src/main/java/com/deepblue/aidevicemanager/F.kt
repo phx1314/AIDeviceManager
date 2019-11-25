@@ -46,7 +46,7 @@ object F {
 
     }
 
-    fun logOut(context: Context) {
+    fun logOut(context: Context?) {
         saveJson("mModellogin", "")
         mModellogin = null
         Helper.startActivity(context, Intent.FLAG_ACTIVITY_CLEAR_TOP, FrgLogin::class.java, IndexAct::class.java)
