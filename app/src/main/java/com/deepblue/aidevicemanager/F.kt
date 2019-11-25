@@ -1,13 +1,13 @@
 package com.deepblue.aidevicemanager
 
 import android.preference.PreferenceManager
-import com.deepblue.aidevicemanager.model.Modellogin
+import com.deepblue.aidevicemanager.model.ModelLogin
 import com.deepblue.aidevicemanager.service.ApiService
 import com.google.gson.Gson
 import com.mdx.framework.Frame
 
 object F {
-    var mModellogin: Modellogin? = null
+    var mModellogin: ModelLogin? = null
     fun gB() =
         com.mdx.framework.service.gB(
             ApiService::class.java,
@@ -17,7 +17,7 @@ object F {
 
 
     fun init() {
-        mModellogin = Gson().fromJson(getJson("mModellogin"), Modellogin::class.java)
+        mModellogin = Gson().fromJson(getJson("mModellogin"), ModelLogin::class.java)
 
     }
 

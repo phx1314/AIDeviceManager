@@ -19,7 +19,7 @@ import com.deepblue.aidevicemanager.F.data2Model
 import com.deepblue.aidevicemanager.F.gB
 import com.deepblue.aidevicemanager.F.mModellogin
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.model.Modellogin
+import com.deepblue.aidevicemanager.model.ModelLogin
 import com.deepblue.aidevicemanager.util.DesEncryptDecrypt
 import com.google.gson.Gson
 import com.mdx.framework.activity.IndexAct
@@ -115,7 +115,7 @@ class FrgLogin : BaseFrg() {
         if (method.equals("sendSms")) {
             doTimer()
         } else if (method.equals("login")) {
-            mModellogin = data2Model(data, Modellogin::class.java)
+            mModellogin = data2Model(data, ModelLogin::class.java)
             F.saveJson("mModellogin", data)
             Helper.startActivity(context, FrgMain::class.java, IndexAct::class.java)
             finish()

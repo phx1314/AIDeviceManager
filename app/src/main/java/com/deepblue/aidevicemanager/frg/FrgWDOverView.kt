@@ -17,7 +17,7 @@ class FrgWDOverView : BaseFrg() {
 
     override fun initView() {
         val builder = MapStatus.Builder()
-        builder.zoom(16.0f).target(LatLng(31.8233, 120.021009)).overlook(-10F)
+        builder.zoom(16.0f).target(LatLng(31.8233, 120.015008)).overlook(-10F)
         mMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
 
         mMap.mapType = BaiduMap.MAP_TYPE_NORMAL //地图普通

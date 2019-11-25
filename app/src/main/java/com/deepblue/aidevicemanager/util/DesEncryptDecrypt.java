@@ -65,12 +65,12 @@ public class DesEncryptDecrypt {
 	public static void main(String args[]) throws Exception {
 
 		// 加密
-		String encryptedStr = DesEncryptDecrypt.getInstance().encrypt("853909");
+//		String encryptedStr = DesEncryptDecrypt.getInstance().encrypt("853909");
 
 		// 解密
 //		String decryptedStr = DesEncryptDecrypt.getInstance().decrypt(encryptedStr);
 
-		System.out.println(">>>>>>>>>>>>>encryptedStr:" + encryptedStr);
+//		System.out.println(">>>>>>>>>>>>>encryptedStr:" + encryptedStr);
 		
 		
 //		System.out.println(">>>>>>>>>>>>>decryptedStr:" + decryptedStr);

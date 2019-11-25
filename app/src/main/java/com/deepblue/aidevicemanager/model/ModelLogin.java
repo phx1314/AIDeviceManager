@@ -2,7 +2,7 @@ package com.deepblue.aidevicemanager.model;
 
 import java.util.List;
 
-public class Modellogin {
+public class ModelLogin {
 
 
     /**
