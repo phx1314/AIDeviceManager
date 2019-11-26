@@ -13,36 +13,17 @@ package com.deepblue.aidevicemanager.frg
 
 import android.os.Bundle
 import com.deepblue.aidevicemanager.F
-import com.deepblue.aidevicemanager.R
-import com.mdx.framework.activity.TitleAct
-import com.mdx.framework.util.Helper
-import kotlinx.android.synthetic.main.frg_device_main.*
-import com.deepblue.aidevicemanager.ada.AdaMain
-import android.R.attr.data
-import java.nio.file.Files.size
-import com.deepblue.aidevicemanager.model.ModelMain.DeviceListBean
-import com.mdx.framework.adapter.MAdapter
-import com.mdx.framework.view.listener.AbOnListViewListener
-import android.R.attr.data
-import android.R.attr.data
 import com.deepblue.aidevicemanager.F.baseUrl
 import com.deepblue.aidevicemanager.F.mModellogin
+import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaDeviceMainLeft
 import com.deepblue.aidevicemanager.ada.AdaDeviceMainRight
-import com.deepblue.aidevicemanager.model.ModelMain
-import com.deepblue.aidevicemanager.model.ModelModels
-import timber.log.Timber
-import java.nio.file.Files.size
-import java.nio.file.Files.size
 import com.deepblue.aidevicemanager.model.ModelData
 import com.deepblue.aidevicemanager.model.ModelDevices
+import com.deepblue.aidevicemanager.model.ModelMain
+import com.deepblue.aidevicemanager.model.ModelModels
 import com.google.gson.Gson
-import java.nio.file.Files.size
-import android.opengl.ETC1.getHeight
-import android.support.v4.os.HandlerCompat.postDelayed
-import kotlinx.android.synthetic.main.frg_device_main.mTextView_gs
-import kotlinx.android.synthetic.main.frg_device_main.mTextView_name
-import kotlinx.android.synthetic.main.frg_main.*
+import kotlinx.android.synthetic.main.frg_device_main.*
 
 
 class FrgDeviceMain : BaseFrg() {
@@ -52,6 +33,20 @@ class FrgDeviceMain : BaseFrg() {
         setContentView(R.layout.frg_device_main)
     }
 
+    override fun disposeMsg(type: Int, obj: Any?) {
+        when (type) {
+            0 -> {
+                mAbPullListView.setApiLoadParams(
+                        "${baseUrl}device/queryCleanRobotDeviceListByModel",
+                        "POST",
+                        this,
+                        mModellogin?.token, "deviceModelId", obj.toString()
+                )
+            }
+        }
+
+    }
+
     override fun initView() {
         item = activity?.intent?.getSerializableExtra("item") as ModelMain
         mImageButton_top.setOnClickListener {
@@ -59,8 +54,8 @@ class FrgDeviceMain : BaseFrg() {
                 --position
                 mAbPullListView.postDelayed(Runnable {
                     mAbPullListView.smoothScrollToPositionFromTop(
-                        position,
-                        mAbPullListView.height / 2
+                            position,
+                            mAbPullListView.height / 2
                     )
                 }, 100)
 
@@ -71,7 +66,7 @@ class FrgDeviceMain : BaseFrg() {
                 ++position
                 mAbPullListView.postDelayed(Runnable {
                     mAbPullListView.smoothScrollToPosition(
-                        position
+                            position
                     )
                 }, 100)
             }
@@ -84,6 +79,8 @@ class FrgDeviceMain : BaseFrg() {
         mTextView_title.text = item.seriesName
         mTextView_gs.text = F.mModellogin?.merchant?.name + " >"
         mTextView_name.text = F.mModellogin?.user?.name
+        mAbPullListView.setPageSize(16)
+        mAbPullListView.setGridCount(4)
         mAbPullListView.setAbOnListViewListener { _, content ->
             val mMPhotoList = Gson().fromJson(content, ModelDevices::class.java)
             var data = ArrayList<ModelData<ModelDevices.DataBean.RowsBean>>()
@@ -111,10 +108,10 @@ class FrgDeviceMain : BaseFrg() {
             mListView.adapter = AdaDeviceMainLeft(context, mModelModels.toMutableList())
             if (mModelModels.isNotEmpty()) {
                 mAbPullListView.setApiLoadParams(
-                    "${baseUrl}device/queryCleanRobotDeviceListByModel",
-                    "POST",
-                    this,
-                    mModellogin?.token, "deviceModelId", mModelModels[0].id.toInt()
+                        "${baseUrl}device/queryCleanRobotDeviceListByModel",
+                        "POST",
+                        this,
+                        mModellogin?.token, "deviceModelId", mModelModels[0].id.toInt()
                 )
             }
         }

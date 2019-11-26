@@ -42,6 +42,7 @@ class DeviceMainRight(context: Context?) : LinearLayout(context) {
         item.mList.forEachIndexed { i, it ->
             if (i == 0) {
                 mTextView_num_1.text = it.deviceName
+                mImageView_status_1.background
             } else if (i == 1) {
                 mTextView_num_2.text = it.deviceName
             } else if (i == 2) {

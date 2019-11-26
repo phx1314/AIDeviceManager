@@ -16,6 +16,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.item.Head
 import com.mdx.framework.Frame
@@ -49,8 +50,10 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     override fun onSuccess(data: String?, method: String) {
     }
 
-    override fun onError(status: String?, msg: String?) {
-//        Log.e("onError", "status：$status  msg:$msg");
+    override fun onError(code: String?, msg: String?) {
+        if (code != null && (code == "0020" || code == "0021" || code == "0022")) {
+            F.logOut(context)
+        }
     }
 
     fun <T> load(o: Observable<HttpResult<T>>, m: String, isShow: Boolean = true) {

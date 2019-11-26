@@ -30,6 +30,7 @@ import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
 import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
 import com.deepblue.aidevicemanager.util.PhoneFormatCheckUtils
+import com.mdx.framework.Frame
 import com.mdx.framework.activity.TitleAct
 import kotlinx.android.synthetic.main.frg_input_new.*
 import kotlinx.android.synthetic.main.frg_login.mEditText_pass
@@ -43,6 +44,7 @@ class FrgLogin : BaseFrg() {
 
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_login)
+        Frame.HANDLES.closeWidthOut("FrgLogin")
     }
 
     override fun initView() {

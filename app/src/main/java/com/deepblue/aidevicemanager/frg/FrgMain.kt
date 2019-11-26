@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.frg_main.*
 import android.R.attr.fragment
 import android.os.Handler
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ExpandableListView
 import android.widget.LinearLayout
 import cn.qqtheme.framework.picker.TimePicker
@@ -40,8 +41,8 @@ class FrgMain : BaseFrg() {
     var mFrgMainSon: FrgMainSon = FrgMainSon()
     var groupString = arrayOf<String>("用户", "消息中心", "帮助", "用户条款", "隐私政策", "关于", "退出登录")
     var childString = arrayOf<Array<String>>(
-        arrayOf<String>("信息更改", "密码更改"),
-        arrayOf<String>("作业任务消息", "报警消息", "故障消息")
+            arrayOf<String>("信息更改", "密码更改"),
+            arrayOf<String>("作业任务消息", "报警消息", "故障消息")
     )
 
     override fun create(savedInstanceState: Bundle?) {
@@ -52,18 +53,27 @@ class FrgMain : BaseFrg() {
         when (type) {
             0 -> {
                 mExpandableListView.visibility = View.INVISIBLE
+                mExpandableListView.animation = AnimationUtils.makeOutAnimation(context, false)
                 chageFrgment(mFrgMainSon)
             }
             1 -> {
                 mTextView_name.text = F.mModellogin?.user?.name
+            }
+            110 -> {
+                F.logOut(context)
             }
         }
     }
 
     override fun initView() {
         mHead.mImageView_user.setOnClickListener {
-            if (mExpandableListView.visibility == View.VISIBLE) mExpandableListView.visibility =
-                View.INVISIBLE else mExpandableListView.visibility = View.VISIBLE
+            if (mExpandableListView.visibility == View.VISIBLE) {
+                mExpandableListView.visibility = View.INVISIBLE
+                mExpandableListView.animation = AnimationUtils.makeOutAnimation(context, false)
+            } else {
+                mExpandableListView.visibility = View.VISIBLE
+                mExpandableListView.animation = AnimationUtils.makeInAnimation(context, true)
+            }
         }
 
 //        Handler().postDelayed({

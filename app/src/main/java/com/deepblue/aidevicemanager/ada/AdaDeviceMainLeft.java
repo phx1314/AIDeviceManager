@@ -14,6 +14,7 @@ package com.deepblue.aidevicemanager.ada;
 import java.util.List;
 
 import com.deepblue.aidevicemanager.model.ModelModels;
+import com.mdx.framework.Frame;
 import com.mdx.framework.adapter.MAdapter;
 
 import android.content.Context;
@@ -37,6 +38,12 @@ public class AdaDeviceMainLeft extends MAdapter<ModelModels> {
         }
         DeviceMainLeft mDeviceMainLeft = (DeviceMainLeft) convertView;
         mDeviceMainLeft.set(item);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Frame.HANDLES.sentAll("FrgDeviceMain", 0, (int) item.id);
+            }
+        });
         return convertView;
     }
 }

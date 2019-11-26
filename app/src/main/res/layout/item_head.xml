@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/mImageView_logo"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginLeft="10dp"
         android:background="@drawable/u127" />
 
@@ -31,8 +31,8 @@
 
         <ImageView
             android:id="@+id/mImageView_user"
-            android:layout_width="24dp"
-            android:layout_height="26dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:layout_centerVertical="true"
             android:src="@drawable/u440" />
 
@@ -97,8 +97,8 @@
 
     <ImageView
         android:id="@+id/mImageView_wifi"
-        android:layout_width="26dp"
-        android:layout_height="19dp"
+        android:layout_width="20dp"
+        android:layout_height="15dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/wifi" />
 
@@ -139,7 +139,7 @@
         android:layout_width="44dip"
         android:layout_height="match_parent"
         android:background="#00000000"
-        android:padding="10dp"
+        android:padding="12dp"
         android:scaleType="fitXY"
         android:src="@drawable/set" />
 </LinearLayout>
