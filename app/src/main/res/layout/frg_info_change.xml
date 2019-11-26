@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+
+        <TextView
+            style="@style/text_style_15_black"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="用戶名:" />
+
+        <EditText
+            android:id="@+id/mEditText_user"
+            style="@style/text_style_15_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_logink"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:hint="请输入用戶名"
+            android:padding="8dp"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+
+        <TextView
+            style="@style/text_style_15_black"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="手机号:" />
+
+        <EditText
+            android:id="@+id/mEditText_phone"
+            style="@style/text_style_15_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_logink"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:hint="请输入手机号"
+            android:padding="8dp"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/mTextView_get"
+            style="@style/text_style_15_white"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/shape_blue"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="发送验证码" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+
+        <TextView
+            style="@style/text_style_15_black"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:ems="3"
+            android:text="验证码:" />
+
+        <EditText
+            android:id="@+id/mEditText_code"
+            style="@style/text_style_15_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_logink"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:hint="请输入验证码"
+            android:padding="8dp"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/mTextView_yanzheng"
+            style="@style/text_style_15_white"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/shape_blue"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
+            android:text="验证手机" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mTextView_save"
+            style="@style/text_style_15_white"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_blue"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="保存" />
+
+        <TextView
+            android:id="@+id/mTextView_cancel"
+            style="@style/text_style_15_white"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shape_blue"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="取消" />
+
+    </LinearLayout>
+
+</LinearLayout>

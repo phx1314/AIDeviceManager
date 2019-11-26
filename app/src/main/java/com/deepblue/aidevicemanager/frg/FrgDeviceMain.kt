@@ -82,28 +82,26 @@ class FrgDeviceMain : BaseFrg() {
     override fun loaddata() {
         load(F.gB().queryAllModelBySeries(item.id.toInt()), "queryAllModelBySeries")
         mTextView_title.text = item.seriesName
-        mTextView_gs.text = F.mModellogin?.merchant?.contactName + " >"
-        mTextView_name.text = F.mModellogin?.merchant?.name
-        mAbPullListView.setAbOnListViewListener(object : AbOnListViewListener {
-            override fun onSuccess(methodName: String, content: String): MAdapter<*> {
-                val mMPhotoList = Gson().fromJson(content, ModelDevices::class.java)
-                var data = ArrayList<ModelData<ModelDevices.DataBean.RowsBean>>()
-//                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
-//                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
-//                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
-                for (i in 0 until mMPhotoList.data.rows.size) {
-                    if (i % 4 == 0) {
-                        val mModelData = ModelData<ModelDevices.DataBean.RowsBean>()
-                        for (j in i until Math.min(mMPhotoList.data.rows.size, i + 4)) {
-                            mModelData.mList.add(mMPhotoList.data.rows[j])
-                        }
-                        data.add(mModelData)
+        mTextView_gs.text = F.mModellogin?.merchant?.name + " >"
+        mTextView_name.text = F.mModellogin?.user?.name
+        mAbPullListView.setAbOnListViewListener { _, content ->
+            val mMPhotoList = Gson().fromJson(content, ModelDevices::class.java)
+            var data = ArrayList<ModelData<ModelDevices.DataBean.RowsBean>>()
+            //                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
+            //                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
+            //                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
+            for (i in 0 until mMPhotoList.data.rows.size) {
+                if (i % 4 == 0) {
+                    val mModelData = ModelData<ModelDevices.DataBean.RowsBean>()
+                    for (j in i until Math.min(mMPhotoList.data.rows.size, i + 4)) {
+                        mModelData.mList.add(mMPhotoList.data.rows[j])
                     }
+                    data.add(mModelData)
                 }
-
-                return AdaDeviceMainRight(context, data)
             }
-        })
+
+            AdaDeviceMainRight(context, data)
+        }
 
     }
 

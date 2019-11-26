@@ -23,7 +23,6 @@ import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.frg.FrgDeviceMain
 import com.deepblue.aidevicemanager.frg.FrgLogin
 import com.deepblue.aidevicemanager.frg.FrgMain
-import com.deepblue.library.tcp.TcpClient
 import com.mdx.framework.activity.IndexAct
 import com.mdx.framework.util.Helper
 

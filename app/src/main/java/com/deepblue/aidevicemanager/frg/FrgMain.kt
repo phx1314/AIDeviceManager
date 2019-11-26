@@ -28,8 +28,12 @@ import android.os.Handler
 import android.view.View
 import android.widget.ExpandableListView
 import android.widget.LinearLayout
+import cn.qqtheme.framework.picker.TimePicker
+import cn.qqtheme.framework.util.ConvertUtils
 import kotlinx.android.synthetic.main.item_head.view.*
 import okhttp3.internal.notify
+import timber.log.Timber
+import java.util.*
 
 
 class FrgMain : BaseFrg() {
@@ -44,6 +48,17 @@ class FrgMain : BaseFrg() {
         setContentView(R.layout.frg_main)
     }
 
+    override fun disposeMsg(type: Int, obj: Any?) {
+        when (type) {
+            0 -> {
+                mExpandableListView.visibility = View.INVISIBLE
+                chageFrgment(mFrgMainSon)
+            }
+            1 -> {
+                mTextView_name.text = F.mModellogin?.user?.name
+            }
+        }
+    }
 
     override fun initView() {
         mHead.mImageView_user.setOnClickListener {
@@ -59,8 +74,8 @@ class FrgMain : BaseFrg() {
 
 
     override fun loaddata() {
-        mTextView_gs.text = F.mModellogin?.merchant?.contactName + " >"
-        mTextView_name.text = F.mModellogin?.merchant?.name
+        mTextView_gs.text = F.mModellogin?.merchant?.name + " >"
+        mTextView_name.text = F.mModellogin?.user?.name
 //        mMGridView.adapter = AdaMain(context, List<ModelMain>(5) { ModelMain() })
         chageFrgment(mFrgMainSon)
         mExpandableListView.setGroupIndicator(null);
@@ -75,12 +90,22 @@ class FrgMain : BaseFrg() {
             }
             false
         }
+        mExpandableListView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
+            when (groupPosition) {
+                0 -> when (childPosition) {
+                    0 -> chageFrgment(FrgInfoChange())
+                    1 -> chageFrgment(FrgMimaChange())
+                }
+                1 -> chageXxFrgment(childPosition)
 
-        mExpandableListView.setOnGroupClickListener { _, _, groupPosition, _ ->
-            if (groupPosition == 0) {
-                false
-            } else false
+            }
+            true
         }
+//        mExpandableListView.setOnGroupClickListener { _, _, groupPosition, _ ->
+//            if (groupPosition == 0) {
+//                false
+//            } else false
+//        }
     }
 
     override fun onSuccess(data: String?, method: String) {
@@ -94,11 +119,34 @@ class FrgMain : BaseFrg() {
         chageFrgment(mFrgWebView)
     }
 
+    private fun chageXxFrgment(type: Int) {
+        var mFrgXx = FrgXx()
+        val bundle = Bundle()
+        bundle.putInt("type", type)
+        mFrgXx.arguments = bundle
+        chageFrgment(mFrgXx)
+    }
+
     private fun chageFrgment(fragment: Fragment) {
         val fm = childFragmentManager
         val transaction = fm.beginTransaction()
         transaction.replace(R.id.mLinearLayout_content, fragment)
         transaction.commit()
+    }
+
+    fun onTimePicker() {
+        val picker = TimePicker(activity, TimePicker.HOUR_24)
+        picker.setUseWeight(false)
+        picker.setCycleDisable(false)
+        picker.setRangeStart(0, 0)//00:00
+        picker.setRangeEnd(23, 59)//23:59
+        val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val currentMinute = Calendar.getInstance().get(Calendar.MINUTE)
+        picker.setSelectedItem(currentHour, currentMinute)
+        picker.setTopLineVisible(false)
+        picker.setTextPadding(ConvertUtils.toPx(activity, 15f))
+        picker.setOnTimePickListener { hour, minute -> Helper.toast("$hour:$minute") }
+        picker.show()
     }
 
 }

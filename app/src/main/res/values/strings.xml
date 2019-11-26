@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">AIDeviceManager</string>
     <string name="i_phone" translatable="false">请输入手机号</string>
+    <string name="i_uname" translatable="false">请输入用户名</string>
     <string name="i_phone_length" translatable="false">手机号格式不正确</string>
+    <string name="i_sucess" translatable="false">修改成功</string>
+    <string name="i_get_code" translatable="false">获取验证码</string>
+    <string name="i_phone_right" translatable="false">手机号格式正确</string>
     <string name="i_porc_length" translatable="false">请输入密码</string>
     <string name="i_yzm" translatable="false">请输入验证码</string>
     <string name="loading" translatable="false">加载中,请稍后...</string>

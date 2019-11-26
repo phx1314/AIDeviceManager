@@ -14,7 +14,7 @@ import com.mdx.framework.util.Helper
 
 object F {
     var mModellogin: ModelLogin? = null
-    val baseUrl = "http://192.168.113.47:8081/robotos/cleanApp/"
+    val baseUrl = "http://192.168.110.204:8081/robotos/cleanApp/"
     fun gB() =
             com.mdx.framework.service.gB(
                     ApiService::class.java,

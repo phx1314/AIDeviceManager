@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_style_15_black"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="当前密码:" />
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_logink"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/mEditText_pass1"
+                style="@style/text_style_15_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:gravity="center_vertical"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:singleLine="true" />
+
+            <ImageView
+                android:id="@+id/mImageView_kan1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="10dp"
+                android:src="@drawable/mima1" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_style_15_black"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="新密码:" />
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_logink"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/mEditText_pass2"
+                style="@style/text_style_15_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:gravity="center_vertical"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:singleLine="true" />
+
+            <ImageView
+                android:id="@+id/mImageView_kan2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="10dp"
+                android:src="@drawable/mima1" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_style_15_black"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="确认新密码:" />
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_logink"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/mEditText_pass3"
+                style="@style/text_style_15_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:gravity="center_vertical"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:singleLine="true" />
+
+            <ImageView
+                android:id="@+id/mImageView_kan3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="10dp"
+                android:src="@drawable/mima1" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mTextView_save"
+            style="@style/text_style_15_white"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_blue"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="保存" />
+
+        <TextView
+            android:id="@+id/mTextView_cancel"
+            style="@style/text_style_15_white"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shape_blue"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="取消" />
+
+    </LinearLayout>
+
+</LinearLayout>
