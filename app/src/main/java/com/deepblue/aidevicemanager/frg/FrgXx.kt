@@ -16,6 +16,10 @@ import android.view.View
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaXx
+import com.deepblue.aidevicemanager.model.ModelBrokenXx
+import com.deepblue.aidevicemanager.model.ModelTaskXx
+import com.deepblue.aidevicemanager.model.ModelWaringXx
+import com.mdx.framework.Frame
 import kotlinx.android.synthetic.main.frg_xx.*
 
 
@@ -32,19 +36,24 @@ class FrgXx : BaseFrg() {
         mLinearLayout_1.setOnClickListener { chageType(0) }
         mLinearLayout_2.setOnClickListener { chageType(1) }
         mLinearLayout_3.setOnClickListener { chageType(2) }
+        mTextView_1.text = "${getString(R.string.d_task_xx) + "(" + arguments?.getInt("count1")})"
+        mTextView_2.text = "${getString(R.string.d_waring_xx) + "(" +  arguments?.getInt("count2")})"
+        mTextView_3.text = "${getString(R.string.d_broken_xx) + "(" +  arguments?.getInt("count3")})"
+
     }
 
     fun chageType(type: Int) {
+        this.type = type
         when (type) {
             0 -> {
                 mImageView_1.visibility = View.VISIBLE
                 mImageView_2.visibility = View.INVISIBLE
                 mImageView_3.visibility = View.INVISIBLE
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}task/queryTaskListWithPage",
-                    "POST",
-                    this,
-                    F.mModellogin?.token
+                        "${F.baseUrl}task/queryTaskListWithPage",
+                        "POST",
+                        this,
+                        F.mModellogin?.token
                 )
             }
             1 -> {
@@ -52,10 +61,10 @@ class FrgXx : BaseFrg() {
                 mImageView_2.visibility = View.VISIBLE
                 mImageView_3.visibility = View.INVISIBLE
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}task/queryAlarmInfos",
-                    "POST",
-                    this,
-                    F.mModellogin?.token
+                        "${F.baseUrl}task/queryAlarmInfos",
+                        "POST",
+                        this,
+                        F.mModellogin?.token
                 )
             }
             2 -> {
@@ -63,10 +72,10 @@ class FrgXx : BaseFrg() {
                 mImageView_2.visibility = View.INVISIBLE
                 mImageView_3.visibility = View.VISIBLE
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}task/queryBreakdowns",
-                    "POST",
-                    this,
-                    F.mModellogin?.token
+                        "${F.baseUrl}task/queryBreakdowns",
+                        "POST",
+                        this,
+                        F.mModellogin?.token
                 )
             }
         }
@@ -74,7 +83,29 @@ class FrgXx : BaseFrg() {
 
     override fun loaddata() {
         mAbPullListView.setAbOnListViewListener { _, content ->
-            AdaXx(context, arrayOf("aa").toMutableList())
+            when (type) {
+                0 -> {
+                    var mModelTaskXx = F.data2Model(content, ModelTaskXx::class.java)
+                    mTextView_1.text = "${getString(R.string.d_task_xx) + "(" + mModelTaskXx.total.toInt()})"
+                    Frame.HANDLES.sentAll("FrgMain", 2, mModelTaskXx.total.toInt())
+                    AdaXx(context, mModelTaskXx.rows)
+                }
+                1 -> {
+                    var mModelWaringXx = F.data2Model(content, ModelWaringXx::class.java)
+                    mTextView_2.text = "${getString(R.string.d_waring_xx) + "(" + mModelWaringXx.total})"
+                    Frame.HANDLES.sentAll("FrgMain", 3, mModelWaringXx.total)
+                    AdaXx(context, mModelWaringXx.rows)
+                }
+                2 -> {
+                    var mModelBrokenXx = F.data2Model(content, ModelBrokenXx::class.java)
+                    mTextView_3.text = "${getString(R.string.d_broken_xx) + "(" + mModelBrokenXx.total})"
+                    Frame.HANDLES.sentAll("FrgMain", 4, mModelBrokenXx.total)
+                    AdaXx(context, mModelBrokenXx.rows)
+                }
+                else -> {
+                    AdaXx(context, arrayListOf())
+                }
+            }
         }
     }
 

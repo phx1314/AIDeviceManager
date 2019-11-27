@@ -17,31 +17,35 @@
 
     <ImageView
         android:id="@+id/mImageView_logo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/u127" />
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:src="@drawable/u127" />
 
     <RelativeLayout
         android:id="@+id/mRelativeLayout_user"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/mImageView_user"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:src="@drawable/u440" />
 
         <ImageView
+            android:id="@+id/mImageView_dot"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/shape_yuan" />
+            android:background="@drawable/shape_yuan"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
@@ -52,7 +56,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingLeft="10dp">
+        android:paddingLeft="10dp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/mImageView"
@@ -136,11 +141,13 @@
         android:text="N/A" />
 
     <ImageButton
+        android:id="@+id/mImageButton_set"
         android:layout_width="44dip"
         android:layout_height="match_parent"
         android:background="#00000000"
         android:padding="12dp"
         android:scaleType="fitXY"
-        android:src="@drawable/set" />
+        android:src="@drawable/set"
+        android:visibility="gone" />
 </LinearLayout>
 

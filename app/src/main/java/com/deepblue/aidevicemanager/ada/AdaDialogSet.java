@@ -30,7 +30,7 @@ public class AdaDialogSet extends MAdapter<String>{
     public View getview(int position, View convertView, ViewGroup parent) {
         String item = get(position);
         if (convertView == null) {
-            convertView =new DialogSet (getContext() );
+//            convertView =new DialogSet (getContext() );
         }
         DialogSet mDialogSet=(DialogSet) convertView ;
         mDialogSet.set(item);

@@ -23,16 +23,16 @@ import android.view.View;
 
 import com.deepblue.aidevicemanager.item.DeviceMainRight;
 
-public class AdaDeviceMainRight extends MAdapter<ModelData<ModelDevices.DataBean.RowsBean>> {
+public class AdaDeviceMainRight extends MAdapter<ModelData<ModelDevices. RowsBean>> {
 
-    public AdaDeviceMainRight(Context context, List<ModelData<ModelDevices.DataBean.RowsBean>> list) {
+    public AdaDeviceMainRight(Context context, List<ModelData<ModelDevices. RowsBean>> list) {
         super(context, list);
     }
 
 
     @Override
     public View getview(int position, View convertView, ViewGroup parent) {
-        ModelData<ModelDevices.DataBean.RowsBean> item = get(position);
+        ModelData<ModelDevices. RowsBean> item = get(position);
         if (convertView == null) {
             convertView = new DeviceMainRight(getContext());
         }

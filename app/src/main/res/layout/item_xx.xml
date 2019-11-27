@@ -6,18 +6,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/mTextView_1"
             style="@style/text_style_15_black"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="消息ID"
-            android:textStyle="bold" />
+            android:text="消息ID" />
 
         <ImageView
             android:layout_width="1dp"
@@ -28,11 +27,10 @@
             android:id="@+id/mTextView_2"
             style="@style/text_style_15_black"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="时间"
-            android:textStyle="bold" />
+            android:text="时间" />
 
         <ImageView
             android:layout_width="1dp"
@@ -43,11 +41,10 @@
             android:id="@+id/mTextView_3"
             style="@style/text_style_15_black"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="主题"
-            android:textStyle="bold" />
+            android:text="主题" />
 
         <ImageView
             android:layout_width="1dp"
@@ -58,11 +55,10 @@
             android:id="@+id/mTextView_4"
             style="@style/text_style_15_black"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             android:gravity="center"
-            android:text="内容"
-            android:textStyle="bold" />
+            android:text="内容" />
 
     </LinearLayout>
 </LinearLayout>

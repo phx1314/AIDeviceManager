@@ -42,8 +42,8 @@ android {
 }
 
 dependencies {
-//    implementation project(':frameWidget')
-    implementation 'com.github.phx1314:Frame:2.4'
+    implementation project(':frameWidget')
+//    implementation 'com.github.phx1314:Frame:2.4'
     implementation('com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6'){
         exclude group: 'com.android.support'
     }

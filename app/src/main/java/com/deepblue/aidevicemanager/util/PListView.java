@@ -21,8 +21,10 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.OverScroller;
 import android.widget.ProgressBar;
@@ -41,6 +43,8 @@ import com.mdx.framework.view.pullview.AbListViewHeader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import timber.log.Timber;
 
 // TODO: Auto-generated Javadoc
 
@@ -485,32 +489,26 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
                 }
                 return;
             }
-
+            stopAll();
+            PageIndex++;
+            MAdapter mMAdapter = null;
+            Timber.d(mJSONObject.optString("data"));
+            mMAdapter = mListViewListener.onSuccess(methodName, mJSONObject.optString("data"));
+            if (mMAdapter != null) {
+                if ((gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
+                    setPullLoadEnable(false);
+                }
+//        stopLoadMore();
+                if (mAdapter == null || isRefreash) {
+                    mAdapter = mMAdapter;
+                    setAdapter(mAdapter);
+                } else {
+                    mAdapter.AddAll(mMAdapter);
+                }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        stopAll();
-        PageIndex++;
-        MAdapter mMAdapter = null;
-        try {
-            mMAdapter = mListViewListener.onSuccess(methodName, content);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (mMAdapter != null) {
-            if ((gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
-                setPullLoadEnable(false);
-            }
-//        stopLoadMore();
-            if (mAdapter == null || isRefreash) {
-                mAdapter = mMAdapter;
-                setAdapter(mAdapter);
-            } else {
-                mAdapter.AddAll(mMAdapter);
-            }
-        }
-
     }
 
     @Override
@@ -519,6 +517,27 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
     }
 
     public void setApiLoadParams(String method, String type, Object tag, String token, Object... mparams) {
+        setAdapter(new BaseAdapter() {
+            @Override
+            public int getCount() {
+                return 0;
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return null;
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return 0;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                return null;
+            }
+        });
         this.method = method;
         this.type = type;
         this.tag = tag;

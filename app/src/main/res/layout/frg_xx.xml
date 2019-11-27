@@ -142,26 +142,23 @@
                 style="@style/text_style_15_black"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_weight="4"
+                android:layout_weight="3"
                 android:gravity="center"
                 android:text="内容"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/black" />
 
+        <com.deepblue.aidevicemanager.util.PListView
+            android:id="@+id/mAbPullListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/black"
+            android:dividerHeight="1px"
+            android:listSelector="#00000000"></com.deepblue.aidevicemanager.util.PListView>
     </LinearLayout>
 
-    <com.deepblue.aidevicemanager.util.PListView
-        android:id="@+id/mAbPullListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/black"
-        android:dividerHeight="1dp"
-        android:listSelector="#00000000"></com.deepblue.aidevicemanager.util.PListView>
+
 </LinearLayout>

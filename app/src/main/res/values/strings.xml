@@ -8,8 +8,24 @@
     <string name="i_phone_right" translatable="false">手机号格式正确</string>
     <string name="i_porc_length" translatable="false">请输入密码</string>
     <string name="i_yzm" translatable="false">请输入验证码</string>
+    <string name="i_login" translatable="false">登录过期，请重新登录</string>
     <string name="loading" translatable="false">加载中,请稍后...</string>
     <string name="net_error" translatable="false">无可用网络，请检查网络连接</string>
+    <string name="d_task_xx" translatable="false">作业任务消息</string>
+    <string name="d_waring_xx" translatable="false">报警消息</string>
+    <string name="d_broken_xx" translatable="false">故障消息</string>
+    <string name="d_broken" translatable="false">设备故障</string>
+    <string name="d_user" translatable="false">用户</string>
+    <string name="d_xxzc" translatable="false">消息中心</string>
+    <string name="d_help" translatable="false">帮助</string>
+    <string name="d_yhtk" translatable="false">用户条款</string>
+    <string name="d_yszc" translatable="false">隐私政策</string>
+    <string name="d_about" translatable="false">关于</string>
+    <string name="d_logout" translatable="false">退出登录</string>
+    <string name="d_xxgg" translatable="false">信息更改</string>
+    <string name="d_mmgg" translatable="false">密码更改</string>
+    <string name="d_connect" translatable="false">设备已连接</string>
+    <string name="d_no_connect" translatable="false">设备未连接</string>
     <string name="button_startwork">自动作业</string>
     <string name="button_stopwork">暂停作业</string>
     <string name="button_endwork">停止作业</string>

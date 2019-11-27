@@ -20,10 +20,12 @@ import com.deepblue.aidevicemanager.F.mModellogin
 
 
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.frg.FrgDetailLx
 import com.deepblue.aidevicemanager.frg.FrgDeviceMain
 import com.deepblue.aidevicemanager.frg.FrgLogin
 import com.deepblue.aidevicemanager.frg.FrgMain
 import com.mdx.framework.activity.IndexAct
+import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
 
 class ActLoading : Activity() {

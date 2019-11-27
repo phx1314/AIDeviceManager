@@ -4,9 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#393D49"
+    android:background="#000"
     android:gravity="center_horizontal"
     android:orientation="vertical">
+
+    <TextView
+        style="@style/text_style_15_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="车辆设置" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,19 +25,13 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/text_style_15_white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="车辆设置" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="8dp">
 
                 <TextView
                     style="@style/text_style_15_white"
@@ -41,18 +42,18 @@
                 <EditText
                     android:id="@+id/mEditText_1"
                     style="@style/text_style_15_black"
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_logink"
                     android:hint="N/A"
-                    android:padding="10dp" />
+                    android:padding="8dp" />
 
                 <TextView
                     style="@style/text_style_15_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:text="米" />
             </LinearLayout>
 
@@ -61,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="8dp">
 
                 <TextView
                     style="@style/text_style_15_white"
@@ -72,18 +73,18 @@
                 <EditText
                     android:id="@+id/mEditText_2"
                     style="@style/text_style_15_black"
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_logink"
                     android:hint="N/A"
-                    android:padding="10dp" />
+                    android:padding="8dp" />
 
                 <TextView
                     style="@style/text_style_15_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:text="米/秒" />
             </LinearLayout>
 
@@ -94,11 +95,12 @@
                 android:background="@color/gray" />
 
             <LinearLayout
+                android:id="@+id/mLinearLayout_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="8dp">
 
                 <TextView
                     style="@style/text_style_15_white"
@@ -109,12 +111,12 @@
                 <TextView
                     android:id="@+id/mTextView_3"
                     style="@style/text_style_15_black"
-                    android:layout_width="100dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_logink"
                     android:hint="00"
-                    android:padding="10dp" />
+                    android:padding="8dp" />
 
                 <TextView
                     style="@style/text_style_15_white"
@@ -129,12 +131,12 @@
                 <TextView
                     android:id="@+id/mTextView_4"
                     style="@style/text_style_15_black"
-                    android:layout_width="100dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_logink"
                     android:hint="00"
-                    android:padding="10dp" />
+                    android:padding="8dp" />
             </LinearLayout>
 
             <CheckBox
@@ -157,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="8dp">
 
                 <TextView
                     style="@style/text_style_15_white"
@@ -168,19 +170,19 @@
                 <EditText
                     android:id="@+id/mEditText_5"
                     style="@style/text_style_15_black"
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_logink"
                     android:hint="N/A"
-                    android:padding="10dp" />
+                    android:padding="8dp" />
 
                 <TextView
                     android:id="@+id/mTextView_update1"
                     style="@style/text_style_15_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_white"
                     android:paddingLeft="8dp"
                     android:paddingTop="5dp"
@@ -194,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="8dp">
 
                 <TextView
                     style="@style/text_style_15_white"
@@ -205,19 +207,19 @@
                 <EditText
                     android:id="@+id/mEditText_6"
                     style="@style/text_style_15_black"
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_logink"
                     android:hint="N/A"
-                    android:padding="10dp" />
+                    android:padding="8dp" />
 
                 <TextView
                     android:id="@+id/mTextView_update2"
                     style="@style/text_style_15_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_white"
                     android:paddingLeft="8dp"
                     android:paddingTop="5dp"
@@ -231,7 +233,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="8dp">
 
                 <TextView
                     style="@style/text_style_15_white"
@@ -242,19 +244,19 @@
                 <EditText
                     android:id="@+id/mEditText_7"
                     style="@style/text_style_15_black"
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_logink"
                     android:hint="N/A"
-                    android:padding="10dp" />
+                    android:padding="8dp" />
 
                 <TextView
                     android:id="@+id/mTextView_update3"
                     style="@style/text_style_15_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_white"
                     android:paddingLeft="8dp"
                     android:paddingTop="5dp"
@@ -274,7 +276,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="8dp">
 
                 <TextView
                     style="@style/text_style_15_white"
@@ -283,9 +285,9 @@
                     android:text="车辆数据" />
 
                 <ImageView
-                    android:layout_width="140dp"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="6dp"
                     android:src="@drawable/u1824p000" />
 
                 <TextView
@@ -299,7 +301,7 @@
                     style="@style/text_style_15_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_white"
                     android:paddingLeft="8dp"
                     android:paddingTop="5dp"

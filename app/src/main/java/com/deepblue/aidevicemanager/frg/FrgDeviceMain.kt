@@ -12,6 +12,7 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.F.baseUrl
 import com.deepblue.aidevicemanager.F.mModellogin
@@ -83,15 +84,15 @@ class FrgDeviceMain : BaseFrg() {
         mAbPullListView.setGridCount(4)
         mAbPullListView.setAbOnListViewListener { _, content ->
             val mMPhotoList = Gson().fromJson(content, ModelDevices::class.java)
-            var data = ArrayList<ModelData<ModelDevices.DataBean.RowsBean>>()
+            var data = ArrayList<ModelData<ModelDevices .RowsBean>>()
             //                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
             //                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
             //                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
-            for (i in 0 until mMPhotoList.data.rows.size) {
+            for (i in 0 until mMPhotoList .rows.size) {
                 if (i % 4 == 0) {
-                    val mModelData = ModelData<ModelDevices.DataBean.RowsBean>()
-                    for (j in i until Math.min(mMPhotoList.data.rows.size, i + 4)) {
-                        mModelData.mList.add(mMPhotoList.data.rows[j])
+                    val mModelData = ModelData<ModelDevices .RowsBean>()
+                    for (j in i until Math.min(mMPhotoList .rows.size, i + 4)) {
+                        mModelData.mList.add(mMPhotoList .rows[j])
                     }
                     data.add(mModelData)
                 }
@@ -115,5 +116,10 @@ class FrgDeviceMain : BaseFrg() {
                 )
             }
         }
+    }
+
+    override fun setActionBar(actionBar: LinearLayout?) {
+        super.setActionBar(actionBar)
+        mHead.canGoBack()
     }
 }

@@ -26,9 +26,9 @@ interface ApiService {
     @POST("user/forgetPassword")
     @FormUrlEncoded
     fun forgetPassword(
-        @Field("newPassword") newPassword: String, @Field("mobile") mobile: String, @Field(
-            "smsCode"
-        ) smsCode: String
+            @Field("newPassword") newPassword: String, @Field("mobile") mobile: String, @Field(
+                    "smsCode"
+            ) smsCode: String
     ): Observable<HttpResult<Any>>
 
     @POST("user/modifyUser")
@@ -39,12 +39,20 @@ interface ApiService {
     @FormUrlEncoded
     fun modifyPassword(@Field("oldPassword") oldPassword: String, @Field("newPassword") newPassword: String): Observable<HttpResult<Any>>
 
-//    @POST("task/queryAlarmInfos")
-//    @FormUrlEncoded
-//    fun queryAlarmInfos(): Observable<HttpResult<Any>>
-//
-//    @POST("task/queryBreakdowns")
-//    @FormUrlEncoded
-//    fun queryBreakdowns(): Observable<HttpResult<Any>>
+    @POST("device/queryDeviceDetail")
+    @FormUrlEncoded
+    fun queryDeviceDetail(@Field("deviceId") deviceId: String): Observable<HttpResult<Any>>
+
+    @POST("task/queryAlarmInfos")
+    @FormUrlEncoded
+    fun queryAlarmInfos(@Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
+
+    @POST("task/queryBreakdowns")
+    @FormUrlEncoded
+    fun queryBreakdowns(@Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
+
+    @POST("task/queryTaskListWithPage")
+    @FormUrlEncoded
+    fun queryTaskListWithPage(@Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
 
 }

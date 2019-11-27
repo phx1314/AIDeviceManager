@@ -46,7 +46,8 @@ object F {
 
     }
 
-    fun logOut(context: Context?) {
+    fun logOut(context: Context?, isShow: Boolean = true) {
+        if (isShow) Helper.toast(context?.resources?.getString(R.string.i_login))
         saveJson("mModellogin", "")
         mModellogin = null
         Helper.startActivity(context, Intent.FLAG_ACTIVITY_CLEAR_TOP, FrgLogin::class.java, IndexAct::class.java)
