@@ -1,6 +1,5 @@
 package com.deepblue.aidevicemanager.service
 
-import com.deepblue.aidevicemanager.F.mModellogin
 import com.mdx.framework.service.subscriber.HttpResult
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -54,5 +53,16 @@ interface ApiService {
     @POST("task/queryTaskListWithPage")
     @FormUrlEncoded
     fun queryTaskListWithPage(@Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
+
+    @POST("map/queryMapListByDevice")
+    @FormUrlEncoded
+    fun queryMapListByDevice(@Field("deviceId") deviceId: String, @Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
+
+    @GET("device/queryDeviceParamList")
+    fun queryDeviceParamList(@Query("deviceId") deviceId: String): Observable<HttpResult<Any>>
+
+    @GET("device/queryDeviceLiveData")
+    fun queryDeviceLiveData(@Query("deviceId") deviceId: String): Observable<HttpResult<Any>>
+
 
 }

@@ -66,12 +66,12 @@ class FrgMain : BaseFrg() {
             )
         )
     }
-
+    
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_main)
-
+        
     }
-
+    
     override fun disposeMsg(type: Int, obj: Any?) {
         when (type) {
             0 -> {
@@ -96,8 +96,8 @@ class FrgMain : BaseFrg() {
             }
         }
     }
-
-
+    
+    
     override fun loaddata() {
         mTextView_gs.text = F.mModellogin?.merchant?.name + " >"
         mTextView_name.text = F.mModellogin?.user?.name
@@ -122,7 +122,7 @@ class FrgMain : BaseFrg() {
                     1 -> chageFrgment(FrgMimaChange())
                 }
                 1 -> chageXxFrgment(childPosition)
-
+                
             }
             true
         }
@@ -136,7 +136,7 @@ class FrgMain : BaseFrg() {
 //            } else false
 //        }
     }
-
+    
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryTaskListWithPage")) {
             mModelTaskXx = F.data2Model(data, ModelTaskXx::class.java)
@@ -151,7 +151,7 @@ class FrgMain : BaseFrg() {
         }
         (mExpandableListView.expandableListAdapter as ExpandableListviewAdapter).notifyDataSetChanged()
     }
-
+    
     private fun chageWebFrgment(url: String) {
         var mFrgWebView = FrgWebView()
         val bundle = Bundle()
@@ -159,7 +159,7 @@ class FrgMain : BaseFrg() {
         mFrgWebView.arguments = bundle
         chageFrgment(mFrgWebView)
     }
-
+    
     private fun chageXxFrgment(type: Int) {
         var mFrgXx = FrgXx()
         val bundle = Bundle()
@@ -170,17 +170,18 @@ class FrgMain : BaseFrg() {
         mFrgXx.arguments = bundle
         chageFrgment(mFrgXx)
     }
-
+    
     private fun chageFrgment(fragment: Fragment) {
         val fm = childFragmentManager
         val transaction = fm.beginTransaction()
         transaction.replace(R.id.mLinearLayout_content, fragment)
         transaction.commitAllowingStateLoss()
     }
-
-
+    
+    
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
+        mHead.canGoBack(false)
         mHead.mRelativeLayout_user.visibility = View.VISIBLE
         mHead.mRelativeLayout_user.setOnClickListener {
             if (mExpandableListView.visibility == View.VISIBLE) {

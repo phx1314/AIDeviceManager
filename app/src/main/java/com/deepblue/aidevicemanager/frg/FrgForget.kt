@@ -82,7 +82,7 @@ class FrgForget : BaseFrg() {
                 handler.postDelayed(runnable, 1000)
             } else if (times == 0) {
                 mTextView_get.isClickable = true
-                mTextView_get.text = getString(R.string.i_sucess)
+                mTextView_get.text = getString(R.string.i_get_code)
             }
         }
         handler.post(runnable)

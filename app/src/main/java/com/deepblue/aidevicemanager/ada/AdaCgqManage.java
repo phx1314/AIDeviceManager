@@ -35,7 +35,7 @@ public class AdaCgqManage extends MAdapter<String> {
             convertView = new CgqManage(getContext());
         }
         CgqManage mCgqManage = (CgqManage) convertView;
-        mCgqManage.set(item);
+//        mCgqManage.set(item);
         return convertView;
     }
 }

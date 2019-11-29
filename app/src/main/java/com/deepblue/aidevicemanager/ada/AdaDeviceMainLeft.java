@@ -41,7 +41,7 @@ public class AdaDeviceMainLeft extends MAdapter<ModelModels> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Frame.HANDLES.sentAll("FrgDeviceMain", 0, (int) item.id);
+                Frame.HANDLES.sentAll("FrgDeviceMain", 0, item);
             }
         });
         return convertView;

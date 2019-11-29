@@ -24,13 +24,13 @@ import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.model.ModelMap
 
 
-class WorkChooseBottom(context: Context?) : LinearLayout(context) {
+class WorkChoose(context: Context?) : LinearLayout(context) {
     init {
         val flater = LayoutInflater.from(context)
-        flater.inflate(R.layout.item_work_choose_bottom, this)
+        flater.inflate(R.layout.item_work_choose, this)
     }
 
-    fun set(item: ModelMap.RowsBean) {
+    fun set(item:Any) {
 
     }
 }

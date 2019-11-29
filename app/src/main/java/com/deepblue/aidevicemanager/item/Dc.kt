@@ -20,7 +20,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.deepblue.aidevicemanager.R
-
+import com.deepblue.aidevicemanager.model.ModelB
+import kotlinx.android.synthetic.main.frg_dc.view.*
 
 
 class Dc(context: Context?) : LinearLayout(context) {
@@ -31,7 +32,15 @@ class Dc(context: Context?) : LinearLayout(context) {
     }
 
 
-    fun set(item: String) {
+    fun set(item: ModelB) {
+        mTextView_dc.text = item.batteryRemaining ?: "N/A"
+        mTextView_dy.text = item.batteryVoltage ?: "N/A"
+        mTextView_dl.text = item.batteryCurrent ?: "N/A"
+        mTextView_wd.text = item.batteryTemperature ?: "N/A"
+        mTextView_dliang.text = item.batteryRemaining ?: "N/A"
+        mTextView_dcrl.text = item.batteryCapacity ?: "N/A"
+        mTextView_xhcsh.text = item.batteryCycle ?: "N/A"
+        mTextView_dccode.text = item.batterySeriesNumber ?: "N/A"
     }
 
 }

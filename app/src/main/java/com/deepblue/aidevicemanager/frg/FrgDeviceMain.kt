@@ -30,24 +30,27 @@ import kotlinx.android.synthetic.main.frg_device_main.*
 class FrgDeviceMain : BaseFrg() {
     lateinit var item: ModelMain
     var position = 1
+    
+    lateinit var mModelModels_one: ModelModels
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_device_main)
     }
-
+    
     override fun disposeMsg(type: Int, obj: Any?) {
         when (type) {
             0 -> {
+                mModelModels_one = obj as ModelModels
                 mAbPullListView.setApiLoadParams(
-                        "${baseUrl}device/queryCleanRobotDeviceListByModel",
-                        "POST",
-                        this,
-                        mModellogin?.token, "deviceModelId", obj.toString()
+                    "${baseUrl}device/queryCleanRobotDeviceListByModel",
+                    "POST",
+                    this,
+                    mModellogin?.token, "deviceModelId", mModelModels_one.id.toInt()
                 )
             }
         }
-
+        
     }
-
+    
     override fun initView() {
         item = activity?.intent?.getSerializableExtra("item") as ModelMain
         mImageButton_top.setOnClickListener {
@@ -55,11 +58,11 @@ class FrgDeviceMain : BaseFrg() {
                 --position
                 mAbPullListView.postDelayed(Runnable {
                     mAbPullListView.smoothScrollToPositionFromTop(
-                            position,
-                            mAbPullListView.height / 2
+                        position,
+                        mAbPullListView.height / 2
                     )
                 }, 100)
-
+                
             }
         }
         mImageButton_bottom.setOnClickListener {
@@ -67,14 +70,14 @@ class FrgDeviceMain : BaseFrg() {
                 ++position
                 mAbPullListView.postDelayed(Runnable {
                     mAbPullListView.smoothScrollToPosition(
-                            position
+                        position
                     )
                 }, 100)
             }
         }
     }
-
-
+    
+    
     override fun loaddata() {
         load(F.gB().queryAllModelBySeries(item.id.toInt()), "queryAllModelBySeries")
         mTextView_title.text = item.seriesName
@@ -84,42 +87,43 @@ class FrgDeviceMain : BaseFrg() {
         mAbPullListView.setGridCount(4)
         mAbPullListView.setAbOnListViewListener { _, content ->
             val mMPhotoList = Gson().fromJson(content, ModelDevices::class.java)
-            var data = ArrayList<ModelData<ModelDevices .RowsBean>>()
+            var data = ArrayList<ModelData<ModelDevices.RowsBean>>()
             //                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
             //                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
             //                mMPhotoList.data.rows.addAll(mMPhotoList.data.rows)
-            for (i in 0 until mMPhotoList .rows.size) {
+            for (i in 0 until mMPhotoList.rows.size) {
                 if (i % 4 == 0) {
-                    val mModelData = ModelData<ModelDevices .RowsBean>()
-                    for (j in i until Math.min(mMPhotoList .rows.size, i + 4)) {
-                        mModelData.mList.add(mMPhotoList .rows[j])
+                    val mModelData = ModelData<ModelDevices.RowsBean>()
+                    for (j in i until Math.min(mMPhotoList.rows.size, i + 4)) {
+                        mMPhotoList.rows[j].modelPicUrl = mModelModels_one.modelPicUrl
+                        mModelData.mList.add(mMPhotoList.rows[j])
                     }
                     data.add(mModelData)
                 }
             }
-
+            
             AdaDeviceMainRight(context, data)
         }
-
+        
     }
-
+    
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryAllModelBySeries")) {
             var mModelModels = F.data2Model(data, Array<ModelModels>::class.java)
             mListView.adapter = AdaDeviceMainLeft(context, mModelModels.toMutableList())
+            mModelModels_one = mModelModels[0]
             if (mModelModels.isNotEmpty()) {
                 mAbPullListView.setApiLoadParams(
-                        "${baseUrl}device/queryCleanRobotDeviceListByModel",
-                        "POST",
-                        this,
-                        mModellogin?.token, "deviceModelId", mModelModels[0].id.toInt()
+                    "${baseUrl}device/queryCleanRobotDeviceListByModel",
+                    "POST",
+                    this,
+                    mModellogin?.token, "deviceModelId", mModelModels_one.id.toInt()
                 )
             }
         }
     }
-
+    
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
-        mHead.canGoBack()
     }
 }

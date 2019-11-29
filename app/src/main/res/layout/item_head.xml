@@ -1,153 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="44dip"
-    android:background="#000"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
-
-    <ImageButton
-        android:id="@+id/mImageButton_back"
-        android:layout_width="40dp"
-        android:layout_height="match_parent"
-        android:background="#00000000"
-        android:src="@drawable/arrows_left"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/mImageView_logo"
-        android:layout_width="40dp"
-        android:layout_height="match_parent"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:src="@drawable/u127" />
-
-    <RelativeLayout
-        android:id="@+id/mRelativeLayout_user"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/mImageView_user"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:src="@drawable/u440" />
-
-        <ImageView
-            android:id="@+id/mImageView_dot"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/shape_yuan"
-            android:visibility="gone" />
-
-    </RelativeLayout>
-
+    android:background="#000">
 
     <LinearLayout
-        android:id="@+id/mLinearLayout_status"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:visibility="gone">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/mImageButton_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:src="@drawable/arrows_left"
+            android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/mImageView"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:background="@drawable/lian" />
+            android:id="@+id/mImageView_logo"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:src="@drawable/u127" />
+
+        <RelativeLayout
+            android:id="@+id/mRelativeLayout_user"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/mImageView_user"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:src="@drawable/u440" />
+
+            <ImageView
+                android:id="@+id/mImageView_dot"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_yuan"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/mLinearLayout_status"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/mImageView"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/lian" />
+
+            <TextView
+                android:id="@+id/mTextView_d_status"
+                style="@style/text_style_15_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="设备未连接" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/mTextView_d_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                style="@style/text_style_11_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GPS"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/mImageView_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_more" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/mImageView_wifi"
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/wifi" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="10dp">
+
+
+            <ImageView
+                android:id="@+id/mImageView_4g"
+                android:layout_width="22dp"
+                android:layout_height="19dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/fourg" />
+
+            <TextView
+                style="@style/text_style_11_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="4G"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/mTextView_dc"
             style="@style/text_style_15_white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="设备未连接" />
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/ic_battery_charging_full_black_24dp"
+            android:drawablePadding="3dp"
+            android:gravity="center"
+            android:paddingRight="@dimen/j10dp"
+            android:text="N/A" />
+
+        <ImageButton
+            android:id="@+id/mImageButton_set"
+            android:layout_width="44dip"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:padding="12dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/set"
+            android:visibility="gone" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/mTextView_title"
+        style="@style/text_style_17_white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView
-            style="@style/text_style_11_white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GPS"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/mImageView_gps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_more" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/mImageView_wifi"
-        android:layout_width="20dp"
-        android:layout_height="15dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/wifi" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingRight="10dp">
-
-
-        <ImageView
-            android:id="@+id/mImageView_4g"
-            android:layout_width="22dp"
-            android:layout_height="19dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/fourg" />
-
-        <TextView
-            style="@style/text_style_11_white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="4G"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/mTextView_dc"
-        style="@style/text_style_15_white"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:drawableLeft="@drawable/ic_battery_charging_full_black_24dp"
-        android:drawablePadding="3dp"
-        android:gravity="center"
-        android:paddingRight="@dimen/j10dp"
-        android:text="N/A" />
-
-    <ImageButton
-        android:id="@+id/mImageButton_set"
-        android:layout_width="44dip"
-        android:layout_height="match_parent"
-        android:background="#00000000"
-        android:padding="12dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/set"
+        android:layout_centerInParent="true"
         android:visibility="gone" />
-</LinearLayout>
-
+</RelativeLayout>

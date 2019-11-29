@@ -13,7 +13,7 @@
         android:layout_weight="4"
         android:orientation="vertical">
 
-        <com.mdx.framework.view.pullview.AbPullListView
+        <com.deepblue.aidevicemanager.util.PListView
             android:id="@+id/mAbPullListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,92 +25,15 @@
             android:listSelector="#00000000" />
 
 
-        <HorizontalScrollView
+        <com.mdx.framework.view.HorizontalListView
+            android:id="@+id/mHorizontalListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginTop="30dp"
-            android:fillViewport="true"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="20dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/mLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"
-
-                >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/u2303_mouse" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/u2303_mouse" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/u2303_mouse" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/u2303_mouse" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/u2303_mouse" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/u2303_mouse" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/u2303_mouse" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/u2303_mouse" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/u2303_mouse" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/u2303_mouse" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/u2303_mouse" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
+            android:cacheColorHint="#00000000"
+            android:divider="@null"
+            android:listSelector="#00000000"
+            android:scrollbars="none"></com.mdx.framework.view.HorizontalListView>
     </LinearLayout>
 
     <ImageView
@@ -138,7 +61,7 @@
         <Button
             android:id="@+id/mButton_load"
             style="@style/text_style_15_black"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
@@ -150,7 +73,7 @@
         <Button
             android:id="@+id/mButton"
             style="@style/text_style_15_black"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"

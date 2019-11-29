@@ -50,6 +50,10 @@ class FrgInfoChange : BaseFrg() {
                 Helper.toast(getString(R.string.i_phone_length))
                 return@setOnClickListener
             }
+            if (!mEditText_phone.text.toString().trim().equals(F.mModellogin?.user?.mobile)) {
+                Helper.toast(getString(R.string.i_phone_self))
+                return@setOnClickListener
+            }
             Helper.toast(getString(R.string.i_phone_right))
         }
 
@@ -64,6 +68,10 @@ class FrgInfoChange : BaseFrg() {
             }
             if (!PhoneFormatCheckUtils.isPhoneLegal(mEditText_phone.getText().toString().trim())) {
                 Helper.toast(getString(R.string.i_phone_length))
+                return@setOnClickListener
+            }
+            if (!mEditText_phone.text.toString().trim().equals(F.mModellogin?.user?.mobile)) {
+                Helper.toast(getString(R.string.i_phone_self))
                 return@setOnClickListener
             }
             load(F.gB().sendSms(mEditText_phone.text.toString()), "sendSms")
@@ -84,6 +92,10 @@ class FrgInfoChange : BaseFrg() {
             }
             if (!PhoneFormatCheckUtils.isPhoneLegal(mEditText_phone.getText().toString().trim())) {
                 Helper.toast(getString(R.string.i_phone_length))
+                return@setOnClickListener
+            }
+            if (!mEditText_phone.text.toString().trim().equals(F.mModellogin?.user?.mobile)) {
+                Helper.toast(getString(R.string.i_phone_self))
                 return@setOnClickListener
             }
             if (TextUtils.isEmpty(mEditText_code.text.toString())) {
@@ -111,7 +123,7 @@ class FrgInfoChange : BaseFrg() {
                 handler.postDelayed(runnable, 1000)
             } else if (times == 0) {
                 mTextView_get.isClickable = true
-                mTextView_get.text = getString(R.string.i_sucess)
+                mTextView_get.text = getString(R.string.i_get_code)
             }
         }
         handler.post(runnable)

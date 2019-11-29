@@ -41,7 +41,7 @@
                     android:drawableTop="@drawable/battery_charging_full_u1741"
                     android:drawablePadding="10dp"
                     android:gravity="center"
-                    android:text="N/A"
+                    android:text=""
                     android:textStyle="bold" />
 
                 <ImageView
@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="N/A"
+                        android:text=""
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="N/A"
+                        android:text=""
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -122,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="N/A"
+                        android:text=""
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -161,7 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="N/A"
+                        android:text=""
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -187,7 +187,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="N/A"
+                        android:text=""
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -213,7 +213,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="N/A"
+                        android:text=""
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -318,7 +318,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="BT2019111500067"
                     android:textStyle="bold" />
 
             </LinearLayout>

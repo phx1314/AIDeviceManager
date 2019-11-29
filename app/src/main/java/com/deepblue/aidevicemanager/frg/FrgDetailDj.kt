@@ -18,19 +18,34 @@ import com.deepblue.aidevicemanager.R
 import android.widget.TextView
 import android.widget.ExpandableListView
 import android.widget.Button
+import android.widget.LinearLayout
+import com.deepblue.aidevicemanager.model.ModelDeviceDetail
+import com.mdx.framework.activity.TitleAct
+import com.mdx.framework.util.Helper
+import kotlinx.android.synthetic.main.frg_detail_dj.*
 
 
 class FrgDetailDj : BaseFrg() {
-    override fun initView() {
+    
+    lateinit var mModelDeviceDetail: ModelDeviceDetail
+    override fun create(savedInstanceState: Bundle?) {
+        setContentView(R.layout.frg_detail_dj)
+        mModelDeviceDetail = activity?.intent?.getSerializableExtra("mModelDeviceDetail") as ModelDeviceDetail
     }
-
+    
+    override fun initView() {
+        
+        mButton.setOnClickListener {
+            
+            Helper.startActivity(context, FrgWorkChoose::class.java, TitleAct::class.java)
+        }
+    }
+    
     override fun loaddata() {
     }
-
-
-    override fun create(savedInstanceState: Bundle) {
-        setContentView(R.layout.frg_detail_dj)
+    
+    override fun setActionBar(actionBar: LinearLayout?) {
+        super.setActionBar(actionBar)
+        mHead.setTitle(mModelDeviceDetail.deviceCode)
     }
-
-
 }

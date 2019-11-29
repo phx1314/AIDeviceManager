@@ -121,5 +121,6 @@ public class ModelDevices {
         public Object liveStatus;
         public Object deviceMovedPositionDto;
         public Object frameNum;
+        public String modelPicUrl;
     }
 }

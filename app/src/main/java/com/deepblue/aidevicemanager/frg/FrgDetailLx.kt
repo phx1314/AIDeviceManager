@@ -19,9 +19,15 @@ import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.R
 
 import android.widget.TextView
+import com.deepblue.aidevicemanager.F
+import com.deepblue.aidevicemanager.item.DialogSet
 import com.deepblue.aidevicemanager.model.ModelDeviceDetail
+import com.deepblue.aidevicemanager.util.DesEncryptDecrypt
 import kotlinx.android.synthetic.main.frg_detail_lx.*
+import kotlinx.android.synthetic.main.frg_detail_lx.mTextView
+import kotlinx.android.synthetic.main.frg_login.*
 import kotlinx.android.synthetic.main.item_head.view.*
+import timber.log.Timber
 
 
 class FrgDetailLx : BaseFrg() {
@@ -33,7 +39,7 @@ class FrgDetailLx : BaseFrg() {
 
         type = activity?.intent?.getStringExtra("type") ?: ""
         mModelDeviceDetail =
-            activity?.intent?.getSerializableExtra("mModelDeviceDetail") as ModelDeviceDetail
+                activity?.intent?.getSerializableExtra("mModelDeviceDetail") as ModelDeviceDetail
     }
 
     override fun initView() {
@@ -50,19 +56,24 @@ class FrgDetailLx : BaseFrg() {
 
 
     override fun loaddata() {
+
+    }
+
+    override fun onSuccess(data: String?, method: String) {
+
     }
 
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
         if (type.equals("1")) {
-            mHead.setShowPop()
+            mHead.setShowPop(DialogSet(context))
             mHead.mImageView.setBackgroundResource(R.drawable.u1844)
             mHead.mTextView_d_status.text = getString(R.string.d_connect)
         } else {
+            mHead.setShowPop(DialogSet(context))//fix
             mHead.mImageView.setBackgroundResource(R.drawable.lian)
             mHead.mTextView_d_status.text = getString(R.string.d_no_connect)
         }
-        mHead.canGoBack()
         mHead.mLinearLayout_status.visibility = View.VISIBLE
     }
 }

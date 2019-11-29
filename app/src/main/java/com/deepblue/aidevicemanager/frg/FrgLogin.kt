@@ -29,12 +29,15 @@ import kotlinx.android.synthetic.main.frg_login.*
 import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
 import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+import android.view.View
+import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.util.PhoneFormatCheckUtils
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.TitleAct
 import kotlinx.android.synthetic.main.frg_input_new.*
 import kotlinx.android.synthetic.main.frg_login.mEditText_pass
 import kotlinx.android.synthetic.main.frg_login.mImageView_kan
+import kotlinx.android.synthetic.main.item_head.view.*
 
 
 class FrgLogin : BaseFrg() {
@@ -118,5 +121,11 @@ class FrgLogin : BaseFrg() {
             Helper.startActivity(context, FrgMain::class.java, IndexAct::class.java)
             finish()
         }
+    }
+
+    override fun setActionBar(actionBar: LinearLayout?) {
+        super.setActionBar(actionBar)
+        mHead.mImageView_logo.visibility= View.GONE
+        mHead.canGoBack(false)
     }
 }

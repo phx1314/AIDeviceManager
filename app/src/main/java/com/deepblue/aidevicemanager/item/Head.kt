@@ -11,20 +11,11 @@
 
 package com.deepblue.aidevicemanager.item
 
-import com.deepblue.aidevicemanager.R
-
-import android.annotation.SuppressLint
 import android.content.Context
-import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
-import android.view.ViewGroup
-
 import android.view.View
-import android.widget.ImageButton
-import android.widget.RelativeLayout
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
+import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.pop.PopShowSet
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.BaseActivity
@@ -45,18 +36,18 @@ class Head(context: Context?) : LinearLayout(context) {
     fun set(item: String) {
     }
 
-    fun setShowPop() {
+    fun setShowPop(view: View) {
         mImageButton_set.visibility = View.VISIBLE
         mImageButton_set.setOnClickListener {
-            var mDialogSet = DialogSet(context)
-            var mPopShowSet = PopShowSet(getContext(), mImageButton_set, mDialogSet)
-            mDialogSet.tag = mPopShowSet
+            var mPopShowSet = PopShowSet(getContext(), mImageButton_set, view)
+            view.tag = mPopShowSet
             mPopShowSet.show()
         }
     }
 
-    fun canGoBack() {
-        mImageButton_back.visibility = View.VISIBLE
+    fun canGoBack(b: Boolean = true) {
+        if (b) mImageButton_back.visibility = View.VISIBLE else mImageButton_back.visibility =
+            View.GONE
         mImageButton_back.setOnClickListener {
             (context as BaseActivity).finish()
         }
@@ -64,6 +55,11 @@ class Head(context: Context?) : LinearLayout(context) {
 
     fun setStatusShow() {
         mLinearLayout_status.visibility = View.VISIBLE
+    }
+
+    fun setTitle(s: String) {
+        mTextView_title.visibility = View.VISIBLE
+        mTextView_title.text = s
     }
 
 

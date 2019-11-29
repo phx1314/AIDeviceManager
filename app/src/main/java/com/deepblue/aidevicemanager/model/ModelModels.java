@@ -26,4 +26,5 @@ public class ModelModels {
     public String createUser;
     public String midifyTime;
     public String modifyUser;
+    public String modelPicUrl;
 }

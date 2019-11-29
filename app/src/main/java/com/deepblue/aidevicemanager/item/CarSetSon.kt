@@ -12,31 +12,44 @@
 package com.deepblue.aidevicemanager.item
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import cn.qqtheme.framework.picker.TimePicker
 import cn.qqtheme.framework.util.ConvertUtils
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.ada.AdaCarSetSon
 import com.deepblue.aidevicemanager.model.ModelCarSet
 import com.mdx.framework.activity.BaseActivity
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_car_set.view.*
+import kotlinx.android.synthetic.main.item_car_set_son.view.*
 import java.util.*
 
 
-class CarSet(context: Context?) : LinearLayout(context) {
+class CarSetSon(context: Context?) : LinearLayout(context) {
 
     init {
         val flater = LayoutInflater.from(context)
-        flater.inflate(R.layout.frg_car_set, this)
+        flater.inflate(R.layout.item_car_set_son, this)
+
     }
 
 
-    fun set(item: Array<ModelCarSet>) {
-        mListView.adapter = AdaCarSetSon(context, item.toMutableList())
-
+    fun set(item: ModelCarSet) {
+        if (item.paramShowName.equals("定时启动")) {
+            mLinearLayout_1.visibility = View.GONE
+            mLinearLayout_2.visibility = View.VISIBLE
+        } else {
+            mLinearLayout_1.visibility = View.VISIBLE
+            mLinearLayout_2.visibility = View.GONE
+            mTextView_name.text = item.paramShowName
+            mTextView_dw.text = item.paramUnit
+            mEditText_1.setText(item.rpParamValue)
+        }
     }
 
     fun onTimePicker() {

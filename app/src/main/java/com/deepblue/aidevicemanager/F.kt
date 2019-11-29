@@ -14,43 +14,51 @@ import com.mdx.framework.util.Helper
 
 object F {
     var mModellogin: ModelLogin? = null
-    val baseUrl = "http://192.168.110.204:8081/robotos/cleanApp/"
+//        val baseUrl = "http://192.168.111.48:8081/robotos/cleanApp/"
+//    val baseUrl = "http://10.1.1.160:8081/robotos/cleanApp/" //测试
+    val baseUrl = "http://192.168.16.91:8081/robotos/cleanApp/"//开发
+    
     fun gB() =
-            com.mdx.framework.service.gB(
-                    ApiService::class.java,
-                    baseUrl,
-                    mModellogin?.token
-            )
-
-
+        com.mdx.framework.service.gB(
+            ApiService::class.java,
+            baseUrl,
+            mModellogin?.token
+        )
+    
+    
     fun init() {
         mModellogin = Gson().fromJson(getJson("mModellogin"), ModelLogin::class.java)
-
+        
     }
-
+    
     fun <T> data2Model(data: String?, mclass: Class<T>): T {
         return Gson().fromJson(data, mclass)
     }
-
-
+    
+    
     fun getJson(key: String): String? {
         val sp = PreferenceManager
-                .getDefaultSharedPreferences(Frame.CONTEXT)
+            .getDefaultSharedPreferences(Frame.CONTEXT)
         return sp.getString(key, "")
     }
-
+    
     fun saveJson(key: String, json: String?) {
         val sp = PreferenceManager
-                .getDefaultSharedPreferences(Frame.CONTEXT)
+            .getDefaultSharedPreferences(Frame.CONTEXT)
         sp.edit().putString(key, json).apply()
-
+        
     }
-
+    
     fun logOut(context: Context?, isShow: Boolean = true) {
         if (isShow) Helper.toast(context?.resources?.getString(R.string.i_login))
         saveJson("mModellogin", "")
         mModellogin = null
-        Helper.startActivity(context, Intent.FLAG_ACTIVITY_CLEAR_TOP, FrgLogin::class.java, IndexAct::class.java)
+        Helper.startActivity(
+            context,
+            Intent.FLAG_ACTIVITY_CLEAR_TOP,
+            FrgLogin::class.java,
+            IndexAct::class.java
+        )
     }
-
+    
 }

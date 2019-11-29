@@ -84,6 +84,7 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
 
     override fun setActionBar(actionBar: LinearLayout?) {
         mHead = Head(context)
+        mHead.canGoBack()
         actionBar?.addView(
             mHead,
             LinearLayout.LayoutParams.MATCH_PARENT,
