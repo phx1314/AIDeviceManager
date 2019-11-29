@@ -1,14 +1,17 @@
 package com.deepblue.aidevicemanager.frg
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.view.View
+import android.widget.Toast
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.view.TextSwitch
 import kotlinx.android.synthetic.main.frg_workdetail.*
 import java.util.HashMap
 
-class FrgWorkDetail : BaseFrg() {
+class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
     private lateinit var fragments: HashMap<Int, Fragment>
     private var WORKSTATE = 0  //工作状态 0：初始，1：运行，2：暂停
     private val PAGE_DIANYUN = 0
@@ -43,6 +46,9 @@ class FrgWorkDetail : BaseFrg() {
 
     override fun onClick(v: View) {
         when (v.id) {
+            R.id.btn_EMG -> {
+                Toast.makeText(context, "123", Toast.LENGTH_SHORT).show()
+            }
             R.id.iv_lefttop_switch -> switchFragment(0)
             R.id.iv_leftcenter_switch -> switchFragment(1)
             R.id.iv_leftbottom_switch -> switchFragment(2)
@@ -111,10 +117,10 @@ class FrgWorkDetail : BaseFrg() {
     private fun doSwitchFrg(a1: Int, a2: Int) {
         val frg1Old = childFragmentManager.findFragmentById(a1)
         val frg2Old = childFragmentManager.findFragmentById(a2)
-        val frg1_new = getContainerFragment(frg2Old)
-        val frg2_new = getContainerFragment(frg1Old)
+        val frgNew1 = getContainerFragment(frg2Old)
+        val frgNew2 = getContainerFragment(frg1Old)
 
-        if (frg1_new != null && frg2_new != null && frg1Old != null && frg2Old != null) {
+        if (frgNew1 != null && frgNew2 != null && frg1Old != null && frg2Old != null) {
             childFragmentManager.popBackStackImmediate(
                 null,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -125,12 +131,13 @@ class FrgWorkDetail : BaseFrg() {
                 .commit()
             childFragmentManager.executePendingTransactions()
             childFragmentManager.beginTransaction()
-                .replace(a1, frg1_new)
-                .replace(a2, frg2_new)
+                .replace(a1, frgNew1)
+                .replace(a2, frgNew2)
                 .commit()
         }
     }
 
+    @SuppressLint("DefaultLocale")
     private fun getContainerFragment(frg: Fragment?): Fragment? {
         if (frg.toString().toLowerCase().contains("frgwdlaser"))
             return FrgWDLaser()
@@ -153,6 +160,21 @@ class FrgWorkDetail : BaseFrg() {
         btn_stopwork.setOnClickListener(this)
         btn_continuework.setOnClickListener(this)
         btn_endwork.setOnClickListener(this)
+        btn_EMG.setOnClickListener(this)
+        sweep_location.setOnCheckedChangeListener(this)
+        sweep_state.setOnCheckedChangeListener(this)
+        water_state.setOnCheckedChangeListener(this)
+        wind_location.setOnCheckedChangeListener(this)
+        wind_state.setOnCheckedChangeListener(this)
     }
 
+    override fun onCheckedChanged(switch_id: String?, isChecked: Boolean) {
+        when (switch_id) {
+            "1" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+            "2" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+            "3" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+            "4" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+            "5" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+        }
+    }
 }
