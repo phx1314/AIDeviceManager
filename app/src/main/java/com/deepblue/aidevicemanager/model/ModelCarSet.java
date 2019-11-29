@@ -55,8 +55,8 @@ public class ModelCarSet {
     public String modifyUser;
     public int rpParamId;
     public String rpParamValue;
-    public Object rpParamMin;
-    public Object rpParamMax;
+    public String rpParamMin;
+    public String rpParamMax;
     public int flag;
     public int modifyFlag;
     public String paramName;

@@ -3,6 +3,7 @@ package com.deepblue.aidevicemanager
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
+import cn.jpush.android.api.JPushInterface
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.mdx.framework.Frame
@@ -17,6 +18,8 @@ class Mapplication : Application() {
         initTimber()
         Frame.init(applicationContext)
         initBaiduSDK()
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     private fun initBaiduSDK() {

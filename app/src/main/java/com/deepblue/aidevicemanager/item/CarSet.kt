@@ -14,43 +14,38 @@ package com.deepblue.aidevicemanager.item
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.widget.LinearLayout
-import cn.qqtheme.framework.picker.TimePicker
-import cn.qqtheme.framework.util.ConvertUtils
+import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaCarSetSon
 import com.deepblue.aidevicemanager.model.ModelCarSet
-import com.mdx.framework.activity.BaseActivity
+import com.deepblue.aidevicemanager.model.ModelDeviceDetail
+import com.deepblue.aidevicemanager.util.DesEncryptDecrypt
+import com.google.gson.Gson
+import com.mdx.framework.Frame
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_car_set.view.*
-import java.util.*
 
 
-class CarSet(context: Context?) : LinearLayout(context) {
+class CarSet(context: Context?) : BaseItem(context) {
+    lateinit var item: ArrayList<ModelCarSet>
+    lateinit var mModelDeviceDetail: ModelDeviceDetail
 
     init {
         val flater = LayoutInflater.from(context)
         flater.inflate(R.layout.frg_car_set, this)
+
+        mTextView_update4.setOnClickListener {
+            Frame.HANDLES.sentAll("DialogSet", 0, "")
+        }
+        mTextView_update5.setOnClickListener {
+            Frame.HANDLES.sentAll("DialogSet", 1, "")
+        }
     }
 
 
-    fun set(item: Array<ModelCarSet>) {
-        mListView.adapter = AdaCarSetSon(context, item.toMutableList())
-
-    }
-
-    fun onTimePicker() {
-        val picker = TimePicker(context as BaseActivity, TimePicker.HOUR_24)
-        picker.setUseWeight(false)
-        picker.setCycleDisable(false)
-        picker.setRangeStart(0, 0)//00:00
-        picker.setRangeEnd(23, 59)//23:59
-        val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        val currentMinute = Calendar.getInstance().get(Calendar.MINUTE)
-        picker.setSelectedItem(currentHour, currentMinute)
-        picker.setTopLineVisible(false)
-        picker.setTextPadding(ConvertUtils.toPx(context, 15f))
-        picker.setOnTimePickListener { hour, minute -> Helper.toast("$hour:$minute") }
-        picker.show()
+    fun set(item: ArrayList<ModelCarSet>, mModelDeviceDetail: ModelDeviceDetail) {
+        this.item = item
+        this.mModelDeviceDetail = mModelDeviceDetail
+        mListView.adapter = AdaCarSetSon(context, item)
     }
 }

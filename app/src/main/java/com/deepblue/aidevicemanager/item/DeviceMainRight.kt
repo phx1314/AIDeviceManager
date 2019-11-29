@@ -13,38 +13,29 @@ package com.deepblue.aidevicemanager.item
 
 import com.deepblue.aidevicemanager.R
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.ViewGroup
 
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.ImageView
-import android.widget.TextView
-import com.baidu.location.b.i
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.frg.FrgDetailDj
-import com.deepblue.aidevicemanager.frg.FrgDetailLx
 import com.deepblue.aidevicemanager.model.ModelData
 import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelDevices
-import com.deepblue.aidevicemanager.util.DesEncryptDecrypt
 import com.deepblue.aidevicemanager.util.GlideLoader
 import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
-import kotlinx.android.synthetic.main.frg_login.*
 import kotlinx.android.synthetic.main.item_device_main_right.view.*
-import timber.log.Timber
 
 
 class DeviceMainRight(context: Context?) : BaseItem(context) {
     lateinit var item: ModelData<ModelDevices.RowsBean>
-    
+
     init {
         val flater = LayoutInflater.from(context)
         flater.inflate(R.layout.item_device_main_right, this)
-        
+
         mLinearLayout_1.setOnClickListener {
             load(F.gB().queryDeviceDetail(item.mList[0].id.toString()), "queryDeviceDetail")
         }
@@ -58,39 +49,21 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
             load(F.gB().queryDeviceDetail(item.mList[3].id.toString()), "queryDeviceDetail")
         }
     }
-    
+
     override fun onSuccess(data: String?, method: String) {
         var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
         if (mModelDeviceDetail.deviceMaintainStatus.equals("1")) {
+            Helper.startActivity(
+                context,
+                FrgDetailDj::class.java,
+                TitleAct::class.java,
+                "mModelDeviceDetail",
+                mModelDeviceDetail
+            )
             if (mModelDeviceDetail.deviceStatus.equals("0")) {
-                Helper.startActivity(
-                        context,
-                        FrgDetailLx::class.java,
-                        TitleAct::class.java,
-                        "type",
-                        "0",
-                        "mModelDeviceDetail",
-                        mModelDeviceDetail
-                )
             } else {
                 if (mModelDeviceDetail.deviceOnlineStatus.equals("0")) {
-                    Helper.startActivity(
-                            context,
-                            FrgDetailLx::class.java,
-                            TitleAct::class.java,
-                            "type",
-                            "1",
-                            "mModelDeviceDetail",
-                            mModelDeviceDetail
-                    )
                 } else if (mModelDeviceDetail.deviceOnlineStatus.equals("3")) {
-                    Helper.startActivity(
-                            context,
-                            FrgDetailDj::class.java,
-                            TitleAct::class.java,
-                            "mModelDeviceDetail",
-                            mModelDeviceDetail
-                    )
                 } else if (mModelDeviceDetail.deviceOnlineStatus.equals("4")) {
                     if (mModelDeviceDetail.deviceTaskStatus.equals("2")) {//正在施行
                     }
@@ -99,9 +72,9 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
         } else {
             Helper.toast(resources.getString(R.string.d_broken))
         }
-        
+
     }
-    
+
     fun set(item: ModelData<ModelDevices.RowsBean>) {
         this.item = item
         setShow(item.mList.size)
@@ -124,9 +97,9 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
                 GlideLoader.loadImage(it.modelPicUrl, mImageView_slw_4, R.drawable.test_clean)
             }
         }
-        
+
     }
-    
+
     fun setStatusType(mImageView: ImageView, it: ModelDevices.RowsBean) {
         if (it.deviceMaintainStatus.equals("1")) {//正常
             if (it.deviceStatus.equals("0")) {//未激活
@@ -146,12 +119,12 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
             mImageView.setBackgroundResource(R.drawable.shape_yuank)
         }
     }
-    
+
     fun setShow(count: Int) {
         mLinearLayout_1.visibility = if (count > 0) View.VISIBLE else View.INVISIBLE
         mLinearLayout_2.visibility = if (count > 1) View.VISIBLE else View.INVISIBLE
         mLinearLayout_3.visibility = if (count > 2) View.VISIBLE else View.INVISIBLE
         mLinearLayout_4.visibility = if (count > 3) View.VISIBLE else View.INVISIBLE
     }
-    
+
 }

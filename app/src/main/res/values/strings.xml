@@ -27,6 +27,14 @@
     <string name="d_mmgg" translatable="false">密码更改</string>
     <string name="d_connect" translatable="false">设备已连接</string>
     <string name="d_no_connect" translatable="false">设备未连接</string>
+    <string name="d_spkd" translatable="false">扫盘宽度</string>
+    <string name="d_qscs" translatable="false">清扫车速</string>
+    <string name="d_dsqd" translatable="false">定时启动</string>
+    <string name="d_vcu" translatable="false">VCU版本</string>
+    <string name="d_sfbb" translatable="false">算法版本</string>
+    <string name="d_rjbb" translatable="false">软件版本</string>
+    <string name="d_ddlbj" translatable="false">低电量报警</string>
+    <string name="d_yzddlbj" translatable="false">严重低电量报警</string>
     <string name="button_startwork">自动作业</string>
     <string name="button_stopwork">暂停作业</string>
     <string name="button_endwork">停止作业</string>

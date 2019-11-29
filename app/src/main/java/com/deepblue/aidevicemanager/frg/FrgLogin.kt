@@ -38,11 +38,14 @@ import kotlinx.android.synthetic.main.frg_input_new.*
 import kotlinx.android.synthetic.main.frg_login.mEditText_pass
 import kotlinx.android.synthetic.main.frg_login.mImageView_kan
 import kotlinx.android.synthetic.main.item_head.view.*
+import cn.jpush.android.api.TagAliasCallback
+import cn.jpush.android.api.JPushInterface
+import android.util.Log
 
 
 class FrgLogin : BaseFrg() {
     //    18151735217
-//    559860
+    //    559860
     var isChecked = true
 
     override fun create(savedInstanceState: Bundle?) {
@@ -51,13 +54,10 @@ class FrgLogin : BaseFrg() {
     }
 
     override fun initView() {
-        Helper.requestPermissions(
-                arrayOf(
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.READ_PHONE_STATE,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
-                ), object : PermissionRequest() {
+        Helper.requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_PHONE_STATE,
+            android.Manifest.permission.ACCESS_FINE_LOCATION), object : PermissionRequest() {
             override fun onGrant(var1: Array<out String>?, var2: IntArray?) {
 
             }
@@ -90,20 +90,13 @@ class FrgLogin : BaseFrg() {
                 Helper.toast(getString(R.string.i_phone_length))
                 return@setOnClickListener
             }
-            if (TextUtils.isEmpty(
-                            mEditText_pass.text.toString()
-                    )
-            ) {
+            if (TextUtils.isEmpty(mEditText_pass.text.toString())) {
                 Helper.toast(getString(R.string.i_porc_length))
                 return@setOnClickListener
             }
-            load(
-                    gB().login(
-                            mEditText_phone.getText().toString(),
-                            DesEncryptDecrypt.getInstance().encrypt(mEditText_pass.getText().toString()),
-                            ""
-                    ), "login"
-            )
+            load(gB().login(mEditText_phone.getText().toString(),
+                DesEncryptDecrypt.getInstance().encrypt(mEditText_pass.getText().toString()),
+                ""), "login")
         }
         mTextView_forget.setOnClickListener {
             Helper.startActivity(context, FrgForget::class.java, TitleAct::class.java)
@@ -119,13 +112,25 @@ class FrgLogin : BaseFrg() {
             mModellogin = data2Model(data, ModelLogin::class.java)
             F.saveJson("mModellogin", data)
             Helper.startActivity(context, FrgMain::class.java, IndexAct::class.java)
-            finish()
+            JPushInterface.resumePush(activity!!)
+            val s = HashSet<String>()
+            s.add("")
+            JPushInterface.setAliasAndTags(activity!!,
+                mModellogin?.user?.id?.toInt().toString(),
+                s) { code, s, set ->
+                this@FrgLogin.finish()
+                when (code) {
+                    0 -> Log.i("JPush", "设置别名成功")
+                    //                    6002 -> Log.i("JPush", "失败,错误码= $code")
+                    //                    else -> Log.i("JPush", "失败,错误码= $code")
+                }
+            }
         }
     }
 
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
-        mHead.mImageView_logo.visibility= View.GONE
+        mHead.mImageView_logo.visibility = View.GONE
         mHead.canGoBack(false)
     }
 }

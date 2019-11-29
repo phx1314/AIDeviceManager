@@ -63,7 +63,6 @@
         android:visibility="gone">
 
         <LinearLayout
-            android:id="@+id/mLinearLayout_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -79,42 +78,24 @@
             <TextView
                 android:id="@+id/mTextView_3"
                 style="@style/text_style_15_black"
-                android:layout_width="50dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
                 android:background="@drawable/shape_logink"
-                android:hint="00"
+                android:hint="00:00"
                 android:padding="8dp" />
 
-            <TextView
+            <CheckBox
+                android:id="@+id/mCheckBox"
                 style="@style/text_style_15_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text=":"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/mTextView_4"
-                style="@style/text_style_15_black"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:background="@drawable/shape_logink"
-                android:hint="00"
-                android:padding="8dp" />
+                android:text="每天" />
         </LinearLayout>
 
-        <CheckBox
-            style="@style/text_style_15_white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginLeft="80dp"
-            android:paddingLeft="10dp"
-            android:text="每天" />
 
     </LinearLayout>
 </LinearLayout>

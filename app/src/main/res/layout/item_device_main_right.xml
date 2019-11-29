@@ -10,13 +10,15 @@
 
     <LinearLayout
         android:id="@+id/mLinearLayout_1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:background="@drawable/shape_logink"
             android:elevation="2dp">
 
@@ -51,14 +53,16 @@
 
     <LinearLayout
         android:id="@+id/mLinearLayout_2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:background="@drawable/shape_logink"
             android:elevation="2dp">
 
@@ -93,14 +97,16 @@
 
     <LinearLayout
         android:id="@+id/mLinearLayout_3"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:background="@drawable/shape_logink"
             android:elevation="2dp">
 
@@ -135,14 +141,16 @@
 
     <LinearLayout
         android:id="@+id/mLinearLayout_4"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:background="@drawable/shape_logink"
             android:elevation="2dp">
 

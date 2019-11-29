@@ -12,22 +12,37 @@
 package com.deepblue.aidevicemanager.item
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.LayoutInflater
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.bean.BeanParam1
+import com.deepblue.aidevicemanager.bean.BeanParam2
 import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelCarSet
+import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelModels
 import com.deepblue.aidevicemanager.pop.PopShowSet
+import com.google.gson.Gson
+import com.mdx.framework.Frame
+import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.item_dialog_set.view.*
 import timber.log.Timber
 
 
-class DialogSet(context: Context?) : BaseItem(context) {
-    lateinit var mModelCarSets: Array<ModelCarSet>
+class DialogSet(context: Context?, var mModelDeviceDetail: ModelDeviceDetail) : BaseItem(context) {
+    var mModelCarSets_new = ArrayList<ModelCarSet>()
     var mDc: Dc
     var mCgqManage: CgqManage
     var mCarSet: CarSet
+    val carsetPZ = arrayOf(
+        resources.getString(R.string.d_spkd),
+        resources.getString(R.string.d_qscs),
+        resources.getString(R.string.d_dsqd),
+        resources.getString(R.string.d_vcu),
+        resources.getString(R.string.d_sfbb),
+        resources.getString(R.string.d_rjbb)
+    )
 
     init {
         val flater = LayoutInflater.from(context)
@@ -54,18 +69,36 @@ class DialogSet(context: Context?) : BaseItem(context) {
             (this@DialogSet.getTag() as PopShowSet).hide()
         }
 
-        load(F.gB().queryDeviceParamList("362"), "queryDeviceParamList")
-        load(F.gB().queryDeviceLiveData("362"), "queryDeviceLiveData")
+        load(F.gB().queryDeviceParamList(mModelDeviceDetail.id.toString()), "queryDeviceParamList")
+        load(F.gB().queryDeviceLiveData(mModelDeviceDetail.id.toString()), "queryDeviceLiveData")
     }
 
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryDeviceParamList")) {
             var mModelCarSets = F.data2Model(data, Array<ModelCarSet>::class.java)
-            mCarSet.set(mModelCarSets)
+            mModelCarSets_new = ArrayList<ModelCarSet>()
+            mModelCarSets.forEach {
+                if (carsetPZ.contains(it.paramShowName)) {
+                    mModelCarSets_new.add(it)
+                }
+                if (it.paramShowName.equals(resources.getString(R.string.d_ddlbj)) || it.paramShowName.equals(
+                        resources.getString(R.string.d_yzddlbj)
+                    )
+                ) {
+                    mDc.set(it)
+                }
+            }
+            mCarSet.set(mModelCarSets_new, mModelDeviceDetail)
         } else if (method.equals("queryDeviceLiveData")) {
             var mModelB = F.data2Model(data, ModelB::class.java)
             mDc.set(mModelB)
             mCgqManage.set(mModelB)
+        } else if (method.equals("configDeviceParamBatch")) {
+            Helper.toast("同步成功")
+            load(
+                F.gB().queryDeviceParamList(mModelDeviceDetail.id.toString()),
+                "queryDeviceParamList"
+            )
         }
     }
 
@@ -73,5 +106,48 @@ class DialogSet(context: Context?) : BaseItem(context) {
 
     }
 
+    override fun disposeMsg(type: Int, obj: Any) {
+        when (type) {
+            0 -> {
+                var data = ArrayList<Any>()
+                mModelCarSets_new.forEach {
+                    if (TextUtils.isEmpty(it.rpParamMin)) {
+                        data.add(BeanParam1(it.rpParamId.toString(), it.rpParamValue))
+                    } else {
+                        data.add(
+                            BeanParam2(
+                                it.rpParamId.toString(),
+                                it.rpParamValue,
+                                it.rpParamMin,
+                                it.rpParamMax
+                            )
+                        )
+                    }
+                }
+                load(
+                    F.gB().configDeviceParamBatch(
+                        mModelDeviceDetail.deviceVersionId.toString(),
+                        mModelDeviceDetail.id.toString(),
+                        Gson().toJson(data)
+                    ), "configDeviceParamBatch"
+                )
+            }
+            1 -> {
+                load(
+                    F.gB().queryDeviceParamList(mModelDeviceDetail.id.toString()),
+                    "queryDeviceParamList"
+                )
+            }
+            2 -> {
+                load(
+                    F.gB().configDeviceParamBatch(
+                        mModelDeviceDetail.deviceVersionId.toString(),
+                        mModelDeviceDetail.id.toString(),
+                        obj.toString()
+                    ), "configDeviceParamBatch"
+                )
+            }
 
+        }
+    }
 }
