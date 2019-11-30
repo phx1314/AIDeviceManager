@@ -12,10 +12,8 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.app.ProgressDialog
-import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.item.Head
@@ -35,6 +33,7 @@ import io.reactivex.schedulers.Schedulers
 
 abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriberListener {
     lateinit var mHead: Head
+    private fun isHeadInit() = ::mHead.isInitialized
     var compositeDisposable = CompositeDisposable()
     final override fun initV(view: View) {
         initView()
@@ -44,6 +43,15 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     abstract fun initView()
     abstract fun loaddata()
     override fun onClick(v: View) {
+
+    }
+
+    override fun disposeMsg(type: Int, obj: Any?) {
+        when (type) {
+            1110 -> { //电池
+                if (isHeadInit()) mHead?.setStatus()
+            }
+        }
 
     }
 
@@ -57,22 +65,12 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     }
 
     fun <T> load(o: Observable<HttpResult<T>>, m: String, isShow: Boolean = true) {
-        var s =
-            S<T>(
-                this,
-                ProgressDialog(context).apply { this.setMessage(getString(R.string.loading)) },
-                m,
-                isShow
-            )
+        var s = S<T>(this, ProgressDialog(context).apply { this.setMessage(getString(R.string.loading)) }, m, isShow)
         compositeDisposable.add(s)
         if (!AbAppUtil.isNetworkAvailable(Frame.CONTEXT)) {
             Helper.toast(getString(R.string.net_error))
         }
-        o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { if (s.isShow) s.mProgressDialog.show() }
-            .doFinally { if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss() }
-            .subscribe(s)
+        o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe { if (s.isShow) s.mProgressDialog.show() }.doFinally { if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss() }.subscribe(s)
     }
 
 
@@ -85,11 +83,8 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     override fun setActionBar(actionBar: LinearLayout?) {
         mHead = Head(context)
         mHead.canGoBack()
-        actionBar?.addView(
-            mHead,
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
+        mHead.setStatus()
+        actionBar?.addView(mHead, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
     }
 
 

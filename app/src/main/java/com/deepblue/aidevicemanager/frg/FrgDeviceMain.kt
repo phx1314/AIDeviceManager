@@ -37,6 +37,7 @@ class FrgDeviceMain : BaseFrg() {
     }
     
     override fun disposeMsg(type: Int, obj: Any?) {
+        super.disposeMsg(type, obj)
         when (type) {
             0 -> {
                 mModelModels_one = obj as ModelModels

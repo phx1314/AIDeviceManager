@@ -13,13 +13,8 @@ package com.deepblue.aidevicemanager.frg
 
 import android.os.Bundle
 import android.view.View
-
-import com.deepblue.aidevicemanager.R
-
-import android.widget.TextView
-import android.widget.ExpandableListView
-import android.widget.Button
 import android.widget.LinearLayout
+import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.item.DialogSet
 import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.mdx.framework.activity.TitleAct
@@ -40,7 +35,7 @@ class FrgDetailDj : BaseFrg() {
     override fun initView() {
         mButton.setOnClickListener {
             if (mButton.text.equals("启动")) {
-
+                mProgressBar.visibility = View.VISIBLE
             } else {
                 Helper.startActivity(context, FrgWorkChoose::class.java, TitleAct::class.java)
             }
@@ -48,24 +43,24 @@ class FrgDetailDj : BaseFrg() {
     }
 
     override fun loaddata() {
-        if (mModelDeviceDetail.deviceStatus.equals("0")) {//离线
+        if (mModelDeviceDetail.deviceStatus.equals("0")) { //离线
             mTextView_status.text = "离线"
             mButton.visibility = View.GONE
-            mHead.setShowPop(DialogSet(context,mModelDeviceDetail))//fix
+            mHead.setShowPop(DialogSet(context, mModelDeviceDetail)) //fix
             mHead.mImageView.setBackgroundResource(R.drawable.lian)
             mHead.mTextView_d_status.text = getString(R.string.d_no_connect)
         } else {
-            if (mModelDeviceDetail.deviceOnlineStatus.equals("0")) {//离线待机
+            if (mModelDeviceDetail.deviceOnlineStatus.equals("0")) { //离线待机
                 mTextView_status.text = "离线待机"
                 mButton.text = "启动"
-                mHead.setShowPop(DialogSet(context,mModelDeviceDetail))
+                mHead.setShowPop(DialogSet(context, mModelDeviceDetail))
                 mHead.mImageView.setBackgroundResource(R.drawable.u1844)
                 mHead.mTextView_d_status.text = getString(R.string.d_connect)
-            } else if (mModelDeviceDetail.deviceOnlineStatus.equals("3")) {//在线待机
+            } else if (mModelDeviceDetail.deviceOnlineStatus.equals("3")) { //在线待机
                 mTextView_status.text = "待机"
                 mButton.text = "清扫作业任务选择"
             } else if (mModelDeviceDetail.deviceOnlineStatus.equals("4")) {
-                if (mModelDeviceDetail.deviceTaskStatus.equals("2")) {//正在施行
+                if (mModelDeviceDetail.deviceTaskStatus.equals("2")) { //正在施行
                 }
             }
         }

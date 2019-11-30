@@ -15,6 +15,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import com.deepblue.aidevicemanager.F
+import com.deepblue.aidevicemanager.F.mModelStatus
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.pop.PopShowSet
 import com.mdx.framework.Frame
@@ -46,21 +48,81 @@ class Head(context: Context?) : LinearLayout(context) {
     }
 
     fun canGoBack(b: Boolean = true) {
-        if (b) mImageButton_back.visibility = View.VISIBLE else mImageButton_back.visibility =
-            View.GONE
+        if (b) mImageButton_back.visibility = View.VISIBLE else mImageButton_back.visibility = View.GONE
         mImageButton_back.setOnClickListener {
             (context as BaseActivity).finish()
         }
     }
 
-    fun setStatusShow() {
-        mLinearLayout_status.visibility = View.VISIBLE
-    }
 
     fun setTitle(s: String) {
         mTextView_title.visibility = View.VISIBLE
         mTextView_title.text = s
     }
 
+    fun setStatus() {
+        mTextView_dc.text = mModelStatus?.batteryLevel.toString()
+        when (mModelStatus?.batteryLevel) {
+            0 - 5 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_alert_black_24dp, 0, 0, 0)
+            }
+            6 - 20 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_20_black_24dp, 0, 0, 0)
+            }
+            21 - 30 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_30_black_24dp, 0, 0, 0)
+            }
+            31 - 50 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_50_black_24dp, 0, 0, 0)
+            }
+            51 - 60 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_60_black_24dp, 0, 0, 0)
+            }
+            61 - 80 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_80_black_24dp, 0, 0, 0)
+            }
+            91 - 99 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_90_black_24dp, 0, 0, 0)
+            }
+            100 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_full_black_24dp, 0, 0, 0)
+            }
+        }
+        mImageView_gps.visibility = if (F.isOPenGPS(context)) View.VISIBLE else View.GONE
+        when (F.checkWifiState(context)) {
+            -1 -> {
+                mImageView_wifi.visibility = View.GONE
+            }
+            0 -> {
+                mImageView_wifi.visibility = View.VISIBLE
+                mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_1_bar_black_24dp)
+            }
+            1 -> {
+                mImageView_wifi.visibility = View.VISIBLE
+                mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_2_bar_black_24dp)
+            }
+            2 -> {
+                mImageView_wifi.visibility = View.VISIBLE
+                mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_3_bar_black_24dp)
+            }
+            3 -> {
+                mImageView_wifi.visibility = View.VISIBLE
+                mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
+            }
+            4 -> {
+                mImageView_wifi.visibility = View.VISIBLE
+                mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
+            }
+        }
+        when (mModelStatus?.g4Level) {
+            -1 -> {
+                mImageView_4g.visibility = View.GONE
+            }
+            else -> {
+                mImageView_4g.visibility = View.VISIBLE
+                mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
+            }
+        }
+    }
 
 }

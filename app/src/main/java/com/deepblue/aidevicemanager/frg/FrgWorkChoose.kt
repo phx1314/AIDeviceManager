@@ -15,16 +15,13 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.ada.AdaDeviceMainRight
 import com.deepblue.aidevicemanager.ada.AdaWorkChoose
 import com.deepblue.aidevicemanager.ada.AdaWorkChooseBottom
 import com.deepblue.aidevicemanager.model.ModelData
 import com.deepblue.aidevicemanager.model.ModelDevices
 import com.deepblue.aidevicemanager.model.ModelMap
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.frg_device_main.*
 import kotlinx.android.synthetic.main.frg_work_choose.*
-import kotlinx.android.synthetic.main.frg_work_choose.mAbPullListView
 
 
 class FrgWorkChoose : BaseFrg() {
@@ -37,6 +34,7 @@ class FrgWorkChoose : BaseFrg() {
     }
 
     override fun disposeMsg(type: Int, obj: Any?) {
+        super.disposeMsg(type, obj)
         when (type) {
             0 -> {
 

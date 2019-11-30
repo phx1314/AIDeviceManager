@@ -6,5 +6,5 @@ rootProject.name='AIDeviceManager'
 //project(':utils').projectDir = new File(settingsDir, '../DeepblueLibraries/utils')
 //include ':klog'
 //project(':klog').projectDir = new File(settingsDir, '../DeepblueLibraries/klog')
-//include ':frameWidget'
-//project(':frameWidget').projectDir = new File(settingsDir, '../Frame/frameWidget')
+include ':frameWidget'
+project(':frameWidget').projectDir = new File(settingsDir, '../Frame/frameWidget')
