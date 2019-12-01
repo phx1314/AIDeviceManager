@@ -24,16 +24,25 @@
             android:fadingEdge="none"
             android:listSelector="#00000000" />
 
-
-        <com.mdx.framework.view.HorizontalListView
-            android:id="@+id/mHorizontalListView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="30dp"
-            android:cacheColorHint="#00000000"
-            android:divider="@null"
-            android:listSelector="#00000000"
-            android:scrollbars="none"></com.mdx.framework.view.HorizontalListView>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.mdx.framework.view.HorizontalListView
+                android:id="@+id/mHorizontalListView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:layout_weight="1"
+                android:cacheColorHint="#00000000"
+                android:divider="@null"
+                android:listSelector="#00000000"
+                android:scrollbars="none"></com.mdx.framework.view.HorizontalListView>
+
+        </LinearLayout>
     </LinearLayout>
 
     <ImageView

@@ -20,11 +20,12 @@ import com.deepblue.aidevicemanager.F.init
 import com.deepblue.aidevicemanager.F.mModelStatus
 import com.deepblue.aidevicemanager.F.mModellogin
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.frg.FrgLogin
 import com.deepblue.aidevicemanager.frg.FrgMain
+import com.deepblue.aidevicemanager.frg.FrgWorkChoose
 import com.deepblue.aidevicemanager.model.ModelStatus
 import com.deepblue.aidevicemanager.service.BatteryService
 import com.mdx.framework.activity.IndexAct
+import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
 
 class ActLoading : Activity() {
@@ -43,7 +44,8 @@ class ActLoading : Activity() {
         init()
         Handler().postDelayed({
             if (mModellogin == null) {
-                Helper.startActivity(this, FrgLogin::class.java, IndexAct::class.java)
+                Helper.startActivity( this, FrgWorkChoose::class.java, TitleAct::class.java )
+                //Helper.startActivity(this, FrgLogin::class.java, IndexAct::class.java)
             } else {
                 Helper.startActivity(this, FrgMain::class.java, IndexAct::class.java)
             }

@@ -11,14 +11,12 @@
 
 package com.deepblue.aidevicemanager.item
 
-import com.deepblue.aidevicemanager.R
-
 import android.content.Context
 import android.view.LayoutInflater
-
 import android.view.View
 import android.widget.ImageView
 import com.deepblue.aidevicemanager.F
+import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.frg.FrgDetailDj
 import com.deepblue.aidevicemanager.model.ModelData
 import com.deepblue.aidevicemanager.model.ModelDeviceDetail
@@ -53,13 +51,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
     override fun onSuccess(data: String?, method: String) {
         var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
         if (mModelDeviceDetail.deviceMaintainStatus.equals("1")) {
-            Helper.startActivity(
-                context,
-                FrgDetailDj::class.java,
-                TitleAct::class.java,
-                "mModelDeviceDetail",
-                mModelDeviceDetail
-            )
+            Helper.startActivity( context, FrgDetailDj::class.java, TitleAct::class.java,   mModelDeviceDetail)
             if (mModelDeviceDetail.deviceStatus.equals("0")) {
             } else {
                 if (mModelDeviceDetail.deviceOnlineStatus.equals("0")) {

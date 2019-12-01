@@ -48,7 +48,8 @@ class Head(context: Context?) : LinearLayout(context) {
     }
 
     fun canGoBack(b: Boolean = true) {
-        if (b) mImageButton_back.visibility = View.VISIBLE else mImageButton_back.visibility = View.GONE
+        if (b) mImageButton_back.visibility = View.VISIBLE else mImageButton_back.visibility =
+                View.GONE
         mImageButton_back.setOnClickListener {
             (context as BaseActivity).finish()
         }
@@ -62,31 +63,51 @@ class Head(context: Context?) : LinearLayout(context) {
 
     fun setStatus() {
         mTextView_dc.text = mModelStatus?.batteryLevel.toString()
-        when (mModelStatus?.batteryLevel) {
-            0 - 5 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_alert_black_24dp, 0, 0, 0)
+        when {
+            mModelStatus?.batteryLevel in 0..5 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_battery_alert_black_24dp, 0, 0, 0
+                )
             }
-            6 - 20 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_20_black_24dp, 0, 0, 0)
+            mModelStatus?.batteryLevel in 6..20 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_battery_20_black_24dp, 0, 0, 0
+                )
             }
-            21 - 30 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_30_black_24dp, 0, 0, 0)
+            mModelStatus?.batteryLevel in 21..30 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_battery_30_black_24dp, 0, 0, 0
+                )
             }
-            31 - 50 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_50_black_24dp, 0, 0, 0)
+            mModelStatus?.batteryLevel in 31..50 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_battery_50_black_24dp, 0, 0, 0
+                )
             }
-            51 - 60 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_60_black_24dp, 0, 0, 0)
+            mModelStatus?.batteryLevel in 51..60 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_battery_60_black_24dp, 0, 0, 0
+                )
             }
-            61 - 80 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_80_black_24dp, 0, 0, 0)
+            mModelStatus?.batteryLevel in 61..80 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_battery_80_black_24dp, 0, 0, 0
+                )
             }
-            91 - 99 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_90_black_24dp, 0, 0, 0)
+            mModelStatus?.batteryLevel in 81..90 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_battery_90_black_24dp, 0, 0, 0
+                )
             }
-            100 -> {
+            mModelStatus?.batteryLevel in 91..100 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_full_black_24dp, 0, 0, 0)
             }
+            else -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_battery_unknown_black_24dp, 0, 0, 0
+                )
+            }
+
         }
         mImageView_gps.visibility = if (F.isOPenGPS(context)) View.VISIBLE else View.GONE
         when (F.checkWifiState(context)) {
@@ -118,9 +139,23 @@ class Head(context: Context?) : LinearLayout(context) {
             -1 -> {
                 mImageView_4g.visibility = View.GONE
             }
-            else -> {
-                mImageView_4g.visibility = View.VISIBLE
+            0 -> {
+                mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_0_bar_black_24dp)
+            }
+            1 -> {
+                mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_1_bar_black_24dp)
+            }
+            2 -> {
+                mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_2_bar_black_24dp)
+            }
+            3 -> {
+                mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_3_bar_black_24dp)
+            }
+            4 -> {
                 mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
+            }
+            else -> {
+                mImageView_4g.visibility = View.GONE
             }
         }
     }

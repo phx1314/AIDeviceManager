@@ -13,9 +13,6 @@ package com.deepblue.aidevicemanager.item
 
 import android.app.ProgressDialog
 import android.content.Context
-import android.os.Message
-import android.view.View
-import android.view.View.OnClickListener
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
@@ -33,10 +30,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 open class BaseItem(context: Context?) : LinearLayout(context), HttpResultSubscriberListener {
-
+    var handler = MHandler()
+    val className = this.javaClass.simpleName
     init {
-        var handler = MHandler()
-        val className = this.javaClass.simpleName
+       
         handler.setId(className)
         handler.setMsglisnener { msg ->
             when (msg.what) {
@@ -80,5 +77,11 @@ open class BaseItem(context: Context?) : LinearLayout(context), HttpResultSubscr
             .doFinally { if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss() }
             .subscribe(s)
     }
+
+    //override fun onDetachedFromWindow() {
+    //    Timber.d("view銷毀")
+    //    Frame.HANDLES.remove(this.handler)
+    //    super.onDetachedFromWindow()
+    //}
 }
 

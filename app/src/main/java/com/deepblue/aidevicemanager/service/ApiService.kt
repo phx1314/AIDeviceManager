@@ -25,9 +25,9 @@ interface ApiService {
     @POST("user/forgetPassword")
     @FormUrlEncoded
     fun forgetPassword(
-        @Field("newPassword") newPassword: String, @Field("mobile") mobile: String, @Field(
-            "smsCode"
-        ) smsCode: String
+            @Field("newPassword") newPassword: String, @Field("mobile") mobile: String, @Field(
+                    "smsCode"
+            ) smsCode: String
     ): Observable<HttpResult<Any>>
 
     @POST("user/modifyUser")
@@ -57,9 +57,9 @@ interface ApiService {
     @POST("map/queryMapListByDevice")
     @FormUrlEncoded
     fun queryMapListByDevice(
-        @Field("deviceId") deviceId: String, @Field("page") page: String, @Field(
-            "size"
-        ) size: String
+            @Field("deviceId") deviceId: String, @Field("page") page: String, @Field(
+                    "size"
+            ) size: String
     ): Observable<HttpResult<Any>>
 
     @GET("device/queryDeviceParamList")
@@ -70,11 +70,7 @@ interface ApiService {
 
     @POST("device/configDeviceParamBatch")
     @FormUrlEncoded
-    fun configDeviceParamBatch(
-        @Field("deviceVersionId") deviceVersionId: String, @Field("deviceIds") deviceIds: String, @Field(
-            "deviceParamJson"
-        ) deviceParamJson: String
-    ): Observable<HttpResult<Any>>
+    fun configDeviceParamBatch(@Field("deviceVersionId") deviceVersionId: String, @Field("deviceIds") deviceIds: String, @Field("deviceParamJson") deviceParamJson: String): Observable<HttpResult<Any>>
 
 
 }

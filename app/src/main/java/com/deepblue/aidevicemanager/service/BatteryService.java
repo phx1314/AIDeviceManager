@@ -16,13 +16,15 @@ import com.deepblue.aidevicemanager.F;
 import com.mdx.framework.Frame;
 
 import java.text.SimpleDateFormat;
-
-import timber.log.Timber;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class BatteryService extends Service {
 
     private static final String TAG = "BatteryReceiver";
     TelephonyManager tm;
+    ScheduledExecutorService mScheduledExecutorService;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -36,7 +38,13 @@ public class BatteryService extends Service {
         IntentFilter batteryfilter = new IntentFilter();
         batteryfilter.addAction(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(batteryReceiver, batteryfilter);
-
+        mScheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        mScheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                tm.listen(mylistener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+            }
+        }, 0, 3, TimeUnit.SECONDS);
     }
 
     @Override
@@ -51,8 +59,9 @@ public class BatteryService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         this.unregisterReceiver(batteryReceiver);
+        mScheduledExecutorService.shutdown();
+        super.onDestroy();
     }
 
     // 接收电池信息更新的广播
@@ -100,14 +109,13 @@ public class BatteryService extends Service {
             Log.i(TAG, "battery: date=" + date + ",status " + statusString + ",level=" + level +
                     ",scale=" + scale + ",voltage=" + voltage + ",acString=" + acString);
             F.INSTANCE.getMModelStatus().batteryLevel = level;
-            tm.listen(mylistener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
             Frame.HANDLES.sentAll(1110, "");
         }
     };
 
     PhoneStateListener mylistener = new PhoneStateListener() {
         public void onSignalStrengthsChanged(SignalStrength signalStrength) {
-            Timber.d("4g");
+//            Timber.d("4g");
             super.onSignalStrengthsChanged(signalStrength);
             String signalInfo = signalStrength.toString();
             String[] params = signalInfo.split(" ");
@@ -116,7 +124,18 @@ public class BatteryService extends Service {
             } else if (tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_LTE || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_NR) {
                 //4G网络 最佳范围   >-90dBm 越大越好
                 int Itedbm = Integer.parseInt(params[9]);
-//                    setDBM(Itedbm + "");
+                if (Itedbm > -85) {
+                    F.INSTANCE.getMModelStatus().g4Level = 4;
+                } else if (Itedbm > -95) {
+                    F.INSTANCE.getMModelStatus().g4Level = 3;
+                } else if (Itedbm > -105) {
+                    F.INSTANCE.getMModelStatus().g4Level = 2;
+                } else if (Itedbm > -115) {
+                    F.INSTANCE.getMModelStatus().g4Level = 1;
+                } else if (Itedbm > -140) {
+                    F.INSTANCE.getMModelStatus().g4Level = 0;
+                }
+
                 F.INSTANCE.getMModelStatus().g4Level = Itedbm;
             } else if (tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_HSDPA || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_HSPA || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_HSUPA || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_UMTS) {
 //                    //3G网络最佳范围  >-90dBm  越大越好  ps:中国移动3G获取不到  返回的无效dbm值是正数（85dbm）
