@@ -6,10 +6,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.view.View
 import android.widget.Toast
+import com.deepblue.aidevicemanager.F
+import com.deepblue.aidevicemanager.F.wsManager
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.view.TextSwitch
+import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_workdetail.*
-import java.util.HashMap
+import java.util.*
 
 class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
     private lateinit var fragments: HashMap<Int, Fragment>
@@ -18,6 +21,7 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
     private val PAGE_VEDIO = 1
     private val PAGE_OVERVIEW = 2
     private val PAGE_ROUTE = 3
+    var url = "ws://192.168.123.209:8081/websocket/wg"
 
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_workdetail)
@@ -41,7 +45,6 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
     }
 
     override fun loaddata() {
-
     }
 
     override fun onClick(v: View) {
@@ -52,7 +55,7 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
             R.id.iv_lefttop_switch -> switchFragment(0)
             R.id.iv_leftcenter_switch -> switchFragment(1)
             R.id.iv_leftbottom_switch -> switchFragment(2)
-            R.id.btn_startwork -> changeWorkState(0)
+            R.id.btn_startwork ->  F.connectWSocket(context, url)/*changeWorkState(0)*/
             R.id.btn_stopwork -> changeWorkState(1)
             R.id.btn_endwork -> changeWorkState(2)
             R.id.btn_continuework -> changeWorkState(3)
@@ -70,6 +73,8 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
                 reInitBtnView()
             }
             2 -> {//结束作业
+                wsManager?.stopConnect()
+
                 WORKSTATE = 0
                 reInitBtnView()
             }
@@ -150,8 +155,6 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
         return null
     }
 
-    //***********************************************************************8
-
     private fun initListener() {
         iv_leftbottom_switch.setOnClickListener(this)
         iv_lefttop_switch.setOnClickListener(this)
@@ -176,5 +179,27 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
             "4" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
             "5" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun disposeMsg(type: Int, obj: Any?) {
+        super.disposeMsg(type, obj)
+        when (type) {
+            1111 -> {
+                Helper.toast("实时数据：${obj.toString()}")
+            }
+            1112 -> {
+                when (obj as Int) {
+                    1 -> Helper.toast("WEBSOCKET CONNECTED")
+                    0 -> Helper.toast("WEBSOCKET CONNECTING")
+                    2 -> Helper.toast("WEBSOCKET RECONNECT")
+                    -1 -> Helper.toast("WEBSOCKET DISCONNECTED")
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        F.stopConnectWSocket()
     }
 }

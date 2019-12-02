@@ -12,10 +12,14 @@ import com.deepblue.aidevicemanager.frg.FrgLogin
 import com.deepblue.aidevicemanager.model.ModelLogin
 import com.deepblue.aidevicemanager.model.ModelStatus
 import com.deepblue.aidevicemanager.service.ApiService
+import com.deepblue.aidevicemanager.ws.WsManager
 import com.google.gson.Gson
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.IndexAct
 import com.mdx.framework.util.Helper
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.util.concurrent.TimeUnit
 
 object F {
     var mModellogin: ModelLogin? = null
@@ -51,16 +55,16 @@ object F {
         saveJson("mModellogin", "")
         mModellogin = null
         Helper.startActivity(
-                context,
-                Intent.FLAG_ACTIVITY_CLEAR_TOP,
-                FrgLogin::class.java,
-                IndexAct::class.java
+            context,
+            Intent.FLAG_ACTIVITY_CLEAR_TOP,
+            FrgLogin::class.java,
+            IndexAct::class.java
         )
     }
 
     fun isWifiConnect(context: Context): Boolean {
         val connManager =
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val mWifiInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
         return mWifiInfo.isConnected
     }
@@ -132,5 +136,39 @@ object F {
         return if (gps || network) {
             true
         } else false
+    }
+
+    var wsManager: WsManager? = null
+    fun stopConnectWSocket() {
+        if (wsManager != null && wsManager!!.isWSConnected())
+            wsManager!!.stopConnect()
+    }
+
+    fun connectWSocket(context: Context, url: String) {
+        if (wsManager == null) {
+            wsManager = WsManager.Builder()
+                .context(context)
+                .wsUrl(url)
+                .client(
+                    OkHttpClient().newBuilder()
+                        .pingInterval(15, TimeUnit.SECONDS)
+                        .readTimeout(30, TimeUnit.SECONDS)//设置读取超时时间
+                        .writeTimeout(30, TimeUnit.SECONDS)//设置写的超时时间
+                        .connectTimeout(30, TimeUnit.SECONDS)//设置连接超时时间
+                        .retryOnConnectionFailure(true)
+                        .build()
+                )
+                .request(
+                    Request.Builder()
+                        .url(url)
+                        .build()
+                )
+                .needReconnect(true)
+                .build()
+        } else {
+            wsManager?.wsUrl = url
+            stopConnectWSocket()
+        }
+        wsManager?.startConnect()
     }
 }
