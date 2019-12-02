@@ -123,20 +123,26 @@ public class BatteryService extends Service {
                 F.INSTANCE.getMModelStatus().g4Level = -1;
             } else if (tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_LTE || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_NR) {
                 //4G网络 最佳范围   >-90dBm 越大越好
-                int Itedbm = Integer.parseInt(params[9]);
-                if (Itedbm > -85) {
+
+                try {
+                    int Itedbm = Integer.parseInt(params[9]);
+                    if (Itedbm > -85) {
+                        F.INSTANCE.getMModelStatus().g4Level = 4;
+                    } else if (Itedbm > -95) {
+                        F.INSTANCE.getMModelStatus().g4Level = 3;
+                    } else if (Itedbm > -105) {
+                        F.INSTANCE.getMModelStatus().g4Level = 2;
+                    } else if (Itedbm > -115) {
+                        F.INSTANCE.getMModelStatus().g4Level = 1;
+                    } else if (Itedbm > -140) {
+                        F.INSTANCE.getMModelStatus().g4Level = 0;
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                     F.INSTANCE.getMModelStatus().g4Level = 4;
-                } else if (Itedbm > -95) {
-                    F.INSTANCE.getMModelStatus().g4Level = 3;
-                } else if (Itedbm > -105) {
-                    F.INSTANCE.getMModelStatus().g4Level = 2;
-                } else if (Itedbm > -115) {
-                    F.INSTANCE.getMModelStatus().g4Level = 1;
-                } else if (Itedbm > -140) {
-                    F.INSTANCE.getMModelStatus().g4Level = 0;
                 }
 
-                F.INSTANCE.getMModelStatus().g4Level = Itedbm;
             } else if (tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_HSDPA || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_HSPA || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_HSUPA || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_UMTS) {
 //                    //3G网络最佳范围  >-90dBm  越大越好  ps:中国移动3G获取不到  返回的无效dbm值是正数（85dbm）
 //                    //在这个范围的已经确定是3G，但不同运营商的3G有不同的获取方法，故在此需做判断 判断运营商与网络类型的工具类在最下方
