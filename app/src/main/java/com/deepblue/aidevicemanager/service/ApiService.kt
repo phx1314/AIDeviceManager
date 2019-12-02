@@ -72,5 +72,21 @@ interface ApiService {
     @FormUrlEncoded
     fun configDeviceParamBatch(@Field("deviceVersionId") deviceVersionId: String, @Field("deviceIds") deviceIds: String, @Field("deviceParamJson") deviceParamJson: String): Observable<HttpResult<Any>>
 
+    @POST("command/createOrder")
+    @FormUrlEncoded
+    fun createOrder(@Field("orderType") orderType: String, @Field("deviceId") deviceId: String): Observable<HttpResult<Any>>
+
+    @POST("user/queryContentConfigForAbout")
+    fun queryContentConfigForAbout(): Observable<HttpResult<Any>>
+
+    @POST("user/queryContentConfigForHelp")
+    fun queryContentConfigForHelp(): Observable<HttpResult<Any>>
+
+    @POST("user/queryContentConfigForPrivacyPolicy")
+    fun queryContentConfigForPrivacyPolicy(): Observable<HttpResult<Any>>
+
+    @POST("user/queryContentConfigForUserTerm")
+    fun queryContentConfigForUserTerm(): Observable<HttpResult<Any>>
+
 
 }

@@ -1,8 +1,9 @@
 package com.deepblue.aidevicemanager.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ModelDevices {
+public class ModelDevices implements Serializable {
 
 
     /**
@@ -19,7 +20,7 @@ public class ModelDevices {
     public int pages;
     public List<RowsBean> rows;
 
-    public static class RowsBean {
+    public static class RowsBean  implements Serializable{
         /**
          * id : 355
          * deviceCode : 00000043cAYW

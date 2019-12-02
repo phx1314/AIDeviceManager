@@ -10,5 +10,15 @@
     <WebView
         android:id="@+id/mWebView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/mTextView"
+        style="@style/text_style_15_black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:lineSpacingExtra="7dp"
+        android:padding="10dp"
+        android:text="" />
 </LinearLayout>

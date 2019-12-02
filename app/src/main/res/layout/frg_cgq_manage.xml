@@ -41,7 +41,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达0" />
+                        android:text="激光雷达1" />
 
                     <TextView
                         android:id="@+id/mTextView1"
@@ -67,7 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达1" />
+                        android:text="激光雷达2" />
 
                     <TextView
                         android:id="@+id/mTextView2"
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达2" />
+                        android:text="激光雷达3" />
 
                     <TextView
                         android:id="@+id/mTextView3"
@@ -126,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达3" />
+                        android:text="激光雷达4" />
 
                     <TextView
                         android:id="@+id/mTextView4"
@@ -232,6 +232,22 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
+                    <TextView
+                        style="@style/text_style_15_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="激光雷达8" />
+
+                    <TextView
+                        android:id="@+id/mTextView8"
+                        style="@style/text_style_15_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="N/A"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -265,7 +281,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波0" />
+                    android:text="毫米雷达波1" />
 
 
                 <TextView
@@ -292,7 +308,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波1" />
+                    android:text="毫米雷达波2" />
 
 
                 <TextView
@@ -319,7 +335,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波2" />
+                    android:text="毫米雷达波3" />
 
 
                 <TextView
@@ -346,7 +362,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波3" />
+                    android:text="毫米雷达波4" />
 
 
                 <TextView
@@ -373,7 +389,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波4" />
+                    android:text="毫米雷达波5" />
 
 
                 <TextView
@@ -400,7 +416,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波5" />
+                    android:text="毫米雷达波6" />
 
 
                 <TextView
@@ -427,7 +443,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波6" />
+                    android:text="毫米雷达波7" />
 
 
                 <TextView
@@ -454,7 +470,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波7" />
+                    android:text="毫米雷达波8" />
 
 
                 <TextView
@@ -491,7 +507,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波0" />
+                        android:text="超声波1" />
 
                     <TextView
                         android:id="@+id/mTextViewc1"
@@ -517,7 +533,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波1" />
+                        android:text="超声波2" />
 
                     <TextView
                         android:id="@+id/mTextViewc2"
@@ -543,7 +559,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波2" />
+                        android:text="超声波3" />
 
                     <TextView
                         android:id="@+id/mTextViewc3"
@@ -576,7 +592,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波3" />
+                        android:text="超声波4" />
 
                     <TextView
                         android:id="@+id/mTextViewc4"
@@ -602,7 +618,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波4" />
+                        android:text="超声波5" />
 
                     <TextView
                         android:id="@+id/mTextViewc5"
@@ -628,7 +644,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波5" />
+                        android:text="超声波6" />
 
                     <TextView
                         android:id="@+id/mTextViewc6"
@@ -661,7 +677,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波6" />
+                        android:text="超声波7" />
 
                     <TextView
                         android:id="@+id/mTextViewc7"
@@ -682,6 +698,22 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
+                    <TextView
+                        style="@style/text_style_15_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="超声波8" />
+
+                    <TextView
+                        android:id="@+id/mTextViewc8"
+                        style="@style/text_style_15_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="N/A"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -732,14 +764,16 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/tyD1" />
+                android:background="@color/tyD1"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="12dp"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/text_style_15_white"

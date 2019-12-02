@@ -18,8 +18,8 @@ import android.widget.ImageView
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.frg.FrgDetailDj
+import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelData
-import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelDevices
 import com.deepblue.aidevicemanager.util.GlideLoader
 import com.mdx.framework.activity.TitleAct
@@ -29,40 +29,39 @@ import kotlinx.android.synthetic.main.item_device_main_right.view.*
 
 class DeviceMainRight(context: Context?) : BaseItem(context) {
     lateinit var item: ModelData<ModelDevices.RowsBean>
+    lateinit var item_son: ModelDevices.RowsBean
 
     init {
         val flater = LayoutInflater.from(context)
         flater.inflate(R.layout.item_device_main_right, this)
 
         mLinearLayout_1.setOnClickListener {
-            load(F.gB().queryDeviceDetail(item.mList[0].id.toString()), "queryDeviceDetail")
+            item_son = item.mList[0]
+            load(F.gB().queryDeviceLiveData(item.mList[0].id.toString()), "queryDeviceLiveData")
         }
         mLinearLayout_2.setOnClickListener {
-            load(F.gB().queryDeviceDetail(item.mList[1].id.toString()), "queryDeviceDetail")
+            item_son = item.mList[1]
+            load(F.gB().queryDeviceLiveData(item.mList[1].id.toString()), "queryDeviceLiveData")
         }
         mLinearLayout_3.setOnClickListener {
-            load(F.gB().queryDeviceDetail(item.mList[2].id.toString()), "queryDeviceDetail")
+            item_son = item.mList[2]
+            load(F.gB().queryDeviceLiveData(item.mList[2].id.toString()), "queryDeviceLiveData")
         }
         mLinearLayout_4.setOnClickListener {
-            load(F.gB().queryDeviceDetail(item.mList[3].id.toString()), "queryDeviceDetail")
+            item_son = item.mList[3]
+            load(F.gB().queryDeviceLiveData(item.mList[3].id.toString()), "queryDeviceLiveData")
         }
     }
 
     override fun onSuccess(data: String?, method: String) {
-        var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
-        if (mModelDeviceDetail.deviceMaintainStatus.equals("1")) {
-            Helper.startActivity( context, FrgDetailDj::class.java, TitleAct::class.java,   mModelDeviceDetail)
-            if (mModelDeviceDetail.deviceStatus.equals("0")) {
-            } else {
-                if (mModelDeviceDetail.deviceOnlineStatus.equals("0")) {
-                } else if (mModelDeviceDetail.deviceOnlineStatus.equals("3")) {
-                } else if (mModelDeviceDetail.deviceOnlineStatus.equals("4")) {
-                    if (mModelDeviceDetail.deviceTaskStatus.equals("2")) {//正在施行
-                    }
-                }
-            }
-        } else {
+        var mModelB = F.data2Model(data, ModelB::class.java)
+        if (mModelB.data_system_status.equals("1")) {
+            Helper.startActivity(context, FrgDetailDj::class.java, TitleAct::class.java, "data", item_son)
+//            Helper.startActivity(context, FrgWorkDetail::class.java, TitleAct::class.java, "id", item_son.id.toString(), "from", "FrgDeviceMain")
+        } else if (mModelB.data_system_status.equals("3")) {
             Helper.toast(resources.getString(R.string.d_broken))
+        } else {
+            Helper.startActivity(context, FrgDetailDj::class.java, TitleAct::class.java, "data", item_son)
         }
 
     }

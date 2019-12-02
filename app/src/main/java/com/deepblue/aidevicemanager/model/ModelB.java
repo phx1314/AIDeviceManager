@@ -4,74 +4,120 @@ public class ModelB {
 
 
     /**
-     * batteryVoltage : 1
-     * batteryCurrent : 1
-     * batteryTemperature : 1
-     * batteryRemaining : 1
-     * batteryCapacity : 1
-     * batteryCycle : 1
-     * batterySeriesNumber : 1
-     * batteryLowWarning : 1
-     * batteryLowCritical : 1
-     * lidar0Status : 1
-     * lidar1Status : 1
-     * lidar2Status : 1
-     * lidar3Status : 1
-     * lidar5Status : 1
-     * lidar6Status : 1
-     * lidar7Status : 1
-     * millimeterWave0Status : 1
-     * millimeterWave1Status : 1
-     * millimeterWave2Status : 1
-     * millimeterWave3Status : 1
-     * millimeterWave4Status : 1
-     * millimeterWave5Status : 1
-     * millimeterWave6Status : 1
-     * millimeterWave7Status : 1
-     * ultrasonicWave0Status : 1
-     * ultrasonicWave1Status : 1
-     * ultrasonicWave2Status : 1
-     * ultrasonicWave3Status : 1
-     * ultrasonicWave4Status : 1
-     * ultrasonicWave5Status : 1
-     * ultrasonicWave6Status : 1
-     * ultrasonicWave7Status : 1
-     * zedStatus : 1
-     * imustatus : 1
+     * data_battery_voltage : 1
+     * data_battery_temperature : 1
+     * data_battery_remaining_capacity : 1
+     * data_battery_capacity : 1
+     * data_reverse_light : 1
+     * data_brake_light : 1
+     * data_left_light : 1
+     * data_right_light : 1
+     * data_high_beam_light : 1
+     * data_low_beam_light : 1
+     * data_width_light : 1
+     * data_lidar1_status : 1
+     * data_lidar2_status : 1
+     * data_lidar3_status : 1
+     * data_lidar4_status : 1
+     * data_lidar5_status : 1
+     * data_lidar6_status : 1
+     * data_lidar7_status : 1
+     * data_lidar8_status : 1
+     * data_millimeter_wave1_status : 1
+     * data_millimeter_wave2_status : 1
+     * data_millimeter_wave3_status : 1
+     * data_millimeter_wave4_status : 1
+     * data_millimeter_wave5_status : 1
+     * data_millimeter_wave6_status : 1
+     * data_millimeter_wave7_status : 1
+     * data_millimeter_wave8_status : 1
+     * data_ultrasonic_wave1_status : 1
+     * data_ultrasonic_wave2_status : 1
+     * data_ultrasonic_wave3_status : 1
+     * data_ultrasonic_wave4_status : 1
+     * data_ultrasonic_wave5_status : 1
+     * data_ultrasonic_wave6_status : 1
+     * data_ultrasonic_wave7_status : 1
+     * data_ultrasonic_wave8_status : 1
+     * data_zed_status : 1
+     * data_rtk_status : 1
+     * data_gear : 1
+     * data_throttle_value : 1
+     * data_brake_value : 1
+     * data_manual_brake : 1
+     * data_velocity : 1
+     * data_water_level : 1
+     * data_trash_level : 1
+     * data_brush_position : 1
+     * data_brush_status : 1
+     * data_suction_status : 1
+     * data_spout_water : 1
+     * data_suction_inlet_position : 1
+     * data_gps_signal : 1
+     * data_wifi_signal : 1
+     * data_telcom_signal : 1
+     * data_latitude : 1
+     * data_longitude : 1
+     * data_yaw_angle : 1
+     * data_system_status : 1
+     * data_software_status : 1
      */
 
-    public String batteryVoltage;
-    public String batteryCurrent;
-    public String batteryTemperature;
-    public String batteryRemaining;
-    public String batteryCapacity;
-    public String batteryCycle;
-    public String batterySeriesNumber;
-    public String batteryLowWarning;
-    public String batteryLowCritical;
-    public String lidar0Status;
-    public String lidar1Status;
-    public String lidar2Status;
-    public String lidar3Status;
-    public String lidar5Status;
-    public String lidar6Status;
-    public String lidar7Status;
-    public String millimeterWave0Status;
-    public String millimeterWave1Status;
-    public String millimeterWave2Status;
-    public String millimeterWave3Status;
-    public String millimeterWave4Status;
-    public String millimeterWave5Status;
-    public String millimeterWave6Status;
-    public String millimeterWave7Status;
-    public String ultrasonicWave0Status;
-    public String ultrasonicWave1Status;
-    public String ultrasonicWave2Status;
-    public String ultrasonicWave3Status;
-    public String ultrasonicWave4Status;
-    public String ultrasonicWave5Status;
-    public String ultrasonicWave6Status;
-    public String ultrasonicWave7Status;
-    public String zedStatus;
-    public String imustatus;
+    public String data_battery_voltage;
+    public String data_battery_temperature;
+    public String data_battery_remaining_capacity;
+    public String data_battery_capacity;
+    public String data_reverse_light;
+    public String data_brake_light;
+    public String data_left_light;
+    public String data_right_light;
+    public String data_high_beam_light;
+    public String data_low_beam_light;
+    public String data_width_light;
+    public String data_lidar1_status;
+    public String data_lidar2_status;
+    public String data_lidar3_status;
+    public String data_lidar4_status;
+    public String data_lidar5_status;
+    public String data_lidar6_status;
+    public String data_lidar7_status;
+    public String data_lidar8_status;
+    public String data_millimeter_wave1_status;
+    public String data_millimeter_wave2_status;
+    public String data_millimeter_wave3_status;
+    public String data_millimeter_wave4_status;
+    public String data_millimeter_wave5_status;
+    public String data_millimeter_wave6_status;
+    public String data_millimeter_wave7_status;
+    public String data_millimeter_wave8_status;
+    public String data_ultrasonic_wave1_status;
+    public String data_ultrasonic_wave2_status;
+    public String data_ultrasonic_wave3_status;
+    public String data_ultrasonic_wave4_status;
+    public String data_ultrasonic_wave5_status;
+    public String data_ultrasonic_wave6_status;
+    public String data_ultrasonic_wave7_status;
+    public String data_ultrasonic_wave8_status;
+    public String data_zed_status;
+    public String data_rtk_status;
+    public String data_gear;
+    public String data_throttle_value;
+    public String data_brake_value;
+    public String data_manual_brake;
+    public String data_velocity;
+    public String data_water_level;
+    public String data_trash_level;
+    public String data_brush_position;
+    public String data_brush_status;
+    public String data_suction_status;
+    public String data_spout_water;
+    public String data_suction_inlet_position;
+    public String data_gps_signal;
+    public String data_wifi_signal;
+    public String data_telcom_signal;
+    public String data_latitude;
+    public String data_longitude;
+    public String data_yaw_angle;
+    public String data_system_status;
+    public String data_software_status;
 }

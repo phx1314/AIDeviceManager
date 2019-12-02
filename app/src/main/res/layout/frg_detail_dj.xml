@@ -26,15 +26,13 @@
                 android:id="@+id/mTextView_lng"
                 style="@style/text_style_13_black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lng: xx.xx.xx" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/mTextView_lat"
                 style="@style/text_style_13_black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lat: xx.xx.xx" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -59,15 +57,6 @@
                 android:text="0"
                 android:textColor="#000000"
                 android:textSize="40sp" />
-
-            <TextView
-                style="@style/text_style_13_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/mTextView_gl"
-                android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/mTextView_gl"
-                android:text="公里/小时" />
         </RelativeLayout>
 
 
@@ -87,17 +76,16 @@
         android:layout_height="match_parent"
         android:background="@color/gray"></ImageView>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <LinearLayout
@@ -181,89 +169,152 @@
                             android:textColor="#000000" />
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                    <com.mdx.framework.view.MGridView
-                        android:id="@+id/mMGridView_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:horizontalSpacing="10dp"
-                        android:numColumns="8"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
-                        android:scrollbars="none"
-                        android:verticalSpacing="10dp" />
+                    <TextView
+                        android:id="@+id/mTextView_fx"
+                        style="@style/text_style_15_white"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/shape_gray_yuan"
+                        android:gravity="center"
+                        android:padding="10dp" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/black" />
-
-                    <com.mdx.framework.view.MGridView
-                        android:id="@+id/mMGridView_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:horizontalSpacing="10dp"
-                        android:numColumns="3"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
-                        android:scrollbars="none"
-                        android:verticalSpacing="10dp" />
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/black" />
-
-                    <com.mdx.framework.view.MGridView
-                        android:id="@+id/mMGridView_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:horizontalSpacing="10dp"
-                        android:numColumns="3"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
-                        android:scrollbars="none"
-                        android:verticalSpacing="10dp" />
+                        android:id="@+id/mImageView_ygd"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/u1267" />
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/black" />
+                        android:id="@+id/mImageView_sgd"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/u1271" />
 
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/u1273" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/u1275" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/u1291" />
                 </LinearLayout>
 
-            </ScrollView>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/black" />
+
+                <com.mdx.framework.view.MGridView
+                    android:id="@+id/mMGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@null"
+                    android:horizontalSpacing="8dp"
+                    android:listSelector="#00000000"
+                    android:numColumns="3"
+                    android:paddingBottom="8dp"
+                    android:scrollbars="none"
+                    android:verticalSpacing="8dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/u2113" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/mTextView_sf"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="OK"
+                                android:textColor="@color/black"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/mTextView"
+                                style="@style/text_style_15_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="软件算法" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/mButton"
+                    style="@style/text_style_15_black"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/shape_startk"
+                    android:padding="10dp" />
+
+                <ProgressBar
+                    android:id="@+id/mProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/mButton"
-            style="@style/text_style_15_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@drawable/shape_startk"
-            android:padding="10dp" />
-        <ProgressBar
-            android:id="@+id/mProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:visibility="gone" />
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -12,17 +12,12 @@
 package com.deepblue.aidevicemanager.item
 
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.SeekBar
-import android.widget.TextView
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.bean.BeanParam1
 import com.deepblue.aidevicemanager.bean.BeanParam2
 import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelCarSet
@@ -55,9 +50,9 @@ class Dc(context: Context?) : LinearLayout(context) {
                     it_ddlbj.rpParamValue = sum.toString()
                     var data = ArrayList<Any>()
                     data.add(BeanParam2(it_ddlbj.rpParamId.toString(),
-                        it_ddlbj.rpParamValue,
-                        it_ddlbj.rpParamMin,
-                        it_ddlbj.rpParamMax))
+                            it_ddlbj.rpParamValue,
+                            it_ddlbj.rpParamMin,
+                            it_ddlbj.rpParamMax))
                     Frame.HANDLES.sentAll("DialogSet", 2, Gson().toJson(data))
                 }
             }
@@ -73,12 +68,12 @@ class Dc(context: Context?) : LinearLayout(context) {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 if (fromUser_yzddlbj) {
                     it_yzddlbj.rpParamValue =
-                        ((seekBar?.progress ?: 0) + it_yzddlbj.rpParamMin.toInt()).toString()
+                            ((seekBar?.progress ?: 0) + it_yzddlbj.rpParamMin.toInt()).toString()
                     var data = ArrayList<Any>()
                     data.add(BeanParam2(it_yzddlbj.rpParamId.toString(),
-                        it_yzddlbj.rpParamValue,
-                        it_yzddlbj.rpParamMin,
-                        it_yzddlbj.rpParamMax))
+                            it_yzddlbj.rpParamValue,
+                            it_yzddlbj.rpParamMin,
+                            it_yzddlbj.rpParamMax))
                     Frame.HANDLES.sentAll("DialogSet", 2, Gson().toJson(data))
                 }
             }
@@ -87,14 +82,14 @@ class Dc(context: Context?) : LinearLayout(context) {
 
 
     fun set(item: ModelB) {
-        mTextView_dc.text = item.batteryRemaining ?: "N/A"
-        mTextView_dy.text = item.batteryVoltage ?: "N/A"
-        mTextView_dl.text = item.batteryCurrent ?: "N/A"
-        mTextView_wd.text = item.batteryTemperature ?: "N/A"
-        mTextView_dliang.text = item.batteryRemaining ?: "N/A"
-        mTextView_dcrl.text = item.batteryCapacity ?: "N/A"
-        mTextView_xhcsh.text = item.batteryCycle ?: "N/A"
-        mTextView_dccode.text = item.batterySeriesNumber ?: "N/A"
+        mTextView_dc.text = item.data_battery_remaining_capacity ?: "N/A"
+        mTextView_dy.text = item.data_battery_voltage  ?: "N/A"
+//        mTextView_dl.text = item.data_battery_remaining_capacity ?: "N/A"
+        mTextView_wd.text = item.data_battery_temperature  ?: "N/A"
+        mTextView_dliang.text = item.data_battery_remaining_capacity ?: "N/A"
+        mTextView_dcrl.text = item.data_battery_capacity ?: "N/A"
+//        mTextView_xhcsh.text = item.batteryCycle ?: "N/A"
+//        mTextView_dccode.text = item.batterySeriesNumber ?: "N/A"
     }
 
     fun set(it: ModelCarSet) {

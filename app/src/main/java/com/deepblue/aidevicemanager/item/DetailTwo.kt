@@ -11,16 +11,11 @@
 
 package com.deepblue.aidevicemanager.item
 
-import com.deepblue.aidevicemanager.R
-
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.ViewGroup
-
-import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
+import com.deepblue.aidevicemanager.R
+import kotlinx.android.synthetic.main.item_detail_two.view.*
 
 
 class DetailTwo(context: Context?) : LinearLayout(context) {
@@ -30,6 +25,6 @@ class DetailTwo(context: Context?) : LinearLayout(context) {
     }
 
     fun set(item: String) {
-
+        mTextView.text = item
     }
 }

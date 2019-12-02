@@ -11,17 +11,16 @@
 
 package com.deepblue.aidevicemanager.ada;
 
-import java.util.List;
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.deepblue.aidevicemanager.item.WorkChooseBottom;
 import com.deepblue.aidevicemanager.model.ModelMap;
 import com.mdx.framework.Frame;
 import com.mdx.framework.adapter.MAdapter;
 
-import android.content.Context;
-import android.view.ViewGroup;
-import android.view.View;
-
-import com.deepblue.aidevicemanager.item.WorkChooseBottom;
+import java.util.List;
 
 public class AdaWorkChooseBottom extends MAdapter<ModelMap.RowsBean> {
 
@@ -41,7 +40,7 @@ public class AdaWorkChooseBottom extends MAdapter<ModelMap.RowsBean> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Frame.HANDLES.sentAll("FrgWorkChoose", 0, (int) item.id);
+                Frame.HANDLES.sentAll("FrgWorkChoose", 0, (int) item.mapId);
             }
         });
         return convertView;

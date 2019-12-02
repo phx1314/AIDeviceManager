@@ -51,6 +51,12 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
             1110 -> { //电池
                 if (isHeadInit()) mHead?.setStatus()
             }
+            1111 -> { //ws
+                if (isHeadInit()) mHead?.setStatus()
+            }
+            1112 -> { //ws state
+                if (isHeadInit()) mHead?.setStatus()
+            }
         }
 
     }

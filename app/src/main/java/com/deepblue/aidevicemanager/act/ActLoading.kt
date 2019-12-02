@@ -47,7 +47,7 @@ class ActLoading : Activity() {
             } else {
                 Helper.startActivity(this, FrgMain::class.java, IndexAct::class.java)
             }
-            //finish()
+            finish()
         }, 3000)
     }
 

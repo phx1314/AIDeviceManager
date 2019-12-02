@@ -95,8 +95,8 @@ class FrgMain : BaseFrg() {
         mExpandableListView.setOnGroupClickListener { _, _, groupPosition, _ ->
             when (groupPosition) {
                 2 -> chageWebFrgment(F.baseUrl + "configuration_help.html")
-                3 -> chageWebFrgment(F.baseUrl + "privacy_policy.html")
-                4 -> chageWebFrgment(F.baseUrl + "user_item.html")
+                3 -> chageWebFrgment(F.baseUrl + "user_item.html")
+                4 -> chageWebFrgment(F.baseUrl + "privacy_policy.html")
                 5 -> chageWebFrgment(F.baseUrl + "about.html")
                 6 -> F.logOut(context, false)
             }

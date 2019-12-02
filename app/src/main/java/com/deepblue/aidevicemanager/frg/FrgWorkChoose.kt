@@ -11,8 +11,6 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.AbsListView
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
@@ -22,9 +20,7 @@ import com.deepblue.aidevicemanager.model.ModelData
 import com.deepblue.aidevicemanager.model.ModelDevices
 import com.deepblue.aidevicemanager.model.ModelMap
 import com.google.gson.Gson
-import com.mdx.framework.view.HorizontalListView
 import kotlinx.android.synthetic.main.frg_work_choose.*
-import timber.log.Timber
 
 class FrgWorkChoose : BaseFrg() {
     var page = 1
@@ -41,13 +37,20 @@ class FrgWorkChoose : BaseFrg() {
         super.disposeMsg(type, obj)
         when (type) {
             0 -> {
-
+                mAbPullListView.setApiLoadParams(
+                        "${F.baseUrl}map/queryMapAreaPathListByMap",
+                        "POST",
+                        this,
+                        F.mModellogin?.token, "mapId", obj.toString()
+                )
             }
         }
 
     }
 
     override fun initView() {
+        mAbPullListView.setPageSize(6)
+        mAbPullListView.setGridCount(3)
         mAbPullListView.setAbOnListViewListener { _, content ->
             val mMPhotoList = Gson().fromJson(content, ModelDevices::class.java)
             var data = ArrayList<ModelData<ModelDevices.RowsBean>>()
@@ -65,35 +68,7 @@ class FrgWorkChoose : BaseFrg() {
     }
 
     override fun loaddata() {
-        //load(F.gB().queryMapListByDevice(did, page.toString(), size.toString()), "queryMapListByDevice")
-
-        mHorizontalListView.adapter = AdaWorkChooseBottom(context, ArrayList<ModelMap.RowsBean>().apply { this.add(ModelMap.RowsBean());this.add(ModelMap.RowsBean());this.add(ModelMap.RowsBean());this.add(ModelMap.RowsBean());this.add(ModelMap.RowsBean());this.add(ModelMap.RowsBean());this.add(ModelMap.RowsBean()) })
-        mHorizontalListView.setOnScrollStateChangedListener { scrollState ->
-            val lastVisibleIndex = mHorizontalListView.lastVisiblePosition
-            if (!mIsLoading && scrollState === HorizontalListView.OnScrollStateChangedListener.ScrollState.SCROLL_STATE_FLING//停止滚动
-                    && lastVisibleIndex == 6) {//滑动到最后一项
-                Timber.d("加载更多")
-            }
-        }
-        mHorizontalListView.setOnScrollListener(object : AbsListView.OnScrollListener {
-            override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
-                if (firstVisibleItem >  mHorizontalListView.lastVisiblePosition) {
-                    Log.d("scroll", "上滑");
-                }
-                if (firstVisibleItem <  mHorizontalListView.lastVisiblePosition) {
-                    Log.d("scroll", "下滑");
-                }
-                if (firstVisibleItem ==  mHorizontalListView.lastVisiblePosition) {
-                    return;
-                }
-                //mHorizontalListView.lastVisiblePosition = firstVisibleItem;
-
-            }
-
-            override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
-
-            }
-        })
+        load(F.gB().queryMapListByDevice(did, page.toString(), size.toString()), "queryMapListByDevice")
     }
 
     override fun onSuccess(data: String?, method: String) {
@@ -102,10 +77,10 @@ class FrgWorkChoose : BaseFrg() {
             mHorizontalListView.adapter = AdaWorkChooseBottom(context, mModelMap.rows)
             if (mModelMap.rows.isNotEmpty()) {
                 mAbPullListView.setApiLoadParams(
-                        "${F.baseUrl}map/queryMapAreaPathListByDevice",
+                        "${F.baseUrl}map/queryMapAreaPathListByMap",
                         "POST",
                         this,
-                        F.mModellogin?.token, "deviceId", mModelMap.rows[0].deviceId.toInt()
+                        F.mModellogin?.token, "mapId", mModelMap.rows[0].mapId.toInt()
                 )
             }
         }

@@ -137,7 +137,6 @@ public class BatteryService extends Service {
                     } else if (Itedbm > -140) {
                         F.INSTANCE.getMModelStatus().g4Level = 0;
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     F.INSTANCE.getMModelStatus().g4Level = 4;

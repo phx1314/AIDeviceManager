@@ -20,22 +20,19 @@ import com.mdx.framework.util.Helper
 object F {
     var mModellogin: ModelLogin? = null
     var mModelStatus: ModelStatus? = null
-    //                val baseUrl = "http://192.168.111.48:8081/robotos/cleanApp/"
+    //val baseUrl = "http://192.168.123.209:8081/robotos/cleanApp/"
 //    val baseUrl = "http://10.1.1.160:8081/robotos/cleanApp/" //测试
     val baseUrl = "http://192.168.16.91:8081/robotos/cleanApp/"//开发
 
     fun gB() = com.mdx.framework.service.gB(ApiService::class.java, baseUrl, mModellogin?.token)
 
-
     fun init() {
         mModellogin = Gson().fromJson(getJson("mModellogin"), ModelLogin::class.java)
-
     }
 
     fun <T> data2Model(data: String?, mclass: Class<T>): T {
         return Gson().fromJson(data, mclass)
     }
-
 
     fun getJson(key: String): String? {
         val sp = PreferenceManager.getDefaultSharedPreferences(Frame.CONTEXT)
@@ -53,12 +50,17 @@ object F {
         JPushInterface.stopPush(context);
         saveJson("mModellogin", "")
         mModellogin = null
-        Helper.startActivity(context, Intent.FLAG_ACTIVITY_CLEAR_TOP, FrgLogin::class.java, IndexAct::class.java)
+        Helper.startActivity(
+                context,
+                Intent.FLAG_ACTIVITY_CLEAR_TOP,
+                FrgLogin::class.java,
+                IndexAct::class.java
+        )
     }
 
-
     fun isWifiConnect(context: Context): Boolean {
-        val connManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val mWifiInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
         return mWifiInfo.isConnected
     }
@@ -114,7 +116,6 @@ object F {
         }
         return result
     }
-
 
     /**
      * 判断GPS是否开启，GPS或者AGPS开启一个就认为是开启的
