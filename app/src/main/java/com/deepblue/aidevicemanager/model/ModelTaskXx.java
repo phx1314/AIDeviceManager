@@ -14,6 +14,7 @@ public class ModelTaskXx {
      */
 
     public double total;
+    public double noReadCount;
     public double pageNum;
     public double pageSize;
     public double pages;
@@ -101,5 +102,6 @@ public class ModelTaskXx {
         public double deviceNum;
         public String deviceStatus;
         public String seriesCode;
+        public boolean isRead;
     }
 }

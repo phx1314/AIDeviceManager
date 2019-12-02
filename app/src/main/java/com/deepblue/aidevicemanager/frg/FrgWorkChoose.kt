@@ -17,10 +17,13 @@ import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaWorkChoose
 import com.deepblue.aidevicemanager.ada.AdaWorkChooseBottom
 import com.deepblue.aidevicemanager.model.ModelData
-import com.deepblue.aidevicemanager.model.ModelDevices
 import com.deepblue.aidevicemanager.model.ModelMap
+import com.deepblue.aidevicemanager.model.ModelMapLj
 import com.google.gson.Gson
+import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_work_choose.*
+
+var selectID = -1
 
 class FrgWorkChoose : BaseFrg() {
     var page = 1
@@ -31,6 +34,7 @@ class FrgWorkChoose : BaseFrg() {
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_work_choose)
         did = activity?.intent?.getStringExtra("did") ?: ""
+        selectID = -1
     }
 
     override fun disposeMsg(type: Int, obj: Any?) {
@@ -44,6 +48,9 @@ class FrgWorkChoose : BaseFrg() {
                         F.mModellogin?.token, "mapId", obj.toString()
                 )
             }
+            1 -> {
+//                mTextView_content.setText()
+            }
         }
 
     }
@@ -52,18 +59,28 @@ class FrgWorkChoose : BaseFrg() {
         mAbPullListView.setPageSize(6)
         mAbPullListView.setGridCount(3)
         mAbPullListView.setAbOnListViewListener { _, content ->
-            val mMPhotoList = Gson().fromJson(content, ModelDevices::class.java)
-            var data = ArrayList<ModelData<ModelDevices.RowsBean>>()
-            for (i in 0 until mMPhotoList.rows.size) {
+            var mModelMapLj = Gson().fromJson(content, ModelMapLj::class.java)
+            var data = ArrayList<ModelData<ModelMapLj.RowsBean>>()
+            for (i in 0 until mModelMapLj.rows.size) {
                 if (i % 3 == 0) {
-                    val mModelData = ModelData<ModelDevices.RowsBean>()
-                    for (j in i until Math.min(mMPhotoList.rows.size, i + 4)) {
-                        mModelData.mList.add(mMPhotoList.rows[j])
+                    val mModelData = ModelData<ModelMapLj.RowsBean>()
+                    for (j in i until Math.min(mModelMapLj.rows.size, i + 4)) {
+                        mModelData.mList.add(mModelMapLj.rows[j])
                     }
                     data.add(mModelData)
                 }
             }
             AdaWorkChoose(context, data)
+        }
+        mButton.setOnClickListener {
+            load(F.gB().queryMapListByDevice(did, page.toString(), size.toString()), "queryMapListByDevice")
+        }
+        mButton_load.setOnClickListener {
+            if (selectID == -1) {
+                Helper.toast("请先选择作业地图和作业路径")
+            }else{
+
+            }
         }
     }
 
@@ -80,7 +97,7 @@ class FrgWorkChoose : BaseFrg() {
                         "${F.baseUrl}map/queryMapAreaPathListByMap",
                         "POST",
                         this,
-                        F.mModellogin?.token, "mapId", mModelMap.rows[0].mapId.toInt()
+                        F.mModellogin?.token, "mapId", "1596"
                 )
             }
         }

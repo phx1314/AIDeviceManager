@@ -55,7 +55,9 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
 
     override fun onSuccess(data: String?, method: String) {
         var mModelB = F.data2Model(data, ModelB::class.java)
+        F.mModelStatus?.mModelB = mModelB
         if (mModelB.data_system_status.equals("1")) {
+
             Helper.startActivity(context, FrgDetailDj::class.java, TitleAct::class.java, "data", item_son)
 //            Helper.startActivity(context, FrgWorkDetail::class.java, TitleAct::class.java, "id", item_son.id.toString(), "from", "FrgDeviceMain")
         } else if (mModelB.data_system_status.equals("3")) {

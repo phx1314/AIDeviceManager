@@ -14,6 +14,7 @@ public class ModelBrokenXx {
      */
 
     public int total;
+    public double noReadCount;
     public int pageNum;
     public int pageSize;
     public int pages;
@@ -55,5 +56,6 @@ public class ModelBrokenXx {
         public String createTime;
         public int breakdownId;
         public String breakdownCode;
+        public   boolean isRead;
     }
 }

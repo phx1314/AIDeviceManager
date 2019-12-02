@@ -76,6 +76,18 @@ interface ApiService {
     @FormUrlEncoded
     fun createOrder(@Field("orderType") orderType: String, @Field("deviceId") deviceId: String): Observable<HttpResult<Any>>
 
+    @POST("task/updateAlarmIsRead")
+    @FormUrlEncoded
+    fun updateAlarmIsRead(@Field("id") id: String, @Field("isRead") isRead: String): Observable<HttpResult<Any>>
+
+    @POST("task/updateBreakdownIsRead")
+    @FormUrlEncoded
+    fun updateBreakdownIsRead(@Field("id") id: String, @Field("isRead") isRead: String): Observable<HttpResult<Any>>
+
+    @POST("task/updateTaskIsRead")
+    @FormUrlEncoded
+    fun updateTaskIsRead(@Field("id") id: String, @Field("isRead") isRead: String): Observable<HttpResult<Any>>
+
     @POST("user/queryContentConfigForAbout")
     fun queryContentConfigForAbout(): Observable<HttpResult<Any>>
 

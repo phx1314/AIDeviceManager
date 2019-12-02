@@ -12,20 +12,21 @@
 
     <ImageView
         android:id="@+id/mImageView1"
-        android:layout_width="200dp"
-        android:layout_height="110dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/u2303_mouse" />
+
     <ImageView
         android:id="@+id/mImageView2"
-        android:layout_width="200dp"
-        android:layout_height="110dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:src="@drawable/u2303_mouse" />
 
     <ImageView
         android:id="@+id/mImageView3"
-        android:layout_width="200dp"
-        android:layout_height="110dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:src="@drawable/u2303_mouse" />
 

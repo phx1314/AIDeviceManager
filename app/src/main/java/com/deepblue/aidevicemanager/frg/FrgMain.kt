@@ -128,13 +128,13 @@ class FrgMain : BaseFrg() {
         if (method.equals("queryTaskListWithPage")) {
             mModelTaskXx = F.data2Model(data, ModelTaskXx::class.java)
             childString[1][0] =
-                "${getString(R.string.d_task_xx) + "(" + mModelTaskXx.total.toInt()})"
+                "${getString(R.string.d_task_xx) + "(" + mModelTaskXx.noReadCount.toInt()})"
         } else if (method.equals("queryAlarmInfos")) {
             mModelWaringXx = F.data2Model(data, ModelWaringXx::class.java)
-            childString[1][1] = "${getString(R.string.d_waring_xx) + "(" + mModelWaringXx.total})"
+            childString[1][1] = "${getString(R.string.d_waring_xx) + "(" + mModelWaringXx.noReadCount.toInt()})"
         } else if (method.equals("queryBreakdowns")) {
             mModelBrokenXx = F.data2Model(data, ModelBrokenXx::class.java)
-            childString[1][2] = "${getString(R.string.d_broken_xx) + "(" + mModelBrokenXx.total})"
+            childString[1][2] = "${getString(R.string.d_broken_xx) + "(" + mModelBrokenXx.noReadCount.toInt()})"
         }
         (mExpandableListView.expandableListAdapter as ExpandableListviewAdapter).notifyDataSetChanged()
     }
@@ -151,9 +151,9 @@ class FrgMain : BaseFrg() {
         var mFrgXx = FrgXx()
         val bundle = Bundle()
         bundle.putInt("type", type)
-        bundle.putInt("count1", mModelTaskXx.total.toInt())
-        bundle.putInt("count2", mModelWaringXx.total)
-        bundle.putInt("count3", mModelBrokenXx.total)
+        bundle.putInt("count1", mModelTaskXx.noReadCount.toInt())
+        bundle.putInt("count2", mModelWaringXx.noReadCount.toInt())
+        bundle.putInt("count3", mModelBrokenXx.noReadCount.toInt())
         mFrgXx.arguments = bundle
         chageFrgment(mFrgXx)
     }

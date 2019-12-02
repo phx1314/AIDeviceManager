@@ -10,6 +10,8 @@
 
 package com.deepblue.aidevicemanager.frg
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -40,6 +42,19 @@ class FrgDetailDj : BaseFrg() {
             if (mButton.text.equals("启动")) {
                 load(F.gB().createOrder("12", data.id.toString()), "createOrder")
             } else {
+                if (mModelB.data_system_status.equals("2")) {
+                    AlertDialog.Builder(context).setTitle("提示")
+                            .setMessage("车辆目前处于有人驾驶状态中，是否确认切换到无人作业？")
+                            .setPositiveButton(
+                                    "切换"
+                            ) { dialogInterface: DialogInterface, i: Int ->
+                                run {
+                                    Helper.startActivity(context, FrgWorkChoose::class.java, TitleAct::class.java)
+                                }
+                            }
+                            .setNegativeButton("取消", null)
+                            .show()
+                }
                 Helper.startActivity(context, FrgWorkChoose::class.java, TitleAct::class.java)
             }
         }
@@ -83,6 +98,7 @@ class FrgDetailDj : BaseFrg() {
                 }
                 "1" -> {
                     mTextView_status.text = "自动作业中"
+                    mButton.text = "清扫作业任务选择"
                 }
                 "2" -> {
                     mTextView_status.text = "手动驾驶中"
@@ -129,5 +145,10 @@ class FrgDetailDj : BaseFrg() {
 
         mHead.mImageView.setBackgroundResource(R.drawable.u1844)
         mHead.mTextView_d_status.text = getString(R.string.d_connect)
+    }
+
+    override fun onDestroy() {
+        F.mModelStatus?.mModelB = null
+        super.onDestroy()
     }
 }

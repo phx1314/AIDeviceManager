@@ -62,102 +62,242 @@ class Head(context: Context?) : LinearLayout(context) {
     }
 
     fun setStatus() {
-        mTextView_dc.text = mModelStatus?.batteryLevel.toString()
-        when {
-            mModelStatus?.batteryLevel in 0..5 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_alert_black_24dp, 0, 0, 0
-                )
+        if (mModelStatus?.mModelB == null) {
+            mTextView_dc.text = mModelStatus?.batteryLevel.toString()
+            when {
+                mModelStatus?.batteryLevel in 0..5 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_alert_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.batteryLevel in 6..20 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_20_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.batteryLevel in 21..30 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_30_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.batteryLevel in 31..50 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_50_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.batteryLevel in 51..60 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_60_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.batteryLevel in 61..80 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_80_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.batteryLevel in 81..90 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_90_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.batteryLevel in 91..100 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_full_black_24dp, 0, 0, 0)
+                }
+                else -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_unknown_black_24dp, 0, 0, 0
+                    )
+                }
+
             }
-            mModelStatus?.batteryLevel in 6..20 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_20_black_24dp, 0, 0, 0
-                )
+            mImageView_gps.visibility = if (F.isOPenGPS(context)) View.VISIBLE else View.GONE
+            when (F.checkWifiState(context)) {
+                -1 -> {
+                    mImageView_wifi.visibility = View.GONE
+                }
+                0 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_1_bar_black_24dp)
+                }
+                1 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_2_bar_black_24dp)
+                }
+                2 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_3_bar_black_24dp)
+                }
+                3 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
+                }
+                4 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
+                }
             }
-            mModelStatus?.batteryLevel in 21..30 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_30_black_24dp, 0, 0, 0
-                )
+            when (mModelStatus?.g4Level) {
+                -1 -> {
+                    mImageView_4g.visibility = View.GONE
+                }
+                0 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_0_bar_black_24dp)
+                }
+                1 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_1_bar_black_24dp)
+                }
+                2 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_2_bar_black_24dp)
+                }
+                3 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_3_bar_black_24dp)
+                }
+                4 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
+                }
+                else -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.visibility = View.GONE
+                }
             }
-            mModelStatus?.batteryLevel in 31..50 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_50_black_24dp, 0, 0, 0
-                )
+        } else {
+            when {
+                mModelStatus?.mModelB?.data_rtk_status?.toInt() in 0..25 -> {
+
+                }
+                mModelStatus?.mModelB?.data_rtk_status?.toInt() in 26..50 -> {
+
+                }
+                mModelStatus?.mModelB?.data_rtk_status?.toInt() in 51..75 -> {
+
+                }
+                mModelStatus?.mModelB?.data_rtk_status?.toInt() in 76..100 -> {
+
+                }
+                else -> {
+                }
+
             }
-            mModelStatus?.batteryLevel in 51..60 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_60_black_24dp, 0, 0, 0
-                )
+            when {
+                mModelStatus?.mModelB?.data_gps_signal?.toInt() in 0..25 -> {
+
+                }
+                mModelStatus?.mModelB?.data_gps_signal?.toInt() in 26..50 -> {
+
+                }
+                mModelStatus?.mModelB?.data_gps_signal?.toInt() in 51..75 -> {
+
+                }
+                mModelStatus?.mModelB?.data_gps_signal?.toInt() in 76..100 -> {
+
+                }
+                else -> {
+                }
+
             }
-            mModelStatus?.batteryLevel in 61..80 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_80_black_24dp, 0, 0, 0
-                )
+            when {
+                mModelStatus?.mModelB?.data_wifi_signal?.toInt() in 0..25 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_2_bar_black_24dp)
+                }
+                mModelStatus?.mModelB?.data_wifi_signal?.toInt() in 26..50 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_3_bar_black_24dp)
+                }
+                mModelStatus?.mModelB?.data_wifi_signal?.toInt() in 51..75 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
+                }
+                mModelStatus?.mModelB?.data_wifi_signal?.toInt() in 76..100 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
+                }
+                else -> {
+                    mImageView_wifi.visibility = View.GONE
+                }
+
             }
-            mModelStatus?.batteryLevel in 81..90 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_90_black_24dp, 0, 0, 0
-                )
+
+            when {
+                mModelStatus?.mModelB?.data_telcom_signal?.toInt() in 0..25 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_1_bar_black_24dp)
+
+                }
+                mModelStatus?.mModelB?.data_telcom_signal?.toInt() in 26..50 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_2_bar_black_24dp)
+
+                }
+                mModelStatus?.mModelB?.data_telcom_signal?.toInt() in 51..75 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_3_bar_black_24dp)
+
+                }
+                mModelStatus?.mModelB?.data_telcom_signal?.toInt() in 76..100 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
+
+                }
+                else -> {
+                    mImageView_4g.visibility = View.GONE
+                }
+
             }
-            mModelStatus?.batteryLevel in 91..100 -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_full_black_24dp, 0, 0, 0)
-            }
-            else -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_unknown_black_24dp, 0, 0, 0
-                )
+            mTextView_dc.text = mModelStatus?.mModelB?.data_battery_remaining_capacity
+            when {
+                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 0..5 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_alert_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 6..20 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_20_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 21..30 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_30_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 31..50 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_50_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 51..60 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_60_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 61..80 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_80_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 81..90 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_90_black_24dp, 0, 0, 0
+                    )
+                }
+                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 91..100 -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery_full_black_24dp, 0, 0, 0)
+                }
+                else -> {
+                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_battery_unknown_black_24dp, 0, 0, 0
+                    )
+                }
             }
 
         }
-        mImageView_gps.visibility = if (F.isOPenGPS(context)) View.VISIBLE else View.GONE
-        when (F.checkWifiState(context)) {
-            -1 -> {
-                mImageView_wifi.visibility = View.GONE
-            }
-            0 -> {
-                mImageView_wifi.visibility = View.VISIBLE
-                mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_1_bar_black_24dp)
-            }
-            1 -> {
-                mImageView_wifi.visibility = View.VISIBLE
-                mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_2_bar_black_24dp)
-            }
-            2 -> {
-                mImageView_wifi.visibility = View.VISIBLE
-                mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_3_bar_black_24dp)
-            }
-            3 -> {
-                mImageView_wifi.visibility = View.VISIBLE
-                mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
-            }
-            4 -> {
-                mImageView_wifi.visibility = View.VISIBLE
-                mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
-            }
-        }
-        when (mModelStatus?.g4Level) {
-            -1 -> {
-                mImageView_4g.visibility = View.GONE
-            }
-            0 -> {
-                mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_0_bar_black_24dp)
-            }
-            1 -> {
-                mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_1_bar_black_24dp)
-            }
-            2 -> {
-                mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_2_bar_black_24dp)
-            }
-            3 -> {
-                mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_3_bar_black_24dp)
-            }
-            4 -> {
-                mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
-            }
-            else -> {
-                mImageView_4g.visibility = View.GONE
-            }
-        }
+
     }
 
 }

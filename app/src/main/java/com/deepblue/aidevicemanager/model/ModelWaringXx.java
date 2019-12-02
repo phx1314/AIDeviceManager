@@ -13,6 +13,7 @@ public class ModelWaringXx {
      */
 
     public int total;
+    public double noReadCount;
     public int pageNum;
     public int pageSize;
     public int pages;
@@ -56,5 +57,6 @@ public class ModelWaringXx {
         public double alarmPointZ;
         public String alarmFlag;
         public String molStaffTel;
+        public   boolean isRead;
     }
 }

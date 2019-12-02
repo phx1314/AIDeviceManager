@@ -29,7 +29,6 @@ import android.widget.ListView;
 import android.widget.OverScroller;
 import android.widget.ProgressBar;
 
-import com.deepblue.aidevicemanager.F;
 import com.mdx.framework.Frame;
 import com.mdx.framework.adapter.MAdapter;
 import com.mdx.framework.util.AbViewUtil;
@@ -495,7 +494,10 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
             Timber.d(mJSONObject.optString("data"));
             mMAdapter = mListViewListener.onSuccess(methodName, mJSONObject.optString("data"));
             if (mMAdapter != null) {
-                if ((gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
+//                if ((gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
+//                    setPullLoadEnable(false);
+//                }
+                if (new JSONObject(mJSONObject.optString("data")).optInt("pageNum") == new JSONObject(mJSONObject.optString("data")).optInt("pages")) {
                     setPullLoadEnable(false);
                 }
 //        stopLoadMore();

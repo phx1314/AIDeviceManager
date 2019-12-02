@@ -12,9 +12,12 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.os.Bundle
-import android.os.Handler
-import android.text.InputType
+import android.text.InputType.*
 import android.text.TextUtils
+import android.util.Log
+import android.view.View
+import android.widget.LinearLayout
+import cn.jpush.android.api.JPushInterface
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.F.data2Model
 import com.deepblue.aidevicemanager.F.gB
@@ -22,25 +25,14 @@ import com.deepblue.aidevicemanager.F.mModellogin
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelLogin
 import com.deepblue.aidevicemanager.util.DesEncryptDecrypt
+import com.deepblue.aidevicemanager.util.PhoneFormatCheckUtils
+import com.mdx.framework.Frame
 import com.mdx.framework.activity.IndexAct
+import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.permissions.PermissionRequest
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_login.*
-import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-import android.text.InputType.TYPE_CLASS_TEXT
-import android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-import android.view.View
-import android.widget.LinearLayout
-import com.deepblue.aidevicemanager.util.PhoneFormatCheckUtils
-import com.mdx.framework.Frame
-import com.mdx.framework.activity.TitleAct
-import kotlinx.android.synthetic.main.frg_input_new.*
-import kotlinx.android.synthetic.main.frg_login.mEditText_pass
-import kotlinx.android.synthetic.main.frg_login.mImageView_kan
 import kotlinx.android.synthetic.main.item_head.view.*
-import cn.jpush.android.api.TagAliasCallback
-import cn.jpush.android.api.JPushInterface
-import android.util.Log
 
 
 class FrgLogin : BaseFrg() {
@@ -55,9 +47,9 @@ class FrgLogin : BaseFrg() {
 
     override fun initView() {
         Helper.requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            android.Manifest.permission.READ_PHONE_STATE,
-            android.Manifest.permission.ACCESS_FINE_LOCATION), object : PermissionRequest() {
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_PHONE_STATE,
+                android.Manifest.permission.ACCESS_FINE_LOCATION), object : PermissionRequest() {
             override fun onGrant(var1: Array<out String>?, var2: IntArray?) {
 
             }
@@ -95,8 +87,8 @@ class FrgLogin : BaseFrg() {
                 return@setOnClickListener
             }
             load(gB().login(mEditText_phone.getText().toString(),
-                DesEncryptDecrypt.getInstance().encrypt(mEditText_pass.getText().toString()),
-                ""), "login")
+                    DesEncryptDecrypt.getInstance().encrypt(mEditText_pass.getText().toString()),
+                    ""), "login")
         }
         mTextView_forget.setOnClickListener {
             Helper.startActivity(context, FrgForget::class.java, TitleAct::class.java)
@@ -113,11 +105,8 @@ class FrgLogin : BaseFrg() {
             F.saveJson("mModellogin", data)
             Helper.startActivity(context, FrgMain::class.java, IndexAct::class.java)
             JPushInterface.resumePush(activity!!)
-            val s = HashSet<String>()
-            s.add("")
-            JPushInterface.setAliasAndTags(activity!!,
-                mModellogin?.user?.id?.toInt().toString(),
-                s) { code, s, set ->
+            JPushInterface.setAlias(activity!!,
+                    mModellogin?.user?.id?.toInt().toString()) { code, s, set ->
                 this@FrgLogin.finish()
                 when (code) {
                     0 -> Log.i("JPush", "设置别名成功")

@@ -40,7 +40,7 @@ public class AdaWorkChooseBottom extends MAdapter<ModelMap.RowsBean> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Frame.HANDLES.sentAll("FrgWorkChoose", 0, (int) item.mapId);
+                Frame.HANDLES.sentAll("FrgWorkChoose", 0, (int) item.id);
             }
         });
         return convertView;

@@ -37,8 +37,24 @@ class FrgXx : BaseFrg() {
         mLinearLayout_2.setOnClickListener { chageType(1) }
         mLinearLayout_3.setOnClickListener { chageType(2) }
         mTextView_1.text = "${getString(R.string.d_task_xx) + "(" + arguments?.getInt("count1")})"
-        mTextView_2.text = "${getString(R.string.d_waring_xx) + "(" +  arguments?.getInt("count2")})"
-        mTextView_3.text = "${getString(R.string.d_broken_xx) + "(" +  arguments?.getInt("count3")})"
+        mTextView_2.text = "${getString(R.string.d_waring_xx) + "(" + arguments?.getInt("count2")})"
+        mTextView_3.text = "${getString(R.string.d_broken_xx) + "(" + arguments?.getInt("count3")})"
+
+    }
+
+    override fun disposeMsg(type: Int, obj: Any?) {
+        when (type) {
+            3 -> {
+                load(F.gB().updateTaskIsRead(obj.toString(), "1"), "updateTaskIsRead")
+            }
+            4 -> {
+                load(F.gB().updateAlarmIsRead(obj.toString(), "1"), "updateTaskIsRead")
+            }
+            5 -> {
+                load(F.gB().updateBreakdownIsRead(obj.toString(), "1"), "updateTaskIsRead")
+            }
+        }
+
 
     }
 
@@ -78,6 +94,7 @@ class FrgXx : BaseFrg() {
                         F.mModellogin?.token
                 )
             }
+
         }
     }
 
@@ -86,20 +103,20 @@ class FrgXx : BaseFrg() {
             when (type) {
                 0 -> {
                     var mModelTaskXx = F.data2Model(content, ModelTaskXx::class.java)
-                    mTextView_1.text = "${getString(R.string.d_task_xx) + "(" + mModelTaskXx.total.toInt()})"
-                    Frame.HANDLES.sentAll("FrgMain", 2, mModelTaskXx.total.toInt())
+                    mTextView_1.text = "${getString(R.string.d_task_xx) + "(" + mModelTaskXx.noReadCount.toInt()})"
+                    Frame.HANDLES.sentAll("FrgMain", 2, mModelTaskXx.noReadCount.toInt())
                     AdaXx(context, mModelTaskXx.rows)
                 }
                 1 -> {
                     var mModelWaringXx = F.data2Model(content, ModelWaringXx::class.java)
-                    mTextView_2.text = "${getString(R.string.d_waring_xx) + "(" + mModelWaringXx.total})"
-                    Frame.HANDLES.sentAll("FrgMain", 3, mModelWaringXx.total)
+                    mTextView_2.text = "${getString(R.string.d_waring_xx) + "(" + mModelWaringXx.noReadCount.toInt()})"
+                    Frame.HANDLES.sentAll("FrgMain", 3, mModelWaringXx.noReadCount.toInt())
                     AdaXx(context, mModelWaringXx.rows)
                 }
                 2 -> {
                     var mModelBrokenXx = F.data2Model(content, ModelBrokenXx::class.java)
-                    mTextView_3.text = "${getString(R.string.d_broken_xx) + "(" + mModelBrokenXx.total})"
-                    Frame.HANDLES.sentAll("FrgMain", 4, mModelBrokenXx.total)
+                    mTextView_3.text = "${getString(R.string.d_broken_xx) + "(" + mModelBrokenXx.noReadCount.toInt()})"
+                    Frame.HANDLES.sentAll("FrgMain", 4, mModelBrokenXx.noReadCount.toInt())
                     AdaXx(context, mModelBrokenXx.rows)
                 }
                 else -> {
@@ -110,5 +127,8 @@ class FrgXx : BaseFrg() {
     }
 
     override fun onSuccess(data: String?, method: String) {
+        if (method.equals("updateTaskIsRead")) {
+
+        }
     }
 }
