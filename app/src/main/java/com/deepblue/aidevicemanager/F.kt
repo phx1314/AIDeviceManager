@@ -158,11 +158,6 @@ object F {
                         .retryOnConnectionFailure(true)
                         .build()
                 )
-                .request(
-                    Request.Builder()
-                        .url(url)
-                        .build()
-                )
                 .needReconnect(true)
                 .build()
         } else {
