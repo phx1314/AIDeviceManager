@@ -260,7 +260,7 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
             }
             4 -> {
                 TempWorkstate = WORKSTATE
-                load(F.gB(60).createOrder("13", "12"), "createOrder_emg")
+//                load(F.gB(60).createOrder("13", id_), "createOrder_emg")
                 onSuccess("", "createOrder_emg")
             }
             5 -> {
