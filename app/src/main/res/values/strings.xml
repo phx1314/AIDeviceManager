@@ -12,7 +12,7 @@
     <string name="i_login" translatable="false">登录过期，请重新登录</string>
     <string name="loading" translatable="false">加载中,请稍后...</string>
     <string name="net_error" translatable="false">无可用网络，请检查网络连接</string>
-    <string name="d_task_xx" translatable="false">作业任务消息</string>
+    <string name="d_task_xx" translatable="false">任务消息</string>
     <string name="d_waring_xx" translatable="false">报警消息</string>
     <string name="d_broken_xx" translatable="false">故障消息</string>
     <string name="d_broken" translatable="false">设备故障</string>

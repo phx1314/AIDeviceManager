@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import com.mdx.framework.Frame;
+
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
@@ -20,13 +22,11 @@ public class PushReceiver extends BroadcastReceiver {
 
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent
                 .getAction())) {
-            String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
-            String content = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-            // 自定义消息不会展示在通知栏，完全要开发者写代码去处理
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent
                 .getAction())) {
             String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
             String content = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+            Frame.HANDLES.sentAll("FrgMain,FrgXx", 120, 0);
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
                 .getAction())) {
             if (getAppSatus(context, context.getPackageName()) == 3) {
@@ -34,8 +34,7 @@ public class PushReceiver extends BroadcastReceiver {
                 context.startActivity(packageManager.getLaunchIntentForPackage(context.getPackageName()));
                 return;
             }
-            String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
-            extra = extra.replace("RefID", "Id");
+            String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);//1warning2broken  3task
         } else {
         }
     }

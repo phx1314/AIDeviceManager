@@ -36,7 +36,6 @@
         android:icon="@drawable/u127"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_config"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme_pub"
         tools:ignore="GoogleAppIndexingWarning">
@@ -72,104 +71,14 @@
             android:process=":remote" />
 
 
-<!--        &lt;!&ndash;极光&ndash;&gt;-->
-<!--        &lt;!&ndash; Required SDK 核心功能&ndash;&gt;-->
-<!--        &lt;!&ndash; option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 &ndash;&gt;-->
-<!--        &lt;!&ndash; 如：android:process=":remote" &ndash;&gt;-->
-<!--        <service-->
-<!--            android:name="cn.jpush.android.service.PushService"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="false">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="cn.jpush.android.intent.REGISTER" />-->
-<!--                <action android:name="cn.jpush.android.intent.REPORT" />-->
-<!--                <action android:name="cn.jpush.android.intent.PushService" />-->
-<!--                <action android:name="cn.jpush.android.intent.PUSH_TIME" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
-<!--        &lt;!&ndash; since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 &ndash;&gt;-->
-<!--        &lt;!&ndash; 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 &ndash;&gt;-->
-<!--        <receiver-->
-<!--            android:name="cn.jpush.android.service.PushReceiver"-->
-<!--            android:enabled="true">-->
-<!--            <intent-filter android:priority="1000">-->
-<!--                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />-->
-<!--                <category android:name="com.deepblue.aidevicemanager" />-->
-<!--            </intent-filter>-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.USER_PRESENT" />-->
-<!--                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-<!--            </intent-filter>-->
-<!--            &lt;!&ndash; Optional &ndash;&gt;-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.PACKAGE_ADDED" />-->
-<!--                <action android:name="android.intent.action.PACKAGE_REMOVED" />-->
-
-<!--                <data android:scheme="package" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-<!--        &lt;!&ndash; Required SDK核心功能&ndash;&gt;-->
-<!--        <activity-->
-<!--            android:name="cn.jpush.android.ui.PushActivity"-->
-<!--            android:configChanges="orientation|keyboardHidden"-->
-<!--            android:exported="false">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="cn.jpush.android.ui.PushActivity" />-->
-
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <category android:name="com.deepblue.aidevicemanager" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-<!--        &lt;!&ndash; Required SDK核心功能&ndash;&gt;-->
-<!--        <service-->
-<!--            android:name="cn.jpush.android.service.DownloadService"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="false"></service>-->
-<!--        &lt;!&ndash; Required SDK核心功能&ndash;&gt;-->
-<!--        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />-->
-
-<!--        &lt;!&ndash; User defined. 用户自定义的广播接收器&ndash;&gt;-->
-<!--        <receiver-->
-<!--            android:name="com.deepblue.aidevicemanager.service.PushReceiver"-->
-<!--            android:enabled="true">-->
-<!--            <intent-filter>-->
-<!--                &lt;!&ndash;Required 用户注册SDK的intent&ndash;&gt;-->
-<!--                <action android:name="cn.jpush.android.intent.REGISTRATION" />-->
-<!--                &lt;!&ndash;Required 用户接收SDK消息的intent&ndash;&gt;-->
-<!--                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />-->
-<!--                &lt;!&ndash;Required 用户接收SDK通知栏信息的intent&ndash;&gt;-->
-<!--                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />-->
-<!--                &lt;!&ndash;Required 用户打开自定义通知栏的intent&ndash;&gt;-->
-<!--                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />-->
-<!--                &lt;!&ndash;Optional 用户接受Rich Push Javascript 回调函数的intent&ndash;&gt;-->
-<!--                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />-->
-<!--                &lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;-->
-<!--                <action android:name="cn.jpush.android.intent.CONNECTION" />-->
-<!--                <category android:name="com.deepblue.aidevicemanager" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-
-<!--        &lt;!&ndash; Required. For publish channel feature &ndash;&gt;-->
-<!--        &lt;!&ndash; JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。&ndash;&gt;-->
-<!--        &lt;!&ndash; 例如: &ndash;&gt;-->
-<!--        &lt;!&ndash; 发到 Google Play 的APK可以设置为 google-play; &ndash;&gt;-->
-<!--        &lt;!&ndash; 发到其他市场的 APK 可以设置为 xxx-market。 &ndash;&gt;-->
-<!--        &lt;!&ndash; 目前这个渠道统计功能的报表还未开放。&ndash;&gt;-->
-<!--        <meta-data-->
-<!--            android:name="JPUSH_CHANNEL"-->
-<!--            android:value="" />-->
-<!--        &lt;!&ndash; Required. AppKey copied from Portal &ndash;&gt;-->
-<!--        <meta-data-->
-<!--            android:name="JPUSH_APPKEY"-->
-<!--            android:value="ede9abf6c765cb178a5d1359" />-->
-<!--        &lt;!&ndash;极光ｅｎｄ&ndash;&gt;-->
         <service android:name=".service.BatteryService" />
 
 
         <!-- Since JCore2.0.0 Required SDK核心功能-->
         <!-- 可配置android:process参数将Service放在其他进程中；android:enabled属性不能是false -->
         <!-- 这个是自定义Service，要继承极光JCommonService，可以在更多手机平台上使得推送通道保持的更稳定 -->
-        <service android:name="com.deepblue.aidevicemanager.service.PushService"
+        <service
+            android:name="com.deepblue.aidevicemanager.service.PushService"
             android:enabled="true"
             android:exported="false"
             android:process=":pushcore">
@@ -184,7 +93,7 @@
         <receiver
             android:name="com.deepblue.aidevicemanager.service.MyJPushMessageReceiver"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
                 <category android:name="com.deepblue.aidevicemanager" />
@@ -194,8 +103,8 @@
         <!-- User defined.  For test only  用户自定义的广播接收器-->
         <receiver
             android:name="com.deepblue.aidevicemanager.service.PushReceiver"
-            android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->

@@ -26,7 +26,6 @@ import com.deepblue.aidevicemanager.model.ModelDevices
 import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_detail_dj.*
-import kotlinx.android.synthetic.main.item_head.view.*
 
 class FrgDetailDj : BaseFrg() {
     lateinit var mModelB: ModelB
@@ -44,20 +43,20 @@ class FrgDetailDj : BaseFrg() {
             } else {
                 if (mModelB.data_system_status.equals("2")) {
                     AlertDialog.Builder(context).setTitle("提示")
-                        .setMessage("车辆目前处于有人驾驶状态中，是否确认切换到无人作业？")
-                        .setPositiveButton(
-                            "切换"
-                        ) { dialogInterface: DialogInterface, i: Int ->
-                            run {
-                                Helper.startActivity(
-                                    context,
-                                    FrgWorkChoose::class.java,
-                                    TitleAct::class.java
-                                )
+                            .setMessage("车辆目前处于有人驾驶状态中，是否确认切换到无人作业？")
+                            .setPositiveButton(
+                                    "切换"
+                            ) { dialogInterface: DialogInterface, i: Int ->
+                                run {
+                                    Helper.startActivity(
+                                            context,
+                                            FrgWorkChoose::class.java,
+                                            TitleAct::class.java
+                                    )
+                                }
                             }
-                        }
-                        .setNegativeButton("取消", null)
-                        .show()
+                            .setNegativeButton("取消", null)
+                            .show()
                 }
                 Helper.startActivity(context, FrgWorkChoose::class.java, TitleAct::class.java)
             }
@@ -125,16 +124,18 @@ class FrgDetailDj : BaseFrg() {
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
         mHead.setTitle(data.deviceCode)
-        mHead.mLinearLayout_status.visibility = View.VISIBLE
+
         mDialogSet = DialogSet(context, data)
         mHead.setShowPop(mDialogSet)
+//        mHead.mLinearLayout_status.visibility = View.VISIBLE
+//        mHead.mImageView.setBackgroundResource(R.drawable.u1844)
+//        mHead.mTextView_d_status.text = getString(R.string.d_connect)
 
-        mHead.mImageView.setBackgroundResource(R.drawable.u1844)
-        mHead.mTextView_d_status.text = getString(R.string.d_connect)
     }
 
     override fun onDestroy() {
         F.mModelStatus?.mModelB = null
+        F.stopConnectWSocket()
         super.onDestroy()
     }
 }

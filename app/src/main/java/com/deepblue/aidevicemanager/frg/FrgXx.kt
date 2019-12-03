@@ -44,10 +44,13 @@ class FrgXx : BaseFrg() {
     override fun disposeMsg(type: Int, obj: Any?) {
         when (type) {
             3 -> {
-                load(F.gB().updateTaskIsRead(obj.toString(), "1"), "updateTaskIsRead")
+                load(F.gB().updateTaskIsRead(obj.toString().toDouble().toInt().toString(), "1"), "updateTaskIsRead")
             }
             4 -> {
                 load(F.gB().updateBreakdownIsRead(obj.toString(), "1"), "updateTaskIsRead")
+            }
+            120 -> {
+                mAbPullListView.pullLoad()
             }
         }
 
@@ -62,10 +65,10 @@ class FrgXx : BaseFrg() {
                 mImageView_2.visibility = View.INVISIBLE
                 mImageView_3.visibility = View.INVISIBLE
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}task/queryTaskListWithPage",
-                    "POST",
-                    this,
-                    F.mModellogin?.token
+                        "${F.baseUrl}task/queryTaskListWithPage",
+                        "POST",
+                        this,
+                        F.mModellogin?.token
                 )
             }
             1 -> {
@@ -73,10 +76,10 @@ class FrgXx : BaseFrg() {
                 mImageView_2.visibility = View.VISIBLE
                 mImageView_3.visibility = View.INVISIBLE
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}task/queryAlarmBreakdowns",
-                    "POST",
-                    this,
-                    F.mModellogin?.token
+                        "${F.baseUrl}task/queryAlarmBreakdowns",
+                        "POST",
+                        this,
+                        F.mModellogin?.token
                 )
             }
             2 -> {
@@ -84,10 +87,10 @@ class FrgXx : BaseFrg() {
                 mImageView_2.visibility = View.INVISIBLE
                 mImageView_3.visibility = View.VISIBLE
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}task/queryBreakdowns",
-                    "POST",
-                    this,
-                    F.mModellogin?.token
+                        "${F.baseUrl}task/queryBreakdowns",
+                        "POST",
+                        this,
+                        F.mModellogin?.token
                 )
             }
 
@@ -100,21 +103,21 @@ class FrgXx : BaseFrg() {
                 0 -> {
                     var mModelTaskXx = F.data2Model(content, ModelTaskXx::class.java)
                     mTextView_1.text =
-                        "${getString(R.string.d_task_xx) + "(" + mModelTaskXx.noReadCount.toInt()})"
+                            "${getString(R.string.d_task_xx) + "(" + mModelTaskXx.noReadCount.toInt()})"
                     Frame.HANDLES.sentAll("FrgMain", 2, mModelTaskXx.noReadCount.toInt())
-                    AdaXx(context, mModelTaskXx.rows)
+                    AdaXx(context, mModelTaskXx.pageInfo.rows)
                 }
                 1 -> {
                     var mModelWaringXx = F.data2Model(content, ModelBrokenXx::class.java)
                     mTextView_2.text =
-                        "${getString(R.string.d_waring_xx) + "(" + mModelWaringXx.noReadCount.toInt()})"
+                            "${getString(R.string.d_waring_xx) + "(" + mModelWaringXx.noReadCount.toInt()})"
                     Frame.HANDLES.sentAll("FrgMain", 3, mModelWaringXx.noReadCount.toInt())
                     AdaXx(context, mModelWaringXx.pageInfo.rows)
                 }
                 2 -> {
                     var mModelBrokenXx = F.data2Model(content, ModelBrokenXx::class.java)
                     mTextView_3.text =
-                        "${getString(R.string.d_broken_xx) + "(" + mModelBrokenXx.noReadCount.toInt()})"
+                            "${getString(R.string.d_broken_xx) + "(" + mModelBrokenXx.noReadCount.toInt()})"
                     Frame.HANDLES.sentAll("FrgMain", 4, mModelBrokenXx.noReadCount.toInt())
                     AdaXx(context, mModelBrokenXx.pageInfo.rows)
                 }
@@ -127,7 +130,7 @@ class FrgXx : BaseFrg() {
 
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("updateTaskIsRead")) {
-
+            mAbPullListView.reLoad()
         }
     }
 }

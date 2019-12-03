@@ -27,7 +27,7 @@ class Xx(context: Context?) : LinearLayout(context) {
     }
 
     fun set(item: Any) {
-        if (item is ModelTaskXx.RowsBean) {
+        if (item is ModelTaskXx.PageInfoBean.RowsBean) {
             mTextView_1.text = item.id.toInt().toString()
             mTextView_2.text = item.createTime.toString()
             mTextView_3.text = item.taskName.toString()

@@ -54,6 +54,10 @@ interface ApiService {
     @FormUrlEncoded
     fun queryTaskListWithPage(@Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
 
+    @POST("task/testTaskJiGuang")
+    @FormUrlEncoded
+    fun testTaskJiGuang(@Field("id") id: String = "8966", @Field("isRead") isRead: String = "0"): Observable<HttpResult<Any>>
+
     @POST("map/queryMapListByDevice")
     @FormUrlEncoded
     fun queryMapListByDevice(

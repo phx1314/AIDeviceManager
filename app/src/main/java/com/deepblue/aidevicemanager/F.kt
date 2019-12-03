@@ -24,9 +24,10 @@ object F {
     var wsManager: WsManager? = null
     var mModellogin: ModelLogin? = null
     var mModelStatus: ModelStatus? = null
-    val baseUrl = "http://192.168.123.209:8081/robotos/cleanApp/"
+    val wsBaseUrl = "ws://192.168.123.209:8081/robotos/cleanApp/"
+//    val baseUrl = "http://192.168.123.209:8081/robotos/cleanApp/"
 //    val baseUrl = "http://10.1.1.160:8081/robotos/cleanApp/" //测试
-//    val baseUrl = "http://192.168.16.91:8081/robotos/cleanApp/"//开发
+    val baseUrl = "http://192.168.16.91:8081/robotos/cleanApp/"//开发
 
     fun gB(TIME: Long = 30) =
         com.mdx.framework.service.gB(ApiService::class.java, baseUrl, mModellogin?.token, TIME)
