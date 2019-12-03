@@ -141,8 +141,7 @@ class FrgMain : BaseFrg() {
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryTaskListWithPage")) {
             mModelTaskXx = F.data2Model(data, ModelTaskXx::class.java)
-            childString[1][0] =
-                    "${getString(R.string.d_task_xx) + "(" + mModelTaskXx.noReadCount.toInt()})"
+            childString[1][0] = "${getString(R.string.d_task_xx) + "(" + mModelTaskXx.noReadCount.toDouble().toInt()})"
             if (mModelTaskXx.noReadCount.toInt() > 0) mHead.setXxIsShow(true)
             doSomeThing(mModelTaskXx.noReadCount.toInt(), 0, 0)
         } else if (method.equals("queryAlarmInfos")) {

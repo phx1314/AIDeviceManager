@@ -33,7 +33,7 @@ import io.reactivex.schedulers.Schedulers
 
 abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriberListener {
     lateinit var mHead: Head
-    private fun isHeadInit() = ::mHead.isInitialized
+      fun isHeadInit() = ::mHead.isInitialized
     var compositeDisposable = CompositeDisposable()
     final override fun initV(view: View) {
         initView()
@@ -49,9 +49,6 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     override fun disposeMsg(type: Int, obj: Any?) {
         when (type) {
             1110 -> { //电池
-                if (isHeadInit()) mHead?.setStatus()
-            }
-            1111 -> { //ws
                 if (isHeadInit()) mHead?.setStatus()
             }
             1112 -> { //ws state
@@ -73,19 +70,19 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
 
     fun <T> load(o: Observable<HttpResult<T>>, m: String, isShow: Boolean = true) {
         var s = S<T>(
-            this,
-            ProgressDialog(context).apply { this.setMessage(getString(R.string.loading)) },
-            m,
-            isShow
+                this,
+                ProgressDialog(context).apply { this.setMessage(getString(R.string.loading)) },
+                m,
+                isShow
         )
         compositeDisposable.add(s)
         if (!AbAppUtil.isNetworkAvailable(Frame.CONTEXT)) {
             Helper.toast(getString(R.string.net_error))
         }
         o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { if (s.isShow) s.mProgressDialog.show() }
-            .doFinally { if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss() }.subscribe(s)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { if (s.isShow) s.mProgressDialog.show() }
+                .doFinally { if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss() }.subscribe(s)
     }
 
 
@@ -100,9 +97,9 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
         mHead.canGoBack()
         mHead.setStatus()
         actionBar?.addView(
-            mHead,
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
+                mHead,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
         )
     }
 

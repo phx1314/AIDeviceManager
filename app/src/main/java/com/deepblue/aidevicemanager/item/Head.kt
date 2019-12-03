@@ -49,7 +49,7 @@ class Head(context: Context?) : LinearLayout(context) {
 
     fun canGoBack(b: Boolean = true) {
         if (b) mImageButton_back.visibility = View.VISIBLE else mImageButton_back.visibility =
-            View.GONE
+                View.GONE
         mImageButton_back.setOnClickListener {
             (context as BaseActivity).finish()
         }
@@ -57,7 +57,7 @@ class Head(context: Context?) : LinearLayout(context) {
 
     fun setXxIsShow(isShow: Boolean) {
         if (isShow) mImageView_dot.visibility = View.VISIBLE else mImageView_dot.visibility =
-            View.GONE
+                View.GONE
     }
 
     fun setTitle(s: String) {
@@ -65,60 +65,64 @@ class Head(context: Context?) : LinearLayout(context) {
         mTextView_title.text = s
     }
 
-    fun setStatus() {
-        if (mModelStatus?.mModelB == null) {
-            mTextView_dc.text = mModelStatus?.batteryLevel.toString()
-            when {
-                mModelStatus?.batteryLevel in 0..5 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+    fun setBatteryStatus(level: Int) {
+        mTextView_dc.text = level.toString()
+        when {
+            level in 0..5 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
                         R.drawable.ic_battery_alert_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.batteryLevel in 6..20 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                )
+            }
+            level in 6..20 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
                         R.drawable.ic_battery_20_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.batteryLevel in 21..30 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                )
+            }
+            level in 21..30 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
                         R.drawable.ic_battery_30_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.batteryLevel in 31..50 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                )
+            }
+            level in 31..50 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
                         R.drawable.ic_battery_50_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.batteryLevel in 51..60 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                )
+            }
+            level in 51..60 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
                         R.drawable.ic_battery_60_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.batteryLevel in 61..80 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                )
+            }
+            level in 61..80 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
                         R.drawable.ic_battery_80_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.batteryLevel in 81..90 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                )
+            }
+            level in 81..90 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
                         R.drawable.ic_battery_90_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.batteryLevel in 91..100 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                )
+            }
+            level in 91..100 -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
                         R.drawable.ic_battery_full_black_24dp,
                         0,
                         0,
                         0
-                    )
-                }
-                else -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_unknown_black_24dp, 0, 0, 0
-                    )
-                }
-
+                )
             }
+            else -> {
+                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_battery_unknown_black_24dp, 0, 0, 0
+                )
+            }
+
+        }
+    }
+
+    fun setStatus() {
+        if (mModelStatus?.mModelB == null) {
+            setBatteryStatus(mModelStatus?.batteryLevel ?: -1)
             mImageView_gps.visibility = if (F.isOPenGPS(context)) View.VISIBLE else View.GONE
             when (F.checkWifiState(context)) {
                 -1 -> {
@@ -175,23 +179,6 @@ class Head(context: Context?) : LinearLayout(context) {
                 }
             }
         } else {
-            when {
-                mModelStatus?.mModelB?.data_rtk_status?.toInt() in 0..25 -> {
-
-                }
-                mModelStatus?.mModelB?.data_rtk_status?.toInt() in 26..50 -> {
-
-                }
-                mModelStatus?.mModelB?.data_rtk_status?.toInt() in 51..75 -> {
-
-                }
-                mModelStatus?.mModelB?.data_rtk_status?.toInt() in 76..100 -> {
-
-                }
-                else -> {
-                }
-
-            }
             when {
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 0..25 -> {
 
@@ -258,57 +245,7 @@ class Head(context: Context?) : LinearLayout(context) {
                 }
 
             }
-            mTextView_dc.text = mModelStatus?.mModelB?.data_battery_remaining_capacity
-            when {
-                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 0..5 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_alert_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 6..20 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_20_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 21..30 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_30_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 31..50 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_50_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 51..60 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_60_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 61..80 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_80_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 81..90 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_90_black_24dp, 0, 0, 0
-                    )
-                }
-                mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() in 91..100 -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_full_black_24dp,
-                        0,
-                        0,
-                        0
-                    )
-                }
-                else -> {
-                    mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_unknown_black_24dp, 0, 0, 0
-                    )
-                }
-            }
+            setBatteryStatus(mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() ?: -1)
 
         }
 

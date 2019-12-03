@@ -36,6 +36,17 @@ class FrgDetailDj : BaseFrg() {
         data = activity?.intent?.getSerializableExtra("data") as ModelDevices.RowsBean
     }
 
+    override fun disposeMsg(type: Int, obj: Any?) {
+        super.disposeMsg(type, obj)
+
+        when (type) {
+            1111 -> { //ws
+
+                if (isHeadInit()) mHead?.setStatus()
+            }
+        }
+    }
+
     override fun initView() {
         mButton.setOnClickListener {
             if (mButton.text.equals("启动")) {
