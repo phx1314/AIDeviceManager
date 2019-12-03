@@ -64,19 +64,28 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     override fun onSuccess(data: String?, method: String) {
     }
 
-    override fun onError(code: String?, msg: String?) {
+
+    override fun onError(code: String?, msg: String?, data: String?, method: String) {
         if (code != null && (code == "0020" || code == "0021" || code == "0022")) {
             F.logOut(context)
         }
     }
 
     fun <T> load(o: Observable<HttpResult<T>>, m: String, isShow: Boolean = true) {
-        var s = S<T>(this, ProgressDialog(context).apply { this.setMessage(getString(R.string.loading)) }, m, isShow)
+        var s = S<T>(
+            this,
+            ProgressDialog(context).apply { this.setMessage(getString(R.string.loading)) },
+            m,
+            isShow
+        )
         compositeDisposable.add(s)
         if (!AbAppUtil.isNetworkAvailable(Frame.CONTEXT)) {
             Helper.toast(getString(R.string.net_error))
         }
-        o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe { if (s.isShow) s.mProgressDialog.show() }.doFinally { if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss() }.subscribe(s)
+        o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { if (s.isShow) s.mProgressDialog.show() }
+            .doFinally { if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss() }.subscribe(s)
     }
 
 
@@ -90,7 +99,11 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
         mHead = Head(context)
         mHead.canGoBack()
         mHead.setStatus()
-        actionBar?.addView(mHead, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        actionBar?.addView(
+            mHead,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
     }
 
 

@@ -107,12 +107,12 @@ class FrgLogin : BaseFrg() {
             JPushInterface.resumePush(activity!!)
             JPushInterface.setAlias(activity!!,
                     mModellogin?.user?.id?.toInt().toString()) { code, s, set ->
-                this@FrgLogin.finish()
                 when (code) {
                     0 -> Log.i("JPush", "设置别名成功")
-                    //                    6002 -> Log.i("JPush", "失败,错误码= $code")
-                    //                    else -> Log.i("JPush", "失败,错误码= $code")
+                    6002 -> Log.i("JPush", "失败,错误码= $code")
+                    else -> Log.i("JPush", "失败,错误码= $code")
                 }
+                this@FrgLogin.finish()
             }
         }
     }

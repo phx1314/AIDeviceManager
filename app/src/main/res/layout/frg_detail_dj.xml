@@ -304,7 +304,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:background="@drawable/shape_startk"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:text="载入作业任务" />
 
                 <ProgressBar
                     android:id="@+id/mProgressBar"

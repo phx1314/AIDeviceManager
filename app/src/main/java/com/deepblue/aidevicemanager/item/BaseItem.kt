@@ -50,7 +50,7 @@ open class BaseItem(context: Context?) : LinearLayout(context), HttpResultSubscr
 
     open fun disposeMsg(type: Int, obj: Any) {}
 
-    override fun onError(code: String?, msg: String?) {
+    override fun onError(code: String?, msg: String?, data: String?, method: String) {
         if (code != null && (code == "0020" || code == "0021" || code == "0022")) {
             F.logOut(context)
         }

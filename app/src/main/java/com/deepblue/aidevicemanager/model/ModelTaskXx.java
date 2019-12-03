@@ -102,6 +102,6 @@ public class ModelTaskXx {
         public double deviceNum;
         public String deviceStatus;
         public String seriesCode;
-        public boolean isRead;
+        public String isRead;
     }
 }

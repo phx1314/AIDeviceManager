@@ -42,9 +42,9 @@ interface ApiService {
     @FormUrlEncoded
     fun queryDeviceDetail(@Field("deviceId") deviceId: String): Observable<HttpResult<Any>>
 
-    @POST("task/queryAlarmInfos")
+    @POST("task/queryAlarmBreakdowns")
     @FormUrlEncoded
-    fun queryAlarmInfos(@Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
+    fun queryAlarmBreakdowns(@Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
 
     @POST("task/queryBreakdowns")
     @FormUrlEncoded
@@ -76,9 +76,6 @@ interface ApiService {
     @FormUrlEncoded
     fun createOrder(@Field("orderType") orderType: String, @Field("deviceId") deviceId: String): Observable<HttpResult<Any>>
 
-    @POST("task/updateAlarmIsRead")
-    @FormUrlEncoded
-    fun updateAlarmIsRead(@Field("id") id: String, @Field("isRead") isRead: String): Observable<HttpResult<Any>>
 
     @POST("task/updateBreakdownIsRead")
     @FormUrlEncoded

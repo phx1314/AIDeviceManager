@@ -23,6 +23,19 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled = true
+
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "ede9abf6c765cb178a5d1359", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
@@ -43,7 +56,7 @@ android {
 
 dependencies {
 //        implementation project(':frameWidget')
-    implementation 'com.github.phx1314:Frame:2.8'
+    implementation 'com.github.phx1314:Frame:2.10'
     implementation('com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6') {
         exclude group: 'com.android.support'
     }
@@ -52,5 +65,6 @@ dependencies {
     //    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
     //    implementation 'com.scwang.smartrefresh:SmartRefreshHorizontal:1.0.0-beta-1'
     //    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'//必须依赖 版本 1.1.0 以上
-    implementation files('libs/jpush-android-2.1.7.jar')
+    implementation 'cn.jiguang.sdk:jpush:3.4.1'  // 此处以JPush 3.4.1 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:2.2.4'  // 此处以JCore 2.2.4 版本为例。
 }

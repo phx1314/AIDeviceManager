@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import com.deepblue.aidevicemanager.item.Xx
 import com.deepblue.aidevicemanager.model.ModelBrokenXx
 import com.deepblue.aidevicemanager.model.ModelTaskXx
-import com.deepblue.aidevicemanager.model.ModelWaringXx
 import com.mdx.framework.Frame
 import com.mdx.framework.adapter.MAdapter
 
@@ -34,14 +33,11 @@ class AdaXx(context: Context?, list: List<Any>) : MAdapter<Any>(context, list) {
         mCgqManage!!.set(item)
         convertView.setOnClickListener {
             if (item is ModelTaskXx.RowsBean) {
-                item.isRead = true
+                item.isRead = "1"
                 Frame.HANDLES.sentAll("FrgXx", 3, item.id.toString())
-            } else if (item is ModelWaringXx.RowsBean) {
-                item.isRead = true
-                Frame.HANDLES.sentAll("FrgXx", 4, item.alarmRecordId.toString())
-            } else if (item is ModelBrokenXx.RowsBean) {
-                item.isRead = true
-                Frame.HANDLES.sentAll("FrgXx", 5, item.breakdownId.toString())
+            } else if (item is ModelBrokenXx.PageInfoBean.RowsBean) {
+                item.isRead = "1"
+                Frame.HANDLES.sentAll("FrgXx", 4, item.breakdownId.toString())
             }
             this@AdaXx.notifyDataSetChanged()
         }

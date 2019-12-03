@@ -21,13 +21,15 @@ import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
 object F {
+    var wsManager: WsManager? = null
     var mModellogin: ModelLogin? = null
     var mModelStatus: ModelStatus? = null
     val baseUrl = "http://192.168.123.209:8081/robotos/cleanApp/"
 //    val baseUrl = "http://10.1.1.160:8081/robotos/cleanApp/" //测试
 //    val baseUrl = "http://192.168.16.91:8081/robotos/cleanApp/"//开发
 
-    fun gB() = com.mdx.framework.service.gB(ApiService::class.java, baseUrl, mModellogin?.token)
+    fun gB(TIME: Long = 30) =
+        com.mdx.framework.service.gB(ApiService::class.java, baseUrl, mModellogin?.token, TIME)
 
     fun init() {
         mModellogin = Gson().fromJson(getJson("mModellogin"), ModelLogin::class.java)
@@ -54,16 +56,16 @@ object F {
         saveJson("mModellogin", "")
         mModellogin = null
         Helper.startActivity(
-                context,
-                Intent.FLAG_ACTIVITY_CLEAR_TOP,
-                FrgLogin::class.java,
-                IndexAct::class.java
+            context,
+            Intent.FLAG_ACTIVITY_CLEAR_TOP,
+            FrgLogin::class.java,
+            IndexAct::class.java
         )
     }
 
     fun isWifiConnect(context: Context): Boolean {
         val connManager =
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val mWifiInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
         return mWifiInfo.isConnected
     }
@@ -137,7 +139,7 @@ object F {
         } else false
     }
 
-    var wsManager: WsManager? = null
+
     fun stopConnectWSocket() {
         if (wsManager != null && wsManager!!.isWSConnected())
             wsManager!!.stopConnect()
@@ -146,19 +148,19 @@ object F {
     fun connectWSocket(context: Context, url: String) {
         if (wsManager == null) {
             wsManager = WsManager.Builder()
-                    .context(context)
-                    .wsUrl(url)
-                    .client(
-                            OkHttpClient().newBuilder()
-                                    .pingInterval(15, TimeUnit.SECONDS)
-                                    .readTimeout(30, TimeUnit.SECONDS)//设置读取超时时间
-                                    .writeTimeout(30, TimeUnit.SECONDS)//设置写的超时时间
-                                    .connectTimeout(30, TimeUnit.SECONDS)//设置连接超时时间
-                                    .retryOnConnectionFailure(true)
-                                    .build()
-                    )
-                    .needReconnect(true)
-                    .build()
+                .context(context)
+                .wsUrl(url)
+                .client(
+                    OkHttpClient().newBuilder()
+                        .pingInterval(15, TimeUnit.SECONDS)
+                        .readTimeout(30, TimeUnit.SECONDS)//设置读取超时时间
+                        .writeTimeout(30, TimeUnit.SECONDS)//设置写的超时时间
+                        .connectTimeout(30, TimeUnit.SECONDS)//设置连接超时时间
+                        .retryOnConnectionFailure(true)
+                        .build()
+                )
+                .needReconnect(true)
+                .build()
         } else {
             wsManager?.wsUrl = url
             stopConnectWSocket()

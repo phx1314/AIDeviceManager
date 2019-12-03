@@ -22,7 +22,6 @@ import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.ExpandableListviewAdapter
 import com.deepblue.aidevicemanager.model.ModelBrokenXx
 import com.deepblue.aidevicemanager.model.ModelTaskXx
-import com.deepblue.aidevicemanager.model.ModelWaringXx
 import kotlinx.android.synthetic.main.frg_main.*
 import kotlinx.android.synthetic.main.item_head.view.*
 
@@ -32,7 +31,7 @@ class FrgMain : BaseFrg() {
     lateinit var groupString: Array<String>
     lateinit var childString: Array<Array<String>>
     lateinit var mModelTaskXx: ModelTaskXx
-    lateinit var mModelWaringXx: ModelWaringXx
+    lateinit var mModelWaringXx: ModelBrokenXx
     lateinit var mModelBrokenXx: ModelBrokenXx
     override fun initView() {
         groupString = arrayOf<String>(
@@ -53,11 +52,12 @@ class FrgMain : BaseFrg() {
             )
         )
     }
-    
+
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_main)
-        
+
     }
+
     override fun disposeMsg(type: Int, obj: Any?) {
         super.disposeMsg(type, obj)
         when (type) {
@@ -70,21 +70,27 @@ class FrgMain : BaseFrg() {
                 mTextView_name.text = F.mModellogin?.user?.name
             }
             2 -> {
+                mModelTaskXx.noReadCount = obj.toString().toDouble()
                 childString[1][0] = "${getString(R.string.d_task_xx) + "(" + obj.toString()})"
+                (mExpandableListView.expandableListAdapter as ExpandableListviewAdapter).notifyDataSetChanged()
             }
             3 -> {
+                mModelWaringXx.noReadCount = obj.toString().toInt()
                 childString[1][1] = "${getString(R.string.d_waring_xx) + "(" + obj.toString()})"
+                (mExpandableListView.expandableListAdapter as ExpandableListviewAdapter).notifyDataSetChanged()
             }
             4 -> {
+                mModelBrokenXx.noReadCount = obj.toString().toInt()
                 childString[1][2] = "${getString(R.string.d_broken_xx) + "(" + obj.toString()})"
+                (mExpandableListView.expandableListAdapter as ExpandableListviewAdapter).notifyDataSetChanged()
             }
             110 -> {
                 F.logOut(context)
             }
         }
     }
-    
-    
+
+
     override fun loaddata() {
         mTextView_gs.text = F.mModellogin?.merchant?.name + " >"
         mTextView_name.text = F.mModellogin?.user?.name
@@ -109,13 +115,13 @@ class FrgMain : BaseFrg() {
                     1 -> chageFrgment(FrgMimaChange())
                 }
                 1 -> chageXxFrgment(childPosition)
-                
+
             }
             true
         }
-        load(gB().queryTaskListWithPage("1", "1"), "queryTaskListWithPage")
-        load(gB().queryAlarmInfos("1", "1"), "queryAlarmInfos")
-        load(gB().queryBreakdowns("1", "1"), "queryBreakdowns")
+        load(gB().queryTaskListWithPage("1", Int.MAX_VALUE.toString()), "queryTaskListWithPage")
+        load(gB().queryAlarmBreakdowns("1", Int.MAX_VALUE.toString()), "queryAlarmInfos")
+        load(gB().queryBreakdowns("1", Int.MAX_VALUE.toString()), "queryBreakdowns")
 
 //        mExpandableListView.setOnGroupClickListener { _, _, groupPosition, _ ->
 //            if (groupPosition == 0) {
@@ -123,22 +129,24 @@ class FrgMain : BaseFrg() {
 //            } else false
 //        }
     }
-    
+
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryTaskListWithPage")) {
             mModelTaskXx = F.data2Model(data, ModelTaskXx::class.java)
             childString[1][0] =
                 "${getString(R.string.d_task_xx) + "(" + mModelTaskXx.noReadCount.toInt()})"
         } else if (method.equals("queryAlarmInfos")) {
-            mModelWaringXx = F.data2Model(data, ModelWaringXx::class.java)
-            childString[1][1] = "${getString(R.string.d_waring_xx) + "(" + mModelWaringXx.noReadCount.toInt()})"
+            mModelWaringXx = F.data2Model(data, ModelBrokenXx::class.java)
+            childString[1][1] =
+                "${getString(R.string.d_waring_xx) + "(" + mModelWaringXx.noReadCount.toInt()})"
         } else if (method.equals("queryBreakdowns")) {
             mModelBrokenXx = F.data2Model(data, ModelBrokenXx::class.java)
-            childString[1][2] = "${getString(R.string.d_broken_xx) + "(" + mModelBrokenXx.noReadCount.toInt()})"
+            childString[1][2] =
+                "${getString(R.string.d_broken_xx) + "(" + mModelBrokenXx.noReadCount.toInt()})"
         }
         (mExpandableListView.expandableListAdapter as ExpandableListviewAdapter).notifyDataSetChanged()
     }
-    
+
     private fun chageWebFrgment(url: String) {
         var mFrgWebView = FrgWebView()
         val bundle = Bundle()
@@ -146,7 +154,7 @@ class FrgMain : BaseFrg() {
         mFrgWebView.arguments = bundle
         chageFrgment(mFrgWebView)
     }
-    
+
     private fun chageXxFrgment(type: Int) {
         var mFrgXx = FrgXx()
         val bundle = Bundle()
@@ -157,15 +165,15 @@ class FrgMain : BaseFrg() {
         mFrgXx.arguments = bundle
         chageFrgment(mFrgXx)
     }
-    
+
     private fun chageFrgment(fragment: Fragment) {
         val fm = childFragmentManager
         val transaction = fm.beginTransaction()
         transaction.replace(R.id.mLinearLayout_content, fragment)
         transaction.commitAllowingStateLoss()
     }
-    
-    
+
+
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
         mHead.canGoBack(false)

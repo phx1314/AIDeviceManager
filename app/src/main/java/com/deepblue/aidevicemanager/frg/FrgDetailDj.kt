@@ -44,16 +44,20 @@ class FrgDetailDj : BaseFrg() {
             } else {
                 if (mModelB.data_system_status.equals("2")) {
                     AlertDialog.Builder(context).setTitle("提示")
-                            .setMessage("车辆目前处于有人驾驶状态中，是否确认切换到无人作业？")
-                            .setPositiveButton(
-                                    "切换"
-                            ) { dialogInterface: DialogInterface, i: Int ->
-                                run {
-                                    Helper.startActivity(context, FrgWorkChoose::class.java, TitleAct::class.java)
-                                }
+                        .setMessage("车辆目前处于有人驾驶状态中，是否确认切换到无人作业？")
+                        .setPositiveButton(
+                            "切换"
+                        ) { dialogInterface: DialogInterface, i: Int ->
+                            run {
+                                Helper.startActivity(
+                                    context,
+                                    FrgWorkChoose::class.java,
+                                    TitleAct::class.java
+                                )
                             }
-                            .setNegativeButton("取消", null)
-                            .show()
+                        }
+                        .setNegativeButton("取消", null)
+                        .show()
                 }
                 Helper.startActivity(context, FrgWorkChoose::class.java, TitleAct::class.java)
             }
@@ -61,24 +65,6 @@ class FrgDetailDj : BaseFrg() {
     }
 
     override fun loaddata() {
-//        if (data.deviceStatus.equals("0")) { //离线
-//            mButton.visibility = View.GONE
-//            mHead.setShowPop(mDialogSet) //fix
-//            mHead.mImageView.setBackgroundResource(R.drawable.lian)
-//            mHead.mTextView_d_status.text = getString(R.string.d_no_connect)
-//        } else {
-//            if (data.deviceOnlineStatus.equals("0")) { //离线待机
-//                mButton.text = "启动"
-//                mHead.mImageView.setBackgroundResource(R.drawable.u1844)
-//                mHead.mTextView_d_status.text = getString(R.string.d_connect)
-//            } else if (data.deviceOnlineStatus.equals("3")) { //在线待机
-//                mButton.text = "清扫作业任务选择"
-//            } else if (data.deviceOnlineStatus.equals("4")) {
-//                if (data.deviceTaskStatus.equals("2")) { //正在施行
-//                }
-//            }
-//        }
-
         load(F.gB().queryDeviceLiveData(data.id.toString()), "queryDeviceLiveData")
     }
 
