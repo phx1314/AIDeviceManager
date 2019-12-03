@@ -6,14 +6,12 @@ import android.net.ConnectivityManager
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.Toast
-import com.google.gson.Gson
+import com.deepblue.aidevicemanager.R
 import com.mdx.framework.Frame
+import com.mdx.framework.activity.BaseActivity
+import com.mdx.framework.util.Helper
 import okhttp3.*
 import okio.ByteString
-import org.json.JSONException
-import org.json.JSONObject
-import java.lang.Exception
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
 
@@ -107,12 +105,12 @@ class WsManager constructor(builder: Builder) : WBImpl {
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             try {
+                Log.e("websocket", "服务器连接失败")
                 tryReconnect()
 //                Log.e("websocket retry", "[走的链接失败这里！！！！！！！！！！！！！！！！]")
 //                if (Looper.myLooper() != Looper.getMainLooper()) {
 //                    wsMainHandler.post { Log.e("websocket", "服务器连接失败") }
 //                } else {}
-                Log.e("websocket", "服务器连接失败")
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -140,13 +138,22 @@ class WsManager constructor(builder: Builder) : WBImpl {
         if (!isNeedReconnect or isManualClose) {
             return
         }
-        if (!isNetworkConnected(mContext)) {
-            setCurrentState(WsStatus.DISCONNECTED)
-            Log.e("websocket retry", "[请您检查网络，未连接]")
+        Log.e("websocket retry", "reconnectCount11111111[$reconnectCount]")
+        if (reconnectCount < 2) {
+            if (!isNetworkConnected(mContext)) {
+                setCurrentState(WsStatus.DISCONNECTED)
+                Log.e("websocket retry", "[请您检查网络，未连接]")
+            }
+            setCurrentState(WsStatus.RECONNECT)
+            wsMainHandler.postDelayed(reconnectRunnable, RECONNECT_TIME)
+            reconnectCount++
+        } else {
+            (mContext as BaseActivity).runOnUiThread {
+                Helper.toast(mContext?.getString(R.string.socket_disconnect))
+            }
+            Frame.HANDLES.closeIds("FrgDetailDj,FrgWorkDetail,FrgWorkChoose")
         }
-        setCurrentState(WsStatus.RECONNECT)
-        wsMainHandler.postDelayed(reconnectRunnable, RECONNECT_TIME)
-        reconnectCount++
+
     }
 
     private fun connected() {

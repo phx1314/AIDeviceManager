@@ -25,7 +25,7 @@ object F {
     var mModellogin: ModelLogin? = null
     var mModelStatus: ModelStatus? = null
     val wsBaseUrl = ""
-//    val baseUrl = "http://192.168.123.209:8081/robotos/cleanApp/"
+    //    val baseUrl = "http://192.168.123.209:8081/robotos/cleanApp/"
 //    val baseUrl = "http://10.1.1.160:8081/robotos/cleanApp/" //测试
     val baseUrl = "http://192.168.16.91:8081/robotos/cleanApp/"//开发
 
@@ -153,10 +153,10 @@ object F {
                 .wsUrl(url)
                 .client(
                     OkHttpClient().newBuilder()
-                        .pingInterval(15, TimeUnit.SECONDS)
-                        .readTimeout(30, TimeUnit.SECONDS)//设置读取超时时间
-                        .writeTimeout(30, TimeUnit.SECONDS)//设置写的超时时间
-                        .connectTimeout(30, TimeUnit.SECONDS)//设置连接超时时间
+                        .pingInterval(10, TimeUnit.SECONDS)
+                        .readTimeout(15, TimeUnit.SECONDS)//设置读取超时时间
+                        .writeTimeout(15, TimeUnit.SECONDS)//设置写的超时时间
+                        .connectTimeout(15, TimeUnit.SECONDS)//设置连接超时时间
                         .retryOnConnectionFailure(true)
                         .build()
                 )
