@@ -103,5 +103,30 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
         )
     }
 
+    private var progressDialog: ProgressDialog? = null
+    fun showProgressDialog(title: String, message: String) {
+        if (progressDialog == null) {
+
+            progressDialog = ProgressDialog.show(
+                context,
+                title, message, true, false
+            )
+        } else if (progressDialog!!.isShowing) {
+            progressDialog!!.setTitle(title)
+            progressDialog!!.setMessage(message)
+        }
+        progressDialog?.show()
+    }
+
+    /*
+     * 隐藏提示加载
+     */
+    fun hideProgressDialog() {
+
+        if (progressDialog != null && progressDialog!!.isShowing) {
+            progressDialog!!.dismiss()
+        }
+
+    }
 
 }

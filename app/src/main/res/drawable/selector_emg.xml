@@ -1,5 +1,4 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
     <item android:drawable="@drawable/shape_darkred_yuan" android:state_selected="true" />
-    <item android:drawable="@drawable/shape_darkred_yuan" android:state_pressed="true" />
     <item android:drawable="@drawable/shape_red_yuan" />
 </selector>

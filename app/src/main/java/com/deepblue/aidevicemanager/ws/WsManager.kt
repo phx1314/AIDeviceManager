@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
+import com.google.gson.Gson
 import com.mdx.framework.Frame
 import okhttp3.*
 import okio.ByteString
@@ -17,6 +18,10 @@ import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
 
 class WsManager constructor(builder: Builder) : WBImpl {
+    companion object {
+        val RECONNECT_TIME: Long = 10000
+    }
+
     private var mWebSocket: WebSocket? = null
     private val mContext: Context? = builder.getContext()
     var wsUrl: String = builder.getWsurl()
@@ -101,17 +106,16 @@ class WsManager constructor(builder: Builder) : WBImpl {
         }
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-//            try {
-            tryReconnect()
+            try {
+                tryReconnect()
 //                Log.e("websocket retry", "[走的链接失败这里！！！！！！！！！！！！！！！！]")
 //                if (Looper.myLooper() != Looper.getMainLooper()) {
 //                    wsMainHandler.post { Log.e("websocket", "服务器连接失败") }
-//                } else {
-            Log.e("websocket", "服务器连接失败")
-//                }
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
+//                } else {}
+                Log.e("websocket", "服务器连接失败")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
         }
     }
@@ -136,15 +140,12 @@ class WsManager constructor(builder: Builder) : WBImpl {
         if (!isNeedReconnect or isManualClose) {
             return
         }
-        Log.e("websocket retry", "reconnectCount2222222[$reconnectCount]")
         if (!isNetworkConnected(mContext)) {
             setCurrentState(WsStatus.DISCONNECTED)
             Log.e("websocket retry", "[请您检查网络，未连接]")
         }
         setCurrentState(WsStatus.RECONNECT)
-        Log.e("websocket retry", "reconnectCount11111111[$reconnectCount]")
-        wsMainHandler.postDelayed(reconnectRunnable, 10000)
-        Log.e("websocket retry", "reconnectCount[$reconnectCount]")
+        wsMainHandler.postDelayed(reconnectRunnable, RECONNECT_TIME)
         reconnectCount++
     }
 
@@ -189,23 +190,24 @@ class WsManager constructor(builder: Builder) : WBImpl {
     }
 
     private fun initWebSocket() {
-        if (mOkHttpClient == null) {
-            mOkHttpClient = OkHttpClient.Builder()
-                .retryOnConnectionFailure(true)
-                .build()
-        }
-        mRequest = Request.Builder()
-            .url(wsUrl)
-            .build()
-        mOkHttpClient.dispatcher.cancelAll()
         try {
+            if (mOkHttpClient == null) {
+                mOkHttpClient = OkHttpClient.Builder()
+                    .retryOnConnectionFailure(true)
+                    .build()
+            }
+            mRequest = Request.Builder()
+                .url(wsUrl)
+                .build()
+            mOkHttpClient.dispatcher.cancelAll()
             mLock.lockInterruptibly()
             try {
                 mOkHttpClient.newWebSocket(mRequest!!, mWebSocketListener)
             } finally {
                 mLock.unlock()
             }
-        } catch (e: InterruptedException) {
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
     }

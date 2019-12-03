@@ -1,26 +1,35 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.view.View
 import android.widget.Toast
 import com.deepblue.aidevicemanager.F
-import com.deepblue.aidevicemanager.F.wsManager
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.model.ModelB
+import com.deepblue.aidevicemanager.util.CarWorkStateStatus
 import com.deepblue.aidevicemanager.view.TextSwitch
+import com.deepblue.aidevicemanager.ws.WsStatus
+import com.google.gson.Gson
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_workdetail.*
 import java.util.*
 
 class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
     private lateinit var fragments: HashMap<Int, Fragment>
-    private var WORKSTATE = 0  //工作状态 0：初始，1：运行，2：暂停
+    private var WORKSTATE = CarWorkStateStatus.WORK_DEFAUT
+    private var TempWorkstate = CarWorkStateStatus.WORK_DEFAUT
+
     private val PAGE_DIANYUN = 0
     private val PAGE_VEDIO = 1
     private val PAGE_OVERVIEW = 2
     private val PAGE_ROUTE = 3
+    private var id_: String? = ""
+    private var from_: String? = ""
     var url = "ws://192.168.123.209:8081/websocket/wg"
 
     override fun create(var1: Bundle?) {
@@ -28,6 +37,8 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
     }
 
     override fun initView() {
+        id_ = activity.intent.getStringExtra("id")
+        from_ = activity.intent.getStringExtra("from")
         initListener()
         fragments = hashMapOf(
             PAGE_DIANYUN to FrgWDLaser(),
@@ -41,7 +52,11 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
             .add(R.id.ll_leftbottom, fragments[PAGE_OVERVIEW]!!, PAGE_OVERVIEW.toString())
             .add(R.id.ll_right, fragments[PAGE_ROUTE]!!, PAGE_ROUTE.toString())
             .commit()
+        //初始化工作状态
+        WORKSTATE = 0
         reInitBtnView()
+
+        F.connectWSocket(context,url)
     }
 
     override fun loaddata() {
@@ -49,62 +64,98 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.btn_EMG -> {
-                Toast.makeText(context, "123", Toast.LENGTH_SHORT).show()
-            }
             R.id.iv_lefttop_switch -> switchFragment(0)
             R.id.iv_leftcenter_switch -> switchFragment(1)
             R.id.iv_leftbottom_switch -> switchFragment(2)
-            R.id.btn_startwork ->  F.connectWSocket(context, url)/*changeWorkState(0)*/
-            R.id.btn_stopwork -> changeWorkState(1)
-            R.id.btn_endwork -> changeWorkState(2)
-            R.id.btn_continuework -> changeWorkState(3)
-        }
-    }
-
-    private fun changeWorkState(indexWork: Int) {
-        when (indexWork) {
-            0 -> {//自动作业
-                WORKSTATE = 1
-                reInitBtnView()
+            R.id.btn_startwork -> {
+                doWorkState(0)
             }
-            1 -> {//暂停作业
-                WORKSTATE = 2
-                reInitBtnView()
+            R.id.btn_stopwork -> {
+                doWorkState(1)
             }
-            2 -> {//结束作业
-                wsManager?.stopConnect()
-
-                WORKSTATE = 0
-                reInitBtnView()
+            R.id.btn_endwork -> {
+                doWorkState(2)
             }
-            3 -> {//继续作业
-                WORKSTATE = 1
-                reInitBtnView()
+            R.id.btn_continuework -> {
+                doWorkState(3)
+            }
+            R.id.btn_EMG -> {
+                doWorkState(if (btn_EMG.isSelected) 5 else 4)
             }
         }
     }
 
-    private fun reInitBtnView() {//WORKSTATE工作状态 0：初始，1：运行，2：暂停
-        when (WORKSTATE) {
-            0 -> {
-                btn_startwork.visibility = View.VISIBLE
-                btn_stopwork.visibility = View.INVISIBLE
-                btn_endwork.visibility = View.INVISIBLE
-                btn_continuework.visibility = View.INVISIBLE
+    override fun onCheckedChanged(switch_id: String?, isChecked: Boolean) {
+        when (switch_id) {
+            "1" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+            "2" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+            "3" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+            "4" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+            "5" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun disposeMsg(type: Int, obj: Any?) {
+        super.disposeMsg(type, obj)
+        when (type) {
+            1111 -> {
+                Helper.toast("实时数据：${obj.toString()}")
+                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
+                if (isHeadInit()) mHead.setStatus()
             }
-            1 -> {
-                btn_startwork.visibility = View.INVISIBLE
-                btn_stopwork.visibility = View.VISIBLE
-                btn_endwork.visibility = View.VISIBLE
-                btn_continuework.visibility = View.INVISIBLE
+            1112 -> {
+                when (obj as Int) {
+                    WsStatus.CONNECTED -> Helper.toast("WEBSOCKET CONNECTED")
+                    WsStatus.CONNECTING -> Helper.toast("WEBSOCKET CONNECTING")
+                    WsStatus.RECONNECT -> Helper.toast("WEBSOCKET RECONNECT")
+                    WsStatus.DISCONNECTED -> Helper.toast("WEBSOCKET DISCONNECTED")
+                }
             }
-            2 -> {
-                btn_startwork.visibility = View.INVISIBLE
-                btn_stopwork.visibility = View.INVISIBLE
-                btn_endwork.visibility = View.VISIBLE
-                btn_continuework.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onSuccess(data: String?, method: String) {
+        hideProgressDialog()
+        when (method) {
+            "createOrder_start" -> {
+                WORKSTATE = CarWorkStateStatus.WORKING
+                reInitBtnView()
             }
+            "createOrder_stop" -> {
+                WORKSTATE = CarWorkStateStatus.WORK_STOP
+                reInitBtnView()
+            }
+            "createOrder_end" -> {
+                WORKSTATE = CarWorkStateStatus.WORK_WAITSTART
+                reInitBtnView()
+            }
+            "createOrder_continue" -> {
+                WORKSTATE = CarWorkStateStatus.WORKING
+                reInitBtnView()
+            }
+            "createOrder_emg" -> {
+                WORKSTATE = CarWorkStateStatus.WORK_SHUTSTOP
+                reInitBtnView()
+                reInitEMG(true)
+            }
+            "createOrder_continue_emg" -> {
+                WORKSTATE = CarWorkStateStatus.WORKING
+                reInitBtnView()
+                reInitEMG(false)
+            }
+            "createOrder_stop_emg" -> {
+                WORKSTATE = CarWorkStateStatus.WORK_STOP
+                reInitBtnView()
+                reInitEMG(false)
+            }
+        }
+    }
+
+    override fun onError(code: String?, msg: String?, data: String?, method: String) {
+        super.onError(code, msg, data, method)
+        when (method) {
+            "createOrder_start", "createOrder_stop", "createOrder_end", "createOrder_continue"
+            -> Helper.toast(msg)
         }
     }
 
@@ -171,29 +222,101 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
         wind_state.setOnCheckedChangeListener(this)
     }
 
-    override fun onCheckedChanged(switch_id: String?, isChecked: Boolean) {
-        when (switch_id) {
-            "1" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
-            "2" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
-            "3" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
-            "4" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
-            "5" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
+    /**
+     * indexWork:
+     *              0—>自动作业   1—>暂停作业   2—>结束作业
+     *              3—>继续作业   4—>紧急停止   5—>松开急停
+     */
+    private fun doWorkState(indexWork: Int) {
+        showProgressDialog(resources.getString(R.string.NOTICE), "请稍后...")
+        when (indexWork) {
+            0 -> {
+//                load(F.gB(60).createOrder("14", id_), "createOrder_start")
+                onSuccess("", "createOrder_start")
+            }
+            1 -> {
+//                load(F.gB(60).createOrder("7", id_), "createOrder_stop")
+                onSuccess("", "createOrder_stop")
+            }
+            2 -> {
+                AlertDialog.Builder(context).setTitle(R.string.NOTICE)
+                    .setMessage(R.string.EMG_NOTICE)
+                    .setPositiveButton(R.string.ems_showbtn1) { _: DialogInterface, _: Int ->
+                        run {
+                            //   load(F.gB(60).createOrder("5", id_), "createOrder_end")
+                            onSuccess("", "createOrder_end")
+                        }
+                    }
+                    .setNegativeButton(R.string.ems_showbtn2) { _: DialogInterface, _: Int ->
+                        run {
+                            hideProgressDialog()
+                        }
+                    }
+                    .show()
+            }
+            3 -> {
+//                load(F.gB(60).createOrder("8", id_), "createOrder_continue")
+                onSuccess("", "createOrder_continue")
+            }
+            4 -> {
+                TempWorkstate = WORKSTATE
+//                load(F.gB(60).createOrder("13", id_), "createOrder_emg")
+                onSuccess("", "createOrder_emg")
+            }
+            5 -> {
+                when (TempWorkstate) {
+                    CarWorkStateStatus.WORKING -> {
+//                        load(F.gB(60).createOrder("8", id_), "createOrder_continue_emg")
+                        onSuccess("", "createOrder_continue_emg")
+                    }
+                    CarWorkStateStatus.WORK_STOP -> {
+//                        load(F.gB(60).createOrder("7", id_), "createOrder_stop_emg")
+                        onSuccess("", "createOrder_stop_emg")
+                    }
+                    CarWorkStateStatus.WORK_WAITSTART -> {
+                        hideProgressDialog()
+                        WORKSTATE = 0
+                        reInitBtnView()
+                        reInitEMG(false)
+                    }
+                    else -> hideProgressDialog()
+                }
+            }
         }
     }
 
-    override fun disposeMsg(type: Int, obj: Any?) {
-        super.disposeMsg(type, obj)
-        when (type) {
-            1111 -> {
-                Helper.toast("实时数据：${obj.toString()}")
+    private fun reInitEMG(bool_: Boolean) {
+        btn_EMG.isSelected = bool_
+        btn_EMG.text =
+            if (bool_) resources.getString(R.string.release_EMG) else resources.getString(R.string.EMG)
+        tv_emg_show.visibility = if (bool_) View.VISIBLE else View.GONE
+    }
+
+    private fun reInitBtnView() {
+        when (WORKSTATE) {
+            CarWorkStateStatus.WORK_WAITSTART -> {
+                btn_startwork.visibility = View.VISIBLE
+                btn_stopwork.visibility = View.INVISIBLE
+                btn_endwork.visibility = View.INVISIBLE
+                btn_continuework.visibility = View.INVISIBLE
             }
-            1112 -> {
-                when (obj as Int) {
-                    1 -> Helper.toast("WEBSOCKET CONNECTED")
-                    0 -> Helper.toast("WEBSOCKET CONNECTING")
-                    2 -> Helper.toast("WEBSOCKET RECONNECT")
-                    -1 -> Helper.toast("WEBSOCKET DISCONNECTED")
-                }
+            CarWorkStateStatus.WORKING -> {
+                btn_startwork.visibility = View.INVISIBLE
+                btn_stopwork.visibility = View.VISIBLE
+                btn_endwork.visibility = View.VISIBLE
+                btn_continuework.visibility = View.INVISIBLE
+            }
+            CarWorkStateStatus.WORK_STOP -> {
+                btn_startwork.visibility = View.INVISIBLE
+                btn_stopwork.visibility = View.INVISIBLE
+                btn_endwork.visibility = View.VISIBLE
+                btn_continuework.visibility = View.VISIBLE
+            }
+            CarWorkStateStatus.WORK_SHUTSTOP -> {
+                btn_startwork.visibility = View.INVISIBLE
+                btn_stopwork.visibility = View.INVISIBLE
+                btn_endwork.visibility = View.INVISIBLE
+                btn_continuework.visibility = View.INVISIBLE
             }
         }
     }

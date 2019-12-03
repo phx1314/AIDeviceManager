@@ -51,7 +51,7 @@ class FrgWDRoute : BaseFrg() {
 //        builder.zoom(19.0f).target(LatLng(31.818067, 120.022194))
         mMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
 
-        mMap.mapType = BaiduMap.MAP_TYPE_SATELLITE //地图卫星
+//        mMap.mapType = BaiduMap.MAP_TYPE_SATELLITE //地图卫星
         mMap.isTrafficEnabled = true  //交通
         baidumap_route.showZoomControls(false)
         baidumap_route.logoPosition = LogoPosition.logoPostionRightBottom //logo位置
@@ -83,6 +83,7 @@ class FrgWDRoute : BaseFrg() {
         val mOverlayOptions = PolylineOptions()
             .width(mPolylineWith)
             .color(mPolylineColor)
+            .zIndex(8)
             .points(polylines)
         mPolyline = mMap.addOverlay(mOverlayOptions) as Polyline
 
@@ -148,6 +149,7 @@ class FrgWDRoute : BaseFrg() {
                                 mMap.addOverlay(
                                     PolylineOptions()
                                         .width(mHasRunPolylineWith)
+                                        .zIndex(9)
                                         .color(mHasRunPolylineColor).points(
                                             arrayListOf(
                                                 startPoint,
