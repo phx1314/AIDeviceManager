@@ -38,12 +38,13 @@ class FrgDetailDj : BaseFrg() {
 
     override fun disposeMsg(type: Int, obj: Any?) {
         super.disposeMsg(type, obj)
-
         when (type) {
-            1111 -> { //ws
-
-                if (isHeadInit()) mHead?.setStatus()
-            }
+//            1111 -> { //ws
+//                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
+//                mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
+//                setData(mModelB)
+//                if (isHeadInit()) mHead?.setStatus()
+//            }
         }
     }
 
@@ -54,22 +55,28 @@ class FrgDetailDj : BaseFrg() {
             } else {
                 if (mModelB.data_system_status.equals("2")) {
                     AlertDialog.Builder(context).setTitle("提示")
-                            .setMessage("车辆目前处于有人驾驶状态中，是否确认切换到无人作业？")
-                            .setPositiveButton(
-                                    "切换"
-                            ) { dialogInterface: DialogInterface, i: Int ->
-                                run {
-                                    Helper.startActivity(
-                                            context,
-                                            FrgWorkChoose::class.java,
-                                            TitleAct::class.java
-                                    )
-                                }
+                        .setMessage("车辆目前处于有人驾驶状态中，是否确认切换到无人作业？")
+                        .setPositiveButton(
+                            "切换"
+                        ) { dialogInterface: DialogInterface, i: Int ->
+                            run {
+                                Helper.startActivity(
+                                    context,
+                                    FrgWorkChoose::class.java,
+                                    TitleAct::class.java
+                                )
                             }
-                            .setNegativeButton("取消", null)
-                            .show()
+                        }
+                        .setNegativeButton("取消", null)
+                        .show()
                 }
-                Helper.startActivity(context, FrgWorkChoose::class.java, TitleAct::class.java)
+                Helper.startActivity(
+                    context,
+                    FrgWorkChoose::class.java,
+                    TitleAct::class.java,
+                    "did",
+                    data.id.toString()
+                )
             }
         }
     }
@@ -78,55 +85,84 @@ class FrgDetailDj : BaseFrg() {
         load(F.gB().queryDeviceLiveData(data.id.toString()), "queryDeviceLiveData")
     }
 
+    fun setData(mModelB: ModelB) {
+        mDialogSet.set(mModelB)
+        mTextView_lng.text = "Lng: ${mModelB.data_longitude}"
+        mTextView_lat.text = "Lng: ${mModelB.data_latitude}"
+        mTextView_gl.text = mModelB.data_velocity + "m/s"
+        when (mModelB.data_system_status) {
+            "0" -> {
+                mTextView_status.text = "待机"
+                mButton.text = "清扫作业任务选择"
+            }
+            "1" -> {
+                mTextView_status.text = "自动作业中"
+                mButton.text = "清扫作业任务选择"
+            }
+            "2" -> {
+                mTextView_status.text = "手动驾驶中"
+                mButton.text = "清扫作业任务选择"
+            }
+            "3" -> {
+                mTextView_status.text = "故障"
+            }
+            else -> {
+                mTextView_status.text = "未知"
+            }
+        }
+
+        mTextView_dl.text = (mModelB.data_battery_remaining_capacity ?: "0") + "%"
+        mTextView_js.text = (mModelB.data_water_level ?: "0") + "%"
+        mTextView_fx.text = mModelB.data_gear
+        if (TextUtils.isEmpty(mModelB.data_water_level)) {
+            mTextView_sf.text = "N/A"
+        } else {
+            mTextView_sf.text = if (mModelB.data_water_level.equals("0")) "ERROR" else "OK"
+        }
+        var data = ArrayList<String>()
+        data.add("油门值:" + mModelB.data_throttle_value)
+        data.add("刹车状态:" + getRightS(mModelB.data_brake_value))
+        data.add("手刹状态:" + getRightS(mModelB.data_manual_brake))
+        data.add("扫刷状态:" + getRightS(mModelB.data_brush_status))
+        data.add("扫刷位置:" + getRightS(mModelB.data_brush_position))
+        data.add("垃圾箱位置:" + getRightS(mModelB.data_trash_level))
+        data.add("吸风状态:" + getRightS(mModelB.data_suction_status))
+        data.add("吸风口位置:" + getRightS(mModelB.data_suction_inlet_position))
+        data.add("喷水状态:" + getRightS(mModelB.data_spout_water))
+        mMGridView.adapter = AdaDetailTwo(context, data)
+
+
+        if (mModelB?.data_high_beam_light?.equals("1") == true) {
+            mImageView_ygd.setImageResource(R.drawable.high_beam_light_light)
+        } else {
+            mImageView_ygd.setImageResource(R.drawable.high_beam_light_dark)
+        }
+        if (mModelB?.data_width_light?.equals("1") == true) {
+            mImageView_sgd.setImageResource(R.drawable.width_light_light)
+        } else {
+            mImageView_sgd.setImageResource(R.drawable.width_light_dark)
+        }
+        if (mModelB?.data_left_light?.equals("1") == true) {
+            mImageView_l.setImageResource(R.drawable.left_light_light)
+        } else {
+            mImageView_l.setImageResource(R.drawable.left_light_dark)
+        }
+        if (mModelB?.data_right_light?.equals("1") == true) {
+            mImageView_r.setImageResource(R.drawable.right_light_light)
+        } else {
+            mImageView_r.setImageResource(R.drawable.right_light_dark)
+        }
+        if (mModelB?.data_low_beam_light?.equals("1") == true) {
+            mImageView_j.setImageResource(R.drawable.j_s)
+        } else {
+            mImageView_j.setImageResource(R.drawable.j)
+        }
+    }
+
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryDeviceLiveData")) {
             mModelB = F.data2Model(data, ModelB::class.java)
-            mDialogSet.set(mModelB)
-
-            mTextView_lng.text = "Lng: ${mModelB.data_longitude}"
-            mTextView_lat.text = "Lng: ${mModelB.data_latitude}"
-
-            mTextView_gl.text = mModelB.data_velocity + "m/s"
-            when (mModelB.data_system_status) {
-                "0" -> {
-                    mTextView_status.text = "待机"
-                    mButton.text = "清扫作业任务选择"
-                }
-                "1" -> {
-                    mTextView_status.text = "自动作业中"
-                    mButton.text = "清扫作业任务选择"
-                }
-                "2" -> {
-                    mTextView_status.text = "手动驾驶中"
-                    mButton.text = "清扫作业任务选择"
-                }
-                "3" -> {
-                    mTextView_status.text = "故障"
-                }
-                else -> {
-                    mTextView_status.text = "未知"
-                }
-            }
-
-            mTextView_dl.text = (mModelB.data_battery_remaining_capacity ?: "0") + "%"
-            mTextView_js.text = (mModelB.data_water_level ?: "0") + "%"
-            mTextView_fx.text = mModelB.data_gear
-            if (TextUtils.isEmpty(mModelB.data_water_level)) {
-                mTextView_sf.text = "N/A"
-            } else {
-                mTextView_sf.text = if (mModelB.data_water_level.equals("0")) "ERROR" else "OK"
-            }
-            var data = ArrayList<String>()
-            data.add("油门值:" + mModelB.data_throttle_value)
-            data.add("刹车状态:" + getRightS(mModelB.data_brake_value))
-            data.add("手刹状态:" + getRightS(mModelB.data_manual_brake))
-            data.add("扫刷状态:" + getRightS(mModelB.data_brush_status))
-            data.add("扫刷位置:" + getRightS(mModelB.data_brush_position))
-            data.add("垃圾箱位置:" + getRightS(mModelB.data_trash_level))
-            data.add("吸风状态:" + getRightS(mModelB.data_suction_status))
-            data.add("吸风口位置:" + getRightS(mModelB.data_suction_inlet_position))
-            data.add("喷水状态:" + getRightS(mModelB.data_spout_water))
-            mMGridView.adapter = AdaDetailTwo(context, data)
+            setData(mModelB)
         } else if (method.equals("createOrder")) {
             mProgressBar.visibility = View.VISIBLE
         }
@@ -146,7 +182,6 @@ class FrgDetailDj : BaseFrg() {
 
     override fun onDestroy() {
         F.mModelStatus?.mModelB = null
-        F.stopConnectWSocket()
         super.onDestroy()
     }
 }

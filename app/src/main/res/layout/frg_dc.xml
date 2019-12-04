@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
-        android:text="智能电池管理" />
+        android:text="@string/d_zndcgl" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="电压" />
+                        android:text="@string/d_dy" />
 
                     <TextView
                         android:id="@+id/mTextView_dy"
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="10dp"
                         android:gravity="center"
-                        android:text="电流" />
+                        android:text="@string/d_dl" />
 
                     <TextView
                         android:id="@+id/mTextView_dl"
@@ -114,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="温度" />
+                        android:text="@string/d_wd" />
 
                     <TextView
                         android:id="@+id/mTextView_wd"
@@ -153,7 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="当前电量" />
+                        android:text="@string/d_dqdl" />
 
                     <TextView
                         android:id="@+id/mTextView_dliang"
@@ -179,7 +179,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="电池容量" />
+                        android:text="@string/d_dcrl" />
 
                     <TextView
                         android:id="@+id/mTextView_dcrl"
@@ -206,7 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="循环次数" />
+                        android:text="@string/d_xhcs" />
 
                     <TextView
                         android:id="@+id/mTextView_xhcsh"
@@ -239,7 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="7"
-                    android:text="严重低电量报警" />
+                    android:text="@string/d_yzddlbj" />
 
                 <SeekBar
                     android:id="@+id/mSeekBar_yzddlbj"
@@ -278,7 +278,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="7"
-                    android:text="低电量报警" />
+                    android:text="@string/d_ddlbj" />
 
                 <SeekBar
                     android:id="@+id/mSeekBar_ddlbj"
@@ -317,7 +317,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="7"
-                    android:text="电池编号" />
+                    android:text="@string/d_dcbh" />
 
 
                 <TextView

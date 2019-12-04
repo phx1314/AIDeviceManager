@@ -20,6 +20,7 @@ import com.deepblue.aidevicemanager.model.ModelData
 import com.deepblue.aidevicemanager.model.ModelMap
 import com.deepblue.aidevicemanager.model.ModelMapLj
 import com.google.gson.Gson
+import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_work_choose.*
 
@@ -42,15 +43,19 @@ class FrgWorkChoose : BaseFrg() {
         when (type) {
             0 -> {
                 mAbPullListView.setApiLoadParams(
-                        "${F.baseUrl}map/queryMapAreaPathListByMap",
-                        "POST",
-                        this,
-                        F.mModellogin?.token, "mapId", obj.toString()
+                    "${F.baseUrl}map/queryMapListByGroup",
+                    "POST",
+                    this,
+                    F.mModellogin?.token, "mapGroupId", obj.toString()
                 )
             }
             1 -> {
 //                mTextView_content.setText()
             }
+//            1111 -> { //ws
+//                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
+//                if (isHeadInit()) mHead?.setStatus()
+//            }
         }
 
     }
@@ -73,31 +78,48 @@ class FrgWorkChoose : BaseFrg() {
             AdaWorkChoose(context, data)
         }
         mButton.setOnClickListener {
-            load(F.gB().queryMapListByDevice(did, page.toString(), size.toString()), "queryMapListByDevice")
+            load(
+                F.gB().queryMapGroupList(did, page.toString(), size.toString()),
+                "queryMapGroupList"
+            )
         }
         mButton_load.setOnClickListener {
             if (selectID == -1) {
                 Helper.toast("请先选择作业地图和作业路径")
-            }else{
-
+            } else {
+                Helper.startActivity(
+                    context,
+                    FrgWorkDetail::class.java,
+                    TitleAct::class.java,
+                    "id",
+                    did,
+                    "from",
+                    "1", "mapId",
+                    selectID.toString()
+                )
             }
         }
     }
 
+    override fun onDestroy() {
+        selectID = -1
+        super.onDestroy()
+    }
+
     override fun loaddata() {
-        load(F.gB().queryMapListByDevice(did, page.toString(), size.toString()), "queryMapListByDevice")
+        load(F.gB().queryMapGroupList(did, page.toString(), size.toString()), "queryMapGroupList")
     }
 
     override fun onSuccess(data: String?, method: String) {
-        if (method.equals("queryMapListByDevice")) {
+        if (method.equals("queryMapGroupList")) {
             var mModelMap = F.data2Model(data, ModelMap::class.java)
             mHorizontalListView.adapter = AdaWorkChooseBottom(context, mModelMap.rows)
             if (mModelMap.rows.isNotEmpty()) {
                 mAbPullListView.setApiLoadParams(
-                        "${F.baseUrl}map/queryMapAreaPathListByMap",
-                        "POST",
-                        this,
-                        F.mModellogin?.token, "mapId", "1596"
+                    "${F.baseUrl}map/queryMapListByGroup",
+                    "POST",
+                    this,
+                    F.mModellogin?.token, "mapGroupId", mModelMap.rows[0].id.toInt()
                 )
             }
         }

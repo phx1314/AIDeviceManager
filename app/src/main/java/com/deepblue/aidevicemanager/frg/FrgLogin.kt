@@ -46,10 +46,12 @@ class FrgLogin : BaseFrg() {
     }
 
     override fun initView() {
-        Helper.requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.READ_PHONE_STATE,
-                android.Manifest.permission.ACCESS_FINE_LOCATION), object : PermissionRequest() {
+        Helper.requestPermissions(arrayOf(
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_PHONE_STATE,
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+        ), object : PermissionRequest() {
             override fun onGrant(var1: Array<out String>?, var2: IntArray?) {
 
             }
@@ -69,30 +71,38 @@ class FrgLogin : BaseFrg() {
             }
             isChecked = !isChecked
         }
-        mTextView.setOnClickListener {
+        mTextView.setOnClickListener(Helper.delayClickLitener {
             if (TextUtils.isEmpty(mEditText_phone.text.toString())) {
                 Helper.toast(getString(R.string.i_phone))
-                return@setOnClickListener
+                return@delayClickLitener
             }
             if (mEditText_phone.text.toString().trim().length != 11) {
                 Helper.toast(getString(R.string.i_phone_length))
-                return@setOnClickListener
+                return@delayClickLitener
             }
             if (!PhoneFormatCheckUtils.isPhoneLegal(mEditText_phone.text.toString().trim())) {
                 Helper.toast(getString(R.string.i_phone_length))
-                return@setOnClickListener
+                return@delayClickLitener
             }
             if (TextUtils.isEmpty(mEditText_pass.text.toString())) {
                 Helper.toast(getString(R.string.i_porc_length))
-                return@setOnClickListener
+                return@delayClickLitener
             }
-            load(gB().login(mEditText_phone.getText().toString(),
+            load(
+                gB().login(
+                    mEditText_phone.getText().toString(),
                     DesEncryptDecrypt.getInstance().encrypt(mEditText_pass.getText().toString()),
-                    ""), "login")
-        }
-        mTextView_forget.setOnClickListener {
-            Helper.startActivity(context, FrgForget::class.java, TitleAct::class.java)
-        }
+                    ""
+                ), "login"
+            )
+        })
+        mTextView_forget.setOnClickListener(Helper.delayClickLitener {
+            Helper.startActivity(
+                context,
+                FrgForget::class.java,
+                TitleAct::class.java
+            )
+        })
     }
 
 
@@ -105,8 +115,10 @@ class FrgLogin : BaseFrg() {
             F.saveJson("mModellogin", data)
             Helper.startActivity(context, FrgMain::class.java, IndexAct::class.java)
             JPushInterface.resumePush(activity!!)
-            JPushInterface.setAlias(activity!!,
-                    mModellogin?.merchant?.id?.toInt().toString()) { code, s, set ->
+            JPushInterface.setAlias(
+                activity!!,
+                mModellogin?.merchant?.id?.toInt().toString()
+            ) { code, s, set ->
                 when (code) {
                     0 -> Log.i("JPush", "设置别名成功")
                     6002 -> Log.i("JPush", "失败,错误码= $code")

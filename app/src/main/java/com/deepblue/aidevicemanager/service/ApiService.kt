@@ -25,9 +25,9 @@ interface ApiService {
     @POST("user/forgetPassword")
     @FormUrlEncoded
     fun forgetPassword(
-            @Field("newPassword") newPassword: String, @Field("mobile") mobile: String, @Field(
-                    "smsCode"
-            ) smsCode: String
+        @Field("newPassword") newPassword: String, @Field("mobile") mobile: String, @Field(
+            "smsCode"
+        ) smsCode: String
     ): Observable<HttpResult<Any>>
 
     @POST("user/modifyUser")
@@ -58,12 +58,12 @@ interface ApiService {
     @FormUrlEncoded
     fun testTaskJiGuang(@Field("id") id: String = "8966", @Field("isRead") isRead: String = "0"): Observable<HttpResult<Any>>
 
-    @POST("map/queryMapListByDevice")
+    @POST("map/queryMapGroupList")
     @FormUrlEncoded
-    fun queryMapListByDevice(
-            @Field("deviceId") deviceId: String, @Field("page") page: String, @Field(
-                    "size"
-            ) size: String
+    fun queryMapGroupList(
+        @Field("deviceId") deviceId: String, @Field("page") page: String, @Field(
+            "size"
+        ) size: String
     ): Observable<HttpResult<Any>>
 
     @GET("device/queryDeviceParamList")

@@ -12,22 +12,28 @@
 
     <ImageView
         android:id="@+id/mImageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="10dp"
         android:src="@drawable/u2303_mouse" />
 
     <ImageView
         android:id="@+id/mImageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
+        android:layout_weight="1"
+        android:padding="10dp"
         android:src="@drawable/u2303_mouse" />
 
     <ImageView
         android:id="@+id/mImageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
+        android:layout_weight="1"
+        android:padding="10dp"
         android:src="@drawable/u2303_mouse" />
 
 </LinearLayout>

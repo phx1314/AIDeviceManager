@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
-        android:text="传感器管理" />
+        android:text="@string/d_cgqgl" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达1" />
+                        android:text="@string/d_jgld1" />
 
                     <TextView
                         android:id="@+id/mTextView1"
@@ -67,7 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达2" />
+                        android:text="@string/d_jgld2" />
 
                     <TextView
                         android:id="@+id/mTextView2"
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达3" />
+                        android:text="@string/d_jgld3" />
 
                     <TextView
                         android:id="@+id/mTextView3"
@@ -126,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达4" />
+                        android:text="@string/d_jgld4" />
 
                     <TextView
                         android:id="@+id/mTextView4"
@@ -152,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达5" />
+                        android:text="@string/d_jgld5" />
 
                     <TextView
                         android:id="@+id/mTextView5"
@@ -178,7 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达6" />
+                        android:text="@string/d_jgld6" />
 
                     <TextView
                         android:id="@+id/mTextView6"
@@ -211,7 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达7" />
+                        android:text="@string/d_jgld7" />
 
                     <TextView
                         android:id="@+id/mTextView7"
@@ -237,7 +237,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="激光雷达8" />
+                        android:text="@string/d_jgld8" />
 
                     <TextView
                         android:id="@+id/mTextView8"
@@ -281,7 +281,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波1" />
+                    android:text="@string/d_hmldb1" />
 
 
                 <TextView
@@ -308,7 +308,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波2" />
+                    android:text="@string/d_hmldb2" />
 
 
                 <TextView
@@ -335,7 +335,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波3" />
+                    android:text="@string/d_hmldb3" />
 
 
                 <TextView
@@ -362,7 +362,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波4" />
+                    android:text="@string/d_hmldb4" />
 
 
                 <TextView
@@ -389,7 +389,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波5" />
+                    android:text="@string/d_hmldb5" />
 
 
                 <TextView
@@ -416,7 +416,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波6" />
+                    android:text="@string/d_hmldb6" />
 
 
                 <TextView
@@ -443,7 +443,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波7" />
+                    android:text="@string/d_hmldb7" />
 
 
                 <TextView
@@ -470,7 +470,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="毫米雷达波8" />
+                    android:text="@string/d_hmldb8" />
 
 
                 <TextView
@@ -507,7 +507,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波1" />
+                        android:text="@string/d_csb1" />
 
                     <TextView
                         android:id="@+id/mTextViewc1"
@@ -533,7 +533,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波2" />
+                        android:text="@string/d_csb2" />
 
                     <TextView
                         android:id="@+id/mTextViewc2"
@@ -559,7 +559,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波3" />
+                        android:text="@string/d_csb3" />
 
                     <TextView
                         android:id="@+id/mTextViewc3"
@@ -592,7 +592,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波4" />
+                        android:text="@string/d_csb4" />
 
                     <TextView
                         android:id="@+id/mTextViewc4"
@@ -618,7 +618,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波5" />
+                        android:text="@string/d_csb5" />
 
                     <TextView
                         android:id="@+id/mTextViewc5"
@@ -644,7 +644,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波6" />
+                        android:text="@string/d_csb6" />
 
                     <TextView
                         android:id="@+id/mTextViewc6"
@@ -677,7 +677,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波7" />
+                        android:text="@string/d_csb7" />
 
                     <TextView
                         android:id="@+id/mTextViewc7"
@@ -703,7 +703,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="超声波8" />
+                        android:text="@string/d_csb8" />
 
                     <TextView
                         android:id="@+id/mTextViewc8"
@@ -747,7 +747,7 @@
                     android:layout_height="wrap_content"
                     android:ems="7"
                     android:paddingLeft="20dp"
-                    android:text="ZED相机" />
+                    android:text="@string/d_zedxj" />
 
 
                 <TextView
@@ -780,7 +780,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
-                    android:text="IMU状态" />
+                    android:text="@string/d_IMUstate" />
 
                 <TextView
                     android:id="@+id/mTextView_imu"
@@ -790,8 +790,7 @@
                     android:drawableRight="@drawable/u1956"
                     android:drawablePadding="10dp"
                     android:gravity="right|center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="IMU状态" />
+                    android:paddingLeft="20dp" />
 
             </LinearLayout>
 

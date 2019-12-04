@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/mImageView"
-        android:layout_width="100dp"
-        android:layout_height="55dp"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:src="@drawable/u2303_mouse" />
 

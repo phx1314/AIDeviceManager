@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="车辆设置" />
+        android:text="@string/d_carset" />
 
     <ListView
         android:id="@+id/mListView"
@@ -36,20 +36,20 @@
             style="@style/text_style_15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="车辆数据" />
+            android:text="@string/d_cardata" />
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="25dp"
             android:layout_marginLeft="6dp"
+            android:layout_weight="1"
             android:src="@drawable/u1824p000" />
 
         <TextView
             style="@style/text_style_15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="云端数据" />
+            android:text="@string/d_yundata" />
 
         <TextView
             android:id="@+id/mTextView_update4"
@@ -62,7 +62,7 @@
             android:paddingTop="5dp"
             android:paddingRight="8dp"
             android:paddingBottom="5dp"
-            android:text="同步数据" />
+            android:text="@string/d_sysdata" />
 
         <TextView
             android:id="@+id/mTextView_update5"
@@ -75,6 +75,6 @@
             android:paddingTop="5dp"
             android:paddingRight="8dp"
             android:paddingBottom="5dp"
-            android:text="检查更新" />
+            android:text="@string/d_jcgx" />
     </LinearLayout>
 </LinearLayout>

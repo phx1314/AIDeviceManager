@@ -123,6 +123,7 @@ class Head(context: Context?) : LinearLayout(context) {
     fun setStatus() {
         if (mModelStatus?.mModelB == null) {
             setBatteryStatus(mModelStatus?.batteryLevel ?: -1)
+            mImageView_gps.setImageResource(R.drawable.ic_more)
             mImageView_gps.visibility = if (F.isOPenGPS(context)) View.VISIBLE else View.GONE
             when (F.checkWifiState(context)) {
                 -1 -> {
@@ -181,18 +182,23 @@ class Head(context: Context?) : LinearLayout(context) {
         } else {
             when {
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 0..25 -> {
-
+                    mImageView_gps.visibility = View.VISIBLE
+                    mImageView_gps.setImageResource(R.drawable.ic_signal_cellular_1_bar_black_24dp)
                 }
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 26..50 -> {
-
+                    mImageView_gps.visibility = View.VISIBLE
+                    mImageView_gps.setImageResource(R.drawable.ic_signal_cellular_2_bar_black_24dp)
                 }
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 51..75 -> {
-
+                    mImageView_gps.visibility = View.VISIBLE
+                    mImageView_gps.setImageResource(R.drawable.ic_signal_cellular_3_bar_black_24dp)
                 }
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 76..100 -> {
-
+                    mImageView_gps.visibility = View.VISIBLE
+                    mImageView_gps.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
                 }
                 else -> {
+                    mImageView_gps.visibility = View.GONE
                 }
 
             }

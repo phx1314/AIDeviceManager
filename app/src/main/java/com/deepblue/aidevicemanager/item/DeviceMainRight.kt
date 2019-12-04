@@ -16,7 +16,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import com.deepblue.aidevicemanager.F
-import com.deepblue.aidevicemanager.F.wsBaseUrl
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.frg.FrgDetailDj
 import com.deepblue.aidevicemanager.model.ModelB
@@ -58,14 +57,34 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
         var mModelB = F.data2Model(data, ModelB::class.java)
         F.mModelStatus?.mModelB = mModelB
         if (mModelB.data_system_status.equals("1")) {
-            F.connectWSocket(context, wsBaseUrl + "")
-            Helper.startActivity(context, FrgDetailDj::class.java, TitleAct::class.java, "data", item_son)
-//            Helper.startActivity(context, FrgWorkDetail::class.java, TitleAct::class.java, "id", item_son.id.toString(), "from", "FrgDeviceMain")
+            Helper.startActivity(
+                context,
+                FrgDetailDj::class.java,
+                TitleAct::class.java,
+                "data",
+                item_son
+            )
+//            Helper.startActivity(
+//                context,
+//                FrgWorkDetail::class.java,
+//                TitleAct::class.java,
+//                "id",
+//                item_son.id.toString(),
+//                "from",
+//                "0",
+//                "mapId",
+//                ""
+//            )
         } else if (mModelB.data_system_status.equals("3")) {
             Helper.toast(resources.getString(R.string.d_broken))
         } else {
-            F.connectWSocket(context, wsBaseUrl + "")
-            Helper.startActivity(context, FrgDetailDj::class.java, TitleAct::class.java, "data", item_son)
+            Helper.startActivity(
+                context,
+                FrgDetailDj::class.java,
+                TitleAct::class.java,
+                "data",
+                item_son
+            )
         }
 
     }
