@@ -151,7 +151,7 @@ class WsManager constructor(builder: Builder) : WBImpl {
             (mContext as BaseActivity).runOnUiThread {
                 Helper.toast(mContext?.getString(R.string.socket_disconnect))
             }
-            Frame.HANDLES.closeIds("FrgDetailDj,FrgWorkDetail,FrgWorkChoose")
+            Frame.HANDLES.closeIds("FrgWorkDetail")
         }
 
     }

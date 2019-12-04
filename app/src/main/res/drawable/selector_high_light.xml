@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
+    <item android:drawable="@drawable/high_beam_light_light" android:state_selected="true" />
+    <item android:drawable="@drawable/high_beam_light_dark" />
+</selector>
