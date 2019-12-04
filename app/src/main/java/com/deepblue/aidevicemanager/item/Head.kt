@@ -111,18 +111,12 @@ class Head(context: Context?) : LinearLayout(context) {
                         0
                 )
             }
-            else -> {
-                mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_unknown_black_24dp, 0, 0, 0
-                )
-            }
-
         }
     }
 
     fun setStatus() {
         if (mModelStatus?.mModelB == null) {
-            setBatteryStatus(mModelStatus?.batteryLevel ?: -1)
+            setBatteryStatus(mModelStatus?.batteryLevel ?: 100)
             mImageView_gps.setImageResource(R.drawable.ic_more)
             mImageView_gps.visibility = if (F.isOPenGPS(context)) View.VISIBLE else View.GONE
             when (F.checkWifiState(context)) {

@@ -11,19 +11,18 @@
 
 package com.deepblue.aidevicemanager.ada;
 
-import java.util.List;
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.deepblue.aidevicemanager.frg.FrgDeviceMain;
+import com.deepblue.aidevicemanager.item.Main;
 import com.deepblue.aidevicemanager.model.ModelMain;
 import com.mdx.framework.activity.TitleAct;
 import com.mdx.framework.adapter.MAdapter;
-
-import android.content.Context;
-import android.view.ViewGroup;
-import android.view.View;
-
-import com.deepblue.aidevicemanager.item.Main;
 import com.mdx.framework.util.Helper;
+
+import java.util.List;
 
 public class AdaMain extends MAdapter<ModelMain> {
 
@@ -43,7 +42,8 @@ public class AdaMain extends MAdapter<ModelMain> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Helper.startActivity(getContext(), FrgDeviceMain.class, TitleAct.class, "item", item);
+                if (item.seriesCode.equals("Panda_Cleaning_Robot"))
+                    Helper.startActivity(getContext(), FrgDeviceMain.class, TitleAct.class, "item", item);
             }
         });
         return convertView;

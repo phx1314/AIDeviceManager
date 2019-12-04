@@ -5,17 +5,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import com.deepblue.aidevicemanager.F;
 import com.mdx.framework.Frame;
 
-import java.text.SimpleDateFormat;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -68,46 +65,44 @@ public class BatteryService extends Service {
     private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int status = intent.getIntExtra("status", 0);
+//            int status = intent.getIntExtra("status", 0);
             int level = intent.getIntExtra("level", 0);
-            int scale = intent.getIntExtra("scale", 0);
-            int plugged = intent.getIntExtra("plugged", 0);
-            int voltage = intent.getIntExtra("voltage", 0);
+//            int scale = intent.getIntExtra("scale", 0);
+//            int plugged = intent.getIntExtra("plugged", 0);
+//            int voltage = intent.getIntExtra("voltage", 0);
+//
+//            String statusString = "";
+//            switch (status) {
+//                case BatteryManager.BATTERY_STATUS_UNKNOWN:
+//                    statusString = "unknown";
+//                    break;
+//                case BatteryManager.BATTERY_STATUS_CHARGING:
+//                    statusString = "charging";
+//                    break;
+//                case BatteryManager.BATTERY_STATUS_DISCHARGING:
+//                    statusString = "discharging";
+//                    break;
+//                case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
+//                    statusString = "not charging";
+//                    break;
+//                case BatteryManager.BATTERY_STATUS_FULL:
+//                    statusString = "full";
+//                    break;
+//            }
+//            String acString = "";
+//
+//            switch (plugged) {
+//                case BatteryManager.BATTERY_PLUGGED_AC:
+//                    acString = "plugged ac";
+//                    break;
+//                case BatteryManager.BATTERY_PLUGGED_USB:
+//                    acString = "plugged usb";
+//                    break;
+//            }
+//
+//            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS ");
+//            String date = sDateFormat.format(new java.util.Date());
 
-            String statusString = "";
-            switch (status) {
-                case BatteryManager.BATTERY_STATUS_UNKNOWN:
-                    statusString = "unknown";
-                    break;
-                case BatteryManager.BATTERY_STATUS_CHARGING:
-                    statusString = "charging";
-                    break;
-                case BatteryManager.BATTERY_STATUS_DISCHARGING:
-                    statusString = "discharging";
-                    break;
-                case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
-                    statusString = "not charging";
-                    break;
-                case BatteryManager.BATTERY_STATUS_FULL:
-                    statusString = "full";
-                    break;
-            }
-            String acString = "";
-
-            switch (plugged) {
-                case BatteryManager.BATTERY_PLUGGED_AC:
-                    acString = "plugged ac";
-                    break;
-                case BatteryManager.BATTERY_PLUGGED_USB:
-                    acString = "plugged usb";
-                    break;
-            }
-
-            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS ");
-            String date = sDateFormat.format(new java.util.Date());
-
-            Log.i(TAG, "battery: date=" + date + ",status " + statusString + ",level=" + level +
-                    ",scale=" + scale + ",voltage=" + voltage + ",acString=" + acString);
             F.INSTANCE.getMModelStatus().batteryLevel = level;
             Frame.HANDLES.sentAll(1110, "");
         }
