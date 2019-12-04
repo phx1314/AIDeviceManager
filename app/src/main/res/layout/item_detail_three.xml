@@ -32,7 +32,7 @@
             style="@style/text_style_15_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="软件算法" />
+            android:text="@string/d_rjsf" />
 
     </LinearLayout>
 </LinearLayout>

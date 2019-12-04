@@ -127,7 +127,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="电池剩余电量"
+                            android:text="@string/d_dcsydl"
                             android:textColor="#000000" />
                     </LinearLayout>
                 </LinearLayout>
@@ -165,7 +165,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="清水箱容积"
+                            android:text="@string/d_qsxrj"
                             android:textColor="#000000" />
                     </LinearLayout>
                 </LinearLayout>
@@ -308,7 +308,7 @@
                                 style="@style/text_style_15_black"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="软件算法" />
+                                android:text="@string/d_rjsf" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -322,7 +322,7 @@
                     android:layout_margin="20dp"
                     android:background="@drawable/shape_startk"
                     android:padding="10dp"
-                    android:text="载入作业任务" />
+                    android:text="@string/d_zrzyrw" />
 
                 <ProgressBar
                     android:id="@+id/mProgressBar"

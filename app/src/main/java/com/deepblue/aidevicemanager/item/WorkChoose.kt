@@ -36,17 +36,17 @@ class WorkChoose(context: Context?) : LinearLayout(context) {
 
         mImageView1.setOnClickListener {
             selectID = item.mList[0].id
-            Frame.HANDLES.sentAll("FrgWorkChoose", 1, item.mList[0])
+            Frame.HANDLES.sentAll("FrgWorkChoose", 1, item.mList[0].id.toString())
             mAdaWorkChoose.notifyDataSetChanged()
         }
         mImageView2.setOnClickListener {
             selectID = item.mList[1].id
-            Frame.HANDLES.sentAll("FrgWorkChoose", 1, item.mList[1])
+            Frame.HANDLES.sentAll("FrgWorkChoose", 1, item.mList[1].id.toString())
             mAdaWorkChoose.notifyDataSetChanged()
         }
         mImageView3.setOnClickListener {
             selectID = item.mList[2].id
-            Frame.HANDLES.sentAll("FrgWorkChoose", 1, item.mList[2])
+            Frame.HANDLES.sentAll("FrgWorkChoose", 1, item.mList[2].id.toString())
             mAdaWorkChoose.notifyDataSetChanged()
         }
     }

@@ -42,10 +42,10 @@ class FrgDeviceMain : BaseFrg() {
             0 -> {
                 mModelModels_one = obj as ModelModels
                 mAbPullListView.setApiLoadParams(
-                        "${baseUrl}device/queryCleanRobotDeviceListByModel",
-                        "POST",
-                        this,
-                        mModellogin?.token, "deviceModelId", mModelModels_one.id.toInt()
+                    "${baseUrl}device/queryCleanRobotDeviceListByModel",
+                    "POST",
+                    this,
+                    mModellogin?.token, "deviceModelId", mModelModels_one.id.toInt()
                 )
             }
         }
@@ -59,8 +59,8 @@ class FrgDeviceMain : BaseFrg() {
                 --position
                 mAbPullListView.postDelayed(Runnable {
                     mAbPullListView.smoothScrollToPositionFromTop(
-                            position,
-                            mAbPullListView.height / 2
+                        position,
+                        mAbPullListView.height / 2
                     )
                 }, 100)
 
@@ -71,7 +71,7 @@ class FrgDeviceMain : BaseFrg() {
                 ++position
                 mAbPullListView.postDelayed(Runnable {
                     mAbPullListView.smoothScrollToPosition(
-                            position
+                        position
                     )
                 }, 100)
             }
@@ -111,10 +111,10 @@ class FrgDeviceMain : BaseFrg() {
             mModelModels_one = mModelModels[0]
             if (mModelModels.isNotEmpty()) {
                 mAbPullListView.setApiLoadParams(
-                        "${baseUrl}device/queryCleanRobotDeviceListByModel",
-                        "POST",
-                        this,
-                        mModellogin?.token, "deviceModelId", mModelModels_one.id.toInt()
+                    "${baseUrl}device/queryCleanRobotDeviceListByModel",
+                    "POST",
+                    this,
+                    mModellogin?.token, "deviceModelId", mModelModels_one.id.toInt()
                 )
             }
         }

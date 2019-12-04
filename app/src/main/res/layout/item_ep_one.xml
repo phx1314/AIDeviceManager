@@ -14,7 +14,7 @@
         style="@style/text_style_15_gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="用户"></TextView>
+        android:text="@string/d_yh"></TextView>
 
     <ImageView
         android:id="@+id/mImageView_issue"

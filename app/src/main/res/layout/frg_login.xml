@@ -12,7 +12,7 @@
         style="@style/text_style_20_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="深兰智能设备管理工具" />
+        android:text="@string/d_title" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="3"
-                    android:text="用户名:" />
+                    android:text="@string/d_yhm" />
 
                 <EditText
                     android:id="@+id/mEditText_phone"
@@ -51,7 +51,7 @@
                     android:background="@drawable/shape_logink"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
-                    android:hint="请输入手机号"
+                    android:hint="@string/d_qsrsjh2"
                     android:padding="8dp"
                     android:singleLine="true"
                     android:text="18151735217" />
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="3"
-                    android:text="密   码:" />
+                    android:text="@string/d_mm" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                         android:layout_weight="1"
                         android:background="#00000000"
                         android:gravity="center_vertical"
-                        android:hint="请输入密码"
+                        android:hint="@string/i_porc_length"
                         android:inputType="textPassword"
                         android:padding="8dp"
                         android:singleLine="true"
@@ -112,7 +112,7 @@
                 android:gravity="right"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:text="忘记密码?"
+                android:text="@string/d_wjmm"
                 android:textColor="#169BD5" />
 
             <TextView
@@ -123,7 +123,7 @@
                 android:background="@drawable/shape_blue"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="登录" />
+                android:text="@string/d_login" />
         </LinearLayout>
     </ScrollView>
 

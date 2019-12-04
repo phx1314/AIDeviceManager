@@ -18,7 +18,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.deepblue.aidevicemanager"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -31,9 +31,9 @@ android {
         }
 
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "ede9abf6c765cb178a5d1359", //JPush 上注册的包名对应的 Appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
 
         compileOptions {
@@ -62,7 +62,7 @@ dependencies {
     }
     implementation 'com.android.support:multidex:1.0.3'
     implementation files('libs/BaiduLBS_Android.jar')
-    //    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
+    //    implementation 'com.scwang.smartrefresh::1.1.0'
     //    implementation 'com.scwang.smartrefresh:SmartRefreshHorizontal:1.0.0-beta-1'
     //    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'//必须依赖 版本 1.1.0 以上
     implementation 'cn.jiguang.sdk:jpush:3.4.1'  // 此处以JPush 3.4.1 版本为例。

@@ -78,7 +78,7 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/shape_startk"
             android:padding="10dp"
-            android:text="载入作业任务" />
+            android:text="@string/d_zrzyrw" />
 
         <Button
             android:id="@+id/mButton"
@@ -91,6 +91,6 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/shape_startk"
             android:padding="10dp"
-            android:text="同步数据" />
+            android:text="@string/d_sysdata" />
     </LinearLayout>
 </LinearLayout>

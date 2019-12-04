@@ -18,6 +18,7 @@ import android.widget.ImageView
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.frg.FrgDetailDj
+import com.deepblue.aidevicemanager.frg.FrgWorkDetail
 import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelData
 import com.deepblue.aidevicemanager.model.ModelDevices
@@ -64,17 +65,17 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
                 "data",
                 item_son
             )
-//            Helper.startActivity(
-//                context,
-//                FrgWorkDetail::class.java,
-//                TitleAct::class.java,
-//                "id",
-//                item_son.id.toString(),
-//                "from",
-//                "0",
-//                "mapId",
-//                ""
-//            )
+            Helper.startActivity(
+                context,
+                FrgWorkDetail::class.java,
+                TitleAct::class.java,
+                "id",
+                item_son.id.toString(),
+                "from",
+                "0",
+                "mapId",
+                item_son.mapId
+            )
         } else if (mModelB.data_system_status.equals("3")) {
             Helper.toast(resources.getString(R.string.d_broken))
         } else {
@@ -115,22 +116,22 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
     }
 
     fun setStatusType(mImageView: ImageView, it: ModelDevices.RowsBean) {
-        if (it.deviceMaintainStatus.equals("1")) {//正常
-            if (it.deviceStatus.equals("0")) {//未激活
-                mImageView.setBackgroundResource(R.drawable.shape_grayk)
-            } else {//激活
-                if (it.deviceOnlineStatus.equals("0")) {//离线
-                    mImageView.setBackgroundResource(R.drawable.shape_yellowk)
-                } else if (it.deviceOnlineStatus.equals("3")) {//待命
-                    mImageView.setBackgroundResource(R.drawable.shape_bluek)
-                } else if (it.deviceOnlineStatus.equals("4")) {//执行任务
-                    if (it.deviceTaskStatus.equals("2")) {//正在执行
-                        mImageView.setBackgroundResource(R.drawable.shape_greenk)
-                    }
-                }
+        when (it.data_system_status) {
+            "0" -> {
+                mImageView.setBackgroundResource(R.drawable.shape_bluek)
             }
-        } else {//故障
-            mImageView.setBackgroundResource(R.drawable.shape_yuank)
+            "1" -> {
+                mImageView.setBackgroundResource(R.drawable.shape_greenk)
+            }
+            "2" -> {
+                mImageView.setBackgroundResource(R.drawable.shape_orangek)
+            }
+            "3" -> {
+                mImageView.setBackgroundResource(R.drawable.shape_yuank)
+            }
+            else -> {
+                mImageView.setBackgroundResource(R.drawable.shape_yuank)
+            }
         }
     }
 

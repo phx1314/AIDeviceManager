@@ -23,7 +23,7 @@
                 style="@style/text_style_15_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="作业任务消息(0)" />
+              />
 
             <ImageView
                 android:id="@+id/mImageView_1"
@@ -47,7 +47,7 @@
                 style="@style/text_style_15_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="告警消息(0)" />
+         />
 
             <ImageView
                 android:id="@+id/mImageView_2"
@@ -71,7 +71,7 @@
                 style="@style/text_style_15_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="故障消息(0)" />
+                 />
 
             <ImageView
                 android:id="@+id/mImageView_3"
@@ -102,7 +102,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="消息ID"
+                android:text="@string/d_xxID"
                 android:textStyle="bold" />
 
             <ImageView
@@ -116,7 +116,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="时间"
+                android:text="@string/d_time"
                 android:textStyle="bold" />
 
             <ImageView
@@ -130,7 +130,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="主题"
+                android:text="@string/d_zt"
                 android:textStyle="bold" />
 
             <ImageView
@@ -144,7 +144,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="3"
                 android:gravity="center"
-                android:text="内容"
+                android:text="@string/d_nr"
                 android:textStyle="bold" />
 
         </LinearLayout>

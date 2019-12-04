@@ -20,7 +20,7 @@ public class ModelDevices implements Serializable {
     public int pages;
     public List<RowsBean> rows;
 
-    public static class RowsBean  implements Serializable{
+    public static class RowsBean implements Serializable {
         /**
          * id : 355
          * deviceCode : 00000043cAYW
@@ -106,7 +106,7 @@ public class ModelDevices implements Serializable {
         public Object deviceOnlineStatusName;
         public Object deviceTaskStatusName;
         public Object supportMap;
-        public Object mapId;
+        public String mapId;
         public Object mapName;
         public Object mapUrl;
         public Object mapGroupId;
@@ -123,5 +123,6 @@ public class ModelDevices implements Serializable {
         public Object deviceMovedPositionDto;
         public Object frameNum;
         public String modelPicUrl;
+        public String data_system_status;
     }
 }

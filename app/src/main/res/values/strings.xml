@@ -75,6 +75,40 @@
     <string name="d_yzddlbj" translatable="false">严重低电量报警</string>
     <string name="d_dcbh" translatable="false">电池编号</string>
     <string name="d_yundata" translatable="false">云端数据</string>
+    <string name="d_dcsydl" translatable="false">电池剩余电量</string>
+    <string name="d_qsxrj" translatable="false">清水箱容积</string>
+    <string name="d_rjsf" translatable="false">软件算法</string>
+    <string name="d_zrzyrw" translatable="false">载入作业任务</string>
+    <string name="d_title" translatable="false">深兰智能设备管理工具</string>
+    <string name="d_sjhmyz" translatable="false">手机号码验证</string>
+    <string name="d_qsrsjh" translatable="false">请输入手机号...</string>
+    <string name="d_qsryzm" translatable="false">请输入验证码...</string>
+    <string name="d_yz" translatable="false">验证</string>
+    <string name="d_yhm" translatable="false">用戶名:</string>
+    <string name="d_yh" translatable="false">用戶</string>
+    <string name="d_qsryhm" translatable="false">请输入用戶名</string>
+    <string name="d_sjh" translatable="false">手机号:</string>
+    <string name="d_qsrsjh2" translatable="false">请输入手机号</string>
+    <string name="d_fsyzm" translatable="false">发送验证码</string>
+    <string name="d_yzm" translatable="false">验证码:</string>
+    <string name="d_yzsj" translatable="false">验证手机</string>
+    <string name="d_save" translatable="false">保存</string>
+    <string name="d_cancel" translatable="false">取消</string>
+    <string name="d_qsrxmm" translatable="false">输入新密码</string>
+    <string name="d_qsrmm" translatable="false">输入密码</string>
+    <string name="d_zcsrxmm" translatable="false">再次输入新密码</string>
+    <string name="d_qrxg" translatable="false">确认修改</string>
+    <string name="d_mm" translatable="false">密   码:</string>
+    <string name="d_wjmm" translatable="false">忘记密码?</string>
+    <string name="d_login" translatable="false">登录</string>
+    <string name="d_qrxmm" translatable="false">确认新密码:</string>
+    <string name="d_dqmm" translatable="false">当前密码:</string>
+    <string name="d_xmm" translatable="false">新密码:</string>
+    <string name="d_xxID" translatable="false">消息ID</string>
+    <string name="d_time" translatable="false">时间:</string>
+    <string name="d_zt" translatable="false">主题</string>
+    <string name="d_nr" translatable="false">内容</string>
+    <string name="d_mt" translatable="false">每天</string>
     <string name="button_startwork">自动作业</string>
     <string name="button_stopwork">暂停作业</string>
     <string name="button_endwork">停止作业</string>

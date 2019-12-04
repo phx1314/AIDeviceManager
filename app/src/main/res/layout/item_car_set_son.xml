@@ -50,7 +50,7 @@
             android:paddingTop="5dp"
             android:paddingRight="8dp"
             android:paddingBottom="5dp"
-            android:text="检查更新"
+            android:text="@string/d_jcgx"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -73,7 +73,7 @@
                 style="@style/text_style_15_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="定时启动" />
+                android:text="@string/d_dsqd" />
 
             <TextView
                 android:id="@+id/mTextView_3"
@@ -93,7 +93,7 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="10dp"
                 android:paddingLeft="10dp"
-                android:text="每天" />
+                android:text="@string/d_mt" />
         </LinearLayout>
 
 

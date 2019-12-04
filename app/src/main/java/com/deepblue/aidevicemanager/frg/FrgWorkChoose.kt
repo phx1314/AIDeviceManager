@@ -11,13 +11,13 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.os.Bundle
-import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaWorkChoose
 import com.deepblue.aidevicemanager.ada.AdaWorkChooseBottom
 import com.deepblue.aidevicemanager.model.ModelData
 import com.deepblue.aidevicemanager.model.ModelMap
+import com.deepblue.aidevicemanager.model.ModelMapInfo
 import com.deepblue.aidevicemanager.model.ModelMapLj
 import com.google.gson.Gson
 import com.mdx.framework.activity.TitleAct
@@ -30,8 +30,6 @@ class FrgWorkChoose : BaseFrg() {
     var page = 1
     var size = Int.MAX_VALUE
     var did = ""
-    var mTotalItemCount: Int = 0
-    var mIsLoading: Boolean = false
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_work_choose)
         did = activity?.intent?.getStringExtra("did") ?: ""
@@ -50,7 +48,7 @@ class FrgWorkChoose : BaseFrg() {
                 )
             }
             1 -> {
-//                mTextView_content.setText()
+                load(F.gB().queryMapTaskInfo(obj.toString()), "queryMapTaskInfo")
             }
 //            1111 -> { //ws
 //                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
@@ -122,10 +120,14 @@ class FrgWorkChoose : BaseFrg() {
                     F.mModellogin?.token, "mapGroupId", mModelMap.rows[0].id.toInt()
                 )
             }
+        } else if (method.equals("queryMapTaskInfo")) {
+            var mModelMapInfo = F.data2Model(data, ModelMapInfo::class.java)
+            mTextView_content.setText(
+                "作业地点：${mModelMapInfo.mapTaskAddress ?: ""}\n作业任务：${mModelMapInfo.mapTaskName ?: ""}\n作业地图：${mModelMapInfo.mapName ?: ""}\n作业规划里程：${mModelMapInfo.mapTaskPathDistance
+                    ?: ""}\n作业规划面积：${mModelMapInfo.mapTaskArea ?: ""}\n预计作业时间：${mModelMapInfo.mapTaskEstimatedTime ?: ""}"
+            )
+
         }
     }
 
-    override fun setActionBar(actionBar: LinearLayout?) {
-        super.setActionBar(actionBar)
-    }
 }
