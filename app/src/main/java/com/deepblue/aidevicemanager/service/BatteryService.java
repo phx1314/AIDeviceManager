@@ -115,50 +115,8 @@ public class BatteryService extends Service {
 
     PhoneStateListener mylistener = new PhoneStateListener() {
         public void onSignalStrengthsChanged(SignalStrength signalStrength) {
-//            Timber.d("4g");
             super.onSignalStrengthsChanged(signalStrength);
-            String signalInfo = signalStrength.toString();
-            String[] params = signalInfo.split(" ");
-            if (tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_UNKNOWN) {
-                F.INSTANCE.getMModelStatus().g4Level = -1;
-            } else if (tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_LTE || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_NR) {
-                //4G网络 最佳范围   >-90dBm 越大越好
-
-                try {
-                    int Itedbm = Integer.parseInt(params[9]);
-                    if (Itedbm > -85) {
-                        F.INSTANCE.getMModelStatus().g4Level = 4;
-                    } else if (Itedbm > -95) {
-                        F.INSTANCE.getMModelStatus().g4Level = 3;
-                    } else if (Itedbm > -105) {
-                        F.INSTANCE.getMModelStatus().g4Level = 2;
-                    } else if (Itedbm > -115) {
-                        F.INSTANCE.getMModelStatus().g4Level = 1;
-                    } else if (Itedbm > -140) {
-                        F.INSTANCE.getMModelStatus().g4Level = 0;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    F.INSTANCE.getMModelStatus().g4Level = 4;
-                }
-
-            } else if (tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_HSDPA || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_HSPA || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_HSUPA || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_UMTS) {
-//                    //3G网络最佳范围  >-90dBm  越大越好  ps:中国移动3G获取不到  返回的无效dbm值是正数（85dbm）
-//                    //在这个范围的已经确定是3G，但不同运营商的3G有不同的获取方法，故在此需做判断 判断运营商与网络类型的工具类在最下方
-//                    String yys = IntenetUtil.getYYS(getApplication());//获取当前运营商
-//                    if (yys == "中国移动") {
-//                        setDBM(0 + "");//中国移动3G不可获取，故在此返回0
-//                    } else if (yys == "中国联通") {
-//                        int cdmaDbm = signalStrength.getCdmaDbm();
-//                        setDBM(cdmaDbm + "");
-//                    } else if (yys == "中国电信") {
-//                        int evdoDbm = signalStrength.getEvdoDbm();
-//                        setDBM(evdoDbm + "");
-//                    }
-
-            } else {
-
-            }
+            F.INSTANCE.getMModelStatus().g4Level = signalStrength.getLevel();
             Frame.HANDLES.sentAll(1110, "");
         }
     };
