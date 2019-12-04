@@ -56,7 +56,7 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
         WORKSTATE = 0
         reInitBtnView()
 
-        F.connectWSocket(context,url)
+        F.connectWSocket(context, url)
     }
 
     override fun loaddata() {
@@ -100,8 +100,12 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
         when (type) {
             1111 -> {
                 Helper.toast("实时数据：${obj.toString()}")
-                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
-                if (isHeadInit()) mHead.setStatus()
+                try {
+                    F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
+                    if (isHeadInit()) mHead.setStatus()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
             1112 -> {
                 when (obj as Int) {
