@@ -74,6 +74,7 @@
     <string name="d_xhcs" translatable="false">循环次数</string>
     <string name="d_yzddlbj" translatable="false">严重低电量报警</string>
     <string name="d_dcbh" translatable="false">电池编号</string>
+
     <string name="button_startwork">自动作业</string>
     <string name="button_stopwork">暂停作业</string>
     <string name="button_endwork">停止作业</string>
