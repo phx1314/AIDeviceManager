@@ -16,6 +16,7 @@ import com.google.gson.Gson
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_wd_route.*
 
+//luxian
 class FrgWDRoute : BaseFrg() {
     private val mMap by lazy { baidumap_route.map }
 
