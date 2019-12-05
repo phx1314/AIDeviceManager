@@ -19,7 +19,7 @@ import java.util.concurrent.locks.ReentrantLock
 class WsManager constructor(builder: Builder) : WBImpl {
     companion object {
         val RECONNECT_TIME: Long = 10000
-        val RECONNECT_NUM: Int = 5
+        val RECONNECT_NUM: Int = 3
     }
 
     private var mWebSocket: WebSocket? = null
@@ -155,7 +155,7 @@ class WsManager constructor(builder: Builder) : WBImpl {
             }
             reconnectCount = 0
             F.wsManager = null
-            Frame.HANDLES.closeIds("FrgWorkDetail")
+            Frame.HANDLES.closeIds("FrgDetailDj,FrgWorkDetail,FrgWorkChoose")
         }
 
     }

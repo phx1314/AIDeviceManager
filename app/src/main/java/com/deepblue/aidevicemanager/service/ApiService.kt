@@ -107,5 +107,9 @@ interface ApiService {
 
     @POST("device/getDevicePresetPositions")
     @FormUrlEncoded
-    fun getDevicePresetPositions(@Field("deviceId") deviceId: String, @Field("mapId") mapId: String): Observable<HttpResult<Any>>
+    fun getDevicePresetPositions(@Field("deviceId") deviceId: String?, @Field("mapId") mapId: String?): Observable<HttpResult<Any>>
+
+    @POST("task/autoWork")
+    @FormUrlEncoded
+    fun autoWork(@Field("deviceId") deviceId: String?, @Field("mapTaskName") mapTaskName: String?): Observable<HttpResult<Any>>
 }

@@ -38,6 +38,7 @@ class FrgWorkDetail : BaseFrg() {
     private var mId: String? = ""
     private var mFrom: String? = ""
     private var mapId: String? = ""
+    private var mapName: String? = ""
 
     val bundle = Bundle()
     val polylines = ArrayList<LatLng>()
@@ -50,16 +51,19 @@ class FrgWorkDetail : BaseFrg() {
         mId = activity.intent.getStringExtra("id")
         mFrom = activity.intent.getStringExtra("from")
         mapId = activity.intent.getStringExtra("mapId")
+        mapName = activity.intent.getStringExtra("mapTaskName")
+        if (TextUtils.isEmpty(mId) || TextUtils.isEmpty(mFrom)) {
+            Helper.toast("参数错误")
+            finish()
+        }
         initListener()
-
     }
 
     override fun loaddata() {
         polylines.clear()
         F.hasRunPosints.clear()
         if (!TextUtils.isEmpty(mId) && !TextUtils.isEmpty(mapId)) {
-            load(F.gB().getDevicePresetPositions(mId!!, mapId!!), "getDevicePresetPositions", false)
-            F.connectWSocket(context, "${mId}/${F.mModellogin?.token}")
+            load(F.gB().getDevicePresetPositions(mId, mapId), "getDevicePresetPositions", false)
         } else initFragment()
         when (mFrom) {//0列表  1地图选择
             "0" -> {
@@ -146,7 +150,7 @@ class FrgWorkDetail : BaseFrg() {
                 }
                 initFragment()
             }
-            "createOrder_start" -> {
+            "autoWork" -> {
                 mWorkState = WORKING
                 reInitBtnView()
             }
@@ -257,48 +261,48 @@ class FrgWorkDetail : BaseFrg() {
         showProgressDialog(resources.getString(R.string.NOTICE), "请稍后...")
         when (indexWork) {
             0 -> {
-//                load(F.gB(60).createOrder("14", id_), "createOrder_start")
-                onSuccess("", "createOrder_start")
+                load(F.gB(60).autoWork(mId, mapName), "autoWork")
             }
             1 -> {
-//                load(F.gB(60).createOrder("7", id_), "createOrder_stop")
-                onSuccess("", "createOrder_stop")
+                load(F.gB(60).createOrder("7", mId!!), "createOrder_stop")
+//                onSuccess("", "createOrder_stop")
             }
             2 -> {
                 AlertDialog.Builder(context).setTitle(R.string.NOTICE)
                     .setMessage(R.string.EMG_NOTICE)
                     .setPositiveButton(R.string.ems_showbtn1) { _: DialogInterface, _: Int ->
                         run {
-                            //   load(F.gB(60).createOrder("5", id_), "createOrder_end")
-                            onSuccess("", "createOrder_end")
+                            load(F.gB(60).createOrder("5", mId!!), "createOrder_end")
+//                            onSuccess("", "createOrder_end")
                         }
                     }
                     .setNegativeButton(R.string.ems_showbtn2) { _: DialogInterface, _: Int ->
                         run {
                             hideProgressDialog()
+                            finish()
                         }
                     }
                     .show()
             }
             3 -> {
-//                load(F.gB(60).createOrder("8", id_), "createOrder_continue")
-                onSuccess("", "createOrder_continue")
+                load(F.gB(60).createOrder("8", mId!!), "createOrder_continue")
+//                onSuccess("", "createOrder_continue")
             }
             4 -> {
                 mTempWorkState = mWorkState
-//                load(F.gB(60).createOrder("13", id_), "createOrder_emg")
-                onSuccess("", "createOrder_emg")
+                load(F.gB(60).createOrder("13", mId!!), "createOrder_emg")
+//                onSuccess("", "createOrder_emg")
             }
             5 -> {
                 F
                 when (mTempWorkState) {
                     WORKING -> {
-//                        load(F.gB(60).createOrder("8", id_), "createOrder_continue_emg")
-                        onSuccess("", "createOrder_continue_emg")
+                        load(F.gB(60).createOrder("8", mId!!), "createOrder_continue_emg")
+//                        onSuccess("", "createOrder_continue_emg")
                     }
                     WORK_STOP -> {
-//                        load(F.gB(60).createOrder("7", id_), "createOrder_stop_emg")
-                        onSuccess("", "createOrder_stop_emg")
+                        load(F.gB(60).createOrder("7", mId!!), "createOrder_stop_emg")
+//                        onSuccess("", "createOrder_stop_emg")
                     }
                     WORK_WAITSTART -> {
                         hideProgressDialog()
@@ -370,8 +374,10 @@ class FrgWorkDetail : BaseFrg() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         F.hasRunPosints.clear()
-        F.stopConnectWSocket()
+        if (mFrom.equals("0")) {
+            F.stopConnectWSocket()
+        }
+        super.onDestroy()
     }
 }
