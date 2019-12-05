@@ -494,12 +494,17 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
             Timber.d(mJSONObject.optString("data"));
             mMAdapter = mListViewListener.onSuccess(methodName, mJSONObject.optString("data"));
             if (mMAdapter != null) {
-//                if ((gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
-//                    setPullLoadEnable(false);
-//                }
-                if (new JSONObject(mJSONObject.optString("data")).optInt("pageNum") == new JSONObject(mJSONObject.optString("data")).optInt("pages")) {
-                    setPullLoadEnable(false);
+                try {
+                    if (new JSONObject(mJSONObject.optString("data")).optInt("pageNum") == new JSONObject(mJSONObject.optString("data")).optInt("pages")) {
+                        setPullLoadEnable(false);
+                    }
+                }catch (Exception e){
+                    if ((gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
+                        setPullLoadEnable(false);
+                    }
                 }
+
+
 //        stopLoadMore();
                 if (mAdapter == null || isRefreash) {
                     mAdapter = mMAdapter;

@@ -64,20 +64,16 @@ class FrgDetailDj : BaseFrg() {
                                 Helper.startActivity(
                                     context,
                                     FrgWorkChoose::class.java,
-                                    TitleAct::class.java
+                                    TitleAct::class.java,
+                                    "did",
+                                    data.id.toString()
                                 )
                             }
                         }
                         .setNegativeButton(getString(R.string.d_cancel), null)
                         .show()
                 }
-                Helper.startActivity(
-                    context,
-                    FrgWorkChoose::class.java,
-                    TitleAct::class.java,
-                    "did",
-                    data.id.toString()
-                )
+
             }
         }
     }
