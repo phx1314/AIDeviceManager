@@ -29,7 +29,6 @@ import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_workdetail.*
 import java.util.*
 
-
 class FrgWorkDetail : BaseFrg() {
     private lateinit var fragments: HashMap<Int, Fragment>
     private var mWorkState = WORK_DEFAUT
