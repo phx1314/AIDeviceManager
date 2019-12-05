@@ -41,7 +41,6 @@ class FrgWDRoute : BaseFrg() {
 
     override fun initView() {
         val builder = MapStatus.Builder()
-//        builder.zoom(19.0f).target(LatLng(31.818067, 120.022194))
         mMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
 
 //        mMap.mapType = BaiduMap.MAP_TYPE_SATELLITE //地图卫星

@@ -29,7 +29,7 @@ object F {
     var hasRunPosints = ArrayList<LatLng>()
     //    val wsBaseUrl = "ws://10.1.1.160:8081/websocket/cleanApp/"
     val wsBaseUrl = "ws://192.168.123.209:8081//websocket/cleanApp/"
-//    val baseUrl = "http://192.168.123.209:8081/robotos/cleanApp/"
+    //    val baseUrl = "http://192.168.123.209:8081/robotos/cleanApp/"
 //    val baseUrl = "http://10.1.1.160:8081/robotos/cleanApp/" //测试
     val baseUrl = "http://192.168.16.91:8081/robotos/cleanApp/"//开发
 
@@ -155,8 +155,8 @@ object F {
         if (wsManager == null) {
             wsManager = WsManager.Builder()
                 .context(context)
-//                .wsUrl(wsBaseUrl + url)
-                .wsUrl("ws://192.168.123.209:8081/websocket/wwwggg")
+                .wsUrl(wsBaseUrl + url)
+//                .wsUrl("ws://192.168.123.209:8081/websocket/wwwggg")
                 .client(
                     OkHttpClient().newBuilder()
                         .pingInterval(10, TimeUnit.SECONDS)
