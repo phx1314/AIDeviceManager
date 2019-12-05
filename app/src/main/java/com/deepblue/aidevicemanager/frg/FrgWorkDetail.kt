@@ -8,10 +8,23 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelB
-import com.deepblue.aidevicemanager.util.CarWorkStateStatus
+import com.deepblue.aidevicemanager.model.ModelMapRoute
+import com.deepblue.aidevicemanager.model.ModelTest
+import com.deepblue.aidevicemanager.model.ModelTest2
+import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
+import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
+import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_SHUTSTOP
+import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_STOP
+import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_WAITSTART
+import com.deepblue.aidevicemanager.util.GlideLoader
+import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_DIANYUN
+import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_OVERVIEW
+import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_ROUTE
+import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_VEDIO
 import com.deepblue.aidevicemanager.view.TextSwitch
 import com.deepblue.aidevicemanager.ws.WsStatus
 import com.google.gson.Gson
@@ -19,26 +32,23 @@ import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_workdetail.*
 import java.util.*
 
-class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
+class FrgWorkDetail : BaseFrg(){
     private lateinit var fragments: HashMap<Int, Fragment>
-    private var WORKSTATE = CarWorkStateStatus.WORK_DEFAUT
-    private var TempWorkstate = CarWorkStateStatus.WORK_DEFAUT
+    private var mWorkState = WORK_DEFAUT
+    private var mTempWorkState = WORK_DEFAUT
 
-    private val PAGE_DIANYUN = 0
-    private val PAGE_VEDIO = 1
-    private val PAGE_OVERVIEW = 2
-    private val PAGE_ROUTE = 3
-    private var id_: String? = ""
-    private var from_: String? = ""
-    var url = "ws://192.168.123.209:8081/websocket/wg"
+    private var mId: String? = ""
+    private var mFrom: String? = ""
+    private var mapId: String? = ""
 
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_workdetail)
     }
 
     override fun initView() {
-        id_ = activity.intent.getStringExtra("id")
-        from_ = activity.intent.getStringExtra("from")
+        mId = activity.intent.getStringExtra("id")
+        mFrom = activity.intent.getStringExtra("from")
+        mapId = activity.intent.getStringExtra("mapId")
         initListener()
         fragments = hashMapOf(
             PAGE_DIANYUN to FrgWDLaser(),
@@ -53,20 +63,29 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
             .add(R.id.ll_right, fragments[PAGE_ROUTE]!!, PAGE_ROUTE.toString())
             .commit()
         //初始化工作状态
-        WORKSTATE = 0
+        mWorkState = 0
         reInitBtnView()
-
-        F.connectWSocket(context, url)
     }
 
     override fun loaddata() {
+        when (mFrom) {//0列表  1地图选择
+            "0" -> {
+                F.connectWSocket(context, "${mId}/${F.mModellogin?.token}")
+//                load(F.gB().getDevicePresetPositions(mId!!, ""), "getDevicePresetPositions")
+            }
+            "1" -> {
+            }
+            else -> {
+                F.connectWSocket(context, "${mId}/${F.mModellogin?.token}")
+            }
+        }
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.iv_lefttop_switch -> switchFragment(0)
-            R.id.iv_leftcenter_switch -> switchFragment(1)
-            R.id.iv_leftbottom_switch -> switchFragment(2)
+            R.id.iv_lefttop_switch -> F.wsManager?.sendMessage("31.822533, 120.02992")/*switchFragment(0)*/
+            R.id.iv_leftcenter_switch -> F.wsManager?.sendMessage("31.817777, 120.030387")/*switchFragment(1)*/
+            R.id.iv_leftbottom_switch -> F.wsManager?.sendMessage("31.813022, 120.014685")/*switchFragment(2)*/
             R.id.btn_startwork -> {
                 doWorkState(0)
             }
@@ -85,24 +104,28 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
         }
     }
 
-    override fun onCheckedChanged(switch_id: String?, isChecked: Boolean) {
-        when (switch_id) {
-            "1" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
-            "2" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
-            "3" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
-            "4" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
-            "5" -> Toast.makeText(context, "345$switch_id$isChecked", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     override fun disposeMsg(type: Int, obj: Any?) {
         super.disposeMsg(type, obj)
         when (type) {
             1111 -> {
-                Helper.toast("实时数据：${obj.toString()}")
+//                Helper.toast("实时数据：${obj.toString()}")
                 try {
                     F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
                     if (isHeadInit()) mHead.setStatus()
+                    iv_high_light.isSelected = F.mModelStatus?.mModelB?.data_high_beam_light.equals("1")
+                    iv_width_light.isSelected = F.mModelStatus?.mModelB?.data_width_light.equals("1")
+                    iv_left_light.isSelected = F.mModelStatus?.mModelB?.data_left_light.equals("1")
+                    iv_right_light.isSelected = F.mModelStatus?.mModelB?.data_right_light.equals("1")
+                    sweep_location.setChecked(F.mModelStatus?.mModelB?.data_brush_status.equals("1"))
+                    sweep_location.setOpenText(if (F.mModelStatus?.mModelB?.data_brush_position.equals("0")) "上位" else "下位")
+                    sweep_location.setCloseText(if (F.mModelStatus?.mModelB?.data_brush_position.equals("0")) "上位" else "下位")
+                    sweep_state.setChecked(F.mModelStatus?.mModelB?.data_brush_status.equals("1"))
+                    water_state.setChecked(F.mModelStatus?.mModelB?.data_spout_water.equals("1"))
+                    wind_state.setChecked(F.mModelStatus?.mModelB?.data_suction_status.equals("1"))
+                    wind_location.setChecked(F.mModelStatus?.mModelB?.data_suction_status.equals("1"))
+                    wind_location.setOpenText(if (F.mModelStatus?.mModelB?.data_suction_inlet_position.equals("0")) "上位" else "下位")
+                    wind_location.setCloseText(if (F.mModelStatus?.mModelB?.data_suction_inlet_position.equals("0")) "上位" else "下位")
+
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -122,33 +145,33 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
         hideProgressDialog()
         when (method) {
             "createOrder_start" -> {
-                WORKSTATE = CarWorkStateStatus.WORKING
+                mWorkState = WORKING
                 reInitBtnView()
             }
             "createOrder_stop" -> {
-                WORKSTATE = CarWorkStateStatus.WORK_STOP
+                mWorkState = WORK_STOP
                 reInitBtnView()
             }
             "createOrder_end" -> {
-                WORKSTATE = CarWorkStateStatus.WORK_WAITSTART
+                mWorkState = WORK_WAITSTART
                 reInitBtnView()
             }
             "createOrder_continue" -> {
-                WORKSTATE = CarWorkStateStatus.WORKING
+                mWorkState = WORKING
                 reInitBtnView()
             }
             "createOrder_emg" -> {
-                WORKSTATE = CarWorkStateStatus.WORK_SHUTSTOP
+                mWorkState = WORK_SHUTSTOP
                 reInitBtnView()
                 reInitEMG(true)
             }
             "createOrder_continue_emg" -> {
-                WORKSTATE = CarWorkStateStatus.WORKING
+                mWorkState = WORKING
                 reInitBtnView()
                 reInitEMG(false)
             }
             "createOrder_stop_emg" -> {
-                WORKSTATE = CarWorkStateStatus.WORK_STOP
+                mWorkState = WORK_STOP
                 reInitBtnView()
                 reInitEMG(false)
             }
@@ -219,11 +242,6 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
         btn_continuework.setOnClickListener(this)
         btn_endwork.setOnClickListener(this)
         btn_EMG.setOnClickListener(this)
-        sweep_location.setOnCheckedChangeListener(this)
-        sweep_state.setOnCheckedChangeListener(this)
-        water_state.setOnCheckedChangeListener(this)
-        wind_location.setOnCheckedChangeListener(this)
-        wind_state.setOnCheckedChangeListener(this)
     }
 
     /**
@@ -263,23 +281,24 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
                 onSuccess("", "createOrder_continue")
             }
             4 -> {
-                TempWorkstate = WORKSTATE
+                mTempWorkState = mWorkState
 //                load(F.gB(60).createOrder("13", id_), "createOrder_emg")
                 onSuccess("", "createOrder_emg")
             }
             5 -> {
-                when (TempWorkstate) {
-                    CarWorkStateStatus.WORKING -> {
+                F
+                when (mTempWorkState) {
+                    WORKING -> {
 //                        load(F.gB(60).createOrder("8", id_), "createOrder_continue_emg")
                         onSuccess("", "createOrder_continue_emg")
                     }
-                    CarWorkStateStatus.WORK_STOP -> {
+                    WORK_STOP -> {
 //                        load(F.gB(60).createOrder("7", id_), "createOrder_stop_emg")
                         onSuccess("", "createOrder_stop_emg")
                     }
-                    CarWorkStateStatus.WORK_WAITSTART -> {
+                    WORK_WAITSTART -> {
                         hideProgressDialog()
-                        WORKSTATE = 0
+                        mWorkState = 0
                         reInitBtnView()
                         reInitEMG(false)
                     }
@@ -297,26 +316,26 @@ class FrgWorkDetail : BaseFrg(), TextSwitch.OnCheckedChangeListener {
     }
 
     private fun reInitBtnView() {
-        when (WORKSTATE) {
-            CarWorkStateStatus.WORK_WAITSTART -> {
+        when (mWorkState) {
+            WORK_WAITSTART -> {
                 btn_startwork.visibility = View.VISIBLE
                 btn_stopwork.visibility = View.INVISIBLE
                 btn_endwork.visibility = View.INVISIBLE
                 btn_continuework.visibility = View.INVISIBLE
             }
-            CarWorkStateStatus.WORKING -> {
+            WORKING -> {
                 btn_startwork.visibility = View.INVISIBLE
                 btn_stopwork.visibility = View.VISIBLE
                 btn_endwork.visibility = View.VISIBLE
                 btn_continuework.visibility = View.INVISIBLE
             }
-            CarWorkStateStatus.WORK_STOP -> {
+            WORK_STOP -> {
                 btn_startwork.visibility = View.INVISIBLE
                 btn_stopwork.visibility = View.INVISIBLE
                 btn_endwork.visibility = View.VISIBLE
                 btn_continuework.visibility = View.VISIBLE
             }
-            CarWorkStateStatus.WORK_SHUTSTOP -> {
+            WORK_SHUTSTOP -> {
                 btn_startwork.visibility = View.INVISIBLE
                 btn_stopwork.visibility = View.INVISIBLE
                 btn_endwork.visibility = View.INVISIBLE

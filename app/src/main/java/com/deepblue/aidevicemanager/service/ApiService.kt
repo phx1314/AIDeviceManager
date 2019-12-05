@@ -105,5 +105,8 @@ interface ApiService {
     @POST("user/queryContentConfigForUserTerm")
     fun queryContentConfigForUserTerm(): Observable<HttpResult<Any>>
 
-
+    //    @POST("device/getDevicePresetPositions")
+    @POST("device/testGetDevicePresetPositions")
+    @FormUrlEncoded
+    fun getDevicePresetPositions(@Field("deviceId") deviceId: String, @Field("mapId") mapId: String): Observable<HttpResult<Any>>
 }

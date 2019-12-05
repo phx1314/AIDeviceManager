@@ -120,4 +120,16 @@ public class ModelB {
     public String data_yaw_angle;
     public String data_system_status;
     public String data_software_status;
+
+    /**
+     * pointYunPic : http://192.168.16.91:8081/robotos/file/1221121565776347580946369.png
+     * pointYunPicTh : http://192.168.16.91:8081/robotos/file/1221121565776347580946369th.png
+     * deviceId : 12345
+     * cleanAppRealPosition : {"lati":111.0,"longti":222.0,"seppd":100.0}
+     */
+
+    public String pointYunPic;
+    public String pointYunPicTh;
+    public int deviceId;
+    public String cleanAppRealPosition;
 }

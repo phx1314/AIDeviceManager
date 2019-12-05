@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -174,6 +175,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -187,16 +189,19 @@
 
             <com.deepblue.aidevicemanager.view.TextSwitch
                 android:id="@+id/sweep_location"
-                android:layout_width="@dimen/dp_50"
+                android:layout_width="@dimen/dp_30"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/j5dp"
                 app:closebgColor="@color/white"
+
                 app:openbgColor="#5FB878"
                 app:swtich_id="1" />
 
             <com.deepblue.aidevicemanager.view.TextSwitch
                 android:id="@+id/sweep_state"
-                android:layout_width="@dimen/dp_50"
+                android:layout_width="@dimen/dp_30"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/j5dp"
                 app:closebgColor="@color/white"
                 app:openbgColor="#5FB878"
                 app:swtich_id="2" />
@@ -206,6 +211,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -213,14 +219,15 @@
                 android:layout_height="wrap_content"
                 android:drawableTop="@mipmap/u2498"
                 android:drawablePadding="@dimen/j5dp"
-                android:text="@string/string_saoshua"
+                android:text="@string/string_pengshui"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
             <com.deepblue.aidevicemanager.view.TextSwitch
                 android:id="@+id/water_state"
-                android:layout_width="@dimen/dp_50"
+                android:layout_width="@dimen/dp_30"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/j5dp"
                 app:closebgColor="@color/white"
                 app:openbgColor="#5FB878"
                 app:swtich_id="3" />
@@ -230,6 +237,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -237,22 +245,24 @@
                 android:layout_height="wrap_content"
                 android:drawableTop="@mipmap/u2503"
                 android:drawablePadding="@dimen/j5dp"
-                android:text="@string/string_saoshua"
+                android:text="@string/string_xifeng"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
             <com.deepblue.aidevicemanager.view.TextSwitch
                 android:id="@+id/wind_location"
-                android:layout_width="@dimen/dp_50"
+                android:layout_width="@dimen/dp_30"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/j2dp"
                 app:closebgColor="@color/white"
                 app:openbgColor="#5FB878"
                 app:swtich_id="4" />
 
             <com.deepblue.aidevicemanager.view.TextSwitch
                 android:id="@+id/wind_state"
-                android:layout_width="@dimen/dp_50"
+                android:layout_width="@dimen/dp_30"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/j5dp"
                 app:closebgColor="@color/white"
                 app:openbgColor="#5FB878"
                 app:swtich_id="5" />
@@ -264,6 +274,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/j10dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
             android:src="@drawable/selector_high_light" />
 
         <ImageView
@@ -271,12 +284,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/j10dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
             android:src="@drawable/selector_width_light" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/j10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -293,17 +310,26 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_EMG"
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_80"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/selector_emg"
-            android:gravity="center"
-            android:text="@string/EMG"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:ignore="NestedWeights">
+
+            <Button
+                android:id="@+id/btn_EMG"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_80"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:background="@drawable/selector_emg"
+                android:gravity="center"
+                android:text="@string/EMG"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

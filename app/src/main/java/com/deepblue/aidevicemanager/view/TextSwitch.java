@@ -173,22 +173,22 @@ public class TextSwitch extends View implements ValueAnimator.AnimatorUpdateList
             case MotionEvent.ACTION_CANCEL:
                 break;
             case MotionEvent.ACTION_UP:
-                if (isAnimation) {
-                    return true;
-                }
-                if (isChecked) {
-                    startCloseAnimation();
-                    isChecked = false;
-                    if (mCheckedChangeListener != null) {
-                        mCheckedChangeListener.onCheckedChanged(switch_id, false);
-                    }
-                } else {
-                    startOpeAnimation();
-                    isChecked = true;
-                    if (mCheckedChangeListener != null) {
-                        mCheckedChangeListener.onCheckedChanged(switch_id, true);
-                    }
-                }
+//                if (isAnimation) {
+//                    return true;
+//                }
+//                if (isChecked) {
+//                    startCloseAnimation();
+//                    isChecked = false;
+//                    if (mCheckedChangeListener != null) {
+//                        mCheckedChangeListener.onCheckedChanged(switch_id, false);
+//                    }
+//                } else {
+//                    startOpeAnimation();
+//                    isChecked = true;
+//                    if (mCheckedChangeListener != null) {
+//                        mCheckedChangeListener.onCheckedChanged(switch_id, true);
+//                    }
+//                }
                 return true;
 
 

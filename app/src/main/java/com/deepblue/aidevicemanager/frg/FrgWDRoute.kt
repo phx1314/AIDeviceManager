@@ -5,42 +5,37 @@ import android.os.Bundle
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.model.LatLngBounds
+import com.baidu.mapapi.utils.DistanceUtil
+import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.model.ModelB
+import com.deepblue.aidevicemanager.model.ModelB_CleanPealPosition
+import com.deepblue.aidevicemanager.model.ModelTest
+import com.deepblue.aidevicemanager.model.ModelTest2
+import com.google.gson.Gson
+import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_wd_route.*
-import java.util.*
-import com.baidu.mapapi.map.MapStatusUpdateFactory
-import com.baidu.mapapi.map.MapStatusUpdate
-
 
 class FrgWDRoute : BaseFrg() {
     private val mMap by lazy { baidumap_route.map }
 
     private var mPolyline: Polyline? = null
     private var mMoveMarker: Marker? = null
+    private var mStartMarker: Marker? = null
+    private var mEndMarker: Marker? = null
     private val mBitmapCar = BitmapDescriptorFactory.fromResource(R.drawable.u2274)
+    private val mBitmapStart = BitmapDescriptorFactory.fromResource(R.drawable.startpoint)
+    private val mBitmapEnd = BitmapDescriptorFactory.fromResource(R.drawable.endpoint)
     private val DISTANCE = 0.00002  //默认间隔移动距离
-    private val mPolylineWith = 18  //路线宽度
-    private val mHasRunPolylineWith = 17    //已行驶路线宽度
+    private val mPolylineWith = 10  //路线宽度
+    private val mHasRunPolylineWith = 9    //已行驶路线宽度
     private val mPolylineColor = Color.parseColor("#FFF72D05")    //路线颜色
     private val mHasRunPolylineColor = Color.parseColor("#FF0082FA")  //已行驶路线颜色
+    private val distanceArr = intArrayOf(20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000)
+    private val levelArr = intArrayOf(21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3)
 
-    //模拟数据
-    private val latlngs = arrayOf(
-        LatLng(31.8233, 120.021009),
-        LatLng(31.823331, 120.021799),
-        LatLng(31.823362, 120.025392),
-        LatLng(31.822533, 120.02992),
-        LatLng(31.822042, 120.030998),
-        LatLng(31.820478, 120.03071),
-        LatLng(31.817777, 120.030387),
-        LatLng(31.812899, 120.02956),
-        LatLng(31.81296, 120.022051),
-        LatLng(31.813022, 120.014685),
-        LatLng(31.817624, 120.014397),
-        LatLng(31.82327, 120.013678),
-        LatLng(31.8233, 120.015008),
-        LatLng(31.8233, 120.021009)
-    )
+    private val polylines = ArrayList<LatLng>()
+    private val distanceDataList = ArrayList<Double>()
 
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_wd_route)
@@ -52,126 +47,243 @@ class FrgWDRoute : BaseFrg() {
         mMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
 
 //        mMap.mapType = BaiduMap.MAP_TYPE_SATELLITE //地图卫星
-        mMap.isTrafficEnabled = true  //交通
+//        mMap.isTrafficEnabled = true  //交通
         baidumap_route.showZoomControls(false)
         baidumap_route.logoPosition = LogoPosition.logoPostionRightBottom //logo位置
-
-        drawPolyLine()
-        moveLooper()
     }
 
     override fun loaddata() {
+        load(F.gB().getDevicePresetPositions("1111", "11111"), "getDevicePresetPositions", false)
+    }
+
+    override fun onSuccess(data: String?, method: String) {
+        hideProgressDialog()
+        when (method) {
+            "getDevicePresetPositions" -> {
+                val mModelMapRoute = F.data2Model(data, ModelTest::class.java)
+                val mModeltest2 = F.data2Model(mModelMapRoute.presetYZ, Array<ModelTest2>::class.java)
+                polylines.clear()
+                mModeltest2.forEach {
+                    polylines.add(LatLng(it.x.toDouble(), it.y.toDouble()))
+                }
+                if (polylines.size > 0)
+                    drawPolyLine()
+            }
+        }
+    }
+
+    override fun onError(code: String?, msg: String?, data: String?, method: String) {
+        super.onError(code, msg, data, method)
+        when (method) {
+            "getDevicePresetPositions" -> Helper.toast(msg)
+        }
+    }
+
+    override fun disposeMsg(type: Int, obj: Any?) {
+        super.disposeMsg(type, obj)
+        when (type) {
+            1111 -> {
+                try {
+                    F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
+                    val mCleanPealPosition = Gson().fromJson(F.mModelStatus?.mModelB?.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
+                    moveLooper(polylines[0], LatLng(mCleanPealPosition.lati.toDouble(), mCleanPealPosition.longti.toDouble()))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
     private fun drawPolyLine() {
-        val polylines = ArrayList<LatLng>()
-        for (index in latlngs.indices) {
-            polylines.add(latlngs[index])
-        }
-        //*************************************************************************************
+        //初始化小车位置
         var builder1 = LatLngBounds.Builder()
+        distanceDataList.clear()
         for (p in polylines) {
             builder1 = builder1.include(p)
+            distanceDataList.add(DistanceUtil.getDistance(polylines[0], p))
         }
+
         val mapStatusUpdate = MapStatusUpdateFactory.newLatLngBounds(builder1.build())
         mMap.setMapStatus(mapStatusUpdate)
-        val msu = MapStatusUpdateFactory.zoomBy(3f)
+        val msu = MapStatusUpdateFactory.zoomTo(getLevel(distanceDataList.max()!!.toInt()).toFloat())
         mMap.setMapStatus(msu)
-//        mMap.getZoomToBound()
+
         //*************************************************************************************
-        polylines.add(latlngs[0])
+        //路径绘制
         val mOverlayOptions = PolylineOptions()
             .width(mPolylineWith)
             .color(mPolylineColor)
             .zIndex(8)
             .points(polylines)
         mPolyline = mMap.addOverlay(mOverlayOptions) as Polyline
-
-        // 添加小车marker
+        // 实例化小车起点终点marker
+        mEndMarker = mMap.addOverlay(
+            MarkerOptions().flat(true)
+                .anchor(0.5f, 0.5f)
+                .icon(mBitmapEnd)
+                .zIndex(10)
+                .position(polylines[polylines.size - 1])
+        ) as Marker
+        mStartMarker = mMap.addOverlay(
+            MarkerOptions().flat(true)
+                .anchor(0.5f, 0.5f)
+                .icon(mBitmapStart)
+                .zIndex(10)
+                .position(polylines[0])
+        ) as Marker
         mMoveMarker = mMap.addOverlay(
-            MarkerOptions().flat(true).anchor(0.5f, 0.5f)
-                .icon(mBitmapCar).zIndex(10).position(
-                    polylines[0]
-                ).rotate(getAngle(0).toFloat())
+            MarkerOptions().flat(true)
+                .anchor(0.5f, 0.5f)
+                .icon(mBitmapCar)
+                .zIndex(10)
+                .position(polylines[0])
+                .rotate(getAngle(0).toFloat())
         ) as Marker
     }
 
-    fun moveLooper() {
+    private fun moveLooper(startPoint: LatLng, endPoint: LatLng) {
         object : Thread() {
             override fun run() {
-                while (true) {
-                    for (i in 0 until latlngs.size - 1) {
-                        val startPoint = latlngs[i]
-                        val endPoint = latlngs[i + 1]
-                        mMoveMarker?.position = startPoint
-                        activity?.runOnUiThread {
-                            //更新小车方向
-                            mMoveMarker?.rotate = getAngle(startPoint, endPoint).toFloat()
+                mMoveMarker?.position = startPoint
+                activity?.runOnUiThread {
+                    //更新小车方向
+                    mMoveMarker?.rotate = getAngle(startPoint, endPoint).toFloat()
+                }
+                val slope = getSlope(startPoint, endPoint)
+                // 是不是正向的标示
+                val isYReverse = startPoint.latitude > endPoint.latitude
+                val isXReverse = startPoint.longitude > endPoint.longitude
+                val intercept = getInterception(slope, startPoint)
+                val xMoveDistance =
+                    if (isXReverse) getXMoveDistance(slope) else -1 * getXMoveDistance(slope)
+                val yMoveDistance =
+                    if (isYReverse) getYMoveDistance(slope) else -1 * getYMoveDistance(slope)
+
+                var j = startPoint.latitude
+                var k = startPoint.longitude
+                while (j > endPoint.latitude == isYReverse && k > endPoint.longitude == isXReverse) {
+                    var latLng: LatLng?
+
+                    when (slope) {
+                        java.lang.Double.MAX_VALUE -> {
+                            latLng = LatLng(j, k)
+                            j -= yMoveDistance
                         }
-                        val slope = getSlope(startPoint, endPoint)
-                        // 是不是正向的标示
-                        val isYReverse = startPoint.latitude > endPoint.latitude
-                        val isXReverse = startPoint.longitude > endPoint.longitude
-                        val intercept = getInterception(slope, startPoint)
-                        val xMoveDistance =
-                            if (isXReverse) getXMoveDistance(slope) else -1 * getXMoveDistance(slope)
-                        val yMoveDistance =
-                            if (isYReverse) getYMoveDistance(slope) else -1 * getYMoveDistance(slope)
+                        0.0 -> {
+                            latLng = LatLng(j, k - xMoveDistance)
+                            k -= xMoveDistance
+                        }
+                        else -> {
+                            latLng = LatLng(j, (j - intercept) / slope)
+                            j -= yMoveDistance
+                        }
+                    }
 
-                        var j = startPoint.latitude
-                        var k = startPoint.longitude
-                        while (j > endPoint.latitude == isYReverse && k > endPoint.longitude == isXReverse) {
-                            var latLng: LatLng?
-
-                            when (slope) {
-                                java.lang.Double.MAX_VALUE -> {
-                                    latLng = LatLng(j, k)
-                                    j -= yMoveDistance
-                                }
-                                0.0 -> {
-                                    latLng = LatLng(j, k - xMoveDistance)
-                                    k -= xMoveDistance
-                                }
-                                else -> {
-                                    latLng = LatLng(j, (j - intercept) / slope)
-                                    j -= yMoveDistance
-                                }
-                            }
-
-                            val finalLatLng = latLng
-                            if (finalLatLng.latitude == 0.0 && finalLatLng.longitude == 0.0) {
-                                continue
-                            }
-                            activity?.runOnUiThread {
-                                //设置小车位置，这里为了实现小车平滑移动
-                                mMoveMarker?.position = finalLatLng
-                                //设置小车已行驶路径
-                                mMap.addOverlay(
-                                    PolylineOptions()
-                                        .width(mHasRunPolylineWith)
-                                        .zIndex(9)
-                                        .color(mHasRunPolylineColor).points(
-                                            arrayListOf(
-                                                startPoint,
-                                                finalLatLng
-                                            )
-                                        )
+                    val finalLatLng = latLng
+                    if (finalLatLng.latitude == 0.0 && finalLatLng.longitude == 0.0) {
+                        continue
+                    }
+                    activity?.runOnUiThread {
+                        //设置小车位置，这里为了实现小车平滑移动
+                        mMoveMarker?.position = finalLatLng
+                        //设置小车已行驶路径
+                        mMap.addOverlay(
+                            PolylineOptions()
+                                .width(mHasRunPolylineWith)
+                                .zIndex(8)
+                                .color(mHasRunPolylineColor).points(
+                                    arrayListOf(
+                                        startPoint,
+                                        finalLatLng
+                                    )
                                 )
-                            }
-                            try {
-                                sleep(80.toLong())
-                            } catch (e: InterruptedException) {
-                                e.printStackTrace()
-                            }
-
-                        }
+                        )
+                    }
+                    try {
+                        sleep(10.toLong())
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
                     }
                 }
             }
 
         }.start()
     }
-
+//    fun moveLooper() {
+//        object : Thread() {
+//            override fun run() {
+//                while (true) {
+//                    for (i in 0 until polylines.size - 1) {
+//                        val startPoint = polylines[i]
+//                        val endPoint = polylines[i + 1]
+//                        mMoveMarker?.position = startPoint
+//                        activity?.runOnUiThread {
+//                            //更新小车方向
+//                            mMoveMarker?.rotate = getAngle(startPoint, endPoint).toFloat()
+//                        }
+//                        val slope = getSlope(startPoint, endPoint)
+//                        // 是不是正向的标示
+//                        val isYReverse = startPoint.latitude > endPoint.latitude
+//                        val isXReverse = startPoint.longitude > endPoint.longitude
+//                        val intercept = getInterception(slope, startPoint)
+//                        val xMoveDistance =
+//                            if (isXReverse) getXMoveDistance(slope) else -1 * getXMoveDistance(slope)
+//                        val yMoveDistance =
+//                            if (isYReverse) getYMoveDistance(slope) else -1 * getYMoveDistance(slope)
+//
+//                        var j = startPoint.latitude
+//                        var k = startPoint.longitude
+//                        while (j > endPoint.latitude == isYReverse && k > endPoint.longitude == isXReverse) {
+//                            var latLng: LatLng?
+//
+//                            when (slope) {
+//                                java.lang.Double.MAX_VALUE -> {
+//                                    latLng = LatLng(j, k)
+//                                    j -= yMoveDistance
+//                                }
+//                                0.0 -> {
+//                                    latLng = LatLng(j, k - xMoveDistance)
+//                                    k -= xMoveDistance
+//                                }
+//                                else -> {
+//                                    latLng = LatLng(j, (j - intercept) / slope)
+//                                    j -= yMoveDistance
+//                                }
+//                            }
+//
+//                            val finalLatLng = latLng
+//                            if (finalLatLng.latitude == 0.0 && finalLatLng.longitude == 0.0) {
+//                                continue
+//                            }
+//                            activity?.runOnUiThread {
+//                                //设置小车位置，这里为了实现小车平滑移动
+//                                mMoveMarker?.position = finalLatLng
+//                                //设置小车已行驶路径
+//                                mMap.addOverlay(
+//                                    PolylineOptions()
+//                                        .width(mHasRunPolylineWith)
+//                                        .zIndex(9)
+//                                        .color(mHasRunPolylineColor).points(
+//                                            arrayListOf(
+//                                                startPoint,
+//                                                finalLatLng
+//                                            )
+//                                        )
+//                                )
+//                            }
+//                            try {
+//                                sleep(80.toLong())
+//                            } catch (e: InterruptedException) {
+//                                e.printStackTrace()
+//                            }
+//
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }.start()
+//    }
 
     /**
      * 根据点获取图标转的角度
@@ -245,5 +357,18 @@ class FrgWDRoute : BaseFrg() {
         } else Math.abs(DISTANCE * slope / Math.sqrt(1 + slope * slope))
     }
 
-
+    /**
+     * 计算自适应缩放比例
+     */
+    private fun getLevel(distance: Int): Int {
+        var level = -1
+        var min = 10000000
+        for (i in distanceArr.indices) {
+            if (distanceArr[i] - distance in 1 until min) {
+                min = distanceArr[i] - distance
+                level = i
+            }
+        }
+        return levelArr[level]
+    }
 }

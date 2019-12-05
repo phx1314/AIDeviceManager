@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.BaseActivity
@@ -18,6 +19,7 @@ import java.util.concurrent.locks.ReentrantLock
 class WsManager constructor(builder: Builder) : WBImpl {
     companion object {
         val RECONNECT_TIME: Long = 10000
+        val RECONNECT_NUM: Int = 5
     }
 
     private var mWebSocket: WebSocket? = null
@@ -139,7 +141,7 @@ class WsManager constructor(builder: Builder) : WBImpl {
             return
         }
         Log.e("websocket retry", "reconnectCount11111111[$reconnectCount]")
-        if (reconnectCount < 2) {
+        if (reconnectCount < RECONNECT_NUM) {
             if (!isNetworkConnected(mContext)) {
                 setCurrentState(WsStatus.DISCONNECTED)
                 Log.e("websocket retry", "[请您检查网络，未连接]")
@@ -151,6 +153,8 @@ class WsManager constructor(builder: Builder) : WBImpl {
             (mContext as BaseActivity).runOnUiThread {
                 Helper.toast(mContext?.getString(R.string.socket_disconnect))
             }
+            reconnectCount = 0
+            F.wsManager = null
             Frame.HANDLES.closeIds("FrgWorkDetail")
         }
 
