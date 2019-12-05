@@ -21,9 +21,11 @@ import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaDetailTwo
 import com.deepblue.aidevicemanager.item.DialogSet
 import com.deepblue.aidevicemanager.item.getRightS
+import com.deepblue.aidevicemanager.model.ModelA
 import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelDevices
+import com.google.gson.Gson
 import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_detail_dj.*
@@ -40,12 +42,12 @@ class FrgDetailDj : BaseFrg() {
     override fun disposeMsg(type: Int, obj: Any?) {
         super.disposeMsg(type, obj)
         when (type) {
-//            1111 -> { //ws
-//                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
-//                mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
-//                setData(mModelB)
-//                if (isHeadInit()) mHead?.setStatus()
-//            }
+            1111 -> { //ws
+                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelA::class.java).cleanKingLiveStatus
+                mModelB = Gson().fromJson(obj.toString(), ModelA::class.java).cleanKingLiveStatus
+                setData(mModelB)
+                if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
+            }
         }
     }
 
@@ -181,6 +183,7 @@ class FrgDetailDj : BaseFrg() {
 
     override fun onDestroy() {
         F.mModelStatus?.mModelB = null
+        F.stopConnectWSocket()
         super.onDestroy()
     }
 }

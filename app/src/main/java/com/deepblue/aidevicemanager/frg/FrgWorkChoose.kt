@@ -15,10 +15,7 @@ import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaWorkChoose
 import com.deepblue.aidevicemanager.ada.AdaWorkChooseBottom
-import com.deepblue.aidevicemanager.model.ModelData
-import com.deepblue.aidevicemanager.model.ModelMap
-import com.deepblue.aidevicemanager.model.ModelMapInfo
-import com.deepblue.aidevicemanager.model.ModelMapLj
+import com.deepblue.aidevicemanager.model.*
 import com.google.gson.Gson
 import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
@@ -30,6 +27,8 @@ class FrgWorkChoose : BaseFrg() {
     var page = 1
     var size = Int.MAX_VALUE
     var did = ""
+    lateinit var mModelMapLj: ModelMapLj.RowsBean
+    lateinit var mModelMapInfo: ModelMapInfo
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_work_choose)
         did = activity?.intent?.getStringExtra("did") ?: ""
@@ -48,12 +47,13 @@ class FrgWorkChoose : BaseFrg() {
                 )
             }
             1 -> {
-                load(F.gB().queryMapTaskInfo(obj.toString()), "queryMapTaskInfo")
+                mModelMapLj = obj as ModelMapLj.RowsBean
+                load(F.gB().queryMapTaskInfo(mModelMapLj.id.toString()), "queryMapTaskInfo")
             }
-//            1111 -> { //ws
-//                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
-//                if (isHeadInit()) mHead?.setStatus()
-//            }
+            1111 -> { //ws
+                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelA::class.java).cleanKingLiveStatus
+                if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
+            }
         }
 
     }
@@ -93,7 +93,8 @@ class FrgWorkChoose : BaseFrg() {
                     did,
                     "from",
                     "1", "mapId",
-                    selectID.toString()
+                    selectID.toString(), "mapTaskName",
+                    mModelMapInfo.mapTaskName
                 )
             }
         }
@@ -121,11 +122,12 @@ class FrgWorkChoose : BaseFrg() {
                 )
             }
         } else if (method.equals("queryMapTaskInfo")) {
-            var mModelMapInfo = F.data2Model(data, ModelMapInfo::class.java)
+            mModelMapInfo = F.data2Model(data, ModelMapInfo::class.java)
             mTextView_content.setText(
-                getString(R.string.d_zydd) + "${mModelMapInfo.mapTaskAddress ?: ""}\n" + getString(R.string.d_zyrw) + "${mModelMapInfo.mapTaskName ?: ""}\n"+getString(R.string.d_zydt)+  "${mModelMapInfo.mapName
-                    ?: ""}\n" +getString(R.string.d_zyghlc)+"${mModelMapInfo.mapTaskPathDistance
-                    ?: ""}\n"+getString(R.string.d_zyghmj)+"${mModelMapInfo.mapTaskArea ?: ""}\n" +getString(R.string.d_yjzysj)+"${mModelMapInfo.mapTaskEstimatedTime ?: ""}"
+                getString(R.string.d_zydd) + "${mModelMapInfo.mapTaskAddress ?: ""}\n" + getString(R.string.d_zyrw) + "${mModelMapInfo.mapTaskName
+                    ?: ""}\n" + getString(R.string.d_zydt) + "${mModelMapInfo.mapName
+                    ?: ""}\n" + getString(R.string.d_zyghlc) + "${mModelMapInfo.mapTaskPathDistance
+                    ?: ""}\n" + getString(R.string.d_zyghmj) + "${mModelMapInfo.mapTaskArea ?: ""}\n" + getString(R.string.d_yjzysj) + "${mModelMapInfo.mapTaskEstimatedTime ?: ""}"
             )
 
         }

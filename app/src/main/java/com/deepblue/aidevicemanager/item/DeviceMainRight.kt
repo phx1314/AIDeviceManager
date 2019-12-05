@@ -67,6 +67,8 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
 //                   "data",
 //                   item_son
 //               )
+                F.connectWSocket(context, "${mModelDeviceDetail.id}/${F.mModellogin?.token}")
+
                 Helper.startActivity(
                     context,
                     FrgWorkDetail::class.java,
@@ -81,6 +83,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
             } else if (mModelDeviceDetail.cleanKingLiveStatus.data_system_status.equals("3")) {
                 Helper.toast(resources.getString(R.string.d_broken))
             } else {
+                F.connectWSocket(context, "${mModelDeviceDetail.id}/${F.mModellogin?.token}")
                 Helper.startActivity(
                     context,
                     FrgDetailDj::class.java,
