@@ -12,7 +12,6 @@ import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelA
-import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelTest
 import com.deepblue.aidevicemanager.model.ModelTest2
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING

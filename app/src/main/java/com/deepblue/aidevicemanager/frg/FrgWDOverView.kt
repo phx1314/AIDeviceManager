@@ -4,13 +4,11 @@ import android.graphics.BitmapFactory
 import android.graphics.Point
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelA
-import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelB_CleanPealPosition
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frg_wd_overview.*

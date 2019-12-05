@@ -9,7 +9,6 @@ import com.baidu.mapapi.utils.DistanceUtil
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelA
-import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelB_CleanPealPosition
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frg_wd_route.*
