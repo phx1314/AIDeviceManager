@@ -49,10 +49,10 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     override fun disposeMsg(type: Int, obj: Any?) {
         when (type) {
             1110 -> { //电池
-                if (isHeadInit()) mHead?.setStatus()
+                if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
             }
             1112 -> { //ws state
-                if (isHeadInit()) mHead?.setStatus()
+                if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
             }
         }
 
@@ -95,7 +95,7 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     override fun setActionBar(actionBar: LinearLayout?) {
         mHead = Head(context)
         mHead.canGoBack()
-        mHead.setStatus()
+        mHead.setStatus(this.javaClass.simpleName)
         actionBar?.addView(
             mHead,
             LinearLayout.LayoutParams.MATCH_PARENT,

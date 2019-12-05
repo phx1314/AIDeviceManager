@@ -7,25 +7,18 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.view.View
-import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelB
-import com.deepblue.aidevicemanager.model.ModelMapRoute
-import com.deepblue.aidevicemanager.model.ModelTest
-import com.deepblue.aidevicemanager.model.ModelTest2
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_SHUTSTOP
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_STOP
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_WAITSTART
-import com.deepblue.aidevicemanager.util.GlideLoader
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_DIANYUN
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_OVERVIEW
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_ROUTE
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_VEDIO
-import com.deepblue.aidevicemanager.view.TextSwitch
 import com.deepblue.aidevicemanager.ws.WsStatus
 import com.google.gson.Gson
 import com.mdx.framework.util.Helper
@@ -111,7 +104,7 @@ class FrgWorkDetail : BaseFrg(){
 //                Helper.toast("实时数据：${obj.toString()}")
                 try {
                     F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
-                    if (isHeadInit()) mHead.setStatus()
+                    if (isHeadInit()) mHead.setStatus(this.javaClass.simpleName)
                     iv_high_light.isSelected = F.mModelStatus?.mModelB?.data_high_beam_light.equals("1")
                     iv_width_light.isSelected = F.mModelStatus?.mModelB?.data_width_light.equals("1")
                     iv_left_light.isSelected = F.mModelStatus?.mModelB?.data_left_light.equals("1")

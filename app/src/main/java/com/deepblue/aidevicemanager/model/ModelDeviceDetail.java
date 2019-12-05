@@ -99,7 +99,7 @@ public class ModelDeviceDetail implements Serializable {
     public String deviceStatusName;
     public String deviceTaskStatusName;
     public Object supportMap;
-    public Object mapId;
+    public String mapId;
     public Object mapName;
     public Object mapUrl;
     public Object mapGroupId;

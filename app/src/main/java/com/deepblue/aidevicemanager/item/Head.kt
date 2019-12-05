@@ -114,66 +114,8 @@ class Head(context: Context?) : LinearLayout(context) {
         }
     }
 
-    fun setStatus() {
-        if (mModelStatus?.mModelB == null) {
-            setBatteryStatus(mModelStatus?.batteryLevel ?: 100)
-            mImageView_gps.setImageResource(R.drawable.ic_more)
-            mImageView_gps.visibility = if (F.isOPenGPS(context)) View.VISIBLE else View.GONE
-            when (F.checkWifiState(context)) {
-                -1 -> {
-                    mImageView_wifi.visibility = View.GONE
-                }
-                0 -> {
-                    mImageView_wifi.visibility = View.VISIBLE
-                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_1_bar_black_24dp)
-                }
-                1 -> {
-                    mImageView_wifi.visibility = View.VISIBLE
-                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_2_bar_black_24dp)
-                }
-                2 -> {
-                    mImageView_wifi.visibility = View.VISIBLE
-                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_3_bar_black_24dp)
-                }
-                3 -> {
-                    mImageView_wifi.visibility = View.VISIBLE
-                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
-                }
-                4 -> {
-                    mImageView_wifi.visibility = View.VISIBLE
-                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
-                }
-            }
-            when (mModelStatus?.g4Level) {
-                -1 -> {
-                    mImageView_4g.visibility = View.GONE
-                }
-                0 -> {
-                    mImageView_4g.visibility = View.VISIBLE
-                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_0_bar_black_24dp)
-                }
-                1 -> {
-                    mImageView_4g.visibility = View.VISIBLE
-                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_1_bar_black_24dp)
-                }
-                2 -> {
-                    mImageView_4g.visibility = View.VISIBLE
-                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_2_bar_black_24dp)
-                }
-                3 -> {
-                    mImageView_4g.visibility = View.VISIBLE
-                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_3_bar_black_24dp)
-                }
-                4 -> {
-                    mImageView_4g.visibility = View.VISIBLE
-                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
-                }
-                else -> {
-                    mImageView_4g.visibility = View.VISIBLE
-                    mImageView_4g.visibility = View.GONE
-                }
-            }
-        } else {
+    fun setStatus(from:String="") {
+        if(mModelStatus?.mModelB!=null&& (from.equals("FrgDetailDj")||from.equals("FrgWorkDetail")||from.equals("FrgWorkChoose"))){
             when {
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 0..25 -> {
                     mImageView_gps.visibility = View.VISIBLE
@@ -246,9 +188,67 @@ class Head(context: Context?) : LinearLayout(context) {
 
             }
             setBatteryStatus(mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() ?: -1)
+        }else{
+            setBatteryStatus(mModelStatus?.batteryLevel ?: 100)
+            mImageView_gps.setImageResource(R.drawable.ic_more)
+            mImageView_gps.visibility = if (F.isOPenGPS(context)) View.VISIBLE else View.GONE
+            when (F.checkWifiState(context)) {
+                -1 -> {
+                    mImageView_wifi.visibility = View.GONE
+                }
+                0 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_1_bar_black_24dp)
+                }
+                1 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_2_bar_black_24dp)
+                }
+                2 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_3_bar_black_24dp)
+                }
+                3 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
+                }
+                4 -> {
+                    mImageView_wifi.visibility = View.VISIBLE
+                    mImageView_wifi.setImageResource(R.drawable.ic_signal_wifi_4_bar_black_24dp)
+                }
+            }
+            when (mModelStatus?.g4Level) {
+                -1 -> {
+                    mImageView_4g.visibility = View.GONE
+                }
+                0 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.visibility = View.GONE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_0_bar_black_24dp)
+                }
+                1 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_1_bar_black_24dp)
+                }
+                2 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_2_bar_black_24dp)
+                }
+                3 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_3_bar_black_24dp)
+                }
+                4 -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
+                }
+                else -> {
+                    mImageView_4g.visibility = View.VISIBLE
+                    mImageView_4g.visibility = View.GONE
+                }
+            }
 
         }
-
     }
 
 }
