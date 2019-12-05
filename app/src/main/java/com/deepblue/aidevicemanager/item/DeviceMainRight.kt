@@ -19,8 +19,8 @@ import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.frg.FrgDetailDj
 import com.deepblue.aidevicemanager.frg.FrgWorkDetail
-import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelData
+import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelDevices
 import com.deepblue.aidevicemanager.util.GlideLoader
 import com.mdx.framework.activity.TitleAct
@@ -38,55 +38,59 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
 
         mLinearLayout_1.setOnClickListener {
             item_son = item.mList[0]
-            load(F.gB().queryDeviceLiveData(item.mList[0].id.toString()), "queryDeviceLiveData")
+//            load(F.gB().queryDeviceLiveData(item.mList[0].id.toString()), "queryDeviceLiveData")
+            load(F.gB().queryDeviceDetail(item.mList[0].id.toString()), "queryDeviceDetail")
         }
         mLinearLayout_2.setOnClickListener {
             item_son = item.mList[1]
-            load(F.gB().queryDeviceLiveData(item.mList[1].id.toString()), "queryDeviceLiveData")
+            load(F.gB().queryDeviceDetail(item.mList[1].id.toString()), "queryDeviceDetail")
         }
         mLinearLayout_3.setOnClickListener {
             item_son = item.mList[2]
-            load(F.gB().queryDeviceLiveData(item.mList[2].id.toString()), "queryDeviceLiveData")
+            load(F.gB().queryDeviceDetail(item.mList[2].id.toString()), "queryDeviceDetail")
         }
         mLinearLayout_4.setOnClickListener {
             item_son = item.mList[3]
-            load(F.gB().queryDeviceLiveData(item.mList[3].id.toString()), "queryDeviceLiveData")
+            load(F.gB().queryDeviceDetail(item.mList[3].id.toString()), "queryDeviceDetail")
         }
     }
 
     override fun onSuccess(data: String?, method: String) {
-        var mModelB = F.data2Model(data, ModelB::class.java)
-        F.mModelStatus?.mModelB = mModelB
-        if (mModelB.data_system_status.equals("1")) {
-            Helper.startActivity(
-                context,
-                FrgDetailDj::class.java,
-                TitleAct::class.java,
-                "data",
-                item_son
-            )
-            Helper.startActivity(
-                context,
-                FrgWorkDetail::class.java,
-                TitleAct::class.java,
-                "id",
-                item_son.id.toString(),
-                "from",
-                "0",
-                "mapId",
-                item_son.mapId
-            )
-        } else if (mModelB.data_system_status.equals("3")) {
-            Helper.toast(resources.getString(R.string.d_broken))
-        } else {
-            Helper.startActivity(
-                context,
-                FrgDetailDj::class.java,
-                TitleAct::class.java,
-                "data",
-                item_son
-            )
+        if (method.equals("queryDeviceDetail")) {
+            var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
+            F.mModelStatus?.mModelB = mModelDeviceDetail.cleanKingLiveStatus
+            if (mModelDeviceDetail.cleanKingLiveStatus.data_system_status.equals("1")) {
+//               Helper.startActivity(
+//                   context,
+//                   FrgDetailDj::class.java,
+//                   TitleAct::class.java,
+//                   "data",
+//                   item_son
+//               )
+                Helper.startActivity(
+                    context,
+                    FrgWorkDetail::class.java,
+                    TitleAct::class.java,
+                    "id",
+                    item_son.id.toString(),
+                    "from",
+                    "0",
+                    "mapId",
+                    mModelDeviceDetail.mapId
+                )
+            } else if (mModelDeviceDetail.cleanKingLiveStatus.data_system_status.equals("3")) {
+                Helper.toast(resources.getString(R.string.d_broken))
+            } else {
+                Helper.startActivity(
+                    context,
+                    FrgDetailDj::class.java,
+                    TitleAct::class.java,
+                    "data",
+                    item_son
+                )
+            }
         }
+
 
     }
 

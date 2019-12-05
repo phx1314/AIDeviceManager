@@ -87,7 +87,7 @@ interface ApiService {
 
     @POST("task/map/queryMapTaskInfo")
     @FormUrlEncoded
-    fun queryMapTaskInfo(@Field("mapId ") mapId: String): Observable<HttpResult<Any>>
+    fun queryMapTaskInfo(@Field("mapId") mapId: String): Observable<HttpResult<Any>>
 
     @POST("task/updateTaskIsRead")
     @FormUrlEncoded
