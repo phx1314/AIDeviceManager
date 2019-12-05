@@ -34,9 +34,8 @@ import io.reactivex.schedulers.Schedulers
 abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriberListener {
     lateinit var mHead: Head
     fun isHeadInit() = ::mHead.isInitialized
-    lateinit var compositeDisposable: CompositeDisposable
+    var compositeDisposable: CompositeDisposable = CompositeDisposable()
     final override fun initV(view: View) {
-        compositeDisposable = CompositeDisposable()
         initView()
         loaddata()
     }

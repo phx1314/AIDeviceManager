@@ -22,6 +22,7 @@ import com.deepblue.aidevicemanager.ada.AdaDetailTwo
 import com.deepblue.aidevicemanager.item.DialogSet
 import com.deepblue.aidevicemanager.item.getRightS
 import com.deepblue.aidevicemanager.model.ModelB
+import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelDevices
 import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
@@ -82,7 +83,8 @@ class FrgDetailDj : BaseFrg() {
     }
 
     override fun loaddata() {
-        load(F.gB().queryDeviceLiveData(data.id.toString()), "queryDeviceLiveData")
+//        load(F.gB().queryDeviceLiveData(data.id.toString()), "queryDeviceLiveData")
+        load(F.gB().queryDeviceDetail(data.id.toString()), "queryDeviceDetail")
     }
 
     fun setData(mModelB: ModelB) {
@@ -160,8 +162,9 @@ class FrgDetailDj : BaseFrg() {
     }
 
     override fun onSuccess(data: String?, method: String) {
-        if (method.equals("queryDeviceLiveData")) {
-            mModelB = F.data2Model(data, ModelB::class.java)
+        if (method.equals("queryDeviceDetail")) {
+            var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
+            mModelB = mModelDeviceDetail.cleanKingLiveStatus
             setData(mModelB)
         } else if (method.equals("createOrder")) {
             mProgressBar.visibility = View.VISIBLE

@@ -120,4 +120,8 @@ public class ModelB {
     public String data_yaw_angle;
     public String data_system_status;
     public String data_software_status;
+
+
+
+
 }
