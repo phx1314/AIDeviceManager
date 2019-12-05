@@ -6,10 +6,15 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.text.TextUtils
 import android.view.View
+import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.model.ModelA
 import com.deepblue.aidevicemanager.model.ModelB
+import com.deepblue.aidevicemanager.model.ModelTest
+import com.deepblue.aidevicemanager.model.ModelTest2
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_SHUTSTOP
@@ -25,7 +30,8 @@ import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_workdetail.*
 import java.util.*
 
-class FrgWorkDetail : BaseFrg(){
+
+class FrgWorkDetail : BaseFrg() {
     private lateinit var fragments: HashMap<Int, Fragment>
     private var mWorkState = WORK_DEFAUT
     private var mTempWorkState = WORK_DEFAUT
@@ -33,6 +39,9 @@ class FrgWorkDetail : BaseFrg(){
     private var mId: String? = ""
     private var mFrom: String? = ""
     private var mapId: String? = ""
+
+    val bundle = Bundle()
+    val polylines = ArrayList<LatLng>()
 
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_workdetail)
@@ -43,42 +52,34 @@ class FrgWorkDetail : BaseFrg(){
         mFrom = activity.intent.getStringExtra("from")
         mapId = activity.intent.getStringExtra("mapId")
         initListener()
-        fragments = hashMapOf(
-            PAGE_DIANYUN to FrgWDLaser(),
-            PAGE_VEDIO to FrgWDVedio(),
-            PAGE_OVERVIEW to FrgWDOverView(),
-            PAGE_ROUTE to FrgWDRoute()
-        )
-        childFragmentManager.beginTransaction()
-            .add(R.id.ll_lefttop, fragments[PAGE_DIANYUN]!!, PAGE_DIANYUN.toString())
-            .add(R.id.ll_leftcenter, fragments[PAGE_VEDIO]!!, PAGE_VEDIO.toString())
-            .add(R.id.ll_leftbottom, fragments[PAGE_OVERVIEW]!!, PAGE_OVERVIEW.toString())
-            .add(R.id.ll_right, fragments[PAGE_ROUTE]!!, PAGE_ROUTE.toString())
-            .commit()
-        //初始化工作状态
-        mWorkState = 0
-        reInitBtnView()
+
     }
 
     override fun loaddata() {
+        polylines.clear()
+        F.hasRunPosints.clear()
+        if (!TextUtils.isEmpty(mId) && !TextUtils.isEmpty(mapId)) {
+            load(F.gB().getDevicePresetPositions(mId!!, mapId!!), "getDevicePresetPositions", false)
+            F.connectWSocket(context, "${mId}/${F.mModellogin?.token}")
+        } else initFragment()
         when (mFrom) {//0列表  1地图选择
             "0" -> {
-                F.connectWSocket(context, "${mId}/${F.mModellogin?.token}")
-//                load(F.gB().getDevicePresetPositions(mId!!, ""), "getDevicePresetPositions")
+                mWorkState = WORKING
             }
             "1" -> {
+                mWorkState = WORK_WAITSTART
             }
             else -> {
-                F.connectWSocket(context, "${mId}/${F.mModellogin?.token}")
             }
         }
+        reInitBtnView()
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.iv_lefttop_switch -> F.wsManager?.sendMessage("31.822533, 120.02992")/*switchFragment(0)*/
+            R.id.iv_lefttop_switch -> switchFragment(0)
             R.id.iv_leftcenter_switch -> F.wsManager?.sendMessage("31.817777, 120.030387")/*switchFragment(1)*/
-            R.id.iv_leftbottom_switch -> F.wsManager?.sendMessage("31.813022, 120.014685")/*switchFragment(2)*/
+            R.id.iv_leftbottom_switch -> switchFragment(2)
             R.id.btn_startwork -> {
                 doWorkState(0)
             }
@@ -103,7 +104,7 @@ class FrgWorkDetail : BaseFrg(){
             1111 -> {
 //                Helper.toast("实时数据：${obj.toString()}")
                 try {
-                    F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
+                    F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelA::class.java).cleanKingLiveStatus
                     if (isHeadInit()) mHead.setStatus(this.javaClass.simpleName)
                     iv_high_light.isSelected = F.mModelStatus?.mModelB?.data_high_beam_light.equals("1")
                     iv_width_light.isSelected = F.mModelStatus?.mModelB?.data_width_light.equals("1")
@@ -137,6 +138,15 @@ class FrgWorkDetail : BaseFrg(){
     override fun onSuccess(data: String?, method: String) {
         hideProgressDialog()
         when (method) {
+            "getDevicePresetPositions" -> {
+                val mModelMapRoute = F.data2Model(data, ModelTest::class.java)
+                val mModeltest2 = F.data2Model(mModelMapRoute.presetYZ, Array<ModelTest2>::class.java)
+                polylines.clear()
+                mModeltest2.forEach {
+                    polylines.add(LatLng(it.x.toDouble(), it.y.toDouble()))
+                }
+                initFragment()
+            }
             "createOrder_start" -> {
                 mWorkState = WORKING
                 reInitBtnView()
@@ -174,8 +184,7 @@ class FrgWorkDetail : BaseFrg(){
     override fun onError(code: String?, msg: String?, data: String?, method: String) {
         super.onError(code, msg, data, method)
         when (method) {
-            "createOrder_start", "createOrder_stop", "createOrder_end", "createOrder_continue"
-            -> Helper.toast(msg)
+            else -> Helper.toast(msg)
         }
     }
 
@@ -197,6 +206,9 @@ class FrgWorkDetail : BaseFrg(){
         val frgNew2 = getContainerFragment(frg1Old)
 
         if (frgNew1 != null && frgNew2 != null && frg1Old != null && frg2Old != null) {
+            frgNew1.arguments = bundle
+            frgNew2.arguments = bundle
+
             childFragmentManager.popBackStackImmediate(
                 null,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -337,8 +349,30 @@ class FrgWorkDetail : BaseFrg(){
         }
     }
 
+    private fun initFragment() {
+        if (polylines.size > 0) {
+            F.hasRunPosints.add(polylines[0])
+            bundle.putParcelableArrayList("polylines", polylines)
+
+        }
+        fragments = hashMapOf(
+            PAGE_DIANYUN to FrgWDLaser(),
+            PAGE_VEDIO to FrgWDVedio(),
+            PAGE_OVERVIEW to FrgWDOverView(),
+            PAGE_ROUTE to FrgWDRoute()
+        )
+        fragments[PAGE_ROUTE]?.arguments = bundle
+        childFragmentManager.beginTransaction()
+            .add(R.id.ll_lefttop, fragments[PAGE_DIANYUN], PAGE_DIANYUN.toString())
+            .add(R.id.ll_leftcenter, fragments[PAGE_VEDIO], PAGE_VEDIO.toString())
+            .add(R.id.ll_leftbottom, fragments[PAGE_OVERVIEW], PAGE_OVERVIEW.toString())
+            .add(R.id.ll_right, fragments[PAGE_ROUTE], PAGE_ROUTE.toString())
+            .commit()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        F.hasRunPosints.clear()
         F.stopConnectWSocket()
     }
 }

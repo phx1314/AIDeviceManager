@@ -8,6 +8,7 @@ import android.net.wifi.WifiManager
 import android.preference.PreferenceManager
 import android.telephony.TelephonyManager
 import cn.jpush.android.api.JPushInterface
+import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.frg.FrgLogin
 import com.deepblue.aidevicemanager.model.ModelLogin
 import com.deepblue.aidevicemanager.model.ModelStatus
@@ -18,12 +19,14 @@ import com.mdx.framework.Frame
 import com.mdx.framework.activity.IndexAct
 import com.mdx.framework.util.Helper
 import okhttp3.OkHttpClient
+import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
 object F {
     var wsManager: WsManager? = null
     var mModellogin: ModelLogin? = null
     var mModelStatus: ModelStatus? = null
+    var hasRunPosints = ArrayList<LatLng>()
     //    val wsBaseUrl = "ws://10.1.1.160:8081/websocket/cleanApp/"
     val wsBaseUrl = "ws://192.168.123.209:8081//websocket/cleanApp/"
 //    val baseUrl = "http://192.168.123.209:8081/robotos/cleanApp/"

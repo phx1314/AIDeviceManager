@@ -7,7 +7,12 @@ import android.view.View
 import android.widget.ImageView
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
+import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.model.ModelA
+import com.deepblue.aidevicemanager.model.ModelB
+import com.deepblue.aidevicemanager.model.ModelB_CleanPealPosition
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frg_wd_overview.*
 
 class FrgWDOverView : BaseFrg() {
@@ -30,7 +35,7 @@ class FrgWDOverView : BaseFrg() {
         mMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
 
         mMap.mapType = BaiduMap.MAP_TYPE_NORMAL //地图普通
-        mMap.isTrafficEnabled = true  //交通
+//        mMap.isTrafficEnabled = true  //交通
         mMap.isMyLocationEnabled = true  //是否显示定位点
         mMap.setMyLocationConfiguration( //定位点方向
             MyLocationConfiguration(
@@ -39,12 +44,6 @@ class FrgWDOverView : BaseFrg() {
                 null
             )
         )
-
-        val locData = MyLocationData.Builder()
-            .accuracy(0F)
-            .direction(0F)
-            .latitude(31.8233).longitude(120.015008).build()
-        mMap.setMyLocationData(locData)
 
         mMap.compassPosition = Point(50, 50) //指南针位置
         mMap.setCompassIcon(mBitmapCompass)  //自定义指南针图标
@@ -59,6 +58,29 @@ class FrgWDOverView : BaseFrg() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.iv_overview_zoom -> mMap.setMapStatus(MapStatusUpdateFactory.zoomIn())
+        }
+    }
+
+    override fun disposeMsg(type: Int, obj: Any?) {
+        super.disposeMsg(type, obj)
+        when (type) {
+            1111 -> {
+                try {
+                    val a = Gson().fromJson(obj.toString(), ModelA::class.java)
+                    F.mModelStatus?.mModelB = a.cleanKingLiveStatus
+                    val mCleanPealPosition = Gson().fromJson(a.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
+                    val msu = MapStatusUpdateFactory.newLatLng(LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
+                    mMap.setMapStatus(msu)
+
+                    val locData = MyLocationData.Builder()
+                        .accuracy(0F)
+                        .direction(0F)
+                        .latitude(mCleanPealPosition.lati).longitude(mCleanPealPosition.longti).build()
+                    mMap.setMyLocationData(locData)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 }

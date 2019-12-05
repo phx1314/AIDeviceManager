@@ -8,15 +8,13 @@ import com.baidu.mapapi.model.LatLngBounds
 import com.baidu.mapapi.utils.DistanceUtil
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.model.ModelA
 import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelB_CleanPealPosition
-import com.deepblue.aidevicemanager.model.ModelTest
-import com.deepblue.aidevicemanager.model.ModelTest2
 import com.google.gson.Gson
-import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_wd_route.*
 
-//luxian
+
 class FrgWDRoute : BaseFrg() {
     private val mMap by lazy { baidumap_route.map }
 
@@ -35,7 +33,7 @@ class FrgWDRoute : BaseFrg() {
     private val distanceArr = intArrayOf(20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000)
     private val levelArr = intArrayOf(21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3)
 
-    private val polylines = ArrayList<LatLng>()
+    val polyLines = java.util.ArrayList<LatLng>()
     private val distanceDataList = ArrayList<Double>()
 
     override fun create(var1: Bundle?) {
@@ -54,40 +52,51 @@ class FrgWDRoute : BaseFrg() {
     }
 
     override fun loaddata() {
-        load(F.gB().getDevicePresetPositions("1111", "11111"), "getDevicePresetPositions", false)
-    }
-
-    override fun onSuccess(data: String?, method: String) {
-        hideProgressDialog()
-        when (method) {
-            "getDevicePresetPositions" -> {
-                val mModelMapRoute = F.data2Model(data, ModelTest::class.java)
-                val mModeltest2 = F.data2Model(mModelMapRoute.presetYZ, Array<ModelTest2>::class.java)
-                polylines.clear()
-                mModeltest2.forEach {
-                    polylines.add(LatLng(it.x.toDouble(), it.y.toDouble()))
-                }
-                if (polylines.size > 0)
-                    drawPolyLine()
-            }
+        val bundle = arguments
+        if (bundle != null && arguments.getParcelableArrayList<LatLng>("polylines") != null) {
+            polyLines.clear()
+            polyLines.addAll(arguments.getParcelableArrayList<LatLng>("polylines")!!)
+        }
+        if (polyLines.size > 0) {
+            drawPolyLine()
         }
     }
 
-    override fun onError(code: String?, msg: String?, data: String?, method: String) {
-        super.onError(code, msg, data, method)
-        when (method) {
-            "getDevicePresetPositions" -> Helper.toast(msg)
-        }
-    }
+//    override fun onSuccess(data: String?, method: String) {
+//        hideProgressDialog()
+//        when (method) {
+//            "getDevicePresetPositions" -> {
+//                val mModelMapRoute = F.data2Model(data, ModelTest::class.java)
+//                val mModeltest2 = F.data2Model(mModelMapRoute.presetYZ, Array<ModelTest2>::class.java)
+//                polylines.clear()
+//                mModeltest2.forEach {
+//                    polylines.add(LatLng(it.x.toDouble(), it.y.toDouble()))
+//                }
+//                if (polylines.size > 0) {
+//                    drawPolyLine()
+////                    mTempLatLng = polylines[0]
+//                }
+//            }
+//        }
+//    }
+//
+//    override fun onError(code: String?, msg: String?, data: String?, method: String) {
+//        super.onError(code, msg, data, method)
+//        when (method) {
+//            "getDevicePresetPositions" -> Helper.toast(msg)
+//        }
+//    }
 
     override fun disposeMsg(type: Int, obj: Any?) {
         super.disposeMsg(type, obj)
         when (type) {
             1111 -> {
                 try {
-                    F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelB::class.java)
-                    val mCleanPealPosition = Gson().fromJson(F.mModelStatus?.mModelB?.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
-                    moveLooper(polylines[0], LatLng(mCleanPealPosition.lati.toDouble(), mCleanPealPosition.longti.toDouble()))
+                    val a = Gson().fromJson(obj.toString(), ModelA::class.java)
+                    F.mModelStatus?.mModelB = a.cleanKingLiveStatus
+                    val mCleanPealPosition = Gson().fromJson(a.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
+                    moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
+                    F.hasRunPosints.add(LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -99,9 +108,9 @@ class FrgWDRoute : BaseFrg() {
         //初始化小车位置
         var builder1 = LatLngBounds.Builder()
         distanceDataList.clear()
-        for (p in polylines) {
+        for (p in polyLines) {
             builder1 = builder1.include(p)
-            distanceDataList.add(DistanceUtil.getDistance(polylines[0], p))
+            distanceDataList.add(DistanceUtil.getDistance(polyLines[0], p))
         }
 
         val mapStatusUpdate = MapStatusUpdateFactory.newLatLngBounds(builder1.build())
@@ -115,7 +124,7 @@ class FrgWDRoute : BaseFrg() {
             .width(mPolylineWith)
             .color(mPolylineColor)
             .zIndex(8)
-            .points(polylines)
+            .points(polyLines)
         mPolyline = mMap.addOverlay(mOverlayOptions) as Polyline
         // 实例化小车起点终点marker
         mEndMarker = mMap.addOverlay(
@@ -123,88 +132,40 @@ class FrgWDRoute : BaseFrg() {
                 .anchor(0.5f, 0.5f)
                 .icon(mBitmapEnd)
                 .zIndex(10)
-                .position(polylines[polylines.size - 1])
+                .position(polyLines[polyLines.size - 1])
         ) as Marker
         mStartMarker = mMap.addOverlay(
             MarkerOptions().flat(true)
                 .anchor(0.5f, 0.5f)
                 .icon(mBitmapStart)
                 .zIndex(10)
-                .position(polylines[0])
+                .position(polyLines[0])
         ) as Marker
         mMoveMarker = mMap.addOverlay(
             MarkerOptions().flat(true)
                 .anchor(0.5f, 0.5f)
                 .icon(mBitmapCar)
                 .zIndex(10)
-                .position(polylines[0])
+                .position(polyLines[0])
                 .rotate(getAngle(0).toFloat())
         ) as Marker
     }
 
+    //    private var mTempLatLng: LatLng? = null
     private fun moveLooper(startPoint: LatLng, endPoint: LatLng) {
         object : Thread() {
             override fun run() {
-                mMoveMarker?.position = startPoint
+                mMoveMarker?.position = endPoint
                 activity?.runOnUiThread {
                     //更新小车方向
                     mMoveMarker?.rotate = getAngle(startPoint, endPoint).toFloat()
-                }
-                val slope = getSlope(startPoint, endPoint)
-                // 是不是正向的标示
-                val isYReverse = startPoint.latitude > endPoint.latitude
-                val isXReverse = startPoint.longitude > endPoint.longitude
-                val intercept = getInterception(slope, startPoint)
-                val xMoveDistance =
-                    if (isXReverse) getXMoveDistance(slope) else -1 * getXMoveDistance(slope)
-                val yMoveDistance =
-                    if (isYReverse) getYMoveDistance(slope) else -1 * getYMoveDistance(slope)
-
-                var j = startPoint.latitude
-                var k = startPoint.longitude
-                while (j > endPoint.latitude == isYReverse && k > endPoint.longitude == isXReverse) {
-                    var latLng: LatLng?
-
-                    when (slope) {
-                        java.lang.Double.MAX_VALUE -> {
-                            latLng = LatLng(j, k)
-                            j -= yMoveDistance
-                        }
-                        0.0 -> {
-                            latLng = LatLng(j, k - xMoveDistance)
-                            k -= xMoveDistance
-                        }
-                        else -> {
-                            latLng = LatLng(j, (j - intercept) / slope)
-                            j -= yMoveDistance
-                        }
-                    }
-
-                    val finalLatLng = latLng
-                    if (finalLatLng.latitude == 0.0 && finalLatLng.longitude == 0.0) {
-                        continue
-                    }
-                    activity?.runOnUiThread {
-                        //设置小车位置，这里为了实现小车平滑移动
-                        mMoveMarker?.position = finalLatLng
-                        //设置小车已行驶路径
-                        mMap.addOverlay(
-                            PolylineOptions()
-                                .width(mHasRunPolylineWith)
-                                .zIndex(8)
-                                .color(mHasRunPolylineColor).points(
-                                    arrayListOf(
-                                        startPoint,
-                                        finalLatLng
-                                    )
-                                )
-                        )
-                    }
-                    try {
-                        sleep(10.toLong())
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
+                    //设置小车已行驶路径
+                    mMap.addOverlay(
+                        PolylineOptions()
+                            .width(mHasRunPolylineWith)
+                            .zIndex(8)
+                            .color(mHasRunPolylineColor).points(F.hasRunPosints)
+                    )
                 }
             }
 

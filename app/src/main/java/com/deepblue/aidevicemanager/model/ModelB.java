@@ -121,15 +121,20 @@ public class ModelB {
     public String data_system_status;
     public String data_software_status;
 
+
     /**
-     * pointYunPic : http://192.168.16.91:8081/robotos/file/1221121565776347580946369.png
-     * pointYunPicTh : http://192.168.16.91:8081/robotos/file/1221121565776347580946369th.png
-     * deviceId : 12345
-     * cleanAppRealPosition : {"lati":111.0,"longti":222.0,"seppd":100.0}
+     * batteryCurrent : 2
+     * batteryCycle : 4
+     * batteryLowCritical : 5
+     * batteryLowWarning : 10
+     * batterySeriesNumber : D239
+     * iMUStatus : 1
      */
 
-    public String pointYunPic;
-    public String pointYunPicTh;
-    public int deviceId;
-    public String cleanAppRealPosition;
+    public String batteryCurrent;
+    public String batteryCycle;
+    public String batteryLowCritical;
+    public String batteryLowWarning;
+    public String batterySeriesNumber;
+    public String iMUStatus;
 }
