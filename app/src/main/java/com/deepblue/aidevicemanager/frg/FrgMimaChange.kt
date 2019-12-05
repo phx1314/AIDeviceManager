@@ -18,11 +18,8 @@ import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.mdx.framework.Frame
 import com.mdx.framework.util.Helper
-import kotlinx.android.synthetic.main.frg_info_change.*
 import kotlinx.android.synthetic.main.frg_input_new.mImageView_kan2
 import kotlinx.android.synthetic.main.frg_mima_change.*
-import kotlinx.android.synthetic.main.frg_mima_change.mTextView_cancel
-import kotlinx.android.synthetic.main.frg_mima_change.mTextView_save
 
 
 class FrgMimaChange : BaseFrg() {
@@ -81,23 +78,23 @@ class FrgMimaChange : BaseFrg() {
 
         mTextView_save.setOnClickListener {
             if (TextUtils.isEmpty(mEditText_pass1.text.toString())) {
-                Helper.toast("请输入旧密码")
+                Helper.toast(getString(R.string.d_qsrjmm))
                 return@setOnClickListener
             }
             if (TextUtils.isEmpty(mEditText_pass2.text.toString())) {
-                Helper.toast("请输入新密码")
+                Helper.toast(getString(R.string.d_qsrxmm1))
                 return@setOnClickListener
             }
             if (TextUtils.isEmpty(mEditText_pass3.text.toString())) {
-                Helper.toast("请确认输入新密码")
+                Helper.toast(getString(R.string.d_qqrsrxmm))
                 return@setOnClickListener
             }
             if (mEditText_pass2.text.toString() != mEditText_pass3.text.toString()) {
-                Helper.toast("两次新密码输入不一致")
+                Helper.toast(getString(R.string.d_lcmmsrbyz))
                 return@setOnClickListener
             }
             if (mEditText_pass2.text.toString().length < 6) {
-                Helper.toast("请输入至少六位数密码")
+                Helper.toast(getString(R.string.d_qzssrlwmm))
                 return@setOnClickListener
             }
             load(

@@ -29,9 +29,16 @@ import android.widget.ListView;
 import android.widget.OverScroller;
 import android.widget.ProgressBar;
 
+import com.deepblue.aidevicemanager.R;
+import com.deepblue.aidevicemanager.frg.BaseFrg;
 import com.mdx.framework.Frame;
 import com.mdx.framework.adapter.MAdapter;
+import com.mdx.framework.service.subscriber.HttpResult;
+import com.mdx.framework.service.subscriber.HttpResultSubscriberListener;
+import com.mdx.framework.service.subscriber.S;
+import com.mdx.framework.util.AbAppUtil;
 import com.mdx.framework.util.AbViewUtil;
+import com.mdx.framework.util.Helper;
 import com.mdx.framework.util.HttpResponseListener;
 import com.mdx.framework.util.HttpResponseListenerSon;
 import com.mdx.framework.util.HttpUtil;
@@ -43,6 +50,9 @@ import com.mdx.framework.view.pullview.AbListViewHeader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 // TODO: Auto-generated Javadoc
@@ -550,6 +560,18 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
         } else {
             reLoad();
         }
+    }
+
+    public void load(Observable<HttpResult<Object>> o, String m, Object obj) {
+        S s = new S((HttpResultSubscriberListener) obj, null, m, false);
+        ((BaseFrg) obj).compositeDisposable.add(s);
+        if (!AbAppUtil.isNetworkAvailable(Frame.CONTEXT)) {
+            Helper.toast(getContext().getString(R.string.net_error));
+        }
+        o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s);
+
     }
 
 

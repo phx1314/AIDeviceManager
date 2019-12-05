@@ -19,9 +19,6 @@ import com.deepblue.aidevicemanager.R
 import com.mdx.framework.Frame
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_input_new.*
-import kotlinx.android.synthetic.main.frg_input_new.mEditText_pass
-import kotlinx.android.synthetic.main.frg_input_new.mImageView_kan
-import kotlinx.android.synthetic.main.frg_login.*
 
 
 class FrgInputNew : BaseFrg() {
@@ -38,19 +35,19 @@ class FrgInputNew : BaseFrg() {
     override fun initView() {
         mTextView_yz.setOnClickListener {
             if (TextUtils.isEmpty(mEditText_pass.text.toString())) {
-                Helper.toast("请输入密码")
+                Helper.toast(getString(R.string.d_qsrmm1))
                 return@setOnClickListener
             }
             if (TextUtils.isEmpty(mEditText_pass_2.text.toString())) {
-                Helper.toast("请确认输入新密码")
+                Helper.toast(getString(R.string.d_qqrsrmm))
                 return@setOnClickListener
             }
             if (mEditText_pass.text.toString() != mEditText_pass_2.text.toString()) {
-                Helper.toast("两次密码输入不一致")
+                Helper.toast(getString(R.string.d_lcmmsrbyz))
                 return@setOnClickListener
             }
             if (mEditText_pass.text.toString().length < 6) {
-                Helper.toast("请输入至少六位数密码")
+                Helper.toast(getString(R.string.d_qzssrlwmm))
                 return@setOnClickListener
             }
             load(gB().forgetPassword(mEditText_pass.text.toString(), mobile, smsCode), "forgetPassword")
@@ -91,7 +88,7 @@ class FrgInputNew : BaseFrg() {
     }
 
     override fun onSuccess(data: String?, method: String) {
-        Helper.toast("设置成功")
+        Helper.toast(getString(R.string.d_szcg))
         Frame.HANDLES.close("FrgForget")
         finish()
     }

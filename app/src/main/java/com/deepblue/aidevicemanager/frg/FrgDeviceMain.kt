@@ -116,6 +116,7 @@ class FrgDeviceMain : BaseFrg() {
                     this,
                     mModellogin?.token, "deviceModelId", mModelModels_one.id.toInt()
                 )
+
             }
         }
     }

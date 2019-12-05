@@ -50,14 +50,14 @@ class FrgDetailDj : BaseFrg() {
 
     override fun initView() {
         mButton.setOnClickListener {
-            if (mButton.text.equals("启动")) {
+            if (mButton.text.equals(getString(R.string.d_qd))) {
                 load(F.gB().createOrder("12", data.id.toString()), "createOrder")
             } else {
                 if (mModelB.data_system_status.equals("2")) {
-                    AlertDialog.Builder(context).setTitle("提示")
-                        .setMessage("车辆目前处于有人驾驶状态中，是否确认切换到无人作业？")
+                    AlertDialog.Builder(context).setTitle(getString(R.string.d_ts))
+                        .setMessage(getString(R.string.d_ts1))
                         .setPositiveButton(
-                            "切换"
+                            getString(R.string.d_qh)
                         ) { dialogInterface: DialogInterface, i: Int ->
                             run {
                                 Helper.startActivity(
@@ -67,7 +67,7 @@ class FrgDetailDj : BaseFrg() {
                                 )
                             }
                         }
-                        .setNegativeButton("取消", null)
+                        .setNegativeButton(getString(R.string.d_cancel), null)
                         .show()
                 }
                 Helper.startActivity(
@@ -92,22 +92,22 @@ class FrgDetailDj : BaseFrg() {
         mTextView_gl.text = mModelB.data_velocity + "m/s"
         when (mModelB.data_system_status) {
             "0" -> {
-                mTextView_status.text = "待机"
-                mButton.text = "清扫作业任务选择"
+                mTextView_status.text = getString(R.string.d_dj)
+                mButton.text = getString(R.string.d_qszyrwxz)
             }
             "1" -> {
-                mTextView_status.text = "自动作业中"
-                mButton.text = "清扫作业任务选择"
+                mTextView_status.text = getString(R.string.d_zdzyz)
+                mButton.text = getString(R.string.d_qszyrwxz)
             }
             "2" -> {
-                mTextView_status.text = "手动驾驶中"
-                mButton.text = "清扫作业任务选择"
+                mTextView_status.text = getString(R.string.d_sdjsz)
+                mButton.text = getString(R.string.d_qszyrwxz)
             }
             "3" -> {
-                mTextView_status.text = "故障"
+                mTextView_status.text = getString(R.string.d_gz)
             }
             else -> {
-                mTextView_status.text = "未知"
+                mTextView_status.text = getString(R.string.d_wz)
             }
         }
 
@@ -120,15 +120,15 @@ class FrgDetailDj : BaseFrg() {
             mTextView_sf.text = if (mModelB.data_water_level.equals("0")) "ERROR" else "OK"
         }
         var data = ArrayList<String>()
-        data.add("油门值:" + mModelB.data_throttle_value)
-        data.add("刹车状态:" + getRightS(mModelB.data_brake_value))
-        data.add("手刹状态:" + getRightS(mModelB.data_manual_brake))
-        data.add("扫刷状态:" + getRightS(mModelB.data_brush_status))
-        data.add("扫刷位置:" + getRightS(mModelB.data_brush_position))
-        data.add("垃圾箱位置:" + getRightS(mModelB.data_trash_level))
-        data.add("吸风状态:" + getRightS(mModelB.data_suction_status))
-        data.add("吸风口位置:" + getRightS(mModelB.data_suction_inlet_position))
-        data.add("喷水状态:" + getRightS(mModelB.data_spout_water))
+        data.add(getString(R.string.d_ymz) + mModelB.data_throttle_value)
+        data.add(getString(R.string.d_sczt) + getRightS(mModelB.data_brake_value))
+        data.add(getString(R.string.d_sczt1) + getRightS(mModelB.data_manual_brake))
+        data.add(getString(R.string.d_sszt) + getRightS(mModelB.data_brush_status))
+        data.add(getString(R.string.d_sswz) + getRightS(mModelB.data_brush_position))
+        data.add(getString(R.string.d_ljxwz) + getRightS(mModelB.data_trash_level))
+        data.add(getString(R.string.d_xfzt) + getRightS(mModelB.data_suction_status))
+        data.add(getString(R.string.d_xfkwz) + getRightS(mModelB.data_suction_inlet_position))
+        data.add(getString(R.string.d_pszt) + getRightS(mModelB.data_spout_water))
         mMGridView.adapter = AdaDetailTwo(context, data)
 
 

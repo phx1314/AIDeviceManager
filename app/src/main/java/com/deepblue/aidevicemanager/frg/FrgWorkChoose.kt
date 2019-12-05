@@ -83,7 +83,7 @@ class FrgWorkChoose : BaseFrg() {
         }
         mButton_load.setOnClickListener {
             if (selectID == -1) {
-                Helper.toast("请先选择作业地图和作业路径")
+                Helper.toast(getString(R.string.d_ts3))
             } else {
                 Helper.startActivity(
                     context,
@@ -123,8 +123,9 @@ class FrgWorkChoose : BaseFrg() {
         } else if (method.equals("queryMapTaskInfo")) {
             var mModelMapInfo = F.data2Model(data, ModelMapInfo::class.java)
             mTextView_content.setText(
-                "作业地点：${mModelMapInfo.mapTaskAddress ?: ""}\n作业任务：${mModelMapInfo.mapTaskName ?: ""}\n作业地图：${mModelMapInfo.mapName ?: ""}\n作业规划里程：${mModelMapInfo.mapTaskPathDistance
-                    ?: ""}\n作业规划面积：${mModelMapInfo.mapTaskArea ?: ""}\n预计作业时间：${mModelMapInfo.mapTaskEstimatedTime ?: ""}"
+                getString(R.string.d_zydd) + "${mModelMapInfo.mapTaskAddress ?: ""}\n" + getString(R.string.d_zyrw) + "${mModelMapInfo.mapTaskName ?: ""}\n"+getString(R.string.d_zydt)+  "${mModelMapInfo.mapName
+                    ?: ""}\n" +getString(R.string.d_zyghlc)+"${mModelMapInfo.mapTaskPathDistance
+                    ?: ""}\n"+getString(R.string.d_zyghmj)+"${mModelMapInfo.mapTaskArea ?: ""}\n" +getString(R.string.d_yjzysj)+"${mModelMapInfo.mapTaskEstimatedTime ?: ""}"
             )
 
         }
