@@ -108,6 +108,10 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean) : BaseItem(
             0 -> {
                 var data = ArrayList<Any>()
                 mModelCarSets_new.forEach {
+                    if(TextUtils.isEmpty(it.rpParamValue)){
+                        Helper.toast(it.paramShowName+context.getString(R.string.d_bnwk))
+                        return@forEach
+                    }
                     if (TextUtils.isEmpty(it.rpParamMin)) {
                         data.add(BeanParam1(it.rpParamId.toString(), it.rpParamValue))
                     } else {

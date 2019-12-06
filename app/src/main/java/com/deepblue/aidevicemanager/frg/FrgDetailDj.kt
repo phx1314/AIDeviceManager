@@ -10,8 +10,6 @@
 
 package com.deepblue.aidevicemanager.frg
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -55,33 +53,33 @@ class FrgDetailDj : BaseFrg() {
             if (mButton.text.equals(getString(R.string.d_qd))) {
                 load(F.gB().createOrder("12", data.id.toString()), "createOrder")
             } else {
-                if (mModelB.data_system_status.equals("2")) {
-                    AlertDialog.Builder(context).setTitle(getString(R.string.d_ts))
-                        .setMessage(getString(R.string.d_ts1))
-                        .setPositiveButton(
-                            getString(R.string.d_qh)
-                        ) { dialogInterface: DialogInterface, i: Int ->
-                            run {
-                                Helper.startActivity(
-                                    context,
-                                    FrgWorkChoose::class.java,
-                                    TitleAct::class.java,
-                                    "did",
-                                    data.id.toString()
-                                )
-                            }
-                        }
-                        .setNegativeButton(getString(R.string.d_cancel), null)
-                        .show()
-                } else {
-                    Helper.startActivity(
-                        context,
-                        FrgWorkChoose::class.java,
-                        TitleAct::class.java,
-                        "did",
-                        data.id.toString()
-                    )
-                }
+//                if (mModelB.data_system_status.equals("2")) {
+//                    AlertDialog.Builder(context).setTitle(getString(R.string.d_ts))
+//                        .setMessage(getString(R.string.d_ts1))
+//                        .setPositiveButton(
+//                            getString(R.string.d_qh)
+//                        ) { dialogInterface: DialogInterface, i: Int ->
+//                            run {
+//                                Helper.startActivity(
+//                                    context,
+//                                    FrgWorkChoose::class.java,
+//                                    TitleAct::class.java,
+//                                    "did",
+//                                    data.id.toString()
+//                                )
+//                            }
+//                        }
+//                        .setNegativeButton(getString(R.string.d_cancel), null)
+//                        .show()
+//                } else {
+                Helper.startActivity(
+                    context,
+                    FrgWorkChoose::class.java,
+                    TitleAct::class.java,
+                    "did",
+                    data.id.toString()
+                )
+//                }
 
             }
         }

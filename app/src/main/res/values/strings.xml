@@ -158,4 +158,5 @@
     <string name="d_zyghlc">作业规划里程：</string>
     <string name="d_zyghmj">作业规划面积：</string>
     <string name="d_yjzysj">预计作业时间：</string>
+    <string name="d_bnwk">不能为空</string>
 </resources>
