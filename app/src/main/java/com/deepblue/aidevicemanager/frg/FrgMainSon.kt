@@ -33,7 +33,7 @@ class FrgMainSon : BaseFrg() {
     }
 
     override fun onSuccess(data: String?, method: String) {
-        var data: Array<ModelMain> = F.data2Model(data, Array<ModelMain>::class.java)
-        mMGridView.adapter = AdaMain(context, data.toMutableList())
+        var data: Array<ModelMain>? = F.data2Model(data, Array<ModelMain>::class.java)
+        mMGridView.adapter = AdaMain(context, data!!.toMutableList())
     }
 }

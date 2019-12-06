@@ -102,9 +102,14 @@ public class BatteryService extends Service {
 //
 //            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS ");
 //            String date = sDateFormat.format(new java.util.Date());
+            try {
+                F.INSTANCE.getMModelStatus().batteryLevel = level;
+                Frame.HANDLES.sentAll(1110, "");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-            F.INSTANCE.getMModelStatus().batteryLevel = level;
-            Frame.HANDLES.sentAll(1110, "");
+
         }
     };
 

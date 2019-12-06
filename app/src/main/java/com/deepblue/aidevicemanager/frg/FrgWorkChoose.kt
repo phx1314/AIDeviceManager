@@ -28,7 +28,7 @@ class FrgWorkChoose : BaseFrg() {
     var size = Int.MAX_VALUE
     var did = ""
     lateinit var mModelMapLj: ModelMapLj.RowsBean
-    lateinit var mModelMapInfo: ModelMapInfo
+    var mModelMapInfo: ModelMapInfo? = null
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_work_choose)
         did = activity?.intent?.getStringExtra("did") ?: ""
@@ -51,7 +51,7 @@ class FrgWorkChoose : BaseFrg() {
                 load(F.gB().queryMapTaskInfo(mModelMapLj.id.toString()), "queryMapTaskInfo")
             }
             1111 -> { //ws
-                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelA::class.java).cleanKingLiveStatus
+                F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus
                 if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
             }
         }
@@ -94,7 +94,7 @@ class FrgWorkChoose : BaseFrg() {
                     "from",
                     "1", "mapId",
                     selectID.toString(), "mapTaskName",
-                    mModelMapInfo.mapTaskName
+                    mModelMapInfo?.mapTaskName
                 )
             }
         }
@@ -112,22 +112,22 @@ class FrgWorkChoose : BaseFrg() {
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryMapGroupList")) {
             var mModelMap = F.data2Model(data, ModelMap::class.java)
-            mHorizontalListView.adapter = AdaWorkChooseBottom(context, mModelMap.rows)
-            if (mModelMap.rows.isNotEmpty()) {
+            mHorizontalListView.adapter = AdaWorkChooseBottom(context, mModelMap?.rows)
+            if (mModelMap?.rows!!.isNotEmpty()) {
                 mAbPullListView.setApiLoadParams(
                     "${F.baseUrl}map/queryMapListByGroup",
                     "POST",
                     this,
-                    F.mModellogin?.token, "mapGroupId", mModelMap.rows[0].id.toInt()
+                    F.mModellogin?.token, "mapGroupId", mModelMap!!.rows[0].id.toInt()
                 )
             }
         } else if (method.equals("queryMapTaskInfo")) {
             mModelMapInfo = F.data2Model(data, ModelMapInfo::class.java)
             mTextView_content.setText(
-                getString(R.string.d_zydd) + "${mModelMapInfo.mapTaskAddress ?: ""}\n" + getString(R.string.d_zyrw) + "${mModelMapInfo.mapTaskName
-                    ?: ""}\n" + getString(R.string.d_zydt) + "${mModelMapInfo.mapName
-                    ?: ""}\n" + getString(R.string.d_zyghlc) + "${mModelMapInfo.mapTaskPathDistance
-                    ?: ""}\n" + getString(R.string.d_zyghmj) + "${mModelMapInfo.mapTaskArea ?: ""}\n" + getString(R.string.d_yjzysj) + "${mModelMapInfo.mapTaskEstimatedTime ?: ""}"
+                getString(R.string.d_zydd) + "${mModelMapInfo?.mapTaskAddress ?: ""}\n" + getString(R.string.d_zyrw) + "${mModelMapInfo?.mapTaskName
+                    ?: ""}\n" + getString(R.string.d_zydt) + "${mModelMapInfo?.mapName
+                    ?: ""}\n" + getString(R.string.d_zyghlc) + "${mModelMapInfo?.mapTaskPathDistance
+                    ?: ""}\n" + getString(R.string.d_zyghmj) + "${mModelMapInfo?.mapTaskArea ?: ""}\n" + getString(R.string.d_yjzysj) + "${mModelMapInfo?.mapTaskEstimatedTime ?: ""}"
             )
 
         }

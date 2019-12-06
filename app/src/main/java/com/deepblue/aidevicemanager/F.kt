@@ -40,8 +40,13 @@ object F {
         mModellogin = Gson().fromJson(getJson("mModellogin"), ModelLogin::class.java)
     }
 
-    fun <T> data2Model(data: String?, mclass: Class<T>): T {
-        return Gson().fromJson(data, mclass)
+    fun <T> data2Model(data: String?, mclass: Class<T>): T? {
+        try {
+            return Gson().fromJson(data, mclass)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
     }
 
     fun getJson(key: String): String? {

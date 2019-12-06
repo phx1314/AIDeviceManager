@@ -33,12 +33,12 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean) : BaseItem(
     var mCgqManage: CgqManage
     var mCarSet: CarSet
     val carsetPZ = arrayOf(
-            resources.getString(R.string.d_spkd),
-            resources.getString(R.string.d_qscs),
-            resources.getString(R.string.d_dsqd),
-            resources.getString(R.string.d_vcu),
-            resources.getString(R.string.d_sfbb),
-            resources.getString(R.string.d_rjbb)
+        resources.getString(R.string.d_spkd),
+        resources.getString(R.string.d_qscs),
+        resources.getString(R.string.d_dsqd),
+        resources.getString(R.string.d_vcu),
+        resources.getString(R.string.d_sfbb),
+        resources.getString(R.string.d_rjbb)
     )
 
     init {
@@ -78,13 +78,13 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean) : BaseItem(
         if (method.equals("queryDeviceParamList")) {
             var mModelCarSets = F.data2Model(data, Array<ModelCarSet>::class.java)
             mModelCarSets_new = ArrayList<ModelCarSet>()
-            mModelCarSets.forEach {
+            mModelCarSets?.forEach {
                 if (carsetPZ.contains(it.paramShowName)) {
                     mModelCarSets_new.add(it)
                 }
                 if (it.paramShowName.equals(resources.getString(R.string.d_ddlbj)) || it.paramShowName.equals(
-                                resources.getString(R.string.d_yzddlbj)
-                        )
+                        resources.getString(R.string.d_yzddlbj)
+                    )
                 ) {
                     mDc.set(it)
                 }
@@ -93,8 +93,8 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean) : BaseItem(
         } else if (method.equals("configDeviceParamBatch")) {
             Helper.toast("同步成功")
             load(
-                    F.gB().queryDeviceParamList(mdata.id.toString()),
-                    "queryDeviceParamList"
+                F.gB().queryDeviceParamList(mdata.id.toString()),
+                "queryDeviceParamList"
             )
         }
     }
@@ -112,36 +112,37 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean) : BaseItem(
                         data.add(BeanParam1(it.rpParamId.toString(), it.rpParamValue))
                     } else {
                         data.add(
-                                BeanParam2(
-                                        it.rpParamId.toString(),
-                                        it.rpParamValue,
-                                        it.rpParamMin,
-                                        it.rpParamMax
-                                )
+                            BeanParam2(
+                                it.rpParamId.toString(),
+                                it.rpParamValue,
+                                it.rpParamMin,
+                                it.rpParamMax
+                            )
                         )
                     }
                 }
-                load(
+                if (data.size > 0)
+                    load(
                         F.gB().configDeviceParamBatch(
-                                mdata.deviceVersionId.toString(),
-                                mdata.id.toString(),
-                                Gson().toJson(data)
+                            mdata.deviceVersionId.toString(),
+                            mdata.id.toString(),
+                            Gson().toJson(data)
                         ), "configDeviceParamBatch"
-                )
+                    )
             }
             1 -> {
                 load(
-                        F.gB().queryDeviceParamList(mdata.id.toString()),
-                        "queryDeviceParamList"
+                    F.gB().queryDeviceParamList(mdata.id.toString()),
+                    "queryDeviceParamList"
                 )
             }
             2 -> {
                 load(
-                        F.gB().configDeviceParamBatch(
-                                mdata.deviceVersionId.toString(),
-                                mdata.id.toString(),
-                                obj.toString()
-                        ), "configDeviceParamBatch"
+                    F.gB().configDeviceParamBatch(
+                        mdata.deviceVersionId.toString(),
+                        mdata.id.toString(),
+                        obj.toString()
+                    ), "configDeviceParamBatch"
                 )
             }
 

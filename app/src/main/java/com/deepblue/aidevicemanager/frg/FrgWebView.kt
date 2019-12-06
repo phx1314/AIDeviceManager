@@ -59,7 +59,7 @@ class FrgWebView : BaseFrg() {
 
     override fun onSuccess(data: String?, method: String) {
         var content = F.data2Model(data, Array<String>::class.java)
-        content.forEach {
+        content?.forEach {
             mTextView.setText(Html.fromHtml(it))
         }
 

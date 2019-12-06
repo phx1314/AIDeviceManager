@@ -141,9 +141,9 @@ class FrgWorkDetail : BaseFrg() {
         when (method) {
             "getDevicePresetPositions" -> {
                 val mModelMapRoute = F.data2Model(data, ModelTest::class.java)
-                val mModeltest2 = F.data2Model(mModelMapRoute.presetYZ, Array<ModelTest2>::class.java)
+                val mModeltest2 = F.data2Model(mModelMapRoute?.presetYZ, Array<ModelTest2>::class.java)
                 polylines.clear()
-                mModeltest2.forEach {
+                mModeltest2?.forEach {
                     polylines.add(LatLng(it.x.toDouble(), it.y.toDouble()))
                 }
                 initFragment()

@@ -107,9 +107,9 @@ class FrgDeviceMain : BaseFrg() {
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryAllModelBySeries")) {
             var mModelModels = F.data2Model(data, Array<ModelModels>::class.java)
-            mListView.adapter = AdaDeviceMainLeft(context, mModelModels.toMutableList())
-            mModelModels_one = mModelModels[0]
-            if (mModelModels.isNotEmpty()) {
+            mListView.adapter = AdaDeviceMainLeft(context, mModelModels?.toMutableList())
+            mModelModels_one = mModelModels!![0]
+            if (mModelModels?.isNotEmpty()) {
                 mAbPullListView.setApiLoadParams(
                     "${baseUrl}device/queryCleanRobotDeviceListByModel",
                     "POST",

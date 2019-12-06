@@ -58,8 +58,8 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryDeviceDetail")) {
             var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
-            F.mModelStatus?.mModelB = mModelDeviceDetail.cleanKingLiveStatus
-            if (mModelDeviceDetail.cleanKingLiveStatus.data_system_status.equals("1")) {
+            F.mModelStatus?.mModelB = mModelDeviceDetail?.cleanKingLiveStatus
+            if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("1")) {
 //               Helper.startActivity(
 //                   context,
 //                   FrgDetailDj::class.java,
@@ -67,7 +67,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
 //                   "data",
 //                   item_son
 //               )
-                F.connectWSocket(context, "${mModelDeviceDetail.id}/${F.mModellogin?.token}")
+                F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
 
                 Helper.startActivity(
                     context,
@@ -78,12 +78,12 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
                     "from",
                     "0",
                     "mapId",
-                    mModelDeviceDetail.mapId
+                    mModelDeviceDetail?.mapId
                 )
-            } else if (mModelDeviceDetail.cleanKingLiveStatus.data_system_status.equals("3")) {
+            } else if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("3")) {
                 Helper.toast(resources.getString(R.string.d_broken))
             } else {
-                F.connectWSocket(context, "${mModelDeviceDetail.id}/${F.mModellogin?.token}")
+                F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
                 Helper.startActivity(
                     context,
                     FrgDetailDj::class.java,

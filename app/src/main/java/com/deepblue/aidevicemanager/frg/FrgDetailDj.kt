@@ -25,7 +25,6 @@ import com.deepblue.aidevicemanager.model.ModelA
 import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelDevices
-import com.google.gson.Gson
 import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_detail_dj.*
@@ -43,8 +42,8 @@ class FrgDetailDj : BaseFrg() {
         super.disposeMsg(type, obj)
         when (type) {
             1111 -> { //ws
-                F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelA::class.java).cleanKingLiveStatus
-                mModelB = Gson().fromJson(obj.toString(), ModelA::class.java).cleanKingLiveStatus
+                F.mModelStatus?.mModelB = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus
+                mModelB = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus ?: ModelB()
                 setData(mModelB)
                 if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
             }
@@ -170,7 +169,7 @@ class FrgDetailDj : BaseFrg() {
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryDeviceDetail")) {
             var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
-            mModelB = mModelDeviceDetail.cleanKingLiveStatus
+            mModelB = mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()
             setData(mModelB)
         } else if (method.equals("createOrder")) {
             mProgressBar.visibility = View.VISIBLE

@@ -12,16 +12,13 @@
 package com.deepblue.aidevicemanager.item
 
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.LinearLayout
-import android.widget.TextView
 import cn.qqtheme.framework.picker.TimePicker
 import cn.qqtheme.framework.util.ConvertUtils
 import com.deepblue.aidevicemanager.F
@@ -30,14 +27,12 @@ import com.deepblue.aidevicemanager.model.ModelCarSet
 import com.deepblue.aidevicemanager.model.ModelTime
 import com.google.gson.Gson
 import com.mdx.framework.activity.BaseActivity
-import com.mdx.framework.util.Helper
-import kotlinx.android.synthetic.main.frg_car_set.view.*
 import kotlinx.android.synthetic.main.item_car_set_son.view.*
 import java.util.*
 
 
 class CarSetSon(context: Context?) : LinearLayout(context), CompoundButton.OnCheckedChangeListener {
-    lateinit var mModelTime: ModelTime
+    var mModelTime: ModelTime? = null
     lateinit var item: ModelCarSet
 
     init {
@@ -67,9 +62,9 @@ class CarSetSon(context: Context?) : LinearLayout(context), CompoundButton.OnChe
             mLinearLayout_2.visibility = View.VISIBLE
 
             mModelTime = F.data2Model(item.rpParamValue, ModelTime::class.java)
-            mTextView_3.text = mModelTime.time
+            mTextView_3.text = mModelTime?.time
             mCheckBox.setOnCheckedChangeListener(null)
-            mCheckBox.isChecked = mModelTime.type == 1
+            mCheckBox.isChecked = mModelTime?.type == 1
             mCheckBox.setOnCheckedChangeListener(this)
         } else {
             mLinearLayout_1.visibility = View.VISIBLE
@@ -81,7 +76,7 @@ class CarSetSon(context: Context?) : LinearLayout(context), CompoundButton.OnChe
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-        if (isChecked) mModelTime.type = 1 else mModelTime.type = 0
+        if (isChecked) mModelTime?.type = 1 else mModelTime?.type = 0
         item.rpParamValue = Gson().toJson(mModelTime)
     }
 
@@ -98,13 +93,12 @@ class CarSetSon(context: Context?) : LinearLayout(context), CompoundButton.OnChe
         picker.setTextPadding(ConvertUtils.toPx(context, 15f))
         picker.setOnTimePickListener { hour, minute ->
             run {
-                mModelTime.time = "$hour:$minute"
-                mTextView_3.text = mModelTime.time
+                mModelTime?.time = "$hour:$minute"
+                mTextView_3.text = mModelTime?.time
                 item.rpParamValue = Gson().toJson(mModelTime)
             }
         }
         picker.show()
     }
-
 
 }
