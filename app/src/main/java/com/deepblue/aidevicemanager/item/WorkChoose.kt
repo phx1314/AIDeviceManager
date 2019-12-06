@@ -21,7 +21,6 @@ import com.deepblue.aidevicemanager.ada.AdaWorkChoose
 import com.deepblue.aidevicemanager.frg.selectID
 import com.deepblue.aidevicemanager.model.ModelData
 import com.deepblue.aidevicemanager.model.ModelMapLj
-import com.deepblue.aidevicemanager.util.GlideLoader
 import com.mdx.framework.Frame
 import kotlinx.android.synthetic.main.item_work_choose.view.*
 
@@ -58,13 +57,13 @@ class WorkChoose(context: Context?) : LinearLayout(context) {
         item.mList.forEachIndexed { i, it ->
             if (i == 0) {
                 setShowChoose(it.id, mImageView1)
-                GlideLoader.loadImage(it.pathPicUrl, mImageView1, R.drawable.u2303_mouse)
+//                GlideLoader.loadImage(it.mapUrl, mImageView1, R.drawable.u2303_mouse)
             } else if (i == 1) {
                 setShowChoose(it.id, mImageView2)
-                GlideLoader.loadImage(it.pathPicUrl, mImageView2, R.drawable.u2303_mouse)
+//                GlideLoader.loadImage(it.mapUrl, mImageView2, R.drawable.u2303_mouse)
             } else if (i == 2) {
                 setShowChoose(it.id, mImageView3)
-                GlideLoader.loadImage(it.pathPicUrl, mImageView3, R.drawable.u2303_mouse)
+//                GlideLoader.loadImage(it.mapUrl, mImageView3, R.drawable.u2303_mouse)
             }
         }
     }

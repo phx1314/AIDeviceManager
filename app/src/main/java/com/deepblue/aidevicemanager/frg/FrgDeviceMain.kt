@@ -124,4 +124,9 @@ class FrgDeviceMain : BaseFrg() {
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
     }
+
+    override fun onResume() {
+        super.onResume()
+        mAbPullListView?.reLoad()
+    }
 }
