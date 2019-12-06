@@ -12,6 +12,7 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.os.Bundle
+import android.text.Html
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.deepblue.aidevicemanager.F
@@ -59,7 +60,7 @@ class FrgWebView : BaseFrg() {
     override fun onSuccess(data: String?, method: String) {
         var content = F.data2Model(data, Array<String>::class.java)
         content.forEach {
-            mTextView.text = it
+            mTextView.setText(Html.fromHtml(it))
         }
 
     }

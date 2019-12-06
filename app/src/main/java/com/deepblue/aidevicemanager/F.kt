@@ -19,7 +19,7 @@ import com.mdx.framework.Frame
 import com.mdx.framework.activity.IndexAct
 import com.mdx.framework.util.Helper
 import okhttp3.OkHttpClient
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 object F {
@@ -27,12 +27,12 @@ object F {
     var mModellogin: ModelLogin? = null
     var mModelStatus: ModelStatus? = null
     var hasRunPosints = ArrayList<LatLng>()
-    //    val wsBaseUrl = "ws://10.1.1.160:8081/websocket/cleanApp/"
-    val wsBaseUrl = "ws://192.168.123.209:8081//websocket/cleanApp/"
-    //    val baseUrl = "http://192.168.123.209:8081/robotos/cleanApp/"
-//    val baseUrl = "http://10.1.1.160:8081/robotos/cleanApp/" //测试
-    val baseUrl = "http://192.168.16.91:8081/robotos/cleanApp/"//开发
+    //    var baseIP = "192.168.123.209:8081"
+    var baseIP = "10.1.1.160:8081"
+//    var baseIP = "192.168.16.91:8081"//开发
 
+    val baseUrl = "http://$baseIP/robotos/cleanApp/"
+    val wsBaseUrl = "ws://$baseIP//websocket/cleanApp/"
     fun gB(TIME: Long = 30) =
         com.mdx.framework.service.gB(ApiService::class.java, baseUrl, mModellogin?.token, TIME)
 
