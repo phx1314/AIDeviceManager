@@ -62,7 +62,7 @@ class FrgWorkDetail : BaseFrg() {
         polylines.clear()
         F.hasRunPosints.clear()
         if (!TextUtils.isEmpty(mId) && !TextUtils.isEmpty(mapId)) {
-            load(F.gB().getDevicePresetPositions(mId, mapId), "getDevicePresetPositions", false)
+            load(F.gB().getDevicePresetPositions(mId, mapId), "getDevicePresetPositions", true)
         } else initFragment()
         when (mFrom) {//0列表  1地图选择
             "0" -> {
@@ -138,7 +138,6 @@ class FrgWorkDetail : BaseFrg() {
     }
 
     override fun onSuccess(data: String?, method: String) {
-        hideProgressDialog()
         when (method) {
             "getDevicePresetPositions" -> {
                 val mModelMapRoute = F.data2Model(data, ModelTest::class.java)
@@ -257,7 +256,6 @@ class FrgWorkDetail : BaseFrg() {
      *              3—>继续作业   4—>紧急停止   5—>松开急停
      */
     private fun doWorkState(indexWork: Int) {
-        showProgressDialog(resources.getString(R.string.NOTICE), "请稍后...")
         when (indexWork) {
             0 -> {
                 load(F.gB(60).autoWork(mId, mapName), "autoWork")
@@ -277,7 +275,6 @@ class FrgWorkDetail : BaseFrg() {
                     }
                     .setNegativeButton(R.string.ems_showbtn2) { _: DialogInterface, _: Int ->
                         run {
-                            hideProgressDialog()
                             finish()
                         }
                     }
@@ -304,12 +301,10 @@ class FrgWorkDetail : BaseFrg() {
 //                        onSuccess("", "createOrder_stop_emg")
                     }
                     WORK_WAITSTART -> {
-                        hideProgressDialog()
                         mWorkState = 0
                         reInitBtnView()
                         reInitEMG(false)
                     }
-                    else -> hideProgressDialog()
                 }
             }
         }
