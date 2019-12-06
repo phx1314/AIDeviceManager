@@ -104,7 +104,7 @@
     <string name="d_qrxmm" translatable="false">确认新密码:</string>
     <string name="d_dqmm" translatable="false">当前密码:</string>
     <string name="d_xmm" translatable="false">新密码:</string>
-    <string name="d_xxID" translatable="false">消息ID</string>
+    <string name="d_xxID" translatable="false">设备名</string>
     <string name="d_time" translatable="false">时间:</string>
     <string name="d_zt" translatable="false">主题</string>
     <string name="d_nr" translatable="false">内容</string>

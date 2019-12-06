@@ -121,7 +121,8 @@
             android:paddingTop="10dp"
             android:paddingRight="15dp"
             android:paddingBottom="10dp"
-            android:text="@string/d_yzsj" />
+            android:text="@string/d_yzsj"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <LinearLayout

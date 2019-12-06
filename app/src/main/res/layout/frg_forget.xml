@@ -45,7 +45,7 @@
 
                 <LinearLayout
                     android:id="@+id/mLinearLayout_1"
-                    android:layout_width="250dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/shape_logink"
@@ -53,7 +53,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="50dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -66,9 +66,9 @@
                             android:textStyle="bold" />
 
                         <ImageView
-                            android:layout_width="1px"
+                            android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:background="@color/tyD1" />
+                            android:background="@color/black" />
 
                         <EditText
                             android:id="@+id/mEditText_phone"
@@ -78,8 +78,9 @@
                             android:layout_weight="1"
                             android:background="#00000000"
                             android:hint="@string/d_qsrsjh"
+                            android:inputType="phone"
                             android:padding="10dp"
-                            android:text="18151735217" />
+                            android:singleLine="true" />
 
                         <ImageView
                             android:id="@+id/mImageView_clear"
@@ -91,12 +92,12 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/tyD1" />
+                        android:layout_height="1dp"
+                        android:background="@color/black" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="50dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -110,7 +111,7 @@
                             android:background="#00000000"
                             android:hint="@string/d_qsryzm"
                             android:padding="10dp"
-                            android:text="356198" />
+                            android:singleLine="true" />
 
                         <TextView
                             android:id="@+id/mTextView_get"
@@ -118,6 +119,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:background="@color/gray"
+                            android:gravity="center"
                             android:padding="10dp"
                             android:text="@string/i_get_code" />
                     </LinearLayout>
@@ -130,7 +132,7 @@
             <TextView
                 android:id="@+id/mTextView_yz"
                 style="@style/text_style_15_white"
-                android:layout_width="250dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_blue"

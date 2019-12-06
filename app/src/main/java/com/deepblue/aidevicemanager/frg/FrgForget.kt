@@ -16,7 +16,6 @@ import android.os.Handler
 import android.text.TextUtils
 import com.deepblue.aidevicemanager.F.gB
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.util.DesEncryptDecrypt
 import com.deepblue.aidevicemanager.util.PhoneFormatCheckUtils
 import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
@@ -68,7 +67,8 @@ class FrgForget : BaseFrg() {
                 Helper.toast(getString(R.string.i_yzm))
                 return@setOnClickListener
             }
-            Helper.startActivity(context, FrgInputNew::class.java, TitleAct::class.java, "mobile", mEditText_phone.getText().toString(), "smsCode", mEditText_code.text.toString())
+            load(gB().validCode(mEditText_phone.getText().toString(), mEditText_code.text.toString()), "validCode")
+
         }
     }
 
@@ -94,6 +94,8 @@ class FrgForget : BaseFrg() {
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("sendSms")) {
             doTimer()
+        } else if (method.equals("validCode")) {
+            Helper.startActivity(context, FrgInputNew::class.java, TitleAct::class.java, "mobile", mEditText_phone.getText().toString(), "smsCode", mEditText_code.text.toString())
         }
     }
 

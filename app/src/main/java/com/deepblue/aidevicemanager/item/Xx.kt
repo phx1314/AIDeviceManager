@@ -28,13 +28,13 @@ class Xx(context: Context?) : LinearLayout(context) {
 
     fun set(item: Any) {
         if (item is ModelTaskXx.PageInfoBean.RowsBean) {
-            mTextView_1.text = item.id.toInt().toString()
+            mTextView_1.text = item.deviceNames
             mTextView_2.text = item.createTime.toString()
             mTextView_3.text = item.taskName.toString()
             mTextView_4.text = item.taskLoopName + item.taskTypeName
             setRead(item.isRead?.equals("0") ?: true)
         } else if (item is ModelBrokenXx.PageInfoBean.RowsBean) {
-            mTextView_1.text = item.breakdownId.toString()
+            mTextView_1.text = item.deviceName
             mTextView_2.text = item.breakdownTime.toString()
             mTextView_3.text = item.breakdownDesc.toString()
             mTextView_4.text = item.investigationSuggestion

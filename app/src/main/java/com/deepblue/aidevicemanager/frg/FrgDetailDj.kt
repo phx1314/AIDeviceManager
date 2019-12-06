@@ -74,6 +74,14 @@ class FrgDetailDj : BaseFrg() {
                         }
                         .setNegativeButton(getString(R.string.d_cancel), null)
                         .show()
+                } else {
+                    Helper.startActivity(
+                        context,
+                        FrgWorkChoose::class.java,
+                        TitleAct::class.java,
+                        "did",
+                        data.id.toString()
+                    )
                 }
 
             }

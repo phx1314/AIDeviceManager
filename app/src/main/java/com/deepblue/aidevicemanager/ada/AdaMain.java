@@ -42,7 +42,6 @@ public class AdaMain extends MAdapter<ModelMain> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (item.seriesCode.equals("Panda_Cleaning_Robot"))
                     Helper.startActivity(getContext(), FrgDeviceMain.class, TitleAct.class, "item", item);
             }
         });
