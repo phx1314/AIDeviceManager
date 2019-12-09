@@ -12,8 +12,8 @@ import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelA
-import com.deepblue.aidevicemanager.model.ModelTest
-import com.deepblue.aidevicemanager.model.ModelTest2
+import com.deepblue.aidevicemanager.model.ModelRoutePreset
+import com.deepblue.aidevicemanager.model.ModelRoutePreset_Inter
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_SHUTSTOP
@@ -41,6 +41,8 @@ class FrgWorkDetail : BaseFrg() {
 
     val bundle = Bundle()
     val polylines = ArrayList<LatLng>()
+    val edgePolylines1 = ArrayList<LatLng>()
+    val edgePolylines2 = ArrayList<LatLng>()
 
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_workdetail)
@@ -51,8 +53,8 @@ class FrgWorkDetail : BaseFrg() {
         mFrom = activity.intent.getStringExtra("from")
         mapId = activity.intent.getStringExtra("mapId")
         mapName = activity.intent.getStringExtra("mapTaskName")
-        if (TextUtils.isEmpty(mId) || TextUtils.isEmpty(mFrom)) {
-            Helper.toast("参数错误")
+        if (TextUtils.isEmpty(mId) || TextUtils.isEmpty(mFrom) || TextUtils.isEmpty(mapId)) {
+            Helper.toast(getString(R.string.dataerror_please_retry))
             finish()
         }
         initListener()
@@ -60,10 +62,10 @@ class FrgWorkDetail : BaseFrg() {
 
     override fun loaddata() {
         polylines.clear()
+        edgePolylines1.clear()
+        edgePolylines2.clear()
         F.hasRunPosints.clear()
-        if (!TextUtils.isEmpty(mId) && !TextUtils.isEmpty(mapId)) {
-            load(F.gB().getDevicePresetPositions(mId, mapId), "getDevicePresetPositions", true)
-        } else initFragment()
+        load(F.gB().getDevicePresetPositions(mId, mapId), "getDevicePresetPositions", true)
         when (mFrom) {//0列表  1地图选择
             "0" -> {
                 mWorkState = WORKING
@@ -80,23 +82,13 @@ class FrgWorkDetail : BaseFrg() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.iv_lefttop_switch -> switchFragment(0)
-            R.id.iv_leftcenter_switch -> F.wsManager?.sendMessage("31.817777, 120.030387")/*switchFragment(1)*/
+            R.id.iv_leftcenter_switch -> switchFragment(1)
             R.id.iv_leftbottom_switch -> switchFragment(2)
-            R.id.btn_startwork -> {
-                doWorkState(0)
-            }
-            R.id.btn_stopwork -> {
-                doWorkState(1)
-            }
-            R.id.btn_endwork -> {
-                doWorkState(2)
-            }
-            R.id.btn_continuework -> {
-                doWorkState(3)
-            }
-            R.id.btn_EMG -> {
-                doWorkState(if (btn_EMG.isSelected) 5 else 4)
-            }
+            R.id.btn_startwork -> doWorkState(0)
+            R.id.btn_stopwork -> doWorkState(1)
+            R.id.btn_endwork -> doWorkState(2)
+            R.id.btn_continuework -> doWorkState(3)
+            R.id.btn_EMG -> doWorkState(if (btn_EMG.isSelected) 5 else 4)
         }
     }
 
@@ -140,13 +132,27 @@ class FrgWorkDetail : BaseFrg() {
     override fun onSuccess(data: String?, method: String) {
         when (method) {
             "getDevicePresetPositions" -> {
-                val mModelMapRoute = F.data2Model(data, ModelTest::class.java)
-                val mModeltest2 = F.data2Model(mModelMapRoute?.presetYZ, Array<ModelTest2>::class.java)
-                polylines.clear()
-                mModeltest2?.forEach {
-                    polylines.add(LatLng(it.x.toDouble(), it.y.toDouble()))
+                try {
+                    val mModelMapRoute = F.data2Model(data, ModelRoutePreset::class.java)
+                    val routePresetYZ = F.data2Model(mModelMapRoute?.presetYZ, Array<ModelRoutePreset_Inter>::class.java)
+                    val routePresetLY1 = F.data2Model(mModelMapRoute?.presetLY1, Array<ModelRoutePreset_Inter>::class.java)
+                    val routePresetLY2 = F.data2Model(mModelMapRoute?.presetLY2, Array<ModelRoutePreset_Inter>::class.java)
+                    polylines.clear()
+                    edgePolylines1.clear()
+                    edgePolylines2.clear()
+                    routePresetYZ?.forEach {
+                        polylines.add(LatLng(it.point_x, it.point_y))
+                    }
+                    routePresetLY1?.forEach {
+                        edgePolylines1.add(LatLng(it.point_x, it.point_y))
+                    }
+                    routePresetLY2?.forEach {
+                        edgePolylines2.add(LatLng(it.point_x, it.point_y))
+                    }
+                    initFragment()
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
                 }
-                initFragment()
             }
             "autoWork" -> {
                 mWorkState = WORKING
@@ -157,8 +163,9 @@ class FrgWorkDetail : BaseFrg() {
                 reInitBtnView()
             }
             "createOrder_end" -> {
-                mWorkState = WORK_WAITSTART
-                reInitBtnView()
+                mWorkState = WORK_DEFAUT
+//                reInitBtnView()
+                finish()
             }
             "createOrder_continue" -> {
                 mWorkState = WORKING
@@ -185,6 +192,10 @@ class FrgWorkDetail : BaseFrg() {
     override fun onError(code: String?, msg: String?, data: String?, method: String) {
         super.onError(code, msg, data, method)
         when (method) {
+            "" -> {
+                Helper.toast(getString(R.string.dataerror_please_retry))
+                finish()
+            }
             else -> Helper.toast(msg)
         }
     }
@@ -262,7 +273,6 @@ class FrgWorkDetail : BaseFrg() {
             }
             1 -> {
                 load(F.gB(60).createOrder("7", mId!!), "createOrder_stop")
-//                onSuccess("", "createOrder_stop")
             }
             2 -> {
                 AlertDialog.Builder(context).setTitle(R.string.NOTICE)
@@ -270,35 +280,26 @@ class FrgWorkDetail : BaseFrg() {
                     .setPositiveButton(R.string.ems_showbtn1) { _: DialogInterface, _: Int ->
                         run {
                             load(F.gB(60).createOrder("5", mId!!), "createOrder_end")
-//                            onSuccess("", "createOrder_end")
                         }
                     }
-                    .setNegativeButton(R.string.ems_showbtn2) { _: DialogInterface, _: Int ->
-                        run {
-                            finish()
-                        }
-                    }
+                    .setNegativeButton(R.string.ems_showbtn2, null)
                     .show()
             }
             3 -> {
                 load(F.gB(60).createOrder("8", mId!!), "createOrder_continue")
-//                onSuccess("", "createOrder_continue")
             }
             4 -> {
                 mTempWorkState = mWorkState
                 load(F.gB(60).createOrder("13", mId!!), "createOrder_emg")
-//                onSuccess("", "createOrder_emg")
             }
             5 -> {
                 F
                 when (mTempWorkState) {
                     WORKING -> {
                         load(F.gB(60).createOrder("8", mId!!), "createOrder_continue_emg")
-//                        onSuccess("", "createOrder_continue_emg")
                     }
                     WORK_STOP -> {
                         load(F.gB(60).createOrder("7", mId!!), "createOrder_stop_emg")
-//                        onSuccess("", "createOrder_stop_emg")
                     }
                     WORK_WAITSTART -> {
                         mWorkState = 0
@@ -350,7 +351,12 @@ class FrgWorkDetail : BaseFrg() {
         if (polylines.size > 0) {
             F.hasRunPosints.add(polylines[0])
             bundle.putParcelableArrayList("polylines", polylines)
-
+        }
+        if (edgePolylines1.size > 0) {
+            bundle.putParcelableArrayList("edgePolylines1", edgePolylines1)
+        }
+        if (edgePolylines2.size > 0) {
+            bundle.putParcelableArrayList("edgePolylines2", edgePolylines2)
         }
         fragments = hashMapOf(
             PAGE_DIANYUN to FrgWDLaser(),
@@ -369,9 +375,8 @@ class FrgWorkDetail : BaseFrg() {
 
     override fun onDestroy() {
         F.hasRunPosints.clear()
-        if (mFrom.equals("0")) {
+        if (mFrom.equals("0"))
             F.stopConnectWSocket()
-        }
         super.onDestroy()
     }
 }

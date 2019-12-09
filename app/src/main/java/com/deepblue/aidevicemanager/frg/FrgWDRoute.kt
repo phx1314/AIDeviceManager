@@ -25,14 +25,18 @@ class FrgWDRoute : BaseFrg() {
     private val mBitmapStart = BitmapDescriptorFactory.fromResource(R.drawable.startpoint)
     private val mBitmapEnd = BitmapDescriptorFactory.fromResource(R.drawable.endpoint)
     private val DISTANCE = 0.00002  //默认间隔移动距离
-    private val mPolylineWith = 10  //路线宽度
-    private val mHasRunPolylineWith = 9    //已行驶路线宽度
-    private val mPolylineColor = Color.parseColor("#FFF72D05")    //路线颜色
-    private val mHasRunPolylineColor = Color.parseColor("#FF0082FA")  //已行驶路线颜色
+    private val mEdgePolylineWith = 3  //路线宽度
+    private val mPolylineWith = 8  //路线宽度
+    private val mHasRunPolylineWith = 7    //已行驶路线宽度
+    private val mEdgePolylineColor = Color.GRAY   //路沿颜色
+    private val mPolylineColor = Color.BLUE  //路线颜色
+    private val mHasRunPolylineColor = Color.YELLOW //已行驶路线颜色
     private val distanceArr = intArrayOf(20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000)
     private val levelArr = intArrayOf(21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3)
 
     val polyLines = java.util.ArrayList<LatLng>()
+    val edgePolyLines1 = java.util.ArrayList<LatLng>()
+    val edgePolyLines2 = java.util.ArrayList<LatLng>()
     private val distanceDataList = ArrayList<Double>()
 
     override fun create(var1: Bundle?) {
@@ -42,7 +46,6 @@ class FrgWDRoute : BaseFrg() {
     override fun initView() {
         val builder = MapStatus.Builder()
         mMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
-
 //        mMap.mapType = BaiduMap.MAP_TYPE_SATELLITE //地图卫星
 //        mMap.isTrafficEnabled = true  //交通
         baidumap_route.showZoomControls(false)
@@ -55,6 +58,14 @@ class FrgWDRoute : BaseFrg() {
             polyLines.clear()
             polyLines.addAll(arguments.getParcelableArrayList<LatLng>("polylines")!!)
         }
+        if (bundle != null && arguments.getParcelableArrayList<LatLng>("edgePolyLines1") != null) {
+            edgePolyLines1.clear()
+            edgePolyLines1.addAll(arguments.getParcelableArrayList<LatLng>("edgePolyLines1")!!)
+        }
+        if (bundle != null && arguments.getParcelableArrayList<LatLng>("edgePolyLines2") != null) {
+            edgePolyLines2.clear()
+            edgePolyLines2.addAll(arguments.getParcelableArrayList<LatLng>("edgePolyLines2")!!)
+        }
         if (polyLines.size > 0) {
             drawPolyLine()
         }
@@ -64,8 +75,8 @@ class FrgWDRoute : BaseFrg() {
 //        hideProgressDialog()
 //        when (method) {
 //            "getDevicePresetPositions" -> {
-//                val mModelMapRoute = F.data2Model(data, ModelTest::class.java)
-//                val mModeltest2 = F.data2Model(mModelMapRoute.presetYZ, Array<ModelTest2>::class.java)
+//                val mModelMapRoute = F.data2Model(data, ModelRoutePreset::class.java)
+//                val mModeltest2 = F.data2Model(mModelMapRoute.presetYZ, Array<ModelRoutePreset_Inter>::class.java)
 //                polylines.clear()
 //                mModeltest2.forEach {
 //                    polylines.add(LatLng(it.x.toDouble(), it.y.toDouble()))
@@ -117,6 +128,19 @@ class FrgWDRoute : BaseFrg() {
         mMap.setMapStatus(msu)
 
         //*************************************************************************************
+        //路沿绘制
+        val mEdgeOverlayOptions1 = PolylineOptions()
+            .width(mEdgePolylineWith)
+            .color(mEdgePolylineColor)
+            .zIndex(8)
+            .points(edgePolyLines1)
+        mMap.addOverlay(mEdgeOverlayOptions1) as Polyline
+        val mEdgeOverlayOptions2 = PolylineOptions()
+            .width(mEdgePolylineWith)
+            .color(mEdgePolylineColor)
+            .zIndex(8)
+            .points(edgePolyLines2)
+        mMap.addOverlay(mEdgeOverlayOptions2) as Polyline
         //路径绘制
         val mOverlayOptions = PolylineOptions()
             .width(mPolylineWith)
