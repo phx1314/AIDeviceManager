@@ -10,6 +10,7 @@ import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelA
 import com.deepblue.aidevicemanager.model.ModelB_CleanPealPosition
+import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frg_wd_route.*
 
@@ -34,10 +35,11 @@ class FrgWDRoute : BaseFrg() {
     private val distanceArr = intArrayOf(20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000)
     private val levelArr = intArrayOf(21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3)
 
-    val polyLines = java.util.ArrayList<LatLng>()
-    val edgePolyLines1 = java.util.ArrayList<LatLng>()
-    val edgePolyLines2 = java.util.ArrayList<LatLng>()
+    private val polyLines = java.util.ArrayList<LatLng>()
+    private val edgePolyLines1 = java.util.ArrayList<LatLng>()
+    private val edgePolyLines2 = java.util.ArrayList<LatLng>()
     private val distanceDataList = ArrayList<Double>()
+    private var mWorkState = WORK_DEFAUT
 
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_wd_route)
@@ -71,31 +73,6 @@ class FrgWDRoute : BaseFrg() {
         }
     }
 
-//    override fun onSuccess(data: String?, method: String) {
-//        hideProgressDialog()
-//        when (method) {
-//            "getDevicePresetPositions" -> {
-//                val mModelMapRoute = F.data2Model(data, ModelRoutePreset::class.java)
-//                val mModeltest2 = F.data2Model(mModelMapRoute.presetYZ, Array<ModelRoutePreset_Inter>::class.java)
-//                polylines.clear()
-//                mModeltest2.forEach {
-//                    polylines.add(LatLng(it.x.toDouble(), it.y.toDouble()))
-//                }
-//                if (polylines.size > 0) {
-//                    drawPolyLine()
-////                    mTempLatLng = polylines[0]
-//                }
-//            }
-//        }
-//    }
-//
-//    override fun onError(code: String?, msg: String?, data: String?, method: String) {
-//        super.onError(code, msg, data, method)
-//        when (method) {
-//            "getDevicePresetPositions" -> Helper.toast(msg)
-//        }
-//    }
-
     override fun disposeMsg(type: Int, obj: Any?) {
         super.disposeMsg(type, obj)
         when (type) {
@@ -105,10 +82,15 @@ class FrgWDRoute : BaseFrg() {
                     F.mModelStatus?.mModelB = a.cleanKingLiveStatus
                     val mCleanPealPosition = Gson().fromJson(a.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
                     moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
-                    F.hasRunPosints.add(LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
+                    if (mWorkState == 1)
+                        F.hasRunPosints.add(LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+            }
+            9999 -> {
+                if (null != obj)
+                    mWorkState = obj as Int
             }
         }
     }

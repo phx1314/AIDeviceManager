@@ -25,6 +25,7 @@ import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_ROUTE
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_VEDIO
 import com.deepblue.aidevicemanager.ws.WsStatus
 import com.google.gson.Gson
+import com.mdx.framework.Frame
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_workdetail.*
 import java.util.*
@@ -68,10 +69,10 @@ class FrgWorkDetail : BaseFrg() {
         load(F.gB().getDevicePresetPositions(mId, mapId), "getDevicePresetPositions", true)
         when (mFrom) {//0列表  1地图选择
             "0" -> {
-                mWorkState = WORKING
+                setWorkState(WORKING)
             }
             "1" -> {
-                mWorkState = WORK_WAITSTART
+                setWorkState(WORK_WAITSTART)
             }
             else -> {
             }
@@ -155,34 +156,34 @@ class FrgWorkDetail : BaseFrg() {
                 }
             }
             "autoWork" -> {
-                mWorkState = WORKING
+                setWorkState(WORKING)
                 reInitBtnView()
             }
             "createOrder_stop" -> {
-                mWorkState = WORK_STOP
+                setWorkState(WORK_STOP)
                 reInitBtnView()
             }
             "createOrder_end" -> {
-                mWorkState = WORK_DEFAUT
+                setWorkState(WORK_DEFAUT)
 //                reInitBtnView()
                 finish()
             }
             "createOrder_continue" -> {
-                mWorkState = WORKING
+                setWorkState(WORKING)
                 reInitBtnView()
             }
             "createOrder_emg" -> {
-                mWorkState = WORK_SHUTSTOP
+                setWorkState(WORK_SHUTSTOP)
                 reInitBtnView()
                 reInitEMG(true)
             }
             "createOrder_continue_emg" -> {
-                mWorkState = WORKING
+                setWorkState(WORKING)
                 reInitBtnView()
                 reInitEMG(false)
             }
             "createOrder_stop_emg" -> {
-                mWorkState = WORK_STOP
+                setWorkState(WORK_STOP)
                 reInitBtnView()
                 reInitEMG(false)
             }
@@ -198,6 +199,14 @@ class FrgWorkDetail : BaseFrg() {
             }
             else -> Helper.toast(msg)
         }
+    }
+
+    /**
+     * 工作状态修改时 发送消息到FrgWDRoute
+     */
+    private fun setWorkState(i: Int) {
+        mWorkState = i
+        Frame.HANDLES.sentAll(9999, i)
     }
 
     /**
@@ -302,7 +311,7 @@ class FrgWorkDetail : BaseFrg() {
                         load(F.gB(60).createOrder("7", mId!!), "createOrder_stop_emg")
                     }
                     WORK_WAITSTART -> {
-                        mWorkState = 0
+                        setWorkState(WORK_WAITSTART)
                         reInitBtnView()
                         reInitEMG(false)
                     }
