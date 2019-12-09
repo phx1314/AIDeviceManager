@@ -41,12 +41,7 @@ object F {
     }
 
     fun <T> data2Model(data: String?, mclass: Class<T>): T? {
-        try {
-            return Gson().fromJson(data, mclass)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return null
+        return Gson().fromJson(data, mclass)
     }
 
     fun getJson(key: String): String? {

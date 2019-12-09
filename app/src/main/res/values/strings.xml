@@ -160,4 +160,5 @@
     <string name="d_yjzysj">预计作业时间：</string>
     <string name="dataerror_please_retry">数据异常,返回地图重新选择</string>
     <string name="d_bnwk">不能为空</string>
+    <string name="d_id_null">地图ID为空</string>
 </resources>

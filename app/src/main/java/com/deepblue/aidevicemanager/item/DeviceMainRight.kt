@@ -12,6 +12,7 @@
 package com.deepblue.aidevicemanager.item
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -60,26 +61,23 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
             var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
             F.mModelStatus?.mModelB = mModelDeviceDetail?.cleanKingLiveStatus
             if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("1")) {
-//               Helper.startActivity(
-//                   context,
-//                   FrgDetailDj::class.java,
-//                   TitleAct::class.java,
-//                   "data",
-//                   item_son
-//               )
-                F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
+                if (!TextUtils.isEmpty(mModelDeviceDetail?.mapId)) {
+                    F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
+                    Helper.startActivity(
+                        context,
+                        FrgWorkDetail::class.java,
+                        TitleAct::class.java,
+                        "id",
+                        item_son.id.toString(),
+                        "from",
+                        "0",
+                        "mapId",
+                        mModelDeviceDetail?.mapId
+                    )
+                } else {
+                    Helper.toast(context.getString(R.string.d_id_null))
+                }
 
-                Helper.startActivity(
-                    context,
-                    FrgWorkDetail::class.java,
-                    TitleAct::class.java,
-                    "id",
-                    item_son.id.toString(),
-                    "from",
-                    "0",
-                    "mapId",
-                    mModelDeviceDetail?.mapId
-                )
             } else if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("3")) {
                 Helper.toast(resources.getString(R.string.d_broken))
             } else {

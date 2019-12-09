@@ -51,8 +51,13 @@ class FrgWorkChoose : BaseFrg() {
                 load(F.gB().queryMapTaskInfo(mModelMapLj.id.toString()), "queryMapTaskInfo")
             }
             1111 -> { //ws
-                F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus
-                if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
+                try {
+                    F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus
+                    if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
             }
         }
 

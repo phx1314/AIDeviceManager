@@ -40,10 +40,15 @@ class FrgDetailDj : BaseFrg() {
         super.disposeMsg(type, obj)
         when (type) {
             1111 -> { //ws
-                F.mModelStatus?.mModelB = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus
-                mModelB = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus ?: ModelB()
-                setData(mModelB)
-                if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
+                try {
+                    F.mModelStatus?.mModelB = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus
+                    mModelB = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus ?: ModelB()
+                    setData(mModelB)
+                    if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
+                } catch (e: Exception) {
+
+                    e.printStackTrace()
+                }
             }
         }
     }
