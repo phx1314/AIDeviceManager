@@ -2,16 +2,13 @@ package com.deepblue.aidevicemanager.ada;
 
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 
 import com.deepblue.aidevicemanager.F;
-import com.deepblue.aidevicemanager.R;
 import com.deepblue.aidevicemanager.item.EpOne;
 import com.deepblue.aidevicemanager.item.EpTwo;
-import com.mdx.framework.Frame;
 
 /**
  * Created by fyf on 2019/3/1.
@@ -82,7 +79,7 @@ public class ExpandableListviewAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = new EpOne(context);
         }
-        ((EpOne) convertView).set(groups[groupPosition], isExpanded, groupPosition);
+        ((EpOne) convertView).set(groups[groupPosition], isExpanded, groupPosition, F.INSTANCE.getChecked().startsWith(groupPosition + ""));
         return convertView;
     }
 
@@ -91,7 +88,7 @@ public class ExpandableListviewAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = new EpTwo(context);
         }
-        ((EpTwo) convertView).set(childs[groupPosition][childPosition]);
+        ((EpTwo) convertView).set(childs[groupPosition][childPosition], F.INSTANCE.getChecked().equals(groupPosition + "" + childPosition));
         return convertView;
     }
 

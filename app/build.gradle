@@ -76,7 +76,7 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     implementation 'cn.jiguang.sdk:jpush:3.4.1'  // 此处以JPush 3.4.1 版本为例。
     implementation 'cn.jiguang.sdk:jcore:2.2.4'  // 此处以JCore 2.2.4 版本为例。
-
+    implementation 'org.jsoup:jsoup:1.10.1'
     implementation 'com.tencent.bugly:crashreport:3.1.0'
 //    implementation 'com.tencent.bugly:nativecrashreport:3.1.0'
 }

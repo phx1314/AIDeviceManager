@@ -12,10 +12,12 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.os.Bundle
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.util.HtmlFormat
 import com.mdx.framework.util.AbLogUtil
 import kotlinx.android.synthetic.main.frg_webview.*
 
@@ -43,6 +45,10 @@ class FrgWebView : BaseFrg() {
                 return true
             }
         })
+
+        //自适应屏幕
+        mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
         if ((F.baseUrl + "configuration_help.html").equals(url)) {
             load(F.gB().queryContentConfigForHelp(), "queryContentConfigForHelp")
         } else if ((F.baseUrl + "privacy_policy.html").equals(url)) {
@@ -61,7 +67,7 @@ class FrgWebView : BaseFrg() {
         content?.forEach {
 //            mTextView.setText(Html.fromHtml(it))
 
-            mWebView.loadDataWithBaseURL(null,it,"text/html","utf-8",null);
+            mWebView.loadDataWithBaseURL(null, HtmlFormat.getNewContent(it),"text/html","utf-8",null);
         }
 
     }

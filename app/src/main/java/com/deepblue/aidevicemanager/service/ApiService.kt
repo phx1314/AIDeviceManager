@@ -18,6 +18,9 @@ interface ApiService {
     @GET("device/queryDeviceSeriesList")
     fun queryDeviceSeriesList(): Observable<HttpResult<Any>>
 
+    @GET("device/queryModelList")
+    fun queryModelList(): Observable<HttpResult<Any>>
+
     @POST("device/queryAllModelBySeries")
     @FormUrlEncoded
     fun queryAllModelBySeries(@Field("deviceSeriesId") deviceSeriesId: Int): Observable<HttpResult<Any>>

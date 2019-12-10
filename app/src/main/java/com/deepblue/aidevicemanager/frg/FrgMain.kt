@@ -17,6 +17,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
+import com.deepblue.aidevicemanager.F.checked
 import com.deepblue.aidevicemanager.F.gB
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.ExpandableListviewAdapter
@@ -27,13 +28,16 @@ import kotlinx.android.synthetic.main.item_head.view.*
 
 
 class FrgMain : BaseFrg() {
+
     var mFrgMainSon: FrgMainSon = FrgMainSon()
     lateinit var groupString: Array<String>
     lateinit var childString: Array<Array<String>>
     var mModelTaskXx: ModelTaskXx? = null
     var mModelWaringXx: ModelBrokenXx? = null
     var mModelBrokenXx: ModelBrokenXx? = null
+
     override fun initView() {
+        checked = "-1"
         groupString = arrayOf<String>(
             getString(R.string.d_user),
             getString(R.string.d_xxzc),
@@ -64,6 +68,8 @@ class FrgMain : BaseFrg() {
             0 -> {
 //                mExpandableListView.visibility = View.INVISIBLE
 //                mExpandableListView.animation = AnimationUtils.makeOutAnimation(context, false)
+                checked = "-1"
+                (mExpandableListView.expandableListAdapter as ExpandableListviewAdapter).notifyDataSetChanged()
                 chageFrgment(mFrgMainSon)
             }
             1 -> {
@@ -114,6 +120,7 @@ class FrgMain : BaseFrg() {
                 5 -> chageWebFrgment(F.baseUrl + "about.html")
                 6 -> F.logOut(context, false)
             }
+             checked = groupPosition.toString()
             false
         }
         mExpandableListView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
@@ -123,8 +130,9 @@ class FrgMain : BaseFrg() {
                     1 -> chageFrgment(FrgMimaChange())
                 }
                 1 -> chageXxFrgment(childPosition)
-
             }
+            checked = groupPosition.toString() + childPosition.toString()
+            (mExpandableListView.expandableListAdapter as ExpandableListviewAdapter).notifyDataSetChanged()
             true
         }
         load(gB().queryTaskListWithPage("1", "1"), "queryTaskListWithPage")
@@ -174,9 +182,9 @@ class FrgMain : BaseFrg() {
         var mFrgXx = FrgXx()
         val bundle = Bundle()
         bundle.putInt("type", type)
-        bundle.putInt("count1", mModelTaskXx!!.noReadCount.toInt())
-        bundle.putInt("count2", mModelWaringXx!!.noReadCount.toInt())
-        bundle.putInt("count3", mModelBrokenXx!!.noReadCount.toInt())
+        bundle.putInt("count1", mModelTaskXx?.noReadCount?.toInt()?:0)
+        bundle.putInt("count2", mModelWaringXx?.noReadCount?.toInt()?:0)
+        bundle.putInt("count3", mModelBrokenXx?.noReadCount?.toInt()?:0)
         mFrgXx.arguments = bundle
         chageFrgment(mFrgXx)
     }

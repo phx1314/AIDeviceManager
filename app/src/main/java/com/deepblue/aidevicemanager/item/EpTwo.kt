@@ -12,8 +12,8 @@
 package com.deepblue.aidevicemanager.item
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.R
 import kotlinx.android.synthetic.main.item_ep_one.view.*
@@ -25,8 +25,9 @@ class EpTwo(context: Context?) : LinearLayout(context) {
         flater.inflate(R.layout.item_ep_two, this)
     }
 
-    fun set(item: String) {
+    fun set(item: String,checked:Boolean) {
         mTextView.text = item
+        if (checked) mTextView.setTextColor(Color.parseColor("#ffffff")) else mTextView.setTextColor(Color.parseColor("#888888"))
     }
 
 

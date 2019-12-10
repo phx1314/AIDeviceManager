@@ -23,6 +23,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 object F {
+    var checked = "-1"
     var wsManager: WsManager? = null
     var mModellogin: ModelLogin? = null
     var mModelStatus: ModelStatus? = null
@@ -127,7 +128,6 @@ object F {
         }
         return result
     }
-
 
 
     /**

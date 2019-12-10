@@ -116,7 +116,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/d_time"
+                android:text="@string/d_time2"
                 android:textStyle="bold" />
 
             <ImageView
@@ -141,7 +141,7 @@
             <TextView
                 style="@style/text_style_15_black"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="@string/d_nr"
