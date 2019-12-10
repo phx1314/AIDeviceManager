@@ -162,27 +162,27 @@ class Head(context: Context?) : LinearLayout(context) {
 
             when {
                 mModelStatus?.mModelB?.data_telcom_signal?.toInt() in 0..25 -> {
-                    mImageView_4g.visibility = View.VISIBLE
+                    mRelativeLayout_4g.visibility = View.VISIBLE
                     mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_1_bar_black_24dp)
 
                 }
                 mModelStatus?.mModelB?.data_telcom_signal?.toInt() in 26..50 -> {
-                    mImageView_4g.visibility = View.VISIBLE
+                    mRelativeLayout_4g.visibility = View.VISIBLE
                     mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_2_bar_black_24dp)
 
                 }
                 mModelStatus?.mModelB?.data_telcom_signal?.toInt() in 51..75 -> {
-                    mImageView_4g.visibility = View.VISIBLE
+                    mRelativeLayout_4g.visibility = View.VISIBLE
                     mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_3_bar_black_24dp)
 
                 }
                 mModelStatus?.mModelB?.data_telcom_signal?.toInt() in 76..100 -> {
-                    mImageView_4g.visibility = View.VISIBLE
+                    mRelativeLayout_4g.visibility = View.VISIBLE
                     mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
 
                 }
                 else -> {
-                    mImageView_4g.visibility = View.GONE
+                    mRelativeLayout_4g.visibility = View.GONE
                 }
 
             }
@@ -220,32 +220,30 @@ class Head(context: Context?) : LinearLayout(context) {
             }
             when (mModelStatus?.g4Level) {
                 -1 -> {
-                    mImageView_4g.visibility = View.GONE
+                    mRelativeLayout_4g.visibility = View.GONE
                 }
                 0 -> {
-                    mImageView_4g.visibility = View.VISIBLE
-                    mImageView_4g.visibility = View.GONE
+                    mRelativeLayout_4g.visibility = View.VISIBLE
                     mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_0_bar_black_24dp)
                 }
                 1 -> {
-                    mImageView_4g.visibility = View.VISIBLE
+                    mRelativeLayout_4g.visibility = View.VISIBLE
                     mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_1_bar_black_24dp)
                 }
                 2 -> {
-                    mImageView_4g.visibility = View.VISIBLE
+                    mRelativeLayout_4g.visibility = View.VISIBLE
                     mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_2_bar_black_24dp)
                 }
                 3 -> {
-                    mImageView_4g.visibility = View.VISIBLE
+                    mRelativeLayout_4g.visibility = View.VISIBLE
                     mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_3_bar_black_24dp)
                 }
                 4 -> {
-                    mImageView_4g.visibility = View.VISIBLE
+                    mRelativeLayout_4g.visibility = View.VISIBLE
                     mImageView_4g.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
                 }
                 else -> {
-                    mImageView_4g.visibility = View.VISIBLE
-                    mImageView_4g.visibility = View.GONE
+                    mRelativeLayout_4g.visibility = View.GONE
                 }
             }
 
