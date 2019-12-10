@@ -7,19 +7,18 @@ import cn.jpush.android.api.JPushInterface
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.mdx.framework.Frame
-import com.mdx.framework.util.CrashReportingTree
+import com.tencent.bugly.crashreport.CrashReport
 
-import timber.log.Timber
 
 class Mapplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        initTimber()
         Frame.init(applicationContext)
         initBaiduSDK()
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        CrashReport.initCrashReport(applicationContext, "e50df62564", false);
     }
 
     private fun initBaiduSDK() {
@@ -27,13 +26,6 @@ class Mapplication : Application() {
         SDKInitializer.setCoordType(CoordType.BD09LL)
     }
 
-    private fun initTimber() {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        } else {
-            Timber.plant(CrashReportingTree())
-        }
-    }
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)

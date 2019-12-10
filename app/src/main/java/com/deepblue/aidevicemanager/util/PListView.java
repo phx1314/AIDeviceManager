@@ -31,6 +31,7 @@ import android.widget.ProgressBar;
 
 import com.mdx.framework.Frame;
 import com.mdx.framework.adapter.MAdapter;
+import com.mdx.framework.util.AbLogUtil;
 import com.mdx.framework.util.AbViewUtil;
 import com.mdx.framework.util.HttpResponseListener;
 import com.mdx.framework.util.HttpResponseListenerSon;
@@ -42,8 +43,6 @@ import com.mdx.framework.view.pullview.AbListViewHeader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import timber.log.Timber;
 
 // TODO: Auto-generated Javadoc
 
@@ -491,7 +490,7 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
             stopAll();
             PageIndex++;
             MAdapter mMAdapter = null;
-            Timber.d(mJSONObject.optString("data"));
+            AbLogUtil.d(mJSONObject.optString("data"));
             mMAdapter = mListViewListener.onSuccess(methodName, mJSONObject.optString("data"));
             if (mMAdapter != null) {
                 try {

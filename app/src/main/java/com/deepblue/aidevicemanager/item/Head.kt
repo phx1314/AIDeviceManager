@@ -21,6 +21,7 @@ import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.pop.PopShowSet
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.BaseActivity
+import com.mdx.framework.util.AbDateUtil
 import kotlinx.android.synthetic.main.item_head.view.*
 
 
@@ -49,7 +50,7 @@ class Head(context: Context?) : LinearLayout(context) {
 
     fun canGoBack(b: Boolean = true) {
         if (b) mImageButton_back.visibility = View.VISIBLE else mImageButton_back.visibility =
-                View.GONE
+            View.GONE
         mImageButton_back.setOnClickListener {
             (context as BaseActivity).finish()
         }
@@ -57,7 +58,7 @@ class Head(context: Context?) : LinearLayout(context) {
 
     fun setXxIsShow(isShow: Boolean) {
         if (isShow) mImageView_dot.visibility = View.VISIBLE else mImageView_dot.visibility =
-                View.GONE
+            View.GONE
     }
 
     fun setTitle(s: String) {
@@ -65,76 +66,74 @@ class Head(context: Context?) : LinearLayout(context) {
         mTextView_title.text = s
     }
 
-    fun setBatteryStatus(level: Int) {
-        mTextView_dc.text = level.toString()
+    fun setBatteryStatus(level: Int, type: Int) {
+        mTextView_dc.text = level.toString() + "%"
+
         when {
             level in 0..5 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_alert_black_24dp, 0, 0, 0
+                   if(type==0) R.drawable.ic_battery_alert_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_alert_black_24dp else 0, 0
                 )
             }
             level in 6..20 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_20_black_24dp, 0, 0, 0
+                    if(type==0) R.drawable.ic_battery_20_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_20_black_24dp else 0, 0
                 )
             }
             level in 21..30 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_30_black_24dp, 0, 0, 0
+                    if(type==0) R.drawable.ic_battery_30_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_30_black_24dp else 0, 0
                 )
             }
             level in 31..50 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_50_black_24dp, 0, 0, 0
+                    if(type==0) R.drawable.ic_battery_50_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_50_black_24dp else 0, 0
                 )
             }
             level in 51..60 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_60_black_24dp, 0, 0, 0
+                    if(type==0) R.drawable.ic_battery_60_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_60_black_24dp else 0, 0
                 )
             }
             level in 61..80 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_80_black_24dp, 0, 0, 0
+                    if(type==0) R.drawable.ic_battery_80_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_80_black_24dp else 0, 0
                 )
             }
             level in 81..90 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_90_black_24dp, 0, 0, 0
+                    if(type==0) R.drawable.ic_battery_90_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_90_black_24dp else 0, 0
                 )
             }
             level in 91..100 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_battery_full_black_24dp,
-                        0,
-                        0,
-                        0
+                    if(type==0) R.drawable.ic_battery_full_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_full_black_24dp else 0, 0
                 )
             }
         }
     }
 
-    fun setStatus(from:String="") {
-        if(mModelStatus?.mModelB!=null&& (from.equals("FrgDetailDj")||from.equals("FrgWorkDetail")||from.equals("FrgWorkChoose"))){
+    fun setStatus(from: String = "") {
+        if (mModelStatus?.mModelB != null && (from.equals("FrgDetailDj") || from.equals("FrgWorkDetail") || from.equals("FrgWorkChoose"))) {
             when {
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 0..25 -> {
-                    mImageView_gps.visibility = View.VISIBLE
+                    mRelativeLayout_gps.visibility = View.VISIBLE
                     mImageView_gps.setImageResource(R.drawable.ic_signal_cellular_1_bar_black_24dp)
                 }
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 26..50 -> {
-                    mImageView_gps.visibility = View.VISIBLE
+                    mRelativeLayout_gps.visibility = View.VISIBLE
                     mImageView_gps.setImageResource(R.drawable.ic_signal_cellular_2_bar_black_24dp)
                 }
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 51..75 -> {
-                    mImageView_gps.visibility = View.VISIBLE
+                    mRelativeLayout_gps.visibility = View.VISIBLE
                     mImageView_gps.setImageResource(R.drawable.ic_signal_cellular_3_bar_black_24dp)
                 }
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 76..100 -> {
-                    mImageView_gps.visibility = View.VISIBLE
+                    mRelativeLayout_gps.visibility = View.VISIBLE
                     mImageView_gps.setImageResource(R.drawable.ic_signal_cellular_4_bar_black_24dp)
                 }
                 else -> {
-                    mImageView_gps.visibility = View.GONE
+                    mRelativeLayout_gps.visibility = View.GONE
                 }
 
             }
@@ -187,11 +186,13 @@ class Head(context: Context?) : LinearLayout(context) {
                 }
 
             }
-            setBatteryStatus(mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() ?: -1)
-        }else{
-            setBatteryStatus(mModelStatus?.batteryLevel ?: 100)
-            mImageView_gps.setImageResource(R.drawable.ic_more)
-            mImageView_gps.visibility = if (F.isOPenGPS(context)) View.VISIBLE else View.GONE
+            setBatteryStatus(mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() ?: -1, 0)
+            mTextView_time.visibility = View.GONE
+        } else {
+            mTextView_time.visibility = View.VISIBLE
+            mTextView_time.text = AbDateUtil.getCurrentDate("HH:mm")
+            setBatteryStatus(mModelStatus?.batteryLevel ?: 100, 1)
+            mRelativeLayout_gps.visibility = View.GONE
             when (F.checkWifiState(context)) {
                 -1 -> {
                     mImageView_wifi.visibility = View.GONE

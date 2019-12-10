@@ -17,8 +17,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
+import com.mdx.framework.util.AbLogUtil
 import kotlinx.android.synthetic.main.frg_webview.*
-import timber.log.Timber
 
 
 class FrgWebView : BaseFrg() {
@@ -29,7 +29,7 @@ class FrgWebView : BaseFrg() {
 
     override fun initView() {
         url = arguments?.getString("url")
-        Timber.d(url)
+        AbLogUtil.d(url)
     }
 
 

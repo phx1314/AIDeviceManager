@@ -128,6 +128,8 @@ object F {
         return result
     }
 
+
+
     /**
      * 判断GPS是否开启，GPS或者AGPS开启一个就认为是开启的
      *

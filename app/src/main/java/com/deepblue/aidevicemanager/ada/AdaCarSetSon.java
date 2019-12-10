@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deepblue.aidevicemanager.item.CarSetSon;
-import com.deepblue.aidevicemanager.item.DetailTwo;
 import com.deepblue.aidevicemanager.model.ModelCarSet;
 import com.mdx.framework.adapter.MAdapter;
 
@@ -37,6 +36,7 @@ public class AdaCarSetSon extends MAdapter<ModelCarSet> {
         }
         CarSetSon mDetailTwo = (CarSetSon) convertView;
         mDetailTwo.set(item);
+
         return convertView;
     }
 }

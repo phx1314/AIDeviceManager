@@ -80,24 +80,51 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <ImageView
-            android:id="@+id/mImageView_gps"
+        <RelativeLayout
+            android:id="@+id/mRelativeLayout_gps"
+            android:visibility="gone"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:src="@drawable/ic_more" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/mImageView_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="GPS"
+                android:textColor="#67fe00"
+                android:textSize="8sp" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/mImageView_wifi"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="10dp" />
+            android:paddingRight="10dp" />
 
-        <ImageView
-            android:id="@+id/mImageView_4g"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="10dp" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/mImageView_4g"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="4G"
+                android:textColor="#67fe00"
+                android:textSize="8sp" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/mTextView_dc"
@@ -105,15 +132,24 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawablePadding="3dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/mTextView_time"
+            style="@style/text_style_15_white"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingRight="@dimen/j10dp" />
+            android:paddingRight="@dimen/j10dp"
+            android:text="11:55"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/mImageButton_set"
             android:layout_width="44dip"
             android:layout_height="match_parent"
             android:background="#00000000"
-            android:padding="12dp"
+            android:padding="10dp"
             android:scaleType="fitXY"
             android:src="@drawable/set"
             android:visibility="gone" />

@@ -80,7 +80,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
 
             } else if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("3")) {
                 Helper.toast(resources.getString(R.string.d_broken))
-            } else {
+            } else if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("0") || mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("2")) {
                 F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
                 Helper.startActivity(
                     context,
@@ -89,6 +89,8 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
                     "data",
                     item_son
                 )
+            } else {
+                Helper.toast("未知状态")
             }
         }
 
