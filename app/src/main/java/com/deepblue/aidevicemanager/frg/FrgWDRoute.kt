@@ -10,6 +10,7 @@ import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelA
 import com.deepblue.aidevicemanager.model.ModelB_CleanPealPosition
+import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frg_wd_route.*
@@ -82,7 +83,7 @@ class FrgWDRoute : BaseFrg() {
                     F.mModelStatus?.mModelB = a.cleanKingLiveStatus
                     val mCleanPealPosition = Gson().fromJson(a.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
                     moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
-                    if (mWorkState == 1)
+                    if (mWorkState == WORKING)
                         F.hasRunPosints.add(LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -155,7 +156,6 @@ class FrgWDRoute : BaseFrg() {
         ) as Marker
     }
 
-    //    private var mTempLatLng: LatLng? = null
     private fun moveLooper(startPoint: LatLng, endPoint: LatLng) {
         object : Thread() {
             override fun run() {
