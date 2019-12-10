@@ -13,6 +13,7 @@ import com.deepblue.aidevicemanager.model.ModelB_CleanPealPosition
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.frg_wd_overview.*
 import kotlinx.android.synthetic.main.frg_wd_route.*
 
 
@@ -175,7 +176,8 @@ class FrgWDRoute : BaseFrg() {
 
         }.start()
     }
-//    fun moveLooper() {
+
+//    fun moveLooper(a: Int) {
 //        object : Thread() {
 //            override fun run() {
 //                while (true) {
@@ -336,5 +338,24 @@ class FrgWDRoute : BaseFrg() {
             }
         }
         return levelArr[level]
+    }
+
+    override fun onResume() {
+        super.onResume()
+        baidumap_route?.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        baidumap_route?.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mBitmapCar?.recycle()
+        mBitmapStart?.recycle()
+        mBitmapEnd?.recycle()
+        mMap?.clear()
+        baidumap_route?.onDestroy()
     }
 }

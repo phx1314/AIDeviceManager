@@ -81,4 +81,20 @@ class FrgWDOverView : BaseFrg() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        baidumap_overview?.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        baidumap_overview?.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mMap?.clear()
+        baidumap_overview?.onDestroy()
+    }
 }
