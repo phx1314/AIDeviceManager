@@ -55,6 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:inputType="phone"
                         android:layout_weight="1"
                         android:background="@drawable/shape_logink"
                         android:drawablePadding="5dp"
