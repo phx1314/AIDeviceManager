@@ -34,6 +34,7 @@ import io.reactivex.schedulers.Schedulers
 abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriberListener {
     lateinit var mHead: Head
     fun isHeadInit() = ::mHead.isInitialized
+    private var lastClickTime = 0L
     var compositeDisposable: CompositeDisposable = CompositeDisposable()
     final override fun initV(view: View) {
         initView()
@@ -43,7 +44,10 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     abstract fun initView()
     abstract fun loaddata()
     override fun onClick(v: View) {
-
+        if (System.currentTimeMillis() - this.lastClickTime <= 1000L) {
+            this.lastClickTime = System.currentTimeMillis()
+            return
+        }
     }
 
     override fun disposeMsg(type: Int, obj: Any?) {

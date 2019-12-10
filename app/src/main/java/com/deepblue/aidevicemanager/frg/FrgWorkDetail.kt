@@ -81,6 +81,7 @@ class FrgWorkDetail : BaseFrg() {
     }
 
     override fun onClick(v: View) {
+        super.onClick(v)
         when (v.id) {
             R.id.iv_lefttop_switch -> switchFragment(0)
             R.id.iv_leftcenter_switch -> switchFragment(1)

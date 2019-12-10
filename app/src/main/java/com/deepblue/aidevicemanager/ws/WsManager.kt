@@ -155,7 +155,9 @@ class WsManager constructor(builder: Builder) : WBImpl {
             }
             reconnectCount = 0
             F.wsManager = null
-            Frame.HANDLES.closeIds("FrgDetailDj,FrgWorkDetail,FrgWorkChoose")
+            wsMainHandler.postDelayed({
+                Frame.HANDLES.closeIds("FrgDetailDj,FrgWorkDetail,FrgWorkChoose")
+            }, 1000)
         }
 
     }

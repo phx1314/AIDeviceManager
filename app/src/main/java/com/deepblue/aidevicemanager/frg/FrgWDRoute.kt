@@ -34,6 +34,8 @@ class FrgWDRoute : BaseFrg() {
     private val mEdgePolylineColor = Color.GRAY   //路沿颜色
     private val mPolylineColor = Color.BLUE  //路线颜色
     private val mHasRunPolylineColor = Color.YELLOW //已行驶路线颜色
+    private val WSDuringTime: Long = 1000
+    private val carMoveDuringTime: Long = 100
     private val distanceArr = intArrayOf(20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000)
     private val levelArr = intArrayOf(21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3)
 
@@ -83,9 +85,11 @@ class FrgWDRoute : BaseFrg() {
                     val a = Gson().fromJson(obj.toString(), ModelA::class.java)
                     F.mModelStatus?.mModelB = a.cleanKingLiveStatus
                     val mCleanPealPosition = Gson().fromJson(a.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
-                    moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
-                    if (mWorkState == WORKING)
+                    if (mWorkState == WORKING) {
+                        moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
+//                        moveLooper2(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
                         F.hasRunPosints.add(LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
+                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -155,6 +159,15 @@ class FrgWDRoute : BaseFrg() {
                 .position(polyLines[0])
                 .rotate(getAngle(0).toFloat())
         ) as Marker
+//        用movelooper2方法时使用
+//        if (F.hasRunPosints.size != 0) {
+//            mMap.addOverlay(
+//                PolylineOptions()
+//                    .width(mHasRunPolylineWith)
+//                    .zIndex(8)
+//                    .color(mHasRunPolylineColor).points(F.hasRunPosints)
+//            )
+//        }
     }
 
     private fun moveLooper(startPoint: LatLng, endPoint: LatLng) {
@@ -177,81 +190,59 @@ class FrgWDRoute : BaseFrg() {
         }.start()
     }
 
-//    fun moveLooper(a: Int) {
-//        object : Thread() {
-//            override fun run() {
-//                while (true) {
-//                    for (i in 0 until polylines.size - 1) {
-//                        val startPoint = polylines[i]
-//                        val endPoint = polylines[i + 1]
-//                        mMoveMarker?.position = startPoint
-//                        activity?.runOnUiThread {
-//                            //更新小车方向
-//                            mMoveMarker?.rotate = getAngle(startPoint, endPoint).toFloat()
-//                        }
-//                        val slope = getSlope(startPoint, endPoint)
-//                        // 是不是正向的标示
-//                        val isYReverse = startPoint.latitude > endPoint.latitude
-//                        val isXReverse = startPoint.longitude > endPoint.longitude
-//                        val intercept = getInterception(slope, startPoint)
-//                        val xMoveDistance =
-//                            if (isXReverse) getXMoveDistance(slope) else -1 * getXMoveDistance(slope)
-//                        val yMoveDistance =
-//                            if (isYReverse) getYMoveDistance(slope) else -1 * getYMoveDistance(slope)
-//
-//                        var j = startPoint.latitude
-//                        var k = startPoint.longitude
-//                        while (j > endPoint.latitude == isYReverse && k > endPoint.longitude == isXReverse) {
-//                            var latLng: LatLng?
-//
-//                            when (slope) {
-//                                java.lang.Double.MAX_VALUE -> {
-//                                    latLng = LatLng(j, k)
-//                                    j -= yMoveDistance
-//                                }
-//                                0.0 -> {
-//                                    latLng = LatLng(j, k - xMoveDistance)
-//                                    k -= xMoveDistance
-//                                }
-//                                else -> {
-//                                    latLng = LatLng(j, (j - intercept) / slope)
-//                                    j -= yMoveDistance
-//                                }
-//                            }
-//
-//                            val finalLatLng = latLng
-//                            if (finalLatLng.latitude == 0.0 && finalLatLng.longitude == 0.0) {
-//                                continue
-//                            }
-//                            activity?.runOnUiThread {
-//                                //设置小车位置，这里为了实现小车平滑移动
-//                                mMoveMarker?.position = finalLatLng
-//                                //设置小车已行驶路径
-//                                mMap.addOverlay(
-//                                    PolylineOptions()
-//                                        .width(mHasRunPolylineWith)
-//                                        .zIndex(9)
-//                                        .color(mHasRunPolylineColor).points(
-//                                            arrayListOf(
-//                                                startPoint,
-//                                                finalLatLng
-//                                            )
-//                                        )
-//                                )
-//                            }
-//                            try {
-//                                sleep(80.toLong())
-//                            } catch (e: InterruptedException) {
-//                                e.printStackTrace()
-//                            }
-//
-//                        }
-//                    }
-//                }
-//            }
-//
-//        }.start()
-//    }
+    fun moveLooper2(startPoint: LatLng, endPoint: LatLng) {
+        object : Thread() {
+            override fun run() {
+                while (true) {
+                    mMoveMarker?.position = startPoint
+                    activity?.runOnUiThread {
+                        //更新小车方向
+                        mMoveMarker?.rotate = getAngle(startPoint, endPoint).toFloat()
+                    }
+                    val times = (WSDuringTime / carMoveDuringTime).toInt()
+
+                    // 是不是正向的标示
+                    val isXReverse = startPoint.latitude < endPoint.latitude
+                    val isYReverse = startPoint.longitude < endPoint.longitude
+                    val xMoveUnit = (endPoint.latitude - startPoint.latitude) / times
+                    val yMoveUnit = (endPoint.longitude - startPoint.longitude) / times
+                    for (i in 0 until times - 1) {
+                        var latLng: LatLng =
+                            LatLng(
+                                if (isXReverse) startPoint.latitude + xMoveUnit else startPoint.latitude - xMoveUnit,
+                                if (isYReverse) startPoint.longitude + yMoveUnit else startPoint.longitude - yMoveUnit
+                            )
+                        val finalLatLng = latLng
+                        if (finalLatLng.latitude == 0.0 && finalLatLng.longitude == 0.0) {
+                            continue
+                        }
+                        activity?.runOnUiThread {
+                            //设置小车位置，这里为了实现小车平滑移动
+                            mMoveMarker?.position = finalLatLng
+                            //设置小车已行驶路径
+                            mMap.addOverlay(
+                                PolylineOptions()
+                                    .width(mHasRunPolylineWith)
+                                    .zIndex(8)
+                                    .color(mHasRunPolylineColor).points(
+                                        arrayListOf(
+                                            startPoint,
+                                            finalLatLng
+                                        )
+                                    )
+                            )
+                        }
+                        try {
+                            sleep(carMoveDuringTime)
+                        } catch (e: InterruptedException) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+            }
+
+        }.start()
+    }
 
     /**
      * 根据点获取图标转的角度
