@@ -45,9 +45,9 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     abstract fun loaddata()
     override fun onClick(v: View) {
         if (System.currentTimeMillis() - this.lastClickTime <= 1000L) {
-            this.lastClickTime = System.currentTimeMillis()
             return
         }
+        this.lastClickTime = System.currentTimeMillis()
     }
 
     override fun disposeMsg(type: Int, obj: Any?) {
