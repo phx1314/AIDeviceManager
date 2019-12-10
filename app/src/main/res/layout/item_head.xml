@@ -82,9 +82,9 @@
 
         <RelativeLayout
             android:id="@+id/mRelativeLayout_gps"
-            android:visibility="gone"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/mImageView_gps"
@@ -133,7 +133,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawablePadding="3dp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:paddingRight="@dimen/j3dp" />
 
         <TextView
             android:id="@+id/mTextView_time"

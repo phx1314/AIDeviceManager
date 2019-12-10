@@ -67,47 +67,47 @@ class Head(context: Context?) : LinearLayout(context) {
     }
 
     fun setBatteryStatus(level: Int, type: Int) {
-        mTextView_dc.text = level.toString() + "%"
+        if (level < 0) mTextView_dc.text = "N/A" else mTextView_dc.text = level.toString() + "%"
 
         when {
             level in 0..5 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                   if(type==0) R.drawable.ic_battery_alert_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_alert_black_24dp else 0, 0
+                    if (type == 0) R.drawable.ic_battery_alert_black_24dp else 0, 0, if (type == 1) R.drawable.ic_battery_alert_black_24dp else 0, 0
                 )
             }
             level in 6..20 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                    if(type==0) R.drawable.ic_battery_20_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_20_black_24dp else 0, 0
+                    if (type == 0) R.drawable.ic_battery_20_black_24dp else 0, 0, if (type == 1) R.drawable.ic_battery_20_black_24dp else 0, 0
                 )
             }
             level in 21..30 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                    if(type==0) R.drawable.ic_battery_30_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_30_black_24dp else 0, 0
+                    if (type == 0) R.drawable.ic_battery_30_black_24dp else 0, 0, if (type == 1) R.drawable.ic_battery_30_black_24dp else 0, 0
                 )
             }
             level in 31..50 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                    if(type==0) R.drawable.ic_battery_50_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_50_black_24dp else 0, 0
+                    if (type == 0) R.drawable.ic_battery_50_black_24dp else 0, 0, if (type == 1) R.drawable.ic_battery_50_black_24dp else 0, 0
                 )
             }
             level in 51..60 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                    if(type==0) R.drawable.ic_battery_60_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_60_black_24dp else 0, 0
+                    if (type == 0) R.drawable.ic_battery_60_black_24dp else 0, 0, if (type == 1) R.drawable.ic_battery_60_black_24dp else 0, 0
                 )
             }
             level in 61..80 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                    if(type==0) R.drawable.ic_battery_80_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_80_black_24dp else 0, 0
+                    if (type == 0) R.drawable.ic_battery_80_black_24dp else 0, 0, if (type == 1) R.drawable.ic_battery_80_black_24dp else 0, 0
                 )
             }
             level in 81..90 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                    if(type==0) R.drawable.ic_battery_90_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_90_black_24dp else 0, 0
+                    if (type == 0) R.drawable.ic_battery_90_black_24dp else 0, 0, if (type == 1) R.drawable.ic_battery_90_black_24dp else 0, 0
                 )
             }
             level in 91..100 -> {
                 mTextView_dc.setCompoundDrawablesWithIntrinsicBounds(
-                    if(type==0) R.drawable.ic_battery_full_black_24dp else 0, 0, if(type==1) R.drawable.ic_battery_full_black_24dp else 0, 0
+                    if (type == 0) R.drawable.ic_battery_full_black_24dp else 0, 0, if (type == 1) R.drawable.ic_battery_full_black_24dp else 0, 0
                 )
             }
         }
@@ -191,7 +191,7 @@ class Head(context: Context?) : LinearLayout(context) {
         } else {
             mTextView_time.visibility = View.VISIBLE
             mTextView_time.text = AbDateUtil.getCurrentDate("HH:mm")
-            setBatteryStatus(mModelStatus?.batteryLevel ?: 100, 1)
+            setBatteryStatus(mModelStatus?.batteryLevel ?: -1, 1)
             mRelativeLayout_gps.visibility = View.GONE
             when (F.checkWifiState(context)) {
                 -1 -> {

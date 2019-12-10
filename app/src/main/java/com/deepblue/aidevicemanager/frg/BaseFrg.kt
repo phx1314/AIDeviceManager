@@ -12,6 +12,7 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.app.ProgressDialog
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
@@ -45,6 +46,7 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     abstract fun loaddata()
     override fun onClick(v: View) {
         if (System.currentTimeMillis() - this.lastClickTime <= 1000L) {
+            Log.i("aa","aa")
             return
         }
         this.lastClickTime = System.currentTimeMillis()

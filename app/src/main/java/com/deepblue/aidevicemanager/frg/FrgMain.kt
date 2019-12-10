@@ -29,7 +29,6 @@ import kotlinx.android.synthetic.main.item_head.view.*
 
 class FrgMain : BaseFrg() {
 
-    var mFrgMainSon: FrgMainSon = FrgMainSon()
     lateinit var groupString: Array<String>
     lateinit var childString: Array<Array<String>>
     var mModelTaskXx: ModelTaskXx? = null
@@ -70,7 +69,7 @@ class FrgMain : BaseFrg() {
 //                mExpandableListView.animation = AnimationUtils.makeOutAnimation(context, false)
                 checked = "-1"
                 (mExpandableListView.expandableListAdapter as ExpandableListviewAdapter).notifyDataSetChanged()
-                chageFrgment(mFrgMainSon)
+                chageFrgment( FrgMainSon())
             }
             1 -> {
                 mTextView_name.text = F.mModellogin?.user?.name
@@ -109,7 +108,7 @@ class FrgMain : BaseFrg() {
         mTextView_gs.text = F.mModellogin?.merchant?.name + " >"
         mTextView_name.text = F.mModellogin?.user?.name
 //        mMGridView.adapter = AdaMain(context, List<ModelMain>(5) { ModelMain() })
-        chageFrgment(mFrgMainSon)
+        chageFrgment( FrgMainSon())
         mExpandableListView.setGroupIndicator(null);
         mExpandableListView.setAdapter(ExpandableListviewAdapter(context, groupString, childString))
         mExpandableListView.setOnGroupClickListener { _, _, groupPosition, _ ->
