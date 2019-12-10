@@ -30,6 +30,8 @@ class FrgMainSon : BaseFrg() {
 
     override fun loaddata() {
         load(F.gB().queryDeviceSeriesList(), "queryDeviceSeriesList")
+
+//        mMGridView.adapter = AdaMain(context, arrayOf(ModelMain(), ModelMain()).toMutableList())
     }
 
     override fun onSuccess(data: String?, method: String) {

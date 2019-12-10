@@ -24,6 +24,7 @@ import com.mdx.framework.service.subscriber.HttpResult
 import com.mdx.framework.service.subscriber.HttpResultSubscriberListener
 import com.mdx.framework.service.subscriber.S
 import com.mdx.framework.util.AbAppUtil
+import com.mdx.framework.util.AbLogUtil
 import com.mdx.framework.util.Helper
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,8 +33,9 @@ import io.reactivex.schedulers.Schedulers
 open class BaseItem(context: Context?) : LinearLayout(context), HttpResultSubscriberListener {
     var handler = MHandler()
     val className = this.javaClass.simpleName
+
     init {
-       
+
         handler.setId(className)
         handler.setMsglisnener { msg ->
             when (msg.what) {
@@ -78,10 +80,10 @@ open class BaseItem(context: Context?) : LinearLayout(context), HttpResultSubscr
             .subscribe(s)
     }
 
-    //override fun onDetachedFromWindow() {
-    //    Timber.d("view銷毀")
-    //    Frame.HANDLES.remove(this.handler)
-    //    super.onDetachedFromWindow()
-    //}
+    override fun onDetachedFromWindow() {
+        AbLogUtil.d("view銷毀")
+        Frame.HANDLES.remove(this.handler)
+        super.onDetachedFromWindow()
+    }
 }
 
