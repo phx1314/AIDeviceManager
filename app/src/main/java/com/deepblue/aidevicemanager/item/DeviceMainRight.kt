@@ -63,13 +63,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
             F.mModelStatus?.mModelB = mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()
 
             if (mModelDeviceDetail?.deviceStatus?.equals("1") == true) {
-                if (mModelDeviceDetail?.tbox?.equals("1") == true) {//离线待机
-                    goDj(mModelDeviceDetail)
-                } else if (mModelDeviceDetail?.tbox?.equals("0") == true) {//离线
-                    goDj(mModelDeviceDetail)
-                } else {
-                    Helper.toast("未知状态")
-                }
+                goDj(mModelDeviceDetail)
             } else if (mModelDeviceDetail?.deviceStatus?.equals("2") == true) {
                 if (mModelDeviceDetail?.breakdown?.equals("1") == true) {//故障
                     goDj(mModelDeviceDetail)
@@ -90,8 +84,10 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
                     Helper.toast("未知状态")
                 }
 
-            } else {
-                Helper.toast("未知状态")
+            } else if (mModelDeviceDetail?.deviceStatus?.equals("3") == true) {//离线待机
+                goDj(mModelDeviceDetail)
+            }else if (mModelDeviceDetail?.deviceStatus?.equals("0") == true) {//未激活
+                Helper.toast("未激活")
             }
 
         }
@@ -156,14 +152,8 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
 
     fun setStatusType(mImageView: ImageView, it: ModelDevices.RowsBean) {
 
-        if (it.deviceStatus?.equals("1") == true) {
-            if (it.tbox?.equals("1") == true) {//离线待机
-                mImageView.setBackgroundResource(R.drawable.shape_yellowk)
-            } else if (it.tbox?.equals("0") == true) {//离线
-                mImageView.setBackgroundResource(R.drawable.shape_grayk)
-            } else {
-                mImageView.setBackgroundResource(R.drawable.shape_grayk)
-            }
+        if (it.deviceStatus?.equals("1") == true) {//离线
+            mImageView.setBackgroundResource(R.drawable.shape_grayk)
         } else if (it.deviceStatus?.equals("2") == true) {
             if (it.breakdown?.equals("1") == true) {//故障
                 mImageView.setBackgroundResource(R.drawable.shape_yuank)
@@ -186,7 +176,9 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
             } else {
                 mImageView.setBackgroundResource(R.drawable.shape_bluek)
             }
-        } else {
+        } else if (it?.deviceStatus?.equals("3") == true) {//离线待机
+            mImageView.setBackgroundResource(R.drawable.shape_yellowk)
+        }else if (it?.deviceStatus?.equals("0") == true) {//未激活
             mImageView.setBackgroundResource(R.drawable.shape_grayk)
         }
 

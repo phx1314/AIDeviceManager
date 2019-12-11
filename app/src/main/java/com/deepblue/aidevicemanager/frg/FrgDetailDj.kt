@@ -106,14 +106,9 @@ class FrgDetailDj : BaseFrg() {
 
 
         if (mModelDeviceDetail?.deviceStatus?.equals("1") == true) {
-            if (mModelDeviceDetail?.tbox?.equals("1") == true) {//离线待机
-                mTextView_status.text = getString(R.string.d_lxdj)
-                mButton.text = getString(R.string.d_qd)
-            } else if (mModelDeviceDetail?.tbox?.equals("0") == true) {//离线
-                mTextView_status.text = getString(R.string.d_lx)
-                mButton.text = getString(R.string.d_qd)
-                mButton.isEnabled = false
-            }
+            mTextView_status.text = getString(R.string.d_lx)
+            mButton.text = getString(R.string.d_qd)
+            mButton.isEnabled = false
         } else if (mModelDeviceDetail?.deviceStatus?.equals("2") == true) {
             if (mModelDeviceDetail?.breakdown?.equals("1") == true) {//故障
                 mTextView_status.text = getString(R.string.d_gz)
@@ -134,6 +129,12 @@ class FrgDetailDj : BaseFrg() {
                     }
                 }
             }
+        } else if (mModelDeviceDetail?.deviceStatus?.equals("3") == true) {//离线待机
+            mTextView_status.text = getString(R.string.d_lxdj)
+            mButton.text = getString(R.string.d_qd)
+        } else if (mModelDeviceDetail?.deviceStatus?.equals("0") == true) {//未激活
+            mTextView_status.text = "未激活"
+            mButton.visibility = View.GONE
         }
 
 
