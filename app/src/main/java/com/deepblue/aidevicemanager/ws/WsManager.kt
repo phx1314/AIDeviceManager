@@ -100,10 +100,12 @@ class WsManager constructor(builder: Builder) : WBImpl {
 
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
             Log.e("websocket", "服务器连接关闭中  code:$code")
+            setCurrentState(WsStatus.DISCONNECTED)
         }
 
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
             Log.e("websocket", "服务器连接已关闭   code:$code")
+            setCurrentState(WsStatus.DISCONNECTED)
         }
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
@@ -173,6 +175,7 @@ class WsManager constructor(builder: Builder) : WBImpl {
             return
         }
         connected()
+        setCurrentState(WsStatus.DISCONNECTED)
         if (mOkHttpClient != null) {
             mOkHttpClient.dispatcher.cancelAll()
         }
@@ -183,7 +186,6 @@ class WsManager constructor(builder: Builder) : WBImpl {
                 Log.e("websocket", "服务器连接失败_disconnect")
             }
         }
-        setCurrentState(WsStatus.DISCONNECTED)
     }
 
     @Synchronized

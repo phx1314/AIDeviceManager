@@ -149,7 +149,7 @@ object F {
 
 
     fun stopConnectWSocket() {
-        if (wsManager != null && wsManager!!.isWSConnected())
+        if (wsManager != null)
             wsManager!!.stopConnect()
     }
 
@@ -161,17 +161,17 @@ object F {
 //                .wsUrl("ws://192.168.123.209:8081/websocket/wwwggg")
                 .client(
                     OkHttpClient().newBuilder()
-                        .pingInterval(10, TimeUnit.SECONDS)
-                        .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
-                        .writeTimeout(20, TimeUnit.SECONDS)//设置写的超时时间
-                        .connectTimeout(20, TimeUnit.SECONDS)//设置连接超时时间
+                        .pingInterval(5, TimeUnit.SECONDS)
+                        .readTimeout(5, TimeUnit.SECONDS)//设置读取超时时间
+                        .writeTimeout(5, TimeUnit.SECONDS)//设置写的超时时间
+                        .connectTimeout(5, TimeUnit.SECONDS)//设置连接超时时间
                         .retryOnConnectionFailure(true)
                         .build()
                 )
                 .needReconnect(true)
                 .build()
         } else {
-            wsManager?.wsUrl = url
+            wsManager?.wsUrl = wsBaseUrl + url
             stopConnectWSocket()
         }
         wsManager?.startConnect()
