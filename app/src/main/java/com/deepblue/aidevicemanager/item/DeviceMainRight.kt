@@ -79,7 +79,15 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
                 }
 
             } else if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("3")) {
-                Helper.toast(resources.getString(R.string.d_broken))
+//                Helper.toast(resources.getString(R.string.d_broken))
+                F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
+                Helper.startActivity(
+                    context,
+                    FrgDetailDj::class.java,
+                    TitleAct::class.java,
+                    "data",
+                    item_son
+                )
             } else if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("0") || mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("2")) {
                 F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
                 Helper.startActivity(

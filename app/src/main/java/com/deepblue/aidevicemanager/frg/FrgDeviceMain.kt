@@ -36,6 +36,7 @@ class FrgDeviceMain : BaseFrg() {
         setContentView(R.layout.frg_device_main)
     }
 
+
     override fun disposeMsg(type: Int, obj: Any?) {
         super.disposeMsg(type, obj)
         when (type) {

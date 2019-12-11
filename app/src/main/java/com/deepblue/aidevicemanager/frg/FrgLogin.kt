@@ -103,8 +103,19 @@ class FrgLogin : BaseFrg() {
                 TitleAct::class.java
             )
         })
+//        mTextView_forget.setOnClickListener(this)
     }
 
+//    override fun onClick(v: View) {
+//        super.onClick(v)
+//        return
+//        Helper.startActivity(
+//            context,
+//            FrgForget::class.java,
+//            TitleAct::class.java
+//        )
+//
+//    }
 
     override fun loaddata() {
     }
@@ -124,7 +135,6 @@ class FrgLogin : BaseFrg() {
                     6002 -> Log.i("JPush", "失败,错误码= $code")
                     else -> Log.i("JPush", "失败,错误码= $code")
                 }
-
                 this@FrgLogin.finish()
             }
         }
