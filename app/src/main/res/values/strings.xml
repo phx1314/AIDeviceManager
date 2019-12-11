@@ -163,4 +163,9 @@
     <string name="dataerror_please_retry">数据异常,返回地图重新选择</string>
     <string name="d_bnwk">不能为空</string>
     <string name="d_id_null">地图ID为空</string>
+    <string name="d_lxdj">离线待机</string>
+    <string name="d_lx">离线</string>
+    <string name="d_zdzy">自动作业中</string>
+    <string name="d_sdjs">手动驾驶中</string>
+    <string name="d_zxdj">在线待机</string>
 </resources>

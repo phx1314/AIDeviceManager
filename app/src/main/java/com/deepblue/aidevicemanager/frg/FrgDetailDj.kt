@@ -107,33 +107,30 @@ class FrgDetailDj : BaseFrg() {
 
         if (mModelDeviceDetail?.deviceStatus?.equals("1") == true) {
             if (mModelDeviceDetail?.tbox?.equals("1") == true) {//离线待机
-                mTextView_status.text = "离线待机"
-                mButton.text = "启动"
+                mTextView_status.text = getString(R.string.d_lxdj)
+                mButton.text = getString(R.string.d_qd)
             } else if (mModelDeviceDetail?.tbox?.equals("0") == true) {//离线
-                mTextView_status.text = "离线"
-                mButton.text = "启动"
+                mTextView_status.text = getString(R.string.d_lx)
+                mButton.text = getString(R.string.d_qd)
                 mButton.isEnabled = false
             }
         } else if (mModelDeviceDetail?.deviceStatus?.equals("2") == true) {
             if (mModelDeviceDetail?.breakdown?.equals("1") == true) {//故障
                 mTextView_status.text = getString(R.string.d_gz)
             } else if (mModelDeviceDetail?.breakdown?.equals("0") == true) {
+                mButton.text = getString(R.string.d_qszyrwxz)
                 when (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status) {
                     "0" -> {
-                        mTextView_status.text = "在线待机"
-                        mButton.text = getString(R.string.d_qszyrwxz)
+                        mTextView_status.text = getString(R.string.d_zxdj)
                     }
                     "1" -> {
-                        mTextView_status.text = "自动作业中"
-                        mButton.text = getString(R.string.d_qszyrwxz)
+                        mTextView_status.text = getString(R.string.d_zdzy)
                     }
                     "2" -> {
-                        mTextView_status.text = "手动驾驶中"
-                        mButton.text = getString(R.string.d_qszyrwxz)
+                        mTextView_status.text = getString(R.string.d_sdjs)
                     }
                     else -> {
-                        mTextView_status.text = "在线待机"
-                        mButton.text = getString(R.string.d_qszyrwxz)
+                        mTextView_status.text = getString(R.string.d_zxdj)
                     }
                 }
             }
@@ -143,8 +140,8 @@ class FrgDetailDj : BaseFrg() {
 
 
 
-        if (mModelB.data_battery_remaining_capacity == null) mTextView_dl.text = "N/A" else  mTextView_dl.text = (mModelB.data_battery_remaining_capacity ?: "0") + "%"
-        if (mModelB.data_water_level == null) mTextView_js.text = "N/A" else    mTextView_js.text = (mModelB.data_water_level ?: "0") + "%"
+        if (mModelB.data_battery_remaining_capacity == null) mTextView_dl.text = "N/A" else mTextView_dl.text = (mModelB.data_battery_remaining_capacity ?: "0") + "%"
+        if (mModelB.data_water_level == null) mTextView_js.text = "N/A" else mTextView_js.text = (mModelB.data_water_level ?: "0") + "%"
 
         mTextView_fx.text = mModelB.data_gear
         if (TextUtils.isEmpty(mModelB.data_water_level)) {
