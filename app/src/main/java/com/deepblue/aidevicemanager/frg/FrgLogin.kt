@@ -38,6 +38,7 @@ import kotlinx.android.synthetic.main.item_head.view.*
 class FrgLogin : BaseFrg() {
     //    18151735217
     //    123456
+//    15510255253 189793
     var isChecked = true
 
     override fun create(savedInstanceState: Bundle?) {

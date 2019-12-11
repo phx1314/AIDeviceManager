@@ -20,6 +20,7 @@ import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.frg.FrgDetailDj
 import com.deepblue.aidevicemanager.frg.FrgWorkDetail
+import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelData
 import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelDevices
@@ -59,51 +60,77 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryDeviceDetail")) {
             var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
-            F.mModelStatus?.mModelB = mModelDeviceDetail?.cleanKingLiveStatus
-            if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("1")) {
-                if (!TextUtils.isEmpty(mModelDeviceDetail?.mapId)) {
-                    F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
-                    Helper.startActivity(
-                        context,
-                        FrgWorkDetail::class.java,
-                        TitleAct::class.java,
-                        "id",
-                        item_son.id.toString(),
-                        "from",
-                        "0",
-                        "mapId",
-                        mModelDeviceDetail?.mapId
-                    )
+            F.mModelStatus?.mModelB = mModelDeviceDetail?.cleanKingLiveStatus?: ModelB()
+
+            if (mModelDeviceDetail?.deviceStatus?.equals("1") == true) {
+                if (mModelDeviceDetail?.tbox?.equals("1") == true) {//离线待机
+                    goDj(mModelDeviceDetail)
+                } else if (mModelDeviceDetail?.tbox?.equals("0") == true) {//离线
+                    goDj(mModelDeviceDetail)
                 } else {
-                    Helper.toast(context.getString(R.string.d_id_null))
+                    Helper.toast("未知状态")
+                }
+            } else if (mModelDeviceDetail?.deviceStatus?.equals("2") == true) {
+                if (mModelDeviceDetail?.breakdown?.equals("1") == true) {//故障
+                    goDj(mModelDeviceDetail)
+                } else if (mModelDeviceDetail?.breakdown?.equals("0") == true) {
+                    when (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status) {
+                        "0" -> {
+                            goDj(mModelDeviceDetail)
+                        }
+                        "1" -> {
+                            goDetail(mModelDeviceDetail)
+                        }
+                        "2" -> {
+                            goDj(mModelDeviceDetail)
+                        }
+                        else -> {
+                            goDj(mModelDeviceDetail)
+                        }
+
+                    }
+                } else {
+                    Helper.toast("未知状态")
                 }
 
-            } else if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("3")) {
-//                Helper.toast(resources.getString(R.string.d_broken))
-                F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
-                Helper.startActivity(
-                    context,
-                    FrgDetailDj::class.java,
-                    TitleAct::class.java,
-                    "data",
-                    item_son
-                )
-            } else if (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("0") || mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status.equals("2")) {
-                F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
-                Helper.startActivity(
-                    context,
-                    FrgDetailDj::class.java,
-                    TitleAct::class.java,
-                    "data",
-                    item_son
-                )
             } else {
                 Helper.toast("未知状态")
             }
+
+        }
+    }
+
+    fun goDetail(mModelDeviceDetail: ModelDeviceDetail) {
+        if (!TextUtils.isEmpty(mModelDeviceDetail?.mapId)) {
+            F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
+            Helper.startActivity(
+                context,
+                FrgWorkDetail::class.java,
+                TitleAct::class.java,
+                "id",
+                item_son.id.toString(),
+                "from",
+                "0",
+                "mapId",
+                mModelDeviceDetail?.mapId
+            )
+        } else {
+            Helper.toast(context.getString(R.string.d_id_null))
         }
 
-
     }
+
+    fun goDj(mModelDeviceDetail: ModelDeviceDetail) {
+        F.connectWSocket(context, "${mModelDeviceDetail?.id}/${F.mModellogin?.token}")
+        Helper.startActivity(
+            context,
+            FrgDetailDj::class.java,
+            TitleAct::class.java,
+            "data",
+            item_son
+        )
+    }
+
 
     fun set(item: ModelData<ModelDevices.RowsBean>) {
         this.item = item
@@ -131,23 +158,42 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
     }
 
     fun setStatusType(mImageView: ImageView, it: ModelDevices.RowsBean) {
-        when (it.data_system_status) {
-            "0" -> {
-                mImageView.setBackgroundResource(R.drawable.shape_bluek)
-            }
-            "1" -> {
-                mImageView.setBackgroundResource(R.drawable.shape_greenk)
-            }
-            "2" -> {
-                mImageView.setBackgroundResource(R.drawable.shape_orangek)
-            }
-            "3" -> {
+
+        if (it.deviceStatus?.equals("1") == true) {
+            if (it.tbox?.equals("1") == true) {//离线待机
+                mImageView.setBackgroundResource(R.drawable.shape_yellowk)
+            } else if (it.tbox?.equals("0") == true) {//离线
+                mImageView.setBackgroundResource(R.drawable.shape_grayk)
+            } else {
                 mImageView.setBackgroundResource(R.drawable.shape_yuank)
             }
-            else -> {
+        } else if (it.deviceStatus?.equals("2") == true) {
+            if (it.breakdown?.equals("1") == true) {//故障
+                mImageView.setBackgroundResource(R.drawable.shape_yuank)
+            } else if (it.breakdown?.equals("0") == true) {
+                when (it.data_system_status) {
+                    "0" -> {
+                        mImageView.setBackgroundResource(R.drawable.shape_bluek)
+                    }
+                    "1" -> {
+                        mImageView.setBackgroundResource(R.drawable.shape_greenk)
+                    }
+                    "2" -> {
+                        mImageView.setBackgroundResource(R.drawable.shape_orangek)
+                    }
+                    else -> {
+                        mImageView.setBackgroundResource(R.drawable.shape_bluek)
+                    }
+
+                }
+            } else {
                 mImageView.setBackgroundResource(R.drawable.shape_yuank)
             }
+        } else {
+            mImageView.setBackgroundResource(R.drawable.shape_yuank)
         }
+
+
     }
 
     fun setShow(count: Int) {

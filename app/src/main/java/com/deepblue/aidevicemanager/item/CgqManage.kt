@@ -59,7 +59,7 @@ class CgqManage(context: Context?) : LinearLayout(context) {
 }
 
 
-fun getRightS(status: String): String {
+fun getRightS(status: String?): String {
     if (TextUtils.isEmpty(status)) {
         return "N/A"
     } else {

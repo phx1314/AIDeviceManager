@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.frg_detail_dj.*
 
 class FrgDetailDj : BaseFrg() {
     lateinit var mModelB: ModelB
+    var mModelDeviceDetail: ModelDeviceDetail? = null
     lateinit var data: ModelDevices.RowsBean
     lateinit var mDialogSet: DialogSet
     override fun create(savedInstanceState: Bundle?) {
@@ -56,6 +57,8 @@ class FrgDetailDj : BaseFrg() {
     override fun initView() {
         mButton.setOnClickListener {
             if (mButton.text.equals(getString(R.string.d_qd))) {
+                mProgressBar.visibility = View.VISIBLE
+                mButton.visibility = View.GONE
                 load(F.gB().createOrder("12", data.id.toString()), "createOrder")
             } else {
 //                if (mModelB.data_system_status.equals("2")) {
@@ -97,29 +100,49 @@ class FrgDetailDj : BaseFrg() {
 
     fun setData(mModelB: ModelB) {
         mDialogSet.set(mModelB)
-        mTextView_lng.text = "Lng: ${mModelB.data_longitude}"
-        mTextView_lat.text = "Lng: ${mModelB.data_latitude}"
-        mTextView_gl.text = mModelB.data_velocity + "m/s"
-        when (mModelB.data_system_status) {
-            "0" -> {
-                mTextView_status.text = getString(R.string.d_dj)
-                mButton.text = getString(R.string.d_qszyrwxz)
+        mTextView_lng.text = "Lng: ${mModelB.data_longitude ?: "N/A"}"
+        mTextView_lat.text = "Lng: ${mModelB.data_latitude ?: "N/A"}"
+        if (mModelB.data_velocity == null) mTextView_gl.text = "N/A" else mTextView_gl.text = mModelB.data_velocity + "m/s"
+
+
+        if (mModelDeviceDetail?.deviceStatus?.equals("1") == true) {
+            if (mModelDeviceDetail?.tbox?.equals("1") == true) {//离线待机
+                mTextView_status.text = "离线待机"
+                mButton.text = "启动"
+            } else if (mModelDeviceDetail?.tbox?.equals("0") == true) {//离线
+                mTextView_status.text = "离线"
+                mButton.text = "启动"
+                mButton.isEnabled = false
             }
-            "1" -> {
-                mTextView_status.text = getString(R.string.d_zdzyz)
-                mButton.text = getString(R.string.d_qszyrwxz)
-            }
-            "2" -> {
-                mTextView_status.text = getString(R.string.d_sdjsz)
-                mButton.text = getString(R.string.d_qszyrwxz)
-            }
-            "3" -> {
+        } else if (mModelDeviceDetail?.deviceStatus?.equals("2") == true) {
+            if (mModelDeviceDetail?.breakdown?.equals("1") == true) {//故障
                 mTextView_status.text = getString(R.string.d_gz)
-            }
-            else -> {
-                mTextView_status.text = getString(R.string.d_wz)
+            } else if (mModelDeviceDetail?.breakdown?.equals("0") == true) {
+                when (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status) {
+                    "0" -> {
+                        mTextView_status.text = "在线待机"
+                        mButton.text = getString(R.string.d_qszyrwxz)
+                    }
+                    "1" -> {
+                        mTextView_status.text = "自动作业中"
+                        mButton.text = getString(R.string.d_qszyrwxz)
+                    }
+                    "2" -> {
+                        mTextView_status.text = "手动驾驶中"
+                        mButton.text = getString(R.string.d_qszyrwxz)
+                    }
+                    else -> {
+                        mTextView_status.text = "在线待机"
+                        mButton.text = getString(R.string.d_qszyrwxz)
+                    }
+                }
             }
         }
+
+
+
+
+
 
         mTextView_dl.text = (mModelB.data_battery_remaining_capacity ?: "0") + "%"
         mTextView_js.text = (mModelB.data_water_level ?: "0") + "%"
@@ -130,7 +153,7 @@ class FrgDetailDj : BaseFrg() {
             mTextView_sf.text = if (mModelB.data_water_level.equals("0")) "ERROR" else "OK"
         }
         var data = ArrayList<String>()
-        data.add(getString(R.string.d_ymz) + mModelB.data_throttle_value)
+        data.add(getString(R.string.d_ymz) + (mModelB.data_throttle_value ?: "N/A"))
         data.add(getString(R.string.d_sczt) + getRightS(mModelB.data_brake_value))
         data.add(getString(R.string.d_sczt1) + getRightS(mModelB.data_manual_brake))
         data.add(getString(R.string.d_sszt) + getRightS(mModelB.data_brush_status))
@@ -171,11 +194,11 @@ class FrgDetailDj : BaseFrg() {
 
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryDeviceDetail")) {
-            var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
+            mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
             mModelB = mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()
             setData(mModelB)
         } else if (method.equals("createOrder")) {
-            mProgressBar.visibility = View.VISIBLE
+
         }
     }
 

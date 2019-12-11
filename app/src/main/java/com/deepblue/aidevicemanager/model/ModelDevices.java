@@ -78,6 +78,7 @@ public class ModelDevices implements Serializable {
         public String deviceName;
         public Object deviceMac;
         public String deviceProductionDate;
+        public String breakdown;
         public int deviceMerchantId;
         public String deviceMerchantName;
         public int deviceSeriesId;
@@ -87,6 +88,7 @@ public class ModelDevices implements Serializable {
         public Object deviceBatchNo;
         public Object deviceFloor;
         public String deviceStatus;
+        public String tbox;
         public String isDelete;
         public String createTime;
         public String createUser;
