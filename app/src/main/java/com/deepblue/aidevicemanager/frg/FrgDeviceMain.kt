@@ -102,7 +102,12 @@ class FrgDeviceMain : BaseFrg() {
             }
             AdaDeviceMainRight(context, data)
         }
-
+//        mAbPullListView.setApiLoadParams(
+//            "${baseUrl}device/queryCleanRobotDeviceListBySeries",
+//            "POST",
+//            this,
+//            mModellogin?.token, "deviceSeriesId", item.id.toInt()
+//        )
     }
 
     override fun onSuccess(data: String?, method: String) {
@@ -117,7 +122,6 @@ class FrgDeviceMain : BaseFrg() {
                     this,
                     mModellogin?.token, "deviceModelId", mModelModels_one.id.toInt()
                 )
-
             }
         }
     }

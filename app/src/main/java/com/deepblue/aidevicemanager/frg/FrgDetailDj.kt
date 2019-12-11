@@ -143,9 +143,9 @@ class FrgDetailDj : BaseFrg() {
 
 
 
+        if (mModelB.data_battery_remaining_capacity == null) mTextView_dl.text = "N/A" else  mTextView_dl.text = (mModelB.data_battery_remaining_capacity ?: "0") + "%"
+        if (mModelB.data_water_level == null) mTextView_js.text = "N/A" else    mTextView_js.text = (mModelB.data_water_level ?: "0") + "%"
 
-        mTextView_dl.text = (mModelB.data_battery_remaining_capacity ?: "0") + "%"
-        mTextView_js.text = (mModelB.data_water_level ?: "0") + "%"
         mTextView_fx.text = mModelB.data_gear
         if (TextUtils.isEmpty(mModelB.data_water_level)) {
             mTextView_sf.text = "N/A"

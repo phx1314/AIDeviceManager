@@ -118,7 +118,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="80%"
+                            android:text="N/A"
                             android:textColor="#000000"
                             android:textSize="30sp" />
 
@@ -156,7 +156,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="80%"
+                            android:text="N/A"
                             android:textColor="#000000"
                             android:textSize="30sp" />
 
@@ -298,7 +298,6 @@
                                 android:id="@+id/mTextView_sf"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="OK"
                                 android:textColor="@color/black"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
@@ -328,7 +327,7 @@
                     android:id="@+id/mProgressBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_margin="10dp"
                     android:visibility="gone" />
             </LinearLayout>
 

@@ -165,7 +165,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
             } else if (it.tbox?.equals("0") == true) {//离线
                 mImageView.setBackgroundResource(R.drawable.shape_grayk)
             } else {
-                mImageView.setBackgroundResource(R.drawable.shape_yuank)
+                mImageView.setBackgroundResource(R.drawable.shape_grayk)
             }
         } else if (it.deviceStatus?.equals("2") == true) {
             if (it.breakdown?.equals("1") == true) {//故障
@@ -187,10 +187,10 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
 
                 }
             } else {
-                mImageView.setBackgroundResource(R.drawable.shape_yuank)
+                mImageView.setBackgroundResource(R.drawable.shape_bluek)
             }
         } else {
-            mImageView.setBackgroundResource(R.drawable.shape_yuank)
+            mImageView.setBackgroundResource(R.drawable.shape_grayk)
         }
 
 
