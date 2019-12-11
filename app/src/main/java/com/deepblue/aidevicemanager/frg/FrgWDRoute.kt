@@ -64,13 +64,13 @@ class FrgWDRoute : BaseFrg() {
             polyLines.clear()
             polyLines.addAll(arguments.getParcelableArrayList<LatLng>("polylines")!!)
         }
-        if (bundle != null && arguments.getParcelableArrayList<LatLng>("edgePolyLines1") != null) {
+        if (bundle != null && arguments.getParcelableArrayList<LatLng>("edgePolylines1") != null) {
             edgePolyLines1.clear()
-            edgePolyLines1.addAll(arguments.getParcelableArrayList<LatLng>("edgePolyLines1")!!)
+            edgePolyLines1.addAll(arguments.getParcelableArrayList<LatLng>("edgePolylines1")!!)
         }
-        if (bundle != null && arguments.getParcelableArrayList<LatLng>("edgePolyLines2") != null) {
+        if (bundle != null && arguments.getParcelableArrayList<LatLng>("edgePolylines2") != null) {
             edgePolyLines2.clear()
-            edgePolyLines2.addAll(arguments.getParcelableArrayList<LatLng>("edgePolyLines2")!!)
+            edgePolyLines2.addAll(arguments.getParcelableArrayList<LatLng>("edgePolylines2")!!)
         }
         if (polyLines.size > 0) {
             drawPolyLine()
@@ -86,9 +86,9 @@ class FrgWDRoute : BaseFrg() {
                     F.mModelStatus?.mModelB = a.cleanKingLiveStatus
                     val mCleanPealPosition = Gson().fromJson(a.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
                     if (mWorkState == WORKING) {
-                        moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
+                        moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.longti, mCleanPealPosition.lati))
 //                        moveLooper2(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
-                        F.hasRunPosints.add(LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
+                        F.hasRunPosints.add(LatLng(mCleanPealPosition.longti, mCleanPealPosition.lati))
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

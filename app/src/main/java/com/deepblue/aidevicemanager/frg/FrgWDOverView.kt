@@ -66,13 +66,13 @@ class FrgWDOverView : BaseFrg() {
                     val a = Gson().fromJson(obj.toString(), ModelA::class.java)
                     F.mModelStatus?.mModelB = a.cleanKingLiveStatus
                     val mCleanPealPosition = Gson().fromJson(a.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
-                    val msu = MapStatusUpdateFactory.newLatLng(LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
+                    val msu = MapStatusUpdateFactory.newLatLng(LatLng(mCleanPealPosition.longti, mCleanPealPosition.lati))
                     mMap.setMapStatus(msu)
 
                     val locData = MyLocationData.Builder()
                         .accuracy(0F)
                         .direction(F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!)
-                        .latitude(mCleanPealPosition.lati).longitude(mCleanPealPosition.longti).build()
+                        .latitude(mCleanPealPosition.longti).longitude(mCleanPealPosition.lati).build()
                     mMap.setMyLocationData(locData)
                 } catch (e: Exception) {
                     e.printStackTrace()

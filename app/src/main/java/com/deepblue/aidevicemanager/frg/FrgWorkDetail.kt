@@ -98,7 +98,6 @@ class FrgWorkDetail : BaseFrg() {
         super.disposeMsg(type, obj)
         when (type) {
             1111 -> {
-//                Helper.toast("实时数据：${obj.toString()}")
                 try {
                     F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelA::class.java).cleanKingLiveStatus
                     if (isHeadInit()) mHead.setStatus(this.javaClass.simpleName)
@@ -143,13 +142,13 @@ class FrgWorkDetail : BaseFrg() {
                     edgePolylines1.clear()
                     edgePolylines2.clear()
                     routePresetYZ?.forEach {
-                        polylines.add(LatLng(it.point_x, it.point_y))
+                        polylines.add(LatLng(it.point_y, it.point_x))
                     }
                     routePresetLY1?.forEach {
-                        edgePolylines1.add(LatLng(it.point_x, it.point_y))
+                        edgePolylines1.add(LatLng(it.point_y, it.point_x))
                     }
                     routePresetLY2?.forEach {
-                        edgePolylines2.add(LatLng(it.point_x, it.point_y))
+                        edgePolylines2.add(LatLng(it.point_y, it.point_x))
                     }
                     initFragment()
                 } catch (e: java.lang.Exception) {
