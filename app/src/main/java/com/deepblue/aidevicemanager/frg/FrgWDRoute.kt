@@ -328,7 +328,7 @@ class FrgWDRoute : BaseFrg() {
                 level = i
             }
         }
-        return levelArr[level]
+        return levelArr[if (level == 0) 0 else level - 1]
     }
 
     override fun onResume() {
