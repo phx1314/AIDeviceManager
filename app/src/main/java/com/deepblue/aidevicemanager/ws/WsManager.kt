@@ -93,21 +93,22 @@ class WsManager constructor(builder: Builder) : WBImpl {
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
-            Frame.HANDLES.sentAll(1111, text)
+            if (!"连接成功".equals(text))
+                Frame.HANDLES.sentAll(1111, text)
             Log.e("websocket", "websocketString-----onMessage----$text")
         }
 
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-            Log.e("websocket", "服务器连接关闭中")
+            Log.e("websocket", "服务器连接关闭中  code:$code")
         }
 
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-            Log.e("websocket", "服务器连接已关闭")
+            Log.e("websocket", "服务器连接已关闭   code:$code")
         }
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             try {
-                Log.e("websocket", "服务器连接失败")
+                Log.e("websocket", "服务器连接失败_onFailure")
                 tryReconnect()
 //                Log.e("websocket retry", "[走的链接失败这里！！！！！！！！！！！！！！！！]")
 //                if (Looper.myLooper() != Looper.getMainLooper()) {
@@ -179,7 +180,7 @@ class WsManager constructor(builder: Builder) : WBImpl {
             val isClosed = mWebSocket!!.close(WsStatus.CODE.NORMAL_CLOSE, WsStatus.TIP.NORMAL_CLOSE)
             //非正常关闭连接
             if (!isClosed) {
-                Log.e("websocket", "服务器连接失败")
+                Log.e("websocket", "服务器连接失败_disconnect")
             }
         }
         setCurrentState(WsStatus.DISCONNECTED)
