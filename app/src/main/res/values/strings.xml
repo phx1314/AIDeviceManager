@@ -124,6 +124,7 @@
     <string name="ems_show">急停按钮按下</string>
     <string name="ems_showbtn1">停止</string>
     <string name="ems_showbtn2">取消</string>
+    <string name="socket_connected">连接成功</string>
     <string name="socket_disconnect">socket断开连接,即将返回设备列表</string>
     <string name="d_qd">启动</string>
     <string name="d_ts">提示</string>
