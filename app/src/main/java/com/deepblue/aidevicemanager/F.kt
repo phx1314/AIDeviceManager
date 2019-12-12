@@ -8,6 +8,8 @@ import android.net.wifi.WifiManager
 import android.preference.PreferenceManager
 import android.telephony.TelephonyManager
 import android.text.TextUtils
+import android.widget.ImageView
+import android.widget.TextView
 import cn.jpush.android.api.JPushInterface
 import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.frg.FrgLogin
@@ -229,6 +231,26 @@ object F {
             println(e.message)
         }
 
+    }
+
+    fun setViewValue(s: String?, any: Any) {
+        if (!TextUtils.isEmpty(s)) {
+            when {
+                any.javaClass.name == "android.support.v7.widget.AppCompatTextView" -> {
+                    (any as TextView).text = "s"
+                }
+                any.javaClass.name == "android.support.v7.widget.AppCompatImageView" -> {
+                    (any as ImageView).isSelected = (s == "1")
+                }
+                any.javaClass.name == "" -> {
+
+                }
+                any.javaClass.name == "" -> {
+
+                }
+            }
+
+        }
     }
 
 }

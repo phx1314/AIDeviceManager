@@ -79,8 +79,6 @@ class FrgWDRoute : BaseFrg() {
         when (type) {
             1111 -> {
                 try {
-                    val a = Gson().fromJson(obj.toString(), ModelA::class.java)
-                    F.mModelStatus?.mModelB = a.cleanKingLiveStatus
                     if (mWorkState == WORKING) {
                         val mA = LatLng(F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!, F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!)
                         moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], mA)

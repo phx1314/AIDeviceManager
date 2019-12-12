@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.F
+import com.deepblue.aidevicemanager.F.setViewValue
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.item.DialogSet
 import com.deepblue.aidevicemanager.model.*
@@ -102,22 +103,23 @@ class FrgWorkDetail : BaseFrg() {
         when (type) {
             1111 -> {
                 try {
-                    F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelA::class.java).cleanKingLiveStatus
+                    F.sendDb2a(F.mModelStatus?.mModelB, F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus)
                     mDialogSet.set(F.mModelStatus?.mModelB!!)
                     if (isHeadInit()) mHead.setStatus(this.javaClass.simpleName)
-                    iv_high_light.isSelected = F.mModelStatus?.mModelB?.data_high_beam_light.equals("1")
-                    iv_width_light.isSelected = F.mModelStatus?.mModelB?.data_width_light.equals("1")
-                    iv_left_light.isSelected = F.mModelStatus?.mModelB?.data_left_light.equals("1")
-                    iv_right_light.isSelected = F.mModelStatus?.mModelB?.data_right_light.equals("1")
-                    sweep_location.setChecked(F.mModelStatus?.mModelB?.data_brush_status.equals("1"))
-                    sweep_location.setOpenText(if (F.mModelStatus?.mModelB?.data_brush_position.equals("0")) "上位" else "下位")
-                    sweep_location.setCloseText(if (F.mModelStatus?.mModelB?.data_brush_position.equals("0")) "上位" else "下位")
-                    sweep_state.setChecked(F.mModelStatus?.mModelB?.data_brush_status.equals("1"))
-                    water_state.setChecked(F.mModelStatus?.mModelB?.data_spout_water.equals("1"))
-                    wind_state.setChecked(F.mModelStatus?.mModelB?.data_suction_status.equals("1"))
-                    wind_location.setChecked(F.mModelStatus?.mModelB?.data_suction_status.equals("1"))
-                    wind_location.setOpenText(if (F.mModelStatus?.mModelB?.data_suction_inlet_position.equals("0")) "上位" else "下位")
-                    wind_location.setCloseText(if (F.mModelStatus?.mModelB?.data_suction_inlet_position.equals("0")) "上位" else "下位")
+                    setViewValue(F.mModelStatus?.mModelB?.data_high_beam_light, iv_high_light)
+                    setViewValue(F.mModelStatus?.mModelB?.data_width_light, iv_width_light)
+                    setViewValue(F.mModelStatus?.mModelB?.data_left_light, iv_left_light)
+                    setViewValue(F.mModelStatus?.mModelB?.data_right_light, iv_right_light)
+
+                    sweep_location.setChecked((F.mModelStatus?.mModelB?.data_brush_status ?: "") == "1")
+                    sweep_location.setOpenText(if ((F.mModelStatus?.mModelB?.data_brush_position ?: "") == "0") "上位" else "下位")
+                    sweep_location.setCloseText(if ((F.mModelStatus?.mModelB?.data_brush_position ?: "") == "0") "上位" else "下位")
+                    sweep_state.setChecked((F.mModelStatus?.mModelB?.data_brush_status ?: "") == "1")
+                    water_state.setChecked((F.mModelStatus?.mModelB?.data_spout_water ?: "") == "1")
+                    wind_state.setChecked((F.mModelStatus?.mModelB?.data_suction_status ?: "") == "1")
+                    wind_location.setChecked((F.mModelStatus?.mModelB?.data_suction_status ?: "") == "1")
+                    wind_location.setOpenText(if ((F.mModelStatus?.mModelB?.data_suction_inlet_position ?: "") == "0") "上位" else "下位")
+                    wind_location.setCloseText(if ((F.mModelStatus?.mModelB?.data_suction_inlet_position ?: "") == "0") "上位" else "下位")
 
                 } catch (e: Exception) {
                     e.printStackTrace()

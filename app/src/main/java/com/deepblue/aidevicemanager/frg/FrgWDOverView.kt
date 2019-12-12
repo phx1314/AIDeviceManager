@@ -73,8 +73,6 @@ class FrgWDOverView : BaseFrg() {
         when (type) {
             1111 -> {
                 try {
-                    val a = Gson().fromJson(obj.toString(), ModelA::class.java)
-                    F.mModelStatus?.mModelB = a.cleanKingLiveStatus
                     val msu = MapStatusUpdateFactory.newLatLng(
                         LatLng(
                             F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!,
