@@ -55,12 +55,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:inputType="phone"
                         android:layout_weight="1"
                         android:background="@drawable/shape_logink"
                         android:drawablePadding="5dp"
                         android:gravity="center_vertical"
                         android:hint="@string/d_qsrsjh2"
+                        android:inputType="phone"
                         android:padding="8dp"
                         android:singleLine="true" />
 
@@ -123,17 +123,23 @@
                     android:textColor="#169BD5" />
 
                 <LinearLayout
-                    android:id="@+id/mLinearLayout_lg"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_blue"
                     android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/text_style_15_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="3" />
 
                     <TextView
                         android:id="@+id/mTextView"
                         style="@style/text_style_15_white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/shape_blue"
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="@string/d_login" />

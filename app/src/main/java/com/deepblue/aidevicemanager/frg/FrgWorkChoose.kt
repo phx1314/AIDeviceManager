@@ -26,12 +26,12 @@ var selectID = -1
 class FrgWorkChoose : BaseFrg() {
     var page = 1
     var size = Int.MAX_VALUE
-    var did = ""
     lateinit var mModelMapLj: ModelMapLj.RowsBean
     var mModelMapInfo: ModelMapInfo? = null
+    var mModelDeviceDetail: ModelDeviceDetail? = null
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_work_choose)
-        did = activity?.intent?.getStringExtra("did") ?: ""
+        mModelDeviceDetail = activity?.intent?.getSerializableExtra("mModelDeviceDetail") as ModelDeviceDetail
         selectID = -1
     }
 
@@ -82,7 +82,7 @@ class FrgWorkChoose : BaseFrg() {
         }
         mButton.setOnClickListener {
             load(
-                F.gB().queryMapGroupList(did, page.toString(), size.toString()),
+                F.gB().queryMapGroupList(mModelDeviceDetail?.id.toString(), page.toString(), size.toString()),
                 "queryMapGroupList"
             )
         }
@@ -94,8 +94,8 @@ class FrgWorkChoose : BaseFrg() {
                     context,
                     FrgWorkDetail::class.java,
                     TitleAct::class.java,
-                    "id",
-                    did,
+                    "mModelDeviceDetail",
+                    mModelDeviceDetail,
                     "from",
                     "1", "mapId",
                     selectID.toString(), "mapTaskName",
@@ -111,7 +111,7 @@ class FrgWorkChoose : BaseFrg() {
     }
 
     override fun loaddata() {
-        load(F.gB().queryMapGroupList(did, page.toString(), size.toString()), "queryMapGroupList")
+        load(F.gB().queryMapGroupList(mModelDeviceDetail?.id.toString(), page.toString(), size.toString()), "queryMapGroupList")
     }
 
     override fun onSuccess(data: String?, method: String) {
@@ -131,8 +131,9 @@ class FrgWorkChoose : BaseFrg() {
             mTextView_content.setText(
                 getString(R.string.d_zydd) + "${mModelMapInfo?.mapTaskAddress ?: ""}\n" + getString(R.string.d_zyrw) + "${mModelMapInfo?.mapTaskName
                     ?: ""}\n" + getString(R.string.d_zydt) + "${mModelMapInfo?.mapName
-                    ?: ""}\n" + getString(R.string.d_zyghlc) + "${mModelMapInfo?.mapTaskPathDistance
-                    ?: ""}\n" + getString(R.string.d_zyghmj) + "${mModelMapInfo?.mapTaskArea ?: ""}\n" + getString(R.string.d_yjzysj) + "${mModelMapInfo?.mapTaskEstimatedTime ?: ""}"
+                    ?: ""}\n" + getString(R.string.d_zyghlc) + "${com.mdx.framework.F.go2Wei(mModelMapInfo?.mapTaskPathDistance?.toDouble())
+                    ?: ""}公里\n" + getString(R.string.d_zyghmj) + "${com.mdx.framework.F.go2Wei(mModelMapInfo?.mapTaskArea?.toDouble())
+                    ?: ""}㎡\n" + getString(R.string.d_yjzysj) + "${com.mdx.framework.F.go2Wei(mModelMapInfo?.mapTaskEstimatedTime?.toDouble()) ?: ""}H"
             )
 
         }

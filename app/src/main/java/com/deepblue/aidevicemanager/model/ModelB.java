@@ -1,6 +1,8 @@
 package com.deepblue.aidevicemanager.model;
 
-public class ModelB {
+import java.io.Serializable;
+
+public class ModelB implements Serializable {
 
 
     /**

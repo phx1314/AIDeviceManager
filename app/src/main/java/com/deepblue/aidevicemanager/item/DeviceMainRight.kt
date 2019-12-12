@@ -86,7 +86,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
 
             } else if (mModelDeviceDetail?.deviceStatus?.equals("3") == true) {//离线待机
                 goDj(mModelDeviceDetail)
-            }else if (mModelDeviceDetail?.deviceStatus?.equals("0") == true) {//未激活
+            } else if (mModelDeviceDetail?.deviceStatus?.equals("0") == true) {//未激活
                 Helper.toast("未激活")
             }
 
@@ -100,8 +100,8 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
                 context,
                 FrgWorkDetail::class.java,
                 TitleAct::class.java,
-                "id",
-                item_son.id.toString(),
+                "mModelDeviceDetail",
+                mModelDeviceDetail,
                 "from",
                 "0",
                 "mapId",
@@ -178,7 +178,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
             }
         } else if (it?.deviceStatus?.equals("3") == true) {//离线待机
             mImageView.setBackgroundResource(R.drawable.shape_yellowk)
-        }else if (it?.deviceStatus?.equals("0") == true) {//未激活
+        } else if (it?.deviceStatus?.equals("0") == true) {//未激活
             mImageView.setBackgroundResource(R.drawable.shape_grayk)
         }
 

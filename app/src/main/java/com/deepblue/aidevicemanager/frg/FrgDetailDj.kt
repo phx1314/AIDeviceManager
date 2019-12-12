@@ -84,8 +84,8 @@ class FrgDetailDj : BaseFrg() {
                     context,
                     FrgWorkChoose::class.java,
                     TitleAct::class.java,
-                    "did",
-                    data.id.toString()
+                    "mModelDeviceDetail",
+                    mModelDeviceDetail
                 )
 //                }
 
@@ -102,7 +102,7 @@ class FrgDetailDj : BaseFrg() {
         mDialogSet.set(mModelB)
         mTextView_lng.text = "Lng: ${mModelB.data_longitude ?: "N/A"}"
         mTextView_lat.text = "Lng: ${mModelB.data_latitude ?: "N/A"}"
-        if (mModelB.data_velocity == null) mTextView_gl.text = "N/A" else mTextView_gl.text = mModelB.data_velocity + "m/s"
+        if (mModelB.data_velocity == null) mTextView_gl.text = "N/A" else mTextView_gl.text = com.mdx.framework.F.go2Wei(mModelB.data_velocity.toDouble()) + "m/s"
 
 
         if (mModelDeviceDetail?.deviceStatus?.equals("1") == true) {
