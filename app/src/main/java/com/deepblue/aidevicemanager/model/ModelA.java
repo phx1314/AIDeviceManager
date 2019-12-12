@@ -14,7 +14,6 @@ public class ModelA {
     public String pointYunPic;
     public String pointYunPicTh;
     public int deviceId;
-    public String cleanAppRealPosition;
     public ModelB cleanKingLiveStatus;
 
 }

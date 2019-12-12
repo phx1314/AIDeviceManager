@@ -12,6 +12,7 @@ import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelA
+import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelRoutePreset
 import com.deepblue.aidevicemanager.model.ModelRoutePreset_Inter
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
@@ -31,30 +32,31 @@ import kotlinx.android.synthetic.main.frg_workdetail.*
 import java.util.*
 
 class FrgWorkDetail : BaseFrg() {
+    companion object {
+        var mModelDeviceDetail: ModelDeviceDetail? = null
+        var polylines = ArrayList<LatLng>()
+        var edgePolylines1 = ArrayList<LatLng>()
+        var edgePolylines2 = ArrayList<LatLng>()
+    }
+
     private lateinit var fragments: HashMap<Int, Fragment>
     private var mWorkState = WORK_DEFAUT
     private var mTempWorkState = WORK_DEFAUT
 
-    private var mId: String? = ""
     private var mFrom: String? = ""
     private var mapId: String? = ""
     private var mapName: String? = ""
-
-    val bundle = Bundle()
-    val polylines = ArrayList<LatLng>()
-    val edgePolylines1 = ArrayList<LatLng>()
-    val edgePolylines2 = ArrayList<LatLng>()
 
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_workdetail)
     }
 
     override fun initView() {
-        mId = activity.intent.getStringExtra("id")
+        mModelDeviceDetail = activity.intent.getSerializableExtra("mModelDeviceDetail") as ModelDeviceDetail?
         mFrom = activity.intent.getStringExtra("from")
         mapId = activity.intent.getStringExtra("mapId")
         mapName = activity.intent.getStringExtra("mapTaskName")
-        if (TextUtils.isEmpty(mId) || TextUtils.isEmpty(mFrom) || TextUtils.isEmpty(mapId)) {
+        if (mModelDeviceDetail == null || mModelDeviceDetail?.id == 0 || TextUtils.isEmpty(mFrom) || TextUtils.isEmpty(mapId)) {
             Helper.toast(getString(R.string.dataerror_please_retry))
             finish()
         }
@@ -66,7 +68,7 @@ class FrgWorkDetail : BaseFrg() {
         edgePolylines1.clear()
         edgePolylines2.clear()
         F.hasRunPosints.clear()
-        load(F.gB().getDevicePresetPositions(mId, mapId), "getDevicePresetPositions", true)
+        load(F.gB().getDevicePresetPositions(mModelDeviceDetail?.id.toString(), mapId), "getDevicePresetPositions", true)
         when (mFrom) {//0列表  1地图选择
             "0" -> {
                 setWorkState(WORKING)
@@ -227,9 +229,6 @@ class FrgWorkDetail : BaseFrg() {
         val frgNew2 = getContainerFragment(frg1Old)
 
         if (frgNew1 != null && frgNew2 != null && frg1Old != null && frg2Old != null) {
-            frgNew1.arguments = bundle
-            frgNew2.arguments = bundle
-
             childFragmentManager.popBackStackImmediate(
                 null,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -278,37 +277,37 @@ class FrgWorkDetail : BaseFrg() {
     private fun doWorkState(indexWork: Int) {
         when (indexWork) {
             0 -> {
-                load(F.gB(60).autoWork(mId, mapName), "autoWork")
+                load(F.gB(60).autoWork(mModelDeviceDetail?.id.toString(), mapName), "autoWork")
             }
             1 -> {
-                load(F.gB(60).createOrder("7", mId!!), "createOrder_stop")
+                load(F.gB(60).createOrder("7", mModelDeviceDetail?.id.toString()), "createOrder_stop")
             }
             2 -> {
                 AlertDialog.Builder(context).setTitle(R.string.NOTICE)
                     .setMessage(R.string.EMG_NOTICE)
                     .setPositiveButton(R.string.ems_showbtn1) { _: DialogInterface, _: Int ->
                         run {
-                            load(F.gB(60).createOrder("5", mId!!), "createOrder_end")
+                            load(F.gB(60).createOrder("5", mModelDeviceDetail?.id.toString()), "createOrder_end")
                         }
                     }
                     .setNegativeButton(R.string.ems_showbtn2, null)
                     .show()
             }
             3 -> {
-                load(F.gB(60).createOrder("8", mId!!), "createOrder_continue")
+                load(F.gB(60).createOrder("8", mModelDeviceDetail?.id.toString()), "createOrder_continue")
             }
             4 -> {
                 mTempWorkState = mWorkState
-                load(F.gB(60).createOrder("13", mId!!), "createOrder_emg")
+                load(F.gB(60).createOrder("13", mModelDeviceDetail?.id.toString()), "createOrder_emg")
             }
             5 -> {
                 F
                 when (mTempWorkState) {
                     WORKING -> {
-                        load(F.gB(60).createOrder("8", mId!!), "createOrder_continue_emg")
+                        load(F.gB(60).createOrder("8", mModelDeviceDetail?.id.toString()), "createOrder_continue_emg")
                     }
                     WORK_STOP -> {
-                        load(F.gB(60).createOrder("7", mId!!), "createOrder_stop_emg")
+                        load(F.gB(60).createOrder("7", mModelDeviceDetail?.id.toString()), "createOrder_stop_emg")
                     }
                     WORK_WAITSTART -> {
                         setWorkState(WORK_WAITSTART)
@@ -359,13 +358,6 @@ class FrgWorkDetail : BaseFrg() {
     private fun initFragment() {
         if (polylines.size > 0) {
             F.hasRunPosints.add(polylines[0])
-            bundle.putParcelableArrayList("polylines", polylines)
-        }
-        if (edgePolylines1.size > 0) {
-            bundle.putParcelableArrayList("edgePolylines1", edgePolylines1)
-        }
-        if (edgePolylines2.size > 0) {
-            bundle.putParcelableArrayList("edgePolylines2", edgePolylines2)
         }
         fragments = hashMapOf(
             PAGE_DIANYUN to FrgWDLaser(),
@@ -373,7 +365,6 @@ class FrgWorkDetail : BaseFrg() {
             PAGE_OVERVIEW to FrgWDOverView(),
             PAGE_ROUTE to FrgWDRoute()
         )
-        fragments[PAGE_ROUTE]?.arguments = bundle
         childFragmentManager.beginTransaction()
             .add(R.id.ll_lefttop, fragments[PAGE_DIANYUN], PAGE_DIANYUN.toString())
             .add(R.id.ll_leftcenter, fragments[PAGE_VEDIO], PAGE_VEDIO.toString())

@@ -8,12 +8,12 @@ import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelA
-import com.deepblue.aidevicemanager.model.ModelB_CleanPealPosition
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frg_wd_overview.*
 
 class FrgWDOverView : BaseFrg() {
     private val mMap by lazy { baidumap_overview.map }
+    private var locData: MyLocationData? = null
 //    private val mBitmapCompass by lazy {
 //        BitmapFactory.decodeResource(
 //            context?.resources,
@@ -28,8 +28,18 @@ class FrgWDOverView : BaseFrg() {
     override fun initView() {
         iv_overview_zoom.setOnClickListener(this)
         val builder = MapStatus.Builder()
-        builder.zoom(15.0f).target(LatLng(31.219703, 121.391131)).overlook(-10F)
+        builder.zoom(15.0f).target(
+            LatLng(
+                FrgWorkDetail.mModelDeviceDetail?.cleanKingLiveStatus?.data_latitude?.toDouble() ?: 31.219703,
+                FrgWorkDetail.mModelDeviceDetail?.cleanKingLiveStatus?.data_longitude?.toDouble() ?: 121.391131
+            )
+        ).overlook(-10F)
         mMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
+        locData = MyLocationData.Builder()
+            .accuracy(0F)
+            .latitude(FrgWorkDetail.mModelDeviceDetail?.cleanKingLiveStatus?.data_latitude?.toDouble() ?: 31.219703)
+            .longitude(FrgWorkDetail.mModelDeviceDetail?.cleanKingLiveStatus?.data_longitude?.toDouble() ?: 121.391131).build()
+        mMap.setMyLocationData(locData)
 
         mMap.mapType = BaiduMap.MAP_TYPE_NORMAL //地图普通
 //        mMap.isTrafficEnabled = true  //交通
@@ -65,14 +75,18 @@ class FrgWDOverView : BaseFrg() {
                 try {
                     val a = Gson().fromJson(obj.toString(), ModelA::class.java)
                     F.mModelStatus?.mModelB = a.cleanKingLiveStatus
-                    val mCleanPealPosition = Gson().fromJson(a.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
-                    val msu = MapStatusUpdateFactory.newLatLng(LatLng(mCleanPealPosition.longti, mCleanPealPosition.lati))
+                    val msu = MapStatusUpdateFactory.newLatLng(
+                        LatLng(
+                            F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!,
+                            F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!
+                        )
+                    )
                     mMap.setMapStatus(msu)
 
-                    val locData = MyLocationData.Builder()
-                        .accuracy(0F)
+                    locData = MyLocationData.Builder()
                         .direction(F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!)
-                        .latitude(mCleanPealPosition.longti).longitude(mCleanPealPosition.lati).build()
+                        .latitude(F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!)
+                        .longitude(F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!).build()
                     mMap.setMyLocationData(locData)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -82,18 +96,19 @@ class FrgWDOverView : BaseFrg() {
     }
 
     override fun onResume() {
-        super.onResume()
         baidumap_overview?.onResume()
+        super.onResume()
     }
 
     override fun onPause() {
-        super.onPause()
         baidumap_overview?.onPause()
+        super.onPause()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        mMap?.isMyLocationEnabled = false
         mMap?.clear()
         baidumap_overview?.onDestroy()
+        super.onDestroy()
     }
 }

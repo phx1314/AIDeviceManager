@@ -9,11 +9,9 @@ import com.baidu.mapapi.utils.DistanceUtil
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelA
-import com.deepblue.aidevicemanager.model.ModelB_CleanPealPosition
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.frg_wd_overview.*
 import kotlinx.android.synthetic.main.frg_wd_route.*
 
 
@@ -59,18 +57,17 @@ class FrgWDRoute : BaseFrg() {
     }
 
     override fun loaddata() {
-        val bundle = arguments
-        if (bundle != null && arguments.getParcelableArrayList<LatLng>("polylines") != null) {
+        if (FrgWorkDetail.polylines.size > 0) {
             polyLines.clear()
-            polyLines.addAll(arguments.getParcelableArrayList<LatLng>("polylines")!!)
+            polyLines.addAll(FrgWorkDetail.polylines)
         }
-        if (bundle != null && arguments.getParcelableArrayList<LatLng>("edgePolylines1") != null) {
+        if (FrgWorkDetail.edgePolylines1.size > 0) {
             edgePolyLines1.clear()
-            edgePolyLines1.addAll(arguments.getParcelableArrayList<LatLng>("edgePolylines1")!!)
+            edgePolyLines1.addAll(FrgWorkDetail.edgePolylines1)
         }
-        if (bundle != null && arguments.getParcelableArrayList<LatLng>("edgePolylines2") != null) {
+        if (FrgWorkDetail.edgePolylines2.size > 0) {
             edgePolyLines2.clear()
-            edgePolyLines2.addAll(arguments.getParcelableArrayList<LatLng>("edgePolylines2")!!)
+            edgePolyLines2.addAll(FrgWorkDetail.edgePolylines2)
         }
         if (polyLines.size > 1 && edgePolyLines1.size > 1 && edgePolyLines2.size > 1) {
             drawPolyLine()
@@ -84,11 +81,11 @@ class FrgWDRoute : BaseFrg() {
                 try {
                     val a = Gson().fromJson(obj.toString(), ModelA::class.java)
                     F.mModelStatus?.mModelB = a.cleanKingLiveStatus
-                    val mCleanPealPosition = Gson().fromJson(a.cleanAppRealPosition, ModelB_CleanPealPosition::class.java)
                     if (mWorkState == WORKING) {
-                        moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.longti, mCleanPealPosition.lati))
-//                        moveLooper2(F.hasRunPosints[F.hasRunPosints.size - 1], LatLng(mCleanPealPosition.lati, mCleanPealPosition.longti))
-                        F.hasRunPosints.add(LatLng(mCleanPealPosition.longti, mCleanPealPosition.lati))
+                        val mA = LatLng(F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!, F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!)
+                        moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], mA)
+//                        moveLooper2(F.hasRunPosints[F.hasRunPosints.size - 1], mA)
+                        F.hasRunPosints.add(mA)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
