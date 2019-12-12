@@ -58,6 +58,7 @@ class FrgMain : BaseFrg() {
 
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_main)
+
     }
 
     override fun disposeMsg(type: Int, obj: Any?) {
