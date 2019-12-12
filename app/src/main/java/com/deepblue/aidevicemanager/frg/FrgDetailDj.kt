@@ -28,7 +28,6 @@ import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_detail_dj.*
 
 class FrgDetailDj : BaseFrg() {
-    lateinit var mModelB: ModelB
     var mModelDeviceDetail: ModelDeviceDetail? = null
     lateinit var data: ModelDevices.RowsBean
     lateinit var mDialogSet: DialogSet
@@ -43,8 +42,8 @@ class FrgDetailDj : BaseFrg() {
             1111 -> { //ws
                 try {
                     F.mModelStatus?.mModelB = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus
-                    mModelB = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus ?: ModelB()
-                    setData(mModelB)
+                    mModelDeviceDetail?.cleanKingLiveStatus = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus ?: ModelB()
+                    setData((mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()))
                     if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
                 } catch (e: Exception) {
 
@@ -101,7 +100,7 @@ class FrgDetailDj : BaseFrg() {
     fun setData(mModelB: ModelB) {
         mDialogSet.set(mModelB)
         mTextView_lng.text = "Lng: ${mModelB.data_longitude ?: "N/A"}"
-        mTextView_lat.text = "Lng: ${mModelB.data_latitude ?: "N/A"}"
+        mTextView_lat.text = "lat: ${mModelB.data_latitude ?: "N/A"}"
         if (mModelB.data_velocity == null) mTextView_gl.text = "N/A" else mTextView_gl.text = com.mdx.framework.F.go2Wei(mModelB.data_velocity.toDouble()) + "m/s"
 
 
@@ -145,10 +144,13 @@ class FrgDetailDj : BaseFrg() {
         if (mModelB.data_water_level == null) mTextView_js.text = "N/A" else mTextView_js.text = (mModelB.data_water_level ?: "0") + "%"
 
         mTextView_fx.text = mModelB.data_gear
-        if (TextUtils.isEmpty(mModelB.data_water_level)) {
+        if (TextUtils.isEmpty(mModelB.data_software_status)) {
             mTextView_sf.text = "N/A"
+            mImageView_sfgz.setImageResource(R.drawable.u1291)
         } else {
-            mTextView_sf.text = if (mModelB.data_water_level.equals("0")) "ERROR" else "OK"
+            mTextView_sf.text = if (mModelB.data_software_status.equals("0")) "ERROR" else "OK"
+
+            mImageView_sfgz.setImageResource(if (mModelB.data_software_status.equals("0")) R.drawable.u12944 else R.drawable.u1291)
         }
         var data = ArrayList<String>()
         data.add(getString(R.string.d_ymz) + (mModelB.data_throttle_value ?: "N/A"))
@@ -183,18 +185,24 @@ class FrgDetailDj : BaseFrg() {
         } else {
             mImageView_r.setImageResource(R.drawable.right_light_dark)
         }
-        if (mModelB?.data_low_beam_light?.equals("1") == true) {
-            mImageView_j.setImageResource(R.drawable.j_s)
+        if (mModelDeviceDetail?.breakdown?.equals("1") == true) {
+            mImageView_gz.setImageResource(R.drawable.u1275_s)
         } else {
-            mImageView_j.setImageResource(R.drawable.j)
+            mImageView_gz.setImageResource(R.drawable.u1275)
         }
+
+
+//        if (mModelB?.data_low_beam_light?.equals("1") == true) {
+//            mImageView_j.setImageResource(R.drawable.j_s)
+//        } else {
+//            mImageView_j.setImageResource(R.drawable.j)
+//        }
     }
 
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryDeviceDetail")) {
             mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
-            mModelB = mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()
-            setData(mModelB)
+            setData((mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()))
         } else if (method.equals("createOrder")) {
 
         }
