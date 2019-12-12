@@ -105,7 +105,8 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
                 "from",
                 "0",
                 "mapId",
-                mModelDeviceDetail?.mapId
+                mModelDeviceDetail?.mapId, "data",
+                item_son
             )
         } else {
             Helper.toast(context.getString(R.string.d_id_null))

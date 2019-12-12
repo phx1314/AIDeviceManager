@@ -22,9 +22,11 @@ import com.mdx.framework.adapter.MAdapter;
 import java.util.List;
 
 public class AdaCarSetSon extends MAdapter<ModelCarSet> {
+    String from;
 
-    public AdaCarSetSon(Context context, List<ModelCarSet> list) {
+    public AdaCarSetSon(Context context, List<ModelCarSet> list, String from) {
         super(context, list);
+        this.from = from;
     }
 
 
@@ -35,7 +37,7 @@ public class AdaCarSetSon extends MAdapter<ModelCarSet> {
             convertView = new CarSetSon(getContext());
         }
         CarSetSon mDetailTwo = (CarSetSon) convertView;
-        mDetailTwo.set(item);
+        mDetailTwo.set(item, from);
 
         return convertView;
     }

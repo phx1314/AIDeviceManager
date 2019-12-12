@@ -55,7 +55,7 @@ class CarSetSon(context: Context?) : LinearLayout(context), CompoundButton.OnChe
     }
 
 
-    fun set(item: ModelCarSet) {
+    fun set(item: ModelCarSet, from: String) {
         this.item = item
         if (item.paramShowName.equals(resources.getString(R.string.d_dsqd))) {
             mLinearLayout_1.visibility = View.GONE
@@ -66,12 +66,16 @@ class CarSetSon(context: Context?) : LinearLayout(context), CompoundButton.OnChe
             mCheckBox.setOnCheckedChangeListener(null)
             mCheckBox.isChecked = mModelTime?.type == 1
             mCheckBox.setOnCheckedChangeListener(this)
+
+            if (from.equals("FrgWorkDetail")) mCheckBox.isEnabled = false
+            if (from.equals("FrgWorkDetail")) mTextView_3.isEnabled = false
         } else {
             mLinearLayout_1.visibility = View.VISIBLE
             mLinearLayout_2.visibility = View.GONE
             mTextView_name.text = item.paramShowName
             mTextView_dw.text = item.paramUnit
             mEditText_1.setText(item.rpParamValue)
+            if (from.equals("FrgWorkDetail")) mEditText_1.isEnabled = false
         }
     }
 

@@ -11,6 +11,7 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaWorkChoose
@@ -29,9 +30,11 @@ class FrgWorkChoose : BaseFrg() {
     lateinit var mModelMapLj: ModelMapLj.RowsBean
     var mModelMapInfo: ModelMapInfo? = null
     var mModelDeviceDetail: ModelDeviceDetail? = null
+    lateinit var data: ModelDevices.RowsBean
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_work_choose)
         mModelDeviceDetail = activity?.intent?.getSerializableExtra("mModelDeviceDetail") as ModelDeviceDetail
+        data = activity?.intent?.getSerializableExtra("data") as ModelDevices.RowsBean
         selectID = -1
     }
 
@@ -52,7 +55,7 @@ class FrgWorkChoose : BaseFrg() {
             }
             1111 -> { //ws
                 try {
-                    F.mModelStatus?.mModelB =  F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus
+                    F.mModelStatus?.mModelB = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus
                     mModelDeviceDetail?.cleanKingLiveStatus = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus ?: ModelB()
                     if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
                 } catch (e: Exception) {
@@ -100,7 +103,7 @@ class FrgWorkChoose : BaseFrg() {
                     "from",
                     "1", "mapId",
                     selectID.toString(), "mapTaskName",
-                    mModelMapInfo?.mapTaskName
+                    mModelMapInfo?.mapTaskName, "data", data
                 )
             }
         }
@@ -140,4 +143,8 @@ class FrgWorkChoose : BaseFrg() {
         }
     }
 
+    override fun setActionBar(actionBar: LinearLayout?) {
+        super.setActionBar(actionBar)
+        mHead.setShowPop(mDialogSet)
+    }
 }

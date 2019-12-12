@@ -22,6 +22,7 @@ import okhttp3.OkHttpClient
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+
 object F {
     var checked = "-1"
     var wsManager: WsManager? = null
@@ -176,4 +177,45 @@ object F {
         }
         wsManager?.startConnect()
     }
+
+//    /**
+//     * 用来遍历对象属性和属性值
+//     */
+//    fun readClassAttr(tb: Any) {
+//        val map = HashMap()
+//        val list = ArrayList()
+//        var str = ""
+//        try {
+//            val fields = tb.javaClass.declaredFields
+//            println(fields.size)
+//            for (field in fields) {
+//                field.isAccessible = true
+//                if (!field.name.equals("sign") && !TextUtils.isEmpty(field.get(tb).toString())) {
+//                    map.put(field.name, if (TextUtils.isEmpty(field.get(tb).toString())) "" else field.get(tb).toString())
+//                    list.add(field.name)
+//                }
+//            }
+//            if (tb.javaClass.superclass != null && (tb.javaClass.superclass.getSimpleName() == "BeanBase" || tb.javaClass.superclass.getSimpleName() == "BeanListBase")) {
+//                val fields_father = tb.javaClass.superclass.getDeclaredFields()
+//                for (field in fields_father) {
+//                    field.isAccessible = true
+//                    if (!field.name.equals("sign") && !TextUtils.isEmpty(field.get(tb).toString())) {
+//                        map.put(field.name, if (TextUtils.isEmpty(field.get(tb).toString())) "" else field.get(tb).toString())
+//                        list.add(field.name)
+//                    }
+//                }
+//            }
+//            Collections.sort(list, String.CASE_INSENSITIVE_ORDER)
+//            for (key in list) {
+//                str += key + "=" + map.get(key) + "&"
+//            }
+//            str += "key=XiaoFeiJinRong6a6a877f144a05934"
+//            Log.i("sign=", str)
+//            return AbMd5.md5(str)
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//    }
+
+
 }

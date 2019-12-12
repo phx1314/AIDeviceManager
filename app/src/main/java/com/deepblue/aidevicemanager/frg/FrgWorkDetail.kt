@@ -8,13 +8,12 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.text.TextUtils
 import android.view.View
+import android.widget.LinearLayout
 import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.model.ModelA
-import com.deepblue.aidevicemanager.model.ModelDeviceDetail
-import com.deepblue.aidevicemanager.model.ModelRoutePreset
-import com.deepblue.aidevicemanager.model.ModelRoutePreset_Inter
+import com.deepblue.aidevicemanager.item.DialogSet
+import com.deepblue.aidevicemanager.model.*
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_SHUTSTOP
@@ -46,9 +45,11 @@ class FrgWorkDetail : BaseFrg() {
     private var mFrom: String? = ""
     private var mapId: String? = ""
     private var mapName: String? = ""
-
+    lateinit var data: ModelDevices.RowsBean
+    lateinit var mDialogSet: DialogSet
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_workdetail)
+        data = activity?.intent?.getSerializableExtra("data") as ModelDevices.RowsBean
     }
 
     override fun initView() {
@@ -102,6 +103,7 @@ class FrgWorkDetail : BaseFrg() {
             1111 -> {
                 try {
                     F.mModelStatus?.mModelB = Gson().fromJson(obj.toString(), ModelA::class.java).cleanKingLiveStatus
+                    mDialogSet.set(F.mModelStatus?.mModelB!!)
                     if (isHeadInit()) mHead.setStatus(this.javaClass.simpleName)
                     iv_high_light.isSelected = F.mModelStatus?.mModelB?.data_high_beam_light.equals("1")
                     iv_width_light.isSelected = F.mModelStatus?.mModelB?.data_width_light.equals("1")
@@ -378,5 +380,11 @@ class FrgWorkDetail : BaseFrg() {
         if (mFrom.equals("0"))
             F.stopConnectWSocket()
         super.onDestroy()
+    }
+
+    override fun setActionBar(actionBar: LinearLayout?) {
+        super.setActionBar(actionBar)
+        mDialogSet = DialogSet(context, data, "FrgWorkDetail")
+        mHead.setShowPop(mDialogSet)
     }
 }

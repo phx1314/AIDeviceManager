@@ -27,7 +27,7 @@ import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.item_dialog_set.view.*
 
 
-class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean) : BaseItem(context) {
+class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean, from: String = "") : BaseItem(context) {
     var mModelCarSets_new = ArrayList<ModelCarSet>()
     var mDc: Dc
     var mCgqManage: CgqManage
@@ -108,8 +108,8 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean) : BaseItem(
             0 -> {
                 var data = ArrayList<Any>()
                 mModelCarSets_new.forEach {
-                    if(TextUtils.isEmpty(it.rpParamValue)){
-                        Helper.toast(it.paramShowName+context.getString(R.string.d_bnwk))
+                    if (TextUtils.isEmpty(it.rpParamValue)) {
+                        Helper.toast(it.paramShowName + context.getString(R.string.d_bnwk))
                         return@forEach
                     }
                     if (TextUtils.isEmpty(it.rpParamMin)) {

@@ -21,7 +21,7 @@ import com.mdx.framework.Frame
 import kotlinx.android.synthetic.main.frg_car_set.view.*
 
 
-class CarSet(context: Context?) : BaseItem(context) {
+class CarSet(context: Context?, var from: String = "") : BaseItem(context) {
     lateinit var item: ArrayList<ModelCarSet>
 
     init {
@@ -29,7 +29,8 @@ class CarSet(context: Context?) : BaseItem(context) {
         flater.inflate(R.layout.frg_car_set, this)
 
         mTextView_update4.setOnClickListener {
-            Frame.HANDLES.sentAll("DialogSet", 0, "")
+            if (!from.equals("FrgWorkDetail"))
+                Frame.HANDLES.sentAll("DialogSet", 0, "")
         }
         mTextView_update5.setOnClickListener {
             Frame.HANDLES.sentAll("DialogSet", 1, "")
@@ -39,6 +40,6 @@ class CarSet(context: Context?) : BaseItem(context) {
 
     fun set(item: ArrayList<ModelCarSet>) {
         this.item = item
-        mListView.adapter = AdaCarSetSon(context, item)
+        mListView.adapter = AdaCarSetSon(context, item, from)
     }
 }

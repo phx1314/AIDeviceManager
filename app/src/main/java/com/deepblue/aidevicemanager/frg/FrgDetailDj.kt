@@ -27,10 +27,12 @@ import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_detail_dj.*
 
+lateinit var mDialogSet: DialogSet
+
 class FrgDetailDj : BaseFrg() {
     var mModelDeviceDetail: ModelDeviceDetail? = null
     lateinit var data: ModelDevices.RowsBean
-    lateinit var mDialogSet: DialogSet
+
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_detail_dj)
         data = activity?.intent?.getSerializableExtra("data") as ModelDevices.RowsBean
@@ -46,7 +48,6 @@ class FrgDetailDj : BaseFrg() {
                     setData((mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()))
                     if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
                 } catch (e: Exception) {
-
                     e.printStackTrace()
                 }
             }
@@ -84,7 +85,7 @@ class FrgDetailDj : BaseFrg() {
                     FrgWorkChoose::class.java,
                     TitleAct::class.java,
                     "mModelDeviceDetail",
-                    mModelDeviceDetail
+                    mModelDeviceDetail, "data", data
                 )
 //                }
 
@@ -135,10 +136,6 @@ class FrgDetailDj : BaseFrg() {
             mTextView_status.text = "未激活"
             mButton.visibility = View.GONE
         }
-
-
-
-
 
         if (mModelB.data_battery_remaining_capacity == null) mTextView_dl.text = "N/A" else mTextView_dl.text = (mModelB.data_battery_remaining_capacity ?: "0") + "%"
         if (mModelB.data_water_level == null) mTextView_js.text = "N/A" else mTextView_js.text = (mModelB.data_water_level ?: "0") + "%"
