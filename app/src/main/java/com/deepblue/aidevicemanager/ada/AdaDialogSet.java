@@ -11,13 +11,14 @@
 
 package com.deepblue.aidevicemanager.ada;
 
-import java.util.List;
-import com.mdx.framework.adapter.MAdapter;
 import android.content.Context;
-import android.view.ViewGroup;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.deepblue.aidevicemanager.item.DialogSet;
+import com.mdx.framework.adapter.MAdapter;
+
+import java.util.List;
 
 public class AdaDialogSet extends MAdapter<String>{
 
@@ -33,7 +34,7 @@ public class AdaDialogSet extends MAdapter<String>{
 //            convertView =new DialogSet (getContext() );
         }
         DialogSet mDialogSet=(DialogSet) convertView ;
-        mDialogSet.set(item);
+//        mDialogSet.set(item);
         return convertView;
     }
 }

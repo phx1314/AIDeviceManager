@@ -55,8 +55,8 @@ class FrgWorkChoose : BaseFrg() {
             }
             1111 -> { //ws
                 try {
-                    F.mModelStatus?.mModelB = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus
-                    mModelDeviceDetail?.cleanKingLiveStatus = F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus ?: ModelB()
+                    F.sendDb2a(F.mModelStatus?.mModelB, F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus)
+                    F.sendDb2a(mModelDeviceDetail?.cleanKingLiveStatus, F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus)
                     if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
                 } catch (e: Exception) {
                     e.printStackTrace()

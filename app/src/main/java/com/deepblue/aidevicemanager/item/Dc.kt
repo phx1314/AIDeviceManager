@@ -26,7 +26,7 @@ import com.mdx.framework.Frame
 import kotlinx.android.synthetic.main.frg_dc.view.*
 
 
-class Dc(context: Context?, from: String = "") : LinearLayout(context) {
+class Dc(context: Context?, var from: String = "") : LinearLayout(context) {
     var fromUser_ddlbj: Boolean = false
     var fromUser_yzddlbj: Boolean = false
     lateinit var it_ddlbj: ModelCarSet
@@ -35,8 +35,8 @@ class Dc(context: Context?, from: String = "") : LinearLayout(context) {
     init {
         val flater = LayoutInflater.from(context)
         flater.inflate(R.layout.frg_dc, this)
-        setSeekBarClickable(0,mSeekBar_yzddlbj)
-        setSeekBarClickable(0,mSeekBar_ddlbj)
+        setSeekBarClickable(0, mSeekBar_yzddlbj)
+        setSeekBarClickable(0, mSeekBar_ddlbj)
     }
 
 
@@ -48,7 +48,7 @@ class Dc(context: Context?, from: String = "") : LinearLayout(context) {
         mTextView_dliang.text = item.data_battery_remaining_capacity ?: "N/A"
         mTextView_dcrl.text = item.data_battery_capacity ?: "N/A"
 //        mTextView_xhcsh.text = item.batteryCycle ?: "N/A"
-//        mTextView_dccode.text = item.batterySeriesNumber ?: "N/A"
+        mTextView_dccode.text = item.batterySeriesNumber ?: "N/A"
     }
 
     fun set(it: ModelCarSet) {
@@ -59,58 +59,61 @@ class Dc(context: Context?, from: String = "") : LinearLayout(context) {
             pzSeek(it, mSeekBar_ddlbj, mTextView_ddlwaring)
             this.it_ddlbj = it
         }
-        setSeekBarClickable(1,mSeekBar_yzddlbj)
-        setSeekBarClickable(1,mSeekBar_ddlbj)
-        mSeekBar_ddlbj.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                fromUser_ddlbj = fromUser
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                if (fromUser_ddlbj) {
-                    var sum = (seekBar?.progress ?: 0) + it_ddlbj.rpParamMin.toInt()
-                    it_ddlbj.rpParamValue = sum.toString()
-                    var data = ArrayList<Any>()
-                    data.add(
-                        BeanParam2(
-                            it_ddlbj.rpParamId.toString(),
-                            it_ddlbj.rpParamValue,
-                            it_ddlbj.rpParamMin,
-                            it_ddlbj.rpParamMax
-                        )
-                    )
-                    Frame.HANDLES.sentAll("DialogSet", 2, Gson().toJson(data))
+        if (!from.equals("FrgWorkDetail")) {
+            setSeekBarClickable(1, mSeekBar_yzddlbj)
+            setSeekBarClickable(1, mSeekBar_ddlbj)
+            mSeekBar_ddlbj.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                    fromUser_ddlbj = fromUser
                 }
-            }
-        })
-        mSeekBar_yzddlbj.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                fromUser_yzddlbj = fromUser
-            }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                if (fromUser_yzddlbj) {
-                    it_yzddlbj.rpParamValue =
-                        ((seekBar?.progress ?: 0) + it_yzddlbj.rpParamMin.toInt()).toString()
-                    var data = ArrayList<Any>()
-                    data.add(
-                        BeanParam2(
-                            it_yzddlbj.rpParamId.toString(),
-                            it_yzddlbj.rpParamValue,
-                            it_yzddlbj.rpParamMin,
-                            it_yzddlbj.rpParamMax
-                        )
-                    )
-                    Frame.HANDLES.sentAll("DialogSet", 2, Gson().toJson(data))
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
                 }
-            }
-        })
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    if (fromUser_ddlbj) {
+                        var sum = (seekBar?.progress ?: 0) + it_ddlbj.rpParamMin.toInt()
+                        it_ddlbj.rpParamValue = sum.toString()
+                        var data = ArrayList<Any>()
+                        data.add(
+                            BeanParam2(
+                                it_ddlbj.rpParamId.toString(),
+                                it_ddlbj.rpParamValue,
+                                it_ddlbj.rpParamMin,
+                                it_ddlbj.rpParamMax
+                            )
+                        )
+                        Frame.HANDLES.sentAll("DialogSet", 2, Gson().toJson(data))
+                    }
+                }
+            })
+            mSeekBar_yzddlbj.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                    fromUser_yzddlbj = fromUser
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    if (fromUser_yzddlbj) {
+                        it_yzddlbj.rpParamValue =
+                            ((seekBar?.progress ?: 0) + it_yzddlbj.rpParamMin.toInt()).toString()
+                        var data = ArrayList<Any>()
+                        data.add(
+                            BeanParam2(
+                                it_yzddlbj.rpParamId.toString(),
+                                it_yzddlbj.rpParamValue,
+                                it_yzddlbj.rpParamMin,
+                                it_yzddlbj.rpParamMax
+                            )
+                        )
+                        Frame.HANDLES.sentAll("DialogSet", 2, Gson().toJson(data))
+                    }
+                }
+            })
+        }
+
     }
 
     fun pzSeek(it: ModelCarSet, mSeekBar: SeekBar, mTextView: TextView) {

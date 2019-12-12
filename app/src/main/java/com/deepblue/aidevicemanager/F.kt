@@ -7,9 +7,11 @@ import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.preference.PreferenceManager
 import android.telephony.TelephonyManager
+import android.text.TextUtils
 import cn.jpush.android.api.JPushInterface
 import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.frg.FrgLogin
+import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelLogin
 import com.deepblue.aidevicemanager.model.ModelStatus
 import com.deepblue.aidevicemanager.service.ApiService
@@ -19,6 +21,7 @@ import com.mdx.framework.Frame
 import com.mdx.framework.activity.IndexAct
 import com.mdx.framework.util.Helper
 import okhttp3.OkHttpClient
+import org.json.JSONObject
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -178,44 +181,54 @@ object F {
         wsManager?.startConnect()
     }
 
-//    /**
-//     * 用来遍历对象属性和属性值
-//     */
-//    fun readClassAttr(tb: Any) {
-//        val map = HashMap()
-//        val list = ArrayList()
-//        var str = ""
-//        try {
-//            val fields = tb.javaClass.declaredFields
-//            println(fields.size)
-//            for (field in fields) {
-//                field.isAccessible = true
-//                if (!field.name.equals("sign") && !TextUtils.isEmpty(field.get(tb).toString())) {
-//                    map.put(field.name, if (TextUtils.isEmpty(field.get(tb).toString())) "" else field.get(tb).toString())
-//                    list.add(field.name)
-//                }
-//            }
-//            if (tb.javaClass.superclass != null && (tb.javaClass.superclass.getSimpleName() == "BeanBase" || tb.javaClass.superclass.getSimpleName() == "BeanListBase")) {
-//                val fields_father = tb.javaClass.superclass.getDeclaredFields()
-//                for (field in fields_father) {
-//                    field.isAccessible = true
-//                    if (!field.name.equals("sign") && !TextUtils.isEmpty(field.get(tb).toString())) {
-//                        map.put(field.name, if (TextUtils.isEmpty(field.get(tb).toString())) "" else field.get(tb).toString())
-//                        list.add(field.name)
-//                    }
-//                }
-//            }
-//            Collections.sort(list, String.CASE_INSENSITIVE_ORDER)
-//            for (key in list) {
-//                str += key + "=" + map.get(key) + "&"
-//            }
-//            str += "key=XiaoFeiJinRong6a6a877f144a05934"
-//            Log.i("sign=", str)
-//            return AbMd5.md5(str)
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-//    }
+    /**
+     * 用来遍历对象属性和属性值
+     */
+    fun sendDb2a(a: ModelB?, b: ModelB?) {
+        try {
+            if (a == null) return
+            val fields_a = a?.javaClass?.declaredFields
+            val jsonObject = JSONObject(Gson().toJson(b))
+            for (i in fields_a.indices) {
+                fields_a[i].setAccessible(true)
+                if (!TextUtils.isEmpty(jsonObject.optString(fields_a[i].name))) {
+                    fields_a[i].set(a, jsonObject.optString(fields_a[i].name))
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 
+    /* 根据属性名获取属性值
+        * */
+    fun getFieldValueByName(fieldName: String, o: Any): Any? {
+        try {
+            val firstLetter = fieldName.substring(0, 1).toUpperCase()
+            val getter = "get" + firstLetter + fieldName.substring(1)
+            val method = o.javaClass.getMethod(getter, *arrayOf())
+            return method.invoke(o, arrayOf<Any>())
+        } catch (e: Exception) {
+
+            return null
+        }
+
+    }
+
+    fun setFieldValueByName(obj: Any, fieldName: String, value: Any) {
+        try {
+            // 获取obj类的字节文件对象
+            val c = obj.javaClass
+            // 获取该类的成员变量
+            val f = c.getDeclaredField(fieldName)
+            // 取消语言访问检查
+            f.isAccessible = true
+            // 给变量赋值
+            f.set(obj, value)
+        } catch (e: Exception) {
+            println(e.message)
+        }
+
+    }
 
 }

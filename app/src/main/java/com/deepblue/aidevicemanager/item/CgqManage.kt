@@ -52,7 +52,7 @@ class CgqManage(context: Context?) : LinearLayout(context) {
         mTextViewc7.text = getRightS(item.data_ultrasonic_wave7_status)
         mTextViewc8.text = getRightS(item.data_ultrasonic_wave8_status)
         mTextView_zed.text = item.data_zed_status ?: "N/A"
-//        mTextView_imu.text = item.data_imustatus ?: "N/A"
+        mTextView_imu.text = item.iMUStatus ?: "N/A"
     }
 
 

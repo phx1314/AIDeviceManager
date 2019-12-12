@@ -37,7 +37,7 @@ class FrgMain : BaseFrg() {
 
     override fun initView() {
         checked = "-1"
-        groupString = arrayOf<String>(
+        groupString = arrayOf(
             getString(R.string.d_user),
             getString(R.string.d_xxzc),
             getString(R.string.d_help),
@@ -46,9 +46,9 @@ class FrgMain : BaseFrg() {
             getString(R.string.d_about),
             getString(R.string.d_logout)
         )
-        childString = arrayOf<Array<String>>(
-            arrayOf<String>(getString(R.string.d_xxgg), getString(R.string.d_mmgg)),
-            arrayOf<String>(
+        childString = arrayOf(
+            arrayOf(getString(R.string.d_xxgg), getString(R.string.d_mmgg)),
+            arrayOf(
                 getString(R.string.d_task_xx),
                 getString(R.string.d_waring_xx),
                 getString(R.string.d_broken_xx)
@@ -58,7 +58,6 @@ class FrgMain : BaseFrg() {
 
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_main)
-
     }
 
     override fun disposeMsg(type: Int, obj: Any?) {
@@ -69,7 +68,7 @@ class FrgMain : BaseFrg() {
 //                mExpandableListView.animation = AnimationUtils.makeOutAnimation(context, false)
                 checked = "-1"
                 (mExpandableListView.expandableListAdapter as ExpandableListviewAdapter).notifyDataSetChanged()
-                chageFrgment( FrgMainSon())
+                chageFrgment(FrgMainSon())
             }
             1 -> {
                 mTextView_name.text = F.mModellogin?.user?.name
@@ -108,7 +107,7 @@ class FrgMain : BaseFrg() {
         mTextView_gs.text = F.mModellogin?.merchant?.name + " >"
         mTextView_name.text = F.mModellogin?.user?.name
 //        mMGridView.adapter = AdaMain(context, List<ModelMain>(5) { ModelMain() })
-        chageFrgment( FrgMainSon())
+        chageFrgment(FrgMainSon())
         mExpandableListView.setGroupIndicator(null);
         mExpandableListView.setAdapter(ExpandableListviewAdapter(context, groupString, childString))
         mExpandableListView.setOnGroupClickListener { _, _, groupPosition, _ ->
@@ -119,7 +118,7 @@ class FrgMain : BaseFrg() {
                 5 -> chageWebFrgment(F.baseUrl + "about.html")
                 6 -> F.logOut(context, false)
             }
-             checked = groupPosition.toString()
+            checked = groupPosition.toString()
             false
         }
         mExpandableListView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
@@ -181,9 +180,9 @@ class FrgMain : BaseFrg() {
         var mFrgXx = FrgXx()
         val bundle = Bundle()
         bundle.putInt("type", type)
-        bundle.putInt("count1", mModelTaskXx?.noReadCount?.toInt()?:0)
-        bundle.putInt("count2", mModelWaringXx?.noReadCount?.toInt()?:0)
-        bundle.putInt("count3", mModelBrokenXx?.noReadCount?.toInt()?:0)
+        bundle.putInt("count1", mModelTaskXx?.noReadCount?.toInt() ?: 0)
+        bundle.putInt("count2", mModelWaringXx?.noReadCount?.toInt() ?: 0)
+        bundle.putInt("count3", mModelBrokenXx?.noReadCount?.toInt() ?: 0)
         mFrgXx.arguments = bundle
         chageFrgment(mFrgXx)
     }
