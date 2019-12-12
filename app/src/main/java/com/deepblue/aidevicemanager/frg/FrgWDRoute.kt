@@ -28,10 +28,10 @@ class FrgWDRoute : BaseFrg() {
     private val mBitmapStart = BitmapDescriptorFactory.fromResource(R.drawable.startpoint)
     private val mBitmapEnd = BitmapDescriptorFactory.fromResource(R.drawable.endpoint)
     private val DISTANCE = 0.00002  //默认间隔移动距离
-    private val mEdgePolylineWith = 3  //路线宽度
+    private val mEdgePolylineWith = 11  //路沿宽度
     private val mPolylineWith = 8  //路线宽度
     private val mHasRunPolylineWith = 7    //已行驶路线宽度
-    private val mEdgePolylineColor = Color.GRAY   //路沿颜色
+    private val mEdgePolylineColor = Color.RED   //路沿颜色
     private val mPolylineColor = Color.BLUE  //路线颜色
     private val mHasRunPolylineColor = Color.YELLOW //已行驶路线颜色
     private val WSDuringTime: Long = 1000
@@ -72,7 +72,7 @@ class FrgWDRoute : BaseFrg() {
             edgePolyLines2.clear()
             edgePolyLines2.addAll(arguments.getParcelableArrayList<LatLng>("edgePolylines2")!!)
         }
-        if (polyLines.size > 0) {
+        if (polyLines.size > 1 && edgePolyLines1.size > 1 && edgePolyLines2.size > 1) {
             drawPolyLine()
         }
     }
