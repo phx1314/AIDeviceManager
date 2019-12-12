@@ -114,7 +114,7 @@ interface ApiService {
 
     @POST("task/autoWork")
     @FormUrlEncoded
-    fun autoWork(@Field("deviceId") deviceId: String?, @Field("mapTaskName") mapTaskName: String?): Observable<HttpResult<Any>>
+    fun autoWork(@Field("deviceId") deviceId: String?, @Field("mapTaskName") mapTaskName: String?, @Field("mapId") mapId: String?): Observable<HttpResult<Any>>
 
     @POST("user/validCode")
     @FormUrlEncoded

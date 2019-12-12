@@ -279,7 +279,7 @@ class FrgWorkDetail : BaseFrg() {
     private fun doWorkState(indexWork: Int) {
         when (indexWork) {
             0 -> {
-                load(F.gB(60).autoWork(mModelDeviceDetail?.id.toString(), mapName), "autoWork")
+                load(F.gB(60).autoWork(mModelDeviceDetail?.id.toString(), mapName, mapId), "autoWork")
             }
             1 -> {
                 load(F.gB(60).createOrder("7", mModelDeviceDetail?.id.toString()), "createOrder_stop")
@@ -357,6 +357,12 @@ class FrgWorkDetail : BaseFrg() {
         }
     }
 
+    override fun setActionBar(actionBar: LinearLayout?) {
+        super.setActionBar(actionBar)
+        mDialogSet = DialogSet(context, data, "FrgWorkDetail")
+        mHead.setShowPop(mDialogSet)
+    }
+
     private fun initFragment() {
         if (polylines.size > 0) {
             F.hasRunPosints.add(polylines[0])
@@ -382,9 +388,4 @@ class FrgWorkDetail : BaseFrg() {
         super.onDestroy()
     }
 
-    override fun setActionBar(actionBar: LinearLayout?) {
-        super.setActionBar(actionBar)
-        mDialogSet = DialogSet(context, data, "FrgWorkDetail")
-        mHead.setShowPop(mDialogSet)
-    }
 }
