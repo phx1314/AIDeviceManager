@@ -110,7 +110,7 @@ class WsManager constructor(builder: Builder) : WBImpl {
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             try {
-                Log.e("websocket", "服务器连接失败_onFailure")
+                Log.e("websocket", "服务器连接失败_onFailure  error:$t")
                 tryReconnect()
 //                Log.e("websocket retry", "[走的链接失败这里！！！！！！！！！！！！！！！！]")
 //                if (Looper.myLooper() != Looper.getMainLooper()) {

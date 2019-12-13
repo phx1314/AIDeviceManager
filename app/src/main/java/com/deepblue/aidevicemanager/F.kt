@@ -39,7 +39,7 @@ object F {
 //    var baseIP = "192.168.16.91:8081"//开发
 
     val baseUrl = "http://$baseIP/robotos/cleanApp/"
-    val wsBaseUrl = "ws://$baseIP//websocket/cleanApp/"
+    val wsBaseUrl = "ws://$baseIP/websocket/cleanApp/"
     fun gB(TIME: Long = 30) =
         com.mdx.framework.service.gB(ApiService::class.java, baseUrl, mModellogin?.token, TIME)
 
@@ -167,7 +167,7 @@ object F {
 //                .wsUrl("ws://192.168.123.209:8081/websocket/wwwggg")
                 .client(
                     OkHttpClient().newBuilder()
-                        .pingInterval(5, TimeUnit.SECONDS)
+//                        .pingInterval(5, TimeUnit.SECONDS)
                         .readTimeout(5, TimeUnit.SECONDS)//设置读取超时时间
                         .writeTimeout(5, TimeUnit.SECONDS)//设置写的超时时间
                         .connectTimeout(5, TimeUnit.SECONDS)//设置连接超时时间
