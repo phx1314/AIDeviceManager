@@ -115,7 +115,7 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
     /**
      * 总条数.
      */
-    private int mTotalItemCount;
+    private int mpublicItemCount;
 
     /**
      * The m scroll back.
@@ -416,7 +416,7 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
                 mLastY = ev.getRawY();
                 if (mEnablePullRefresh && getFirstVisiblePosition() == 0 && (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
                     updateHeaderHeight(deltaY / OFFSET_RADIO);
-                } else if (mEnablePullLoad && !mPullLoading && getLastVisiblePosition() == mTotalItemCount - 1 && deltaY < 0) {
+                } else if (mEnablePullLoad && !mPullLoading && getLastVisiblePosition() == mpublicItemCount - 1 && deltaY < 0) {
                     startLoadMore();
                 }
                 break;
@@ -494,7 +494,7 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
             mMAdapter = mListViewListener.onSuccess(methodName, mJSONObject.optString("data"));
             if (mMAdapter != null) {
                 try {
-                    if (new JSONObject(mJSONObject.optString("data")).optInt("pageNum") == new JSONObject(mJSONObject.optString("data")).optInt("pages")) {
+                    if (new JSONObject(mJSONObject.optString("data")).optInt("pageNum") >= new JSONObject(mJSONObject.optString("data")).optInt("pages")||(gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
                         setPullLoadEnable(false);
                     }
                 }catch (Exception e){
@@ -619,8 +619,8 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
      * 描述：TODO
      */
     @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        mTotalItemCount = totalItemCount;
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int publicItemCount) {
+        mpublicItemCount = publicItemCount;
     }
 
     /**
