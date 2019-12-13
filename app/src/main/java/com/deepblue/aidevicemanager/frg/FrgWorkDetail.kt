@@ -37,10 +37,10 @@ class FrgWorkDetail : BaseFrg() {
         var polylines = ArrayList<LatLng>()
         var edgePolylines1 = ArrayList<LatLng>()
         var edgePolylines2 = ArrayList<LatLng>()
+        var mWorkState = WORK_DEFAUT
     }
 
     private lateinit var fragments: HashMap<Int, Fragment>
-    private var mWorkState = WORK_DEFAUT
     private var mTempWorkState = WORK_DEFAUT
 
     private var mFrom: String? = ""
@@ -265,7 +265,7 @@ class FrgWorkDetail : BaseFrg() {
     private fun initListener() {
         iv_leftbottom_switch.setOnClickListener(this)
         iv_lefttop_switch.setOnClickListener(this)
-        iv_leftcenter_switch.setOnClickListener(this)
+//        iv_leftcenter_switch.setOnClickListener(this)
         btn_startwork.setOnClickListener(this)
         btn_stopwork.setOnClickListener(this)
         btn_continuework.setOnClickListener(this)
