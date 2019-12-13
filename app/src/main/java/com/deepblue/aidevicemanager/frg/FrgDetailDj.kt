@@ -207,7 +207,7 @@ class FrgDetailDj : BaseFrg() {
 
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
-        mHead.setTitle(data.deviceCode)
+        mHead.setTitle(data.deviceName)
 
         mDialogSet = DialogSet(context, data)
         mHead.setShowPop(mDialogSet)

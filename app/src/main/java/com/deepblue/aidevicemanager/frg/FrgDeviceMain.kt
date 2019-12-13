@@ -132,6 +132,6 @@ class FrgDeviceMain : BaseFrg() {
 
     override fun onResume() {
         super.onResume()
-        mAbPullListView?.reLoad()
+        mAbPullListView?.pullLoad()
     }
 }

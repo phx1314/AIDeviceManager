@@ -107,8 +107,6 @@
                     style="@style/text_style_15_white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/u1956"
-                    android:drawablePadding="10dp"
                     android:gravity="right|center_vertical"
                     android:paddingLeft="20dp" />
 

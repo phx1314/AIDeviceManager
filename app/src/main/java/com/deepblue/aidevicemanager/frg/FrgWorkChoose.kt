@@ -146,5 +146,6 @@ class FrgWorkChoose : BaseFrg() {
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
         mHead.setShowPop(mDialogSet)
+        mHead.setTitle(data.deviceName)
     }
 }

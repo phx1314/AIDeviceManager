@@ -16,15 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deepblue.aidevicemanager.item.CgqManageSon;
-import com.deepblue.aidevicemanager.model.ModelGb;
 import com.mdx.framework.adapter.MAdapter;
 
 import java.util.List;
 
-public class AdaCgqManageSon extends MAdapter<ModelGb> {
+public class AdaCgqManageSon extends MAdapter<Character> {
     public String start = "";
 
-    public AdaCgqManageSon(Context context, List<ModelGb> list, String start) {
+    public AdaCgqManageSon(Context context, List<Character> list, String start) {
         super(context, list);
         this.start = start;
     }
@@ -32,12 +31,12 @@ public class AdaCgqManageSon extends MAdapter<ModelGb> {
 
     @Override
     public View getview(int position, View convertView, ViewGroup parent) {
-        ModelGb item = get(position);
+        Character item = get(position);
         if (convertView == null) {
             convertView = new CgqManageSon(getContext());
         }
         CgqManageSon mCgqManageSon = (CgqManageSon) convertView;
-        mCgqManageSon.set(item, start);
+        mCgqManageSon.set(item, start,position);
         return convertView;
     }
 }

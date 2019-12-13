@@ -15,7 +15,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.model.ModelGb
 import kotlinx.android.synthetic.main.item_cgq_manage_son2.view.*
 
 
@@ -25,9 +24,9 @@ class CgqManageSon2(context: Context?) : LinearLayout(context) {
         flater.inflate(R.layout.item_cgq_manage_son2, this)
     }
 
-    fun set(item: ModelGb, start: String) {
-        mTextView_key.text = start + item.key
-        mTextView_value.text = item.value.toString()
+    fun set(item: Character, start: String, position: Int) {
+        mTextView_key.text = start + (position+1)
+        mTextView_value.text = getRightS(item.toString())
     }
 
 

@@ -398,6 +398,7 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
         }
     }
 
+
     /**
      * 描述：onTouchEvent
      */
@@ -416,7 +417,7 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
                 mLastY = ev.getRawY();
                 if (mEnablePullRefresh && getFirstVisiblePosition() == 0 && (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
                     updateHeaderHeight(deltaY / OFFSET_RADIO);
-                } else if (mEnablePullLoad && !mPullLoading && getLastVisiblePosition() == mpublicItemCount - 1 && deltaY < 0) {
+                } else if (mEnablePullLoad && !mPullLoading && getLastVisiblePosition() == mpublicItemCount - 1 && deltaY < 0 && !mPullRefreshing) {
                     startLoadMore();
                 }
                 break;
@@ -429,8 +430,6 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
                         mHeaderView.setState(AbListViewHeader.STATE_REFRESHING);
                         if (mListViewListener != null) {
                             reLoad();
-                            //刷新
-//                            mListViewListener.onRefresh();
                         }
                         if (mAbOnListListener != null) {
                             mAbOnListListener.onRefresh();
@@ -487,31 +486,29 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
                 }
                 return;
             }
-            stopAll();
-            PageIndex++;
             MAdapter mMAdapter = null;
             AbLogUtil.d(mJSONObject.optString("data"));
             mMAdapter = mListViewListener.onSuccess(methodName, mJSONObject.optString("data"));
             if (mMAdapter != null) {
                 try {
-                    if (new JSONObject(mJSONObject.optString("data")).optInt("pageNum") >= new JSONObject(mJSONObject.optString("data")).optInt("pages")||(gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
+                    if (new JSONObject(mJSONObject.optString("data")).optInt("pageNum") >= new JSONObject(mJSONObject.optString("data")).optInt("pages") || (gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
                         setPullLoadEnable(false);
                     }
-                }catch (Exception e){
+                    if (mAdapter == null || isRefreash) {
+                        mAdapter = mMAdapter;
+                        setAdapter(mAdapter);
+                    } else {
+                        mAdapter.AddAll(mMAdapter);
+                    }
+                } catch (Exception e) {
                     if ((gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
                         setPullLoadEnable(false);
                     }
                 }
 
-
-//        stopLoadMore();
-                if (mAdapter == null || isRefreash) {
-                    mAdapter = mMAdapter;
-                    setAdapter(mAdapter);
-                } else {
-                    mAdapter.AddAll(mMAdapter);
-                }
             }
+            PageIndex++;
+            stopAll();
         } catch (JSONException e) {
             e.printStackTrace();
         }
