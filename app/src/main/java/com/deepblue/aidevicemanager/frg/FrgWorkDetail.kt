@@ -37,10 +37,10 @@ class FrgWorkDetail : BaseFrg() {
         var polylines = ArrayList<LatLng>()
         var edgePolylines1 = ArrayList<LatLng>()
         var edgePolylines2 = ArrayList<LatLng>()
+        var mWorkState = WORK_DEFAUT
     }
 
     private lateinit var fragments: HashMap<Int, Fragment>
-    private var mWorkState = WORK_DEFAUT
     private var mTempWorkState = WORK_DEFAUT
 
     private var mFrom: String? = ""
