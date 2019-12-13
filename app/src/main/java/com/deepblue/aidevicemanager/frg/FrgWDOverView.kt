@@ -75,16 +75,15 @@ class FrgWDOverView : BaseFrg() {
                 try {
                     val msu = MapStatusUpdateFactory.newLatLng(
                         LatLng(
-                            F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!,
-                            F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!
+                            F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!,
+                            F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!
                         )
                     )
                     mMap.setMapStatus(msu)
-
                     locData = MyLocationData.Builder()
                         .direction(F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!)
-                        .latitude(F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!)
-                        .longitude(F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!).build()
+                        .latitude(F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!)
+                        .longitude(F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!).build()
                     mMap.setMyLocationData(locData)
                 } catch (e: Exception) {
                     e.printStackTrace()
