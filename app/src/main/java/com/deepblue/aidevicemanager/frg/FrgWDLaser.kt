@@ -6,6 +6,8 @@ import com.deepblue.aidevicemanager.model.ModelA
 import com.deepblue.aidevicemanager.util.GlideLoader
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frg_wd_laser.*
+import java.lang.Exception
+import kotlin.concurrent.thread
 
 class FrgWDLaser : BaseFrg() {
     override fun create(var1: Bundle?) {
@@ -13,7 +15,6 @@ class FrgWDLaser : BaseFrg() {
     }
 
     override fun initView() {
-        iv_wd_laser.setImageResource(R.mipmap.picloading)
     }
 
     override fun loaddata() {
@@ -26,7 +27,7 @@ class FrgWDLaser : BaseFrg() {
 //                Helper.toast("实时数据：${obj.toString()}")
                 try {
                     val a = Gson().fromJson(obj.toString(), ModelA::class.java)
-                    GlideLoader.loadImage_error(a.pointYunPic, iv_wd_laser, R.mipmap.picloading, R.mipmap.picerror)
+                    GlideLoader.loadImage_error(a.pointYunPic, iv_wd_laser)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

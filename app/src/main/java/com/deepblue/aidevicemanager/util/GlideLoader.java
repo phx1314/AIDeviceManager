@@ -16,7 +16,8 @@ public class GlideLoader {
                 .fallback(i).into(img);
     }
 
-    public static void loadImage_error(String url, ImageView img, int iWait, int iError) {
-        Glide.with(Frame.CONTEXT).load(url).dontAnimate().into(img);
+    public static void loadImage_error(String url, ImageView img) {
+        Glide.with(Frame.CONTEXT).load(url).error(img.getDrawable()) //异常时候显示的图片
+                .placeholder(img.getDrawable()).into(img);
     }
 }

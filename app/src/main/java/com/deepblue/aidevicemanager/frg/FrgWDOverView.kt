@@ -81,7 +81,8 @@ class FrgWDOverView : BaseFrg() {
                     )
                     mMap.setMapStatus(msu)
                     locData = MyLocationData.Builder()
-                        .direction(F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!)
+                        .direction(if (F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! > 0) F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!
+                        else F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! + 360)
                         .latitude(F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!)
                         .longitude(F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!).build()
                     mMap.setMyLocationData(locData)
