@@ -94,7 +94,7 @@ class WsManager constructor(builder: Builder) : WBImpl {
 
         override fun onMessage(webSocket: WebSocket, text: String) {
             if (!mContext?.getString(R.string.socket_connected).equals(text))
-                Frame.HANDLES.sentAll(1111, text)
+                Frame.HANDLES.sentAll(1111, text.replace("\\n", ""))
             Log.e("websocket", "websocketString-----onMessage----$text")
         }
 
