@@ -16,6 +16,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaCarSetSon
+import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelCarSet
 import com.mdx.framework.Frame
 import kotlinx.android.synthetic.main.frg_car_set.view.*
@@ -41,5 +42,11 @@ class CarSet(context: Context?, var from: String = "") : BaseItem(context) {
     fun set(item: ArrayList<ModelCarSet>) {
         this.item = item
         mListView.adapter = AdaCarSetSon(context, item, from)
+    }
+
+    fun set(mModelB: ModelB) {
+        mTextView_1.text = mModelB.data_vcu_version ?: "N/A"
+        mTextView_2.text = mModelB.data_algorithm_version ?: "N/A"
+        mTextView_3.text = mModelB.data_software_version ?: "N/A"
     }
 }

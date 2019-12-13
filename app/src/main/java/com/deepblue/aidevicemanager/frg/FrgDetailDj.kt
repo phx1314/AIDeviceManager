@@ -114,7 +114,7 @@ class FrgDetailDj : BaseFrg() {
                 mTextView_status.text = getString(R.string.d_gz)
             } else if (mModelDeviceDetail?.breakdown?.equals("0") == true) {
                 mButton.text = getString(R.string.d_qszyrwxz)
-                when (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status) {
+                when (mModelDeviceDetail?.cleanKingLiveStatus?.data_sweeper_state) {
                     "0" -> {
                         mTextView_status.text = getString(R.string.d_zxdj)
                     }

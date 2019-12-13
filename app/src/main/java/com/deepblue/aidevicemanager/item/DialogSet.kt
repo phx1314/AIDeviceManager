@@ -44,9 +44,9 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean, from: Strin
     init {
         val flater = LayoutInflater.from(context)
         flater.inflate(R.layout.item_dialog_set, this)
-        mDc = Dc(context,from)
+        mDc = Dc(context, from)
         mCgqManage = CgqManage(context)
-        mCarSet = CarSet(context,from)
+        mCarSet = CarSet(context, from)
         mImageButton_dc.setOnClickListener {
             mLinearLayout_content_son.removeAllViewsInLayout()
             mLinearLayout_content_son.addView(mDc)
@@ -72,6 +72,7 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean, from: Strin
     fun set(mModelB: ModelB) {
         mDc.set(mModelB)
         mCgqManage.set(mModelB)
+        mCarSet.set(mModelB)
     }
 
     override fun onSuccess(data: String?, method: String) {

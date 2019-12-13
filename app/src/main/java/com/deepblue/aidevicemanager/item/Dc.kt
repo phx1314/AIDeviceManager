@@ -48,7 +48,7 @@ class Dc(context: Context?, var from: String = "") : LinearLayout(context) {
         mTextView_dliang.text = item.data_battery_remaining_capacity ?: "N/A"
         mTextView_dcrl.text = item.data_battery_capacity ?: "N/A"
 //        mTextView_xhcsh.text = item.batteryCycle ?: "N/A"
-        mTextView_dccode.text = item.batterySeriesNumber ?: "N/A"
+        mTextView_dccode.text = item.BatterySeriesNumber ?: "N/A"
     }
 
     fun set(it: ModelCarSet) {

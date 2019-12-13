@@ -68,7 +68,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
                 if (mModelDeviceDetail?.breakdown?.equals("1") == true) {//故障
                     goDj(mModelDeviceDetail)
                 } else if (mModelDeviceDetail?.breakdown?.equals("0") == true) {
-                    when (mModelDeviceDetail?.cleanKingLiveStatus?.data_system_status) {
+                    when (mModelDeviceDetail?.cleanKingLiveStatus?.data_sweeper_state) {
 //                        "0", "2" -> {
 //                            goDj(mModelDeviceDetail)
 //                        }

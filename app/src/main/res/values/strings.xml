@@ -37,7 +37,7 @@
     <string name="d_carset" translatable="false">车辆设置</string>
     <string name="d_cardata" translatable="false">车辆数据</string>
     <string name="d_sysdata" translatable="false">同步数据</string>
-    <string name="d_jcgx" translatable="false">检查更新</string>
+    <string name="d_jcgx" translatable="false">刷新</string>
     <string name="d_cgqgl" translatable="false">传感器管理</string>
     <string name="d_jgld1" translatable="false">激光雷达1</string>
     <string name="d_jgld2" translatable="false">激光雷达2</string>
