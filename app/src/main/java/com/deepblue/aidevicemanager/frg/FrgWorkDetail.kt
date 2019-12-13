@@ -265,7 +265,7 @@ class FrgWorkDetail : BaseFrg() {
     private fun initListener() {
         iv_leftbottom_switch.setOnClickListener(this)
         iv_lefttop_switch.setOnClickListener(this)
-        iv_leftcenter_switch.setOnClickListener(this)
+//        iv_leftcenter_switch.setOnClickListener(this)
         btn_startwork.setOnClickListener(this)
         btn_stopwork.setOnClickListener(this)
         btn_continuework.setOnClickListener(this)
