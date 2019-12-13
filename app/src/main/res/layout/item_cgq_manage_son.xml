@@ -15,20 +15,19 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/mTextView_key"
             style="@style/text_style_15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/d_dy" />
+            android:gravity="center" />
 
         <TextView
-            android:id="@+id/mTextView"
+            android:id="@+id/mTextView_value"
             style="@style/text_style_15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="N/A"
             android:textStyle="bold" />
 
     </LinearLayout>

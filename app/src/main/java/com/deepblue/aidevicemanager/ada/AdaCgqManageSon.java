@@ -11,31 +11,33 @@
 
 package com.deepblue.aidevicemanager.ada;
 
-import java.util.List;
-
-import com.mdx.framework.adapter.MAdapter;
-
 import android.content.Context;
-import android.view.ViewGroup;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.deepblue.aidevicemanager.item.CgqManageSon;
+import com.deepblue.aidevicemanager.model.ModelGb;
+import com.mdx.framework.adapter.MAdapter;
 
-public class AdaCgqManageSon extends MAdapter<String> {
+import java.util.List;
 
-    public AdaCgqManageSon(Context context, List<String> list) {
+public class AdaCgqManageSon extends MAdapter<ModelGb> {
+    public String start = "";
+
+    public AdaCgqManageSon(Context context, List<ModelGb> list, String start) {
         super(context, list);
+        this.start = start;
     }
 
 
     @Override
     public View getview(int position, View convertView, ViewGroup parent) {
-        String item = get(position);
+        ModelGb item = get(position);
         if (convertView == null) {
             convertView = new CgqManageSon(getContext());
         }
         CgqManageSon mCgqManageSon = (CgqManageSon) convertView;
-        mCgqManageSon.set(item);
+        mCgqManageSon.set(item, start);
         return convertView;
     }
 }

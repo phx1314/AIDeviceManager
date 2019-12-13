@@ -35,13 +35,14 @@
                 android:verticalSpacing="10dp" />
 
             <ImageView
+                android:id="@+id/mImageView1"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="10dp"
                 android:background="@color/tyD1" />
 
             <com.mdx.framework.view.MListView
-                android:id="@+id/mMListView"
+                android:id="@+id/mMListView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cacheColorHint="#00000000"
@@ -49,6 +50,7 @@
                 android:listSelector="#00000000" />
 
             <ImageView
+                android:id="@+id/mImageView2"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/tyD1" />
@@ -65,6 +67,7 @@
 
 
             <ImageView
+                android:id="@+id/mImageView3"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="10dp"
@@ -78,44 +81,12 @@
                 android:divider="@null"
                 android:listSelector="#00000000" />
 
+
             <ImageView
+                android:id="@+id/mImageView4"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginTop="10dp"
                 android:background="@color/tyD1" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    style="@style/text_style_15_white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="7"
-                    android:paddingLeft="20dp"
-                    android:text="@string/d_zedxj" />
-
-
-                <TextView
-                    android:id="@+id/mTextView_zed"
-                    style="@style/text_style_15_white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="N/A"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/tyD1"
-                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"

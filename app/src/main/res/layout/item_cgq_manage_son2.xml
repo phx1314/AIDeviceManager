@@ -16,16 +16,16 @@
         android:padding="12dp">
 
         <TextView
+            android:id="@+id/mTextView_key"
             style="@style/text_style_15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="7"
-            android:paddingLeft="20dp"
-            android:text="@string/d_hmldb1" />
+            android:paddingLeft="20dp" />
 
 
         <TextView
-            android:id="@+id/mTextViewl1"
+            android:id="@+id/mTextView_value"
             style="@style/text_style_15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

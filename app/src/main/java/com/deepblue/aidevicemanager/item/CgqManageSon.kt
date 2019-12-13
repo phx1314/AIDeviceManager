@@ -11,16 +11,12 @@
 
 package com.deepblue.aidevicemanager.item
 
-import com.deepblue.aidevicemanager.R
-
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.ViewGroup
-
-import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
+import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.model.ModelGb
+import kotlinx.android.synthetic.main.item_cgq_manage_son.view.*
 
 
 class CgqManageSon(context: Context?) : LinearLayout(context) {
@@ -29,8 +25,9 @@ class CgqManageSon(context: Context?) : LinearLayout(context) {
         flater.inflate(R.layout.item_cgq_manage_son, this)
     }
 
-    fun set(item: String) {
-
+    fun set(item: ModelGb, start: String) {
+        mTextView_key.text = start + item.key
+        mTextView_value.text = item.value.toString()
     }
 
 

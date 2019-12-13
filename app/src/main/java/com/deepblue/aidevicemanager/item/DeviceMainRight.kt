@@ -59,7 +59,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
 
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryDeviceDetail")) {
-            var mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
+            var mModelDeviceDetail = F.data2Model(data?.replace("\\n",""), ModelDeviceDetail::class.java)
             F.mModelStatus?.mModelB = mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()
 
             if (mModelDeviceDetail?.deviceStatus?.equals("1") == true) {
