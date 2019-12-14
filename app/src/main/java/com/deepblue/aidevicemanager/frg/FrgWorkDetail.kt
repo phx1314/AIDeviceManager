@@ -191,7 +191,7 @@ class FrgWorkDetail : BaseFrg() {
     override fun onError(code: String?, msg: String?, data: String?, method: String) {
         super.onError(code, msg, data, method)
         when (method) {
-            "" -> {
+            "getDevicePresetPositions" -> {
                 Helper.toast(getString(R.string.dataerror_please_retry))
                 finish()
             }
