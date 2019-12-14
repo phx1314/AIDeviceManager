@@ -133,7 +133,6 @@ class FrgWorkDetail : BaseFrg() {
         }
     }
 
-
     override fun onSuccess(data: String?, method: String) {
         when (method) {
             "getDevicePresetPositions" -> {
