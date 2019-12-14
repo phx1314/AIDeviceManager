@@ -95,17 +95,7 @@ class FrgWorkChoose : BaseFrg() {
             if (selectID == -1) {
                 Helper.toast(getString(R.string.d_ts3))
             } else {
-                Helper.startActivity(
-                    context,
-                    FrgWorkDetail::class.java,
-                    TitleAct::class.java,
-                    "mModelDeviceDetail",
-                    mModelDeviceDetail,
-                    "from",
-                    "1", "mapId",
-                    selectID.toString(), "mapTaskName",
-                    mModelMapInfo?.mapTaskName, "data", data
-                )
+                load(F.gB().autoWork(mModelDeviceDetail?.id.toString(), mModelMapInfo?.mapTaskName, selectID.toString()), "autoWork")
             }
         }
     }
@@ -133,6 +123,8 @@ class FrgWorkChoose : BaseFrg() {
             }
         } else if (method.equals("queryMapTaskInfo")) {
             mModelMapInfo = F.data2Model(data, ModelMapInfo::class.java)
+
+
             mTextView_content.setText(
                 getString(R.string.d_zydd) + "${mModelMapInfo?.mapTaskAddress ?: ""}\n" + getString(R.string.d_zyrw) + "${mModelMapInfo?.mapTaskName
                     ?: ""}\n" + getString(R.string.d_zydt) + "${mModelMapInfo?.mapName
@@ -141,6 +133,18 @@ class FrgWorkChoose : BaseFrg() {
                     ?: ""}㎡\n" + getString(R.string.d_yjzysj) + "${com.mdx.framework.F.go2Wei(mModelMapInfo?.mapTaskEstimatedTime?.toDouble()) ?: ""}H"
             )
 
+        } else if (method.equals("autoWork")) {
+            Helper.startActivity(
+                context,
+                FrgWorkDetail::class.java,
+                TitleAct::class.java,
+                "mModelDeviceDetail",
+                mModelDeviceDetail,
+                "from",
+                "1", "mapId",
+                selectID.toString(), "mapTaskName",
+                mModelMapInfo?.mapTaskName, "data", this.data
+            )
         }
     }
 

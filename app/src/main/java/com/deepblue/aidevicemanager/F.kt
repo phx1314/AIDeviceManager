@@ -35,7 +35,7 @@ object F {
     var mModelStatus: ModelStatus? = null
     var hasRunPosints = ArrayList<LatLng>()
 //    var baseIP = "10.1.1.160:8081"
-    var baseIP = "58.216.158.85:8081"    //17321409967/863208
+    var baseIP = "58.216.158.85:8081"    //17321409967/12345678
 //    var baseIP = "192.168.16.91:8081"//开发
 
     val baseUrl = "http://$baseIP/robotos/cleanApp/"

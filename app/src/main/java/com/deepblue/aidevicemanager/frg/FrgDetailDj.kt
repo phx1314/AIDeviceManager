@@ -108,6 +108,7 @@ class FrgDetailDj : BaseFrg() {
             mTextView_status.text = getString(R.string.d_lx)
             mButton.text = getString(R.string.d_qd)
             mButton.isEnabled = false
+            mButton.visibility=View.GONE
         } else if (mModelDeviceDetail?.deviceStatus?.equals("2") == true) {
             if (mModelDeviceDetail?.breakdown?.equals("1") == true) {//故障
                 mTextView_status.text = getString(R.string.d_gz)

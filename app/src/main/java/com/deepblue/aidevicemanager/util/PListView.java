@@ -491,8 +491,14 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
             mMAdapter = mListViewListener.onSuccess(methodName, mJSONObject.optString("data"));
             if (mMAdapter != null) {
                 try {
-                    if (new JSONObject(mJSONObject.optString("data")).optInt("pageNum") >= new JSONObject(mJSONObject.optString("data")).optInt("pages") || (gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
-                        setPullLoadEnable(false);
+                    if (new JSONObject(mJSONObject.optString("data")).optInt("pageSize") <= 0) {
+                        if ((gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
+                            setPullLoadEnable(false);
+                        }
+                    } else {
+                        if (new JSONObject(mJSONObject.optString("data")).optInt("pageNum") >= new JSONObject(mJSONObject.optString("data")).optInt("pages") || (gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
+                            setPullLoadEnable(false);
+                        }
                     }
                     if (mAdapter == null || isRefreash) {
                         mAdapter = mMAdapter;
