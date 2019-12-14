@@ -153,7 +153,11 @@ class FrgWorkDetail : BaseFrg() {
                     routePresetLY2?.forEach {
                         edgePolylines2.add(LatLng(it.point_y, it.point_x))
                     }
-                    initFragment()
+                    if (polylines.size < 1 && edgePolylines1.size < 1 && edgePolylines2.size < 1) {
+                        Helper.toast(getString(R.string.dataerror_please_retry))
+                        finish()
+                    } else
+                        initFragment()
                 } catch (e: java.lang.Exception) {
                     e.printStackTrace()
                 }
@@ -297,9 +301,6 @@ class FrgWorkDetail : BaseFrg() {
     }
 
     private fun initFragment() {
-        if (polylines.size > 0) {
-            F.hasRunPosints.add(polylines[0])
-        }
         fragments = hashMapOf(
             PAGE_DIANYUN to FrgWDLaser(),
             PAGE_VEDIO to FrgWDVedio(),

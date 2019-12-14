@@ -82,6 +82,8 @@ class FrgWDRoute : BaseFrg() {
                 try {
                     if (FrgWorkDetail.mWorkState == WORKING) {
                         val mA = LatLng(F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!, F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!)
+                        if (F.hasRunPosints.size == 0)
+                            F.hasRunPosints.add(mA)
                         moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], mA)
 //                        moveLooper2(F.hasRunPosints[F.hasRunPosints.size - 1], mA)
                         F.hasRunPosints.add(mA)
