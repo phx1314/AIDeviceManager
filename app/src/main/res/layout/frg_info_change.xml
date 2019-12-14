@@ -57,11 +57,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:inputType="phone"
             android:background="@drawable/shape_logink"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:hint="@string/d_qsrsjh2"
+            android:inputType="phone"
             android:padding="8dp"
             android:singleLine="true" />
 
@@ -92,7 +92,6 @@
             style="@style/text_style_15_black"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="90dp"
             android:ems="3"
             android:text="@string/d_yzm" />
 

@@ -21,8 +21,6 @@ import com.google.gson.Gson
 import com.mdx.framework.Frame
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_info_change.*
-import kotlinx.android.synthetic.main.frg_info_change.mEditText_phone
-import kotlinx.android.synthetic.main.frg_info_change.mTextView_get
 
 
 class FrgInfoChange : BaseFrg() {
@@ -130,6 +128,7 @@ class FrgInfoChange : BaseFrg() {
     }
 
     override fun loaddata() {
+        mEditText_phone.setText(F.mModellogin?.user?.mobile ?: "")
     }
 
     override fun onSuccess(data: String?, method: String) {
