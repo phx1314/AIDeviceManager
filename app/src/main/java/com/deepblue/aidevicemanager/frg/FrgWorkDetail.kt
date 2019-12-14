@@ -162,7 +162,7 @@ class FrgWorkDetail : BaseFrg() {
                     e.printStackTrace()
                 }
             }
-            "autoWork" -> {
+            "createOrder_start" -> {
                 setWorkState(WORKING)
                 reInitBtnView()
             }
@@ -230,7 +230,7 @@ class FrgWorkDetail : BaseFrg() {
     private fun doWorkState(indexWork: Int) {
         when (indexWork) {
             0 -> {
-                load(F.gB(60).autoWork(mModelDeviceDetail?.id.toString(), mapName, mapId), "autoWork")
+                load(F.gB(60).createOrder("14", mModelDeviceDetail?.id.toString()), "createOrder_start")
             }
             1 -> {
                 load(F.gB(60).createOrder("7", mModelDeviceDetail?.id.toString()), "createOrder_stop")
