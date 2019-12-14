@@ -189,6 +189,7 @@ class FrgDetailDj : BaseFrg() {
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryDeviceDetail")) {
             mModelDeviceDetail = F.data2Model(data, ModelDeviceDetail::class.java)
+            if (mModelDeviceDetail?.cleanKingLiveStatus == null) mModelDeviceDetail?.cleanKingLiveStatus = ModelB()
             setData((mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()))
         } else if (method.equals("createOrder")) {
 
@@ -203,6 +204,8 @@ class FrgDetailDj : BaseFrg() {
 //        mHead.mLinearLayout_status.visibility = View.VISIBLE
 //        mHead.mImageView.setBackgroundResource(R.drawable.u1844)
 //        mHead.mTextView_d_status.text = getString(R.string.d_connect)
+
+
 
     }
 

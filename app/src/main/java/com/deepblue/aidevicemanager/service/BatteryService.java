@@ -22,6 +22,7 @@ public class BatteryService extends Service {
     private static final String TAG = "BatteryReceiver";
     TelephonyManager tm;
     ScheduledExecutorService mScheduledExecutorService;
+//    String data_lidar_status = "0";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -40,6 +41,12 @@ public class BatteryService extends Service {
             @Override
             public void run() {
                 tm.listen(mylistener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+//                if (data_lidar_status.equals("0")) {
+//                    data_lidar_status = "1";
+//                } else {
+//                    data_lidar_status = "0";
+//                }
+//                Frame.HANDLES.sentAll("FrgDetailDj", 1111, "{\"cleanKingLiveStatus\":{\"data_lidar_status\":\"" + data_lidar_status + "\"}}");
             }
         }, 0, 3, TimeUnit.SECONDS);
     }
