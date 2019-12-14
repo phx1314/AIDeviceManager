@@ -10,7 +10,7 @@ import android.widget.PopupWindow
 import com.mdx.framework.activity.BaseActivity
 
 
-class PopShowSet(var context: Context, private val view: View, var popview: View) {
+class PopShowSet(var context: Context, private val view: View, popview: View) {
     private val popwindow: PopupWindow
 
     val isShow: Boolean
@@ -19,8 +19,12 @@ class PopShowSet(var context: Context, private val view: View, var popview: View
     init {
         val flater = LayoutInflater.from(context)
         popwindow = PopupWindow(popview, (context as BaseActivity).getWindowManager().getDefaultDisplay().getWidth() / 3 * 2, LayoutParams.WRAP_CONTENT)
-        popwindow.setBackgroundDrawable(BitmapDrawable(context
-                .resources))
+        popwindow.setBackgroundDrawable(
+            BitmapDrawable(
+                context
+                    .resources
+            )
+        )
         popwindow.isTouchable = true
         popwindow.isOutsideTouchable = true
         popwindow.isFocusable = true

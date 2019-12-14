@@ -36,33 +36,37 @@ class CgqManage(context: Context?) : LinearLayout(context) {
                 mImageView1.visibility = View.VISIBLE
                 mGridView1.adapter = AdaCgqManageSon(context, item.data_lidar_status.toCharArray().toMutableList(), "激光雷达")
             } else {
-                mGridView1.visibility = View.GONE
-                mImageView1.visibility = View.GONE
+                mGridView1.adapter = AdaCgqManageSon(context, "2".toCharArray().toMutableList(), "激光雷达")
+//                mGridView1.visibility = View.GONE
+//                mImageView1.visibility = View.GONE
             }
             if (!TextUtils.isEmpty(item.data_millimeter_wave_status)) {
                 mMListView1.visibility = View.VISIBLE
                 mImageView2.visibility = View.VISIBLE
-                mMListView1.adapter = AdaCgqManageSon2(context,  item.data_millimeter_wave_status.toCharArray().toMutableList(), "毫米波雷达")
+                mMListView1.adapter = AdaCgqManageSon2(context, item.data_millimeter_wave_status.toCharArray().toMutableList(), "毫米波雷达")
             } else {
-                mMListView1.visibility = View.GONE
-                mImageView2.visibility = View.GONE
+                mMListView1.adapter = AdaCgqManageSon2(context, "2".toCharArray().toMutableList(), "毫米波雷达")
+//                mMListView1.visibility = View.GONE
+//                mImageView2.visibility = View.GONE
             }
             if (!TextUtils.isEmpty(item.data_ultrasonic_wave_status)) {
                 mGridView2.visibility = View.VISIBLE
                 mImageView3.visibility = View.VISIBLE
                 mGridView2.adapter = AdaCgqManageSon(context, item.data_ultrasonic_wave_status.toCharArray().toMutableList(), "超声波")
             } else {
-                mGridView2.visibility = View.GONE
-                mImageView3.visibility = View.GONE
+                mGridView2.adapter = AdaCgqManageSon(context, "2".toCharArray().toMutableList(), "超声波")
+//                mGridView2.visibility = View.GONE
+//                mImageView3.visibility = View.GONE
 
             }
-            if (!TextUtils.isEmpty(item.data_zed_status) ) {
+            if (!TextUtils.isEmpty(item.data_zed_status)) {
                 mMListView2.visibility = View.VISIBLE
                 mImageView4.visibility = View.VISIBLE
-                mMListView2.adapter = AdaCgqManageSon2(context,  item.data_zed_status.toCharArray().toMutableList(), "ZED相机")
+                mMListView2.adapter = AdaCgqManageSon2(context, item.data_zed_status.toCharArray().toMutableList(), "ZED相机")
             } else {
-                mMListView2.visibility = View.GONE
-                mImageView4.visibility = View.GONE
+                mMListView2.adapter = AdaCgqManageSon2(context, "2".toCharArray().toMutableList(), "ZED相机")
+//                mMListView2.visibility = View.GONE
+//                mImageView4.visibility = View.GONE
             }
 
         } catch (e: Exception) {
@@ -81,5 +85,17 @@ fun getRightS(status: String?): String {
         return "N/A"
     } else {
         return if (status.equals("0")) "关" else "开"
+    }
+}
+
+fun getRightS2(status: String?): String {
+    if (status.equals("0")) {
+        return "关"
+    } else if (status.equals("1")) {
+        return "开"
+    } else if (status.equals("2")) {
+        return "N/A"
+    } else {
+        return "N/A"
     }
 }

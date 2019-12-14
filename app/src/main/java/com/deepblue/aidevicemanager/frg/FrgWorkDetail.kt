@@ -1,11 +1,9 @@
 package com.deepblue.aidevicemanager.frg
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.text.TextUtils
 import android.view.View
 import android.widget.LinearLayout
@@ -13,7 +11,6 @@ import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.F.setViewValue
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.item.DialogSet
 import com.deepblue.aidevicemanager.model.*
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
@@ -26,7 +23,6 @@ import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_OVERV
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_ROUTE
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_VEDIO
 import com.deepblue.aidevicemanager.ws.WsStatus
-import com.google.gson.Gson
 import com.mdx.framework.Frame
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_workdetail.*
@@ -49,7 +45,6 @@ class FrgWorkDetail : BaseFrg() {
     private var mapId: String? = ""
     private var mapName: String? = ""
     lateinit var data: ModelDevices.RowsBean
-    lateinit var mDialogSet: DialogSet
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_workdetail)
         data = activity?.intent?.getSerializableExtra("data") as ModelDevices.RowsBean
@@ -106,7 +101,7 @@ class FrgWorkDetail : BaseFrg() {
             1111 -> {
                 try {
                     F.sendDb2a(F.mModelStatus?.mModelB, F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus)
-                    mDialogSet.set(F.mModelStatus?.mModelB!!)
+                    mHead.set(F.mModelStatus?.mModelB!!)
                     if (isHeadInit()) mHead.setStatus(this.javaClass.simpleName)
                     setViewValue(F.mModelStatus?.mModelB?.data_high_beam_light, iv_high_light)
                     setViewValue(F.mModelStatus?.mModelB?.data_width_light, iv_width_light)
@@ -298,8 +293,7 @@ class FrgWorkDetail : BaseFrg() {
 
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
-        mDialogSet = DialogSet(context, data, "FrgWorkDetail")
-        mHead.setShowPop(mDialogSet)
+        mHead.setShowPop(data, "FrgWorkDetail")
     }
 
     private fun initFragment() {

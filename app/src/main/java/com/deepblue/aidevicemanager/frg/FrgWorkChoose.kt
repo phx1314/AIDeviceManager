@@ -58,6 +58,7 @@ class FrgWorkChoose : BaseFrg() {
                     F.sendDb2a(F.mModelStatus?.mModelB, F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus)
                     F.sendDb2a(mModelDeviceDetail?.cleanKingLiveStatus, F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus)
                     if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
+                    mHead.set((mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()))
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -145,7 +146,7 @@ class FrgWorkChoose : BaseFrg() {
 
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
-        mHead.setShowPop(mDialogSet)
+        mHead.setShowPop(data, "FrgWorkChoose")
         mHead.setTitle(data.deviceName)
     }
 }

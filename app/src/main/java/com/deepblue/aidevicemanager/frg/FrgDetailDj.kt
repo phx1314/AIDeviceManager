@@ -17,7 +17,6 @@ import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaDetailTwo
-import com.deepblue.aidevicemanager.item.DialogSet
 import com.deepblue.aidevicemanager.item.getRightS
 import com.deepblue.aidevicemanager.model.ModelA
 import com.deepblue.aidevicemanager.model.ModelB
@@ -27,12 +26,10 @@ import com.mdx.framework.activity.TitleAct
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_detail_dj.*
 
-lateinit var mDialogSet: DialogSet
 
 class FrgDetailDj : BaseFrg() {
     var mModelDeviceDetail: ModelDeviceDetail? = null
     lateinit var data: ModelDevices.RowsBean
-
     override fun create(savedInstanceState: Bundle?) {
         setContentView(R.layout.frg_detail_dj)
         data = activity?.intent?.getSerializableExtra("data") as ModelDevices.RowsBean
@@ -99,12 +96,14 @@ class FrgDetailDj : BaseFrg() {
     }
 
     fun setData(mModelB: ModelB) {
-        mDialogSet.set(mModelB)
+        try {
+            mHead.set(mModelB)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         mTextView_lng.text = "Lng: ${mModelB.data_longitude ?: "N/A"}"
         mTextView_lat.text = "lat: ${mModelB.data_latitude ?: "N/A"}"
         if (mModelB.data_velocity == null) mTextView_gl.text = "N/A" else mTextView_gl.text = com.mdx.framework.F.go2Wei(mModelB.data_velocity.toDouble()) + "m/s"
-
-
         if (mModelDeviceDetail?.deviceStatus?.equals("1") == true) {
             mTextView_status.text = getString(R.string.d_lx)
             mButton.text = getString(R.string.d_qd)
@@ -160,8 +159,6 @@ class FrgDetailDj : BaseFrg() {
         data.add(getString(R.string.d_xfkwz) + getRightS(mModelB.data_suction_inlet_position))
         data.add(getString(R.string.d_pszt) + getRightS(mModelB.data_spout_water))
         mMGridView.adapter = AdaDetailTwo(context, data)
-
-
         if (mModelB?.data_high_beam_light?.equals("1") == true) {
             mImageView_ygd.setImageResource(R.drawable.high_beam_light_light)
         } else {
@@ -187,13 +184,6 @@ class FrgDetailDj : BaseFrg() {
         } else {
             mImageView_gz.setImageResource(R.drawable.u1275)
         }
-
-
-//        if (mModelB?.data_low_beam_light?.equals("1") == true) {
-//            mImageView_j.setImageResource(R.drawable.j_s)
-//        } else {
-//            mImageView_j.setImageResource(R.drawable.j)
-//        }
     }
 
     override fun onSuccess(data: String?, method: String) {
@@ -209,8 +199,7 @@ class FrgDetailDj : BaseFrg() {
         super.setActionBar(actionBar)
         mHead.setTitle(data.deviceName)
 
-        mDialogSet = DialogSet(context, data)
-        mHead.setShowPop(mDialogSet)
+        mHead.setShowPop(data, "FrgDetailDj")
 //        mHead.mLinearLayout_status.visibility = View.VISIBLE
 //        mHead.mImageView.setBackgroundResource(R.drawable.u1844)
 //        mHead.mTextView_d_status.text = getString(R.string.d_connect)

@@ -27,7 +27,7 @@ import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.item_dialog_set.view.*
 
 
-class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean, from: String = "") : BaseItem(context) {
+class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean, from: String) : BaseItem(context) {
     var mModelCarSets_new = ArrayList<ModelCarSet>()
     var mDc: Dc
     var mCgqManage: CgqManage
@@ -67,6 +67,8 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean, from: Strin
         }
 
         load(F.gB().queryDeviceParamList(mdata.id.toString()), "queryDeviceParamList")
+
+        setHandlerId("DialogSet$from")
     }
 
     fun set(mModelB: ModelB) {

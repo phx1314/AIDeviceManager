@@ -26,7 +26,7 @@ class CgqManageSon2(context: Context?) : LinearLayout(context) {
 
     fun set(item: Character, start: String, position: Int) {
         mTextView_key.text = start + (position+1)
-        mTextView_value.text = getRightS(item.toString())
+        mTextView_value.text = getRightS2(item.toString())
     }
 
 

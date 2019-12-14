@@ -18,6 +18,8 @@ import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.F.mModelStatus
 import com.deepblue.aidevicemanager.R
+import com.deepblue.aidevicemanager.model.ModelB
+import com.deepblue.aidevicemanager.model.ModelDevices
 import com.deepblue.aidevicemanager.pop.PopShowSet
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.BaseActivity
@@ -26,6 +28,9 @@ import kotlinx.android.synthetic.main.item_head.view.*
 
 
 class Head(context: Context?) : LinearLayout(context) {
+    var mModelB: ModelB = ModelB()
+    var mDialogSet: DialogSet? = null
+
     init {
         val flater = LayoutInflater.from(context)
         flater.inflate(R.layout.item_head, this)
@@ -39,11 +44,18 @@ class Head(context: Context?) : LinearLayout(context) {
     fun set(item: String) {
     }
 
-    fun setShowPop(view: View) {
+    fun set(mModelB: ModelB) {
+        this.mModelB = mModelB
+        mDialogSet?.set(mModelB)
+    }
+
+    fun setShowPop(mdata: ModelDevices.RowsBean, from: String) {
         mImageButton_set.visibility = View.VISIBLE
         mImageButton_set.setOnClickListener {
-            var mPopShowSet = PopShowSet(getContext(), mImageButton_set, view)
-            view.tag = mPopShowSet
+            mDialogSet = DialogSet(context, mdata, from)
+            mDialogSet?.set(mModelB)
+            var mPopShowSet = PopShowSet(getContext(), mImageButton_set, mDialogSet!!)
+            mDialogSet?.tag = mPopShowSet
             mPopShowSet.show()
         }
     }

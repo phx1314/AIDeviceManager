@@ -24,7 +24,6 @@ import com.mdx.framework.service.subscriber.HttpResult
 import com.mdx.framework.service.subscriber.HttpResultSubscriberListener
 import com.mdx.framework.service.subscriber.S
 import com.mdx.framework.util.AbAppUtil
-import com.mdx.framework.util.AbLogUtil
 import com.mdx.framework.util.Helper
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,7 +34,6 @@ open class BaseItem(context: Context?) : LinearLayout(context), HttpResultSubscr
     val className = this.javaClass.simpleName
 
     init {
-
         handler.setId(className)
         handler.setMsglisnener { msg ->
             when (msg.what) {
@@ -48,6 +46,10 @@ open class BaseItem(context: Context?) : LinearLayout(context), HttpResultSubscr
             }
         }
         Frame.HANDLES.add(handler)
+    }
+
+    fun setHandlerId(id: String) {
+        handler.setId(id)
     }
 
     open fun disposeMsg(type: Int, obj: Any) {}
@@ -75,13 +77,24 @@ open class BaseItem(context: Context?) : LinearLayout(context), HttpResultSubscr
         }
         o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { if (s.isShow) s.mProgressDialog.show() }
-            .doFinally { if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss() }
+            .doOnSubscribe {
+                try {
+                    if (s.isShow) s.mProgressDialog.show()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            .doFinally {
+                try {
+                    if (s.mProgressDialog.isShowing) s.mProgressDialog.dismiss()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
             .subscribe(s)
     }
 
     override fun onDetachedFromWindow() {
-        AbLogUtil.d("view銷毀")
         Frame.HANDLES.remove(this.handler)
         super.onDetachedFromWindow()
     }
