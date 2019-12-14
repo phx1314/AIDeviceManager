@@ -1,11 +1,9 @@
 package com.deepblue.aidevicemanager.frg
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.text.TextUtils
 import android.view.View
 import android.widget.LinearLayout
@@ -26,7 +24,6 @@ import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_OVERV
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_ROUTE
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_VEDIO
 import com.deepblue.aidevicemanager.ws.WsStatus
-import com.google.gson.Gson
 import com.mdx.framework.Frame
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_workdetail.*
@@ -196,7 +193,7 @@ class FrgWorkDetail : BaseFrg() {
     override fun onError(code: String?, msg: String?, data: String?, method: String) {
         super.onError(code, msg, data, method)
         when (method) {
-            "" -> {
+            "getDevicePresetPositions" -> {
                 Helper.toast(getString(R.string.dataerror_please_retry))
                 finish()
             }
