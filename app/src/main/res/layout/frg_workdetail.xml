@@ -179,14 +179,24 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableTop="@mipmap/u2493"
-                android:drawablePadding="@dimen/j5dp"
-                android:text="@string/string_saoshua"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_15"
+                    android:layout_height="@dimen/dp_15"
+                    android:src="@mipmap/u2493" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_saoshua"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
             <com.deepblue.aidevicemanager.view.TextSwitch
                 android:id="@+id/sweep_location"
@@ -216,14 +226,24 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableTop="@mipmap/u2498"
-                android:drawablePadding="@dimen/j5dp"
-                android:text="@string/string_pengshui"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_15"
+                    android:layout_height="@dimen/dp_15"
+                    android:src="@mipmap/u2498" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_pengshui"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
             <com.deepblue.aidevicemanager.view.TextSwitch
                 android:id="@+id/water_state"
@@ -243,20 +263,30 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableTop="@mipmap/u2503"
-                android:drawablePadding="@dimen/j5dp"
-                android:text="@string/string_xifeng"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_15"
+                    android:layout_height="@dimen/dp_15"
+                    android:src="@mipmap/u2503" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_xifeng"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
             <com.deepblue.aidevicemanager.view.TextSwitch
                 android:id="@+id/wind_location"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/j2dp"
+                android:layout_marginStart="@dimen/j5dp"
                 app:closebgColor="@color/white"
                 app:openbgColor="#5FB878"
                 app:swtich_id="4" />
@@ -277,9 +307,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/j10dp"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
+            android:layout_marginTop="@dimen/j5dp"
+            android:scaleX="1.2"
+            android:scaleY="1.2"
             android:src="@drawable/selector_high_light" />
 
         <ImageView
@@ -287,16 +317,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/j10dp"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
+            android:layout_marginTop="@dimen/j5dp"
+            android:scaleX="1.2"
+            android:scaleY="1.2"
             android:src="@drawable/selector_width_light" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/j10dp"
+            android:layout_marginTop="@dimen/j5dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -314,22 +344,23 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             tools:ignore="NestedWeights">
 
             <Button
                 android:id="@+id/btn_EMG"
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_80"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_70"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="bottom"
                 android:background="@drawable/selector_emg"
                 android:gravity="center"
                 android:text="@string/EMG"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>

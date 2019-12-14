@@ -20,6 +20,7 @@ import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAU
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_SHUTSTOP
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_STOP
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_WAITSTART
+import com.deepblue.aidevicemanager.util.FrgWDManager
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_DIANYUN
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_OVERVIEW
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_ROUTE
@@ -42,6 +43,7 @@ class FrgWorkDetail : BaseFrg() {
 
     private lateinit var fragments: HashMap<Int, Fragment>
     private var mTempWorkState = WORK_DEFAUT
+    private val mFragmentManager: FrgWDManager by lazy { FrgWDManager(childFragmentManager, ll_lefttop.id, ll_leftcenter.id, ll_leftbottom.id, ll_right.id) }
 
     private var mFrom: String? = ""
     private var mapId: String? = ""
@@ -86,10 +88,10 @@ class FrgWorkDetail : BaseFrg() {
 
     override fun onClick(v: View) {
         super.onClick(v)
-        when (v.id) {
-            R.id.iv_lefttop_switch -> switchFragment(0)
-            R.id.iv_leftcenter_switch -> switchFragment(1)
-            R.id.iv_leftbottom_switch -> switchFragment(2)
+        when (v.id) {// 0: 左上切换  1: 左中切换  2: 左下切换
+            R.id.iv_lefttop_switch -> mFragmentManager.changeFragment("frgwdlaser", ll_lefttop.id, ll_right.id, 0)
+            R.id.iv_leftcenter_switch -> mFragmentManager.changeFragment("frgwdvedio", ll_leftcenter.id, ll_right.id, 1)
+            R.id.iv_leftbottom_switch -> mFragmentManager.changeFragment("frgwdoverview", ll_leftbottom.id, ll_right.id, 2)
             R.id.btn_startwork -> doWorkState(0)
             R.id.btn_stopwork -> doWorkState(1)
             R.id.btn_endwork -> doWorkState(2)
@@ -213,53 +215,6 @@ class FrgWorkDetail : BaseFrg() {
     private fun setWorkState(i: Int) {
         mWorkState = i
         Frame.HANDLES.sentAll(9999, i)
-    }
-
-    /**
-     * 切换fragment
-     */
-    private fun switchFragment(typeIndex: Int) { // 0: 左上切换  1: 左中切换  2: 左下切换
-        when (typeIndex) {
-            0 -> doSwitchFrg(ll_lefttop.id, ll_right.id)
-            1 -> doSwitchFrg(ll_leftcenter.id, ll_right.id)
-            2 -> doSwitchFrg(ll_leftbottom.id, ll_right.id)
-        }
-    }
-
-    private fun doSwitchFrg(a1: Int, a2: Int) {
-        val frg1Old = childFragmentManager.findFragmentById(a1)
-        val frg2Old = childFragmentManager.findFragmentById(a2)
-        val frgNew1 = getContainerFragment(frg2Old)
-        val frgNew2 = getContainerFragment(frg1Old)
-
-        if (frgNew1 != null && frgNew2 != null && frg1Old != null && frg2Old != null) {
-            childFragmentManager.popBackStackImmediate(
-                null,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
-            )
-            childFragmentManager.beginTransaction()
-                .remove(frg1Old)
-                .remove(frg2Old)
-                .commit()
-            childFragmentManager.executePendingTransactions()
-            childFragmentManager.beginTransaction()
-                .replace(a1, frgNew1)
-                .replace(a2, frgNew2)
-                .commit()
-        }
-    }
-
-    @SuppressLint("DefaultLocale")
-    private fun getContainerFragment(frg: Fragment?): Fragment? {
-        if (frg.toString().toLowerCase().contains("frgwdlaser"))
-            return FrgWDLaser()
-        if (frg.toString().toLowerCase().contains("frgwdvedio"))
-            return FrgWDVedio()
-        if (frg.toString().toLowerCase().contains("frgwdoverview"))
-            return FrgWDOverView()
-        if (frg.toString().toLowerCase().contains("frgwdroute"))
-            return FrgWDRoute()
-        return null
     }
 
     private fun initListener() {
