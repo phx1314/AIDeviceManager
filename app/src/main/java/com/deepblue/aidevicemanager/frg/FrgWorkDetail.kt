@@ -185,13 +185,8 @@ class FrgWorkDetail : BaseFrg() {
                 reInitBtnView()
                 reInitEMG(true)
             }
-            "createOrder_continue_emg" -> {
-                setWorkState(WORKING)
-                reInitBtnView()
-                reInitEMG(false)
-            }
-            "createOrder_stop_emg" -> {
-                setWorkState(WORK_STOP)
+            "createOrder_emg_release" -> {
+                setWorkState(mTempWorkState)
                 reInitBtnView()
                 reInitEMG(false)
             }
@@ -260,20 +255,7 @@ class FrgWorkDetail : BaseFrg() {
                 load(F.gB(60).createOrder("13", mModelDeviceDetail?.id.toString()), "createOrder_emg")
             }
             5 -> {
-                F
-                when (mTempWorkState) {
-                    WORKING -> {
-                        load(F.gB(60).createOrder("8", mModelDeviceDetail?.id.toString()), "createOrder_continue_emg")
-                    }
-                    WORK_STOP -> {
-                        load(F.gB(60).createOrder("7", mModelDeviceDetail?.id.toString()), "createOrder_stop_emg")
-                    }
-                    WORK_WAITSTART -> {
-                        setWorkState(WORK_WAITSTART)
-                        reInitBtnView()
-                        reInitEMG(false)
-                    }
-                }
+                load(F.gB(60).createOrder("15", mModelDeviceDetail?.id.toString()), "createOrder_emg_release")
             }
         }
     }
