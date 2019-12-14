@@ -28,6 +28,7 @@ class PopShowSet(var context: Context, private val view: View, popview: View) {
         popwindow.isTouchable = true
         popwindow.isOutsideTouchable = true
         popwindow.isFocusable = true
+
     }
 
 
