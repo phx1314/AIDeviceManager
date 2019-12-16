@@ -79,12 +79,16 @@ class FrgWDOverView : BaseFrg() {
                             F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!
                         )
                     )
+
+                    val desBaiduLatLng = F.getDesBaiduLatLng(F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!, F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!)
                     mMap.setMapStatus(msu)
                     locData = MyLocationData.Builder()
-                        .direction(if (F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! > 0) F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!
-                        else F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! + 360)
-                        .latitude(F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!)
-                        .longitude(F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!).build()
+                        .direction(
+                            if (F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! > 0) F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!
+                            else F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! + 360
+                        )
+                        .latitude(desBaiduLatLng.latitude)
+                        .longitude(desBaiduLatLng.longitude).build()
                     mMap.setMyLocationData(locData)
                 } catch (e: Exception) {
                     e.printStackTrace()
