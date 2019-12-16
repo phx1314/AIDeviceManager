@@ -33,11 +33,13 @@ class AdaXx(context: Context?, list: List<Any>) : MAdapter<Any>(context, list) {
         mCgqManage!!.set(item)
         convertView.setOnClickListener {
             if (item is ModelTaskXx.PageInfoBean.RowsBean) {
-                if (item.isRead.equals("0"))
+                if (item.isRead.equals("0")){
                     Frame.HANDLES.sentAll("FrgXx", 3, item.id.toString())
+                }
             } else if (item is ModelBrokenXx.PageInfoBean.RowsBean) {
-                if (item.isRead.equals("0"))
+                if (item.isRead.equals("0")){
                     Frame.HANDLES.sentAll("FrgXx", 4, item.breakdownId.toString())
+                }
             }
 //            this@AdaXx.notifyDataSetChanged()
         }
