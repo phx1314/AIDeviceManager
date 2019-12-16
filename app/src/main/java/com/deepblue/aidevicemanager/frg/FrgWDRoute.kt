@@ -27,9 +27,9 @@ class FrgWDRoute : BaseFrg() {
     private val mBitmapStart = BitmapDescriptorFactory.fromResource(R.drawable.startpoint)
     private val mBitmapEnd = BitmapDescriptorFactory.fromResource(R.drawable.endpoint)
     private val DISTANCE = 0.00002  //默认间隔移动距离
-    private val mEdgePolylineWith = 11  //路沿宽度
-    private val mPolylineWith = 8  //路线宽度
-    private val mHasRunPolylineWith = 7    //已行驶路线宽度
+    private val mEdgePolylineWith = 6  //路沿宽度
+    private val mPolylineWith = 10  //路线宽度
+    private val mHasRunPolylineWith = 8   //已行驶路线宽度
     private val mEdgePolylineColor = Color.GRAY   //路沿颜色
     private val mPolylineColor = Color.RED  //路线颜色
     private val mHasRunPolylineColor = Color.BLUE //已行驶路线颜色
@@ -79,9 +79,13 @@ class FrgWDRoute : BaseFrg() {
         super.disposeMsg(type, obj)
         when (type) {
             1111 -> {
+                Log.e(
+                    "实时经纬度",
+                    "本体未处理过的实时经纬度====(" + F.mModelStatus?.mModelB?.data_longitude?.toDouble()!! + "," + F.mModelStatus?.mModelB?.data_latitude?.toDouble()!! + ")"
+                )
                 try {
                     if (FrgWorkDetail.mWorkState == WORKING) {
-                        val mA = LatLng(F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!, F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!)
+                        val mA = F.getDesBaiduLatLng(F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!, F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!)
                         if (F.hasRunPosints.size == 0)
                             F.hasRunPosints.add(mA)
                         moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], mA)
@@ -179,8 +183,8 @@ class FrgWDRoute : BaseFrg() {
                             .color(mHasRunPolylineColor).points(F.hasRunPosints)
                     )
                 }
+                Log.e("添加经纬度", F.hasRunPosints.toString())
             }
-
         }.start()
     }
 

@@ -28,6 +28,7 @@ import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.frg_workdetail.*
 import java.util.*
 
+
 class FrgWorkDetail : BaseFrg() {
     companion object {
         var mModelDeviceDetail: ModelDeviceDetail? = null
@@ -47,14 +48,18 @@ class FrgWorkDetail : BaseFrg() {
     lateinit var data: ModelDevices.RowsBean
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_workdetail)
-        data = activity?.intent?.getSerializableExtra("data") as ModelDevices.RowsBean
     }
 
     override fun initView() {
-        mModelDeviceDetail = activity.intent.getSerializableExtra("mModelDeviceDetail") as ModelDeviceDetail?
-        mFrom = activity.intent.getStringExtra("from")
-        mapId = activity.intent.getStringExtra("mapId")
-        mapName = activity.intent.getStringExtra("mapTaskName")
+        try {
+            data = activity?.intent?.getSerializableExtra("data") as ModelDevices.RowsBean
+            mModelDeviceDetail = activity.intent.getSerializableExtra("mModelDeviceDetail") as ModelDeviceDetail?
+            mFrom = activity.intent.getStringExtra("from")
+            mapId = activity.intent.getStringExtra("mapId").toDouble().toInt().toString()
+            mapName = activity.intent.getStringExtra("mapTaskName")
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
         if (mModelDeviceDetail == null || mModelDeviceDetail?.id == 0 || TextUtils.isEmpty(mFrom) || TextUtils.isEmpty(mapId)) {
             Helper.toast(getString(R.string.dataerror_please_retry))
             finish()
@@ -145,13 +150,13 @@ class FrgWorkDetail : BaseFrg() {
                     edgePolylines1.clear()
                     edgePolylines2.clear()
                     routePresetYZ?.forEach {
-                        polylines.add(LatLng(it.point_y, it.point_x))
+                        polylines.add(F.getDesBaiduLatLng(it.point_y, it.point_x))
                     }
                     routePresetLY1?.forEach {
-                        edgePolylines1.add(LatLng(it.point_y, it.point_x))
+                        edgePolylines1.add(F.getDesBaiduLatLng(it.point_y, it.point_x))
                     }
                     routePresetLY2?.forEach {
-                        edgePolylines2.add(LatLng(it.point_y, it.point_x))
+                        edgePolylines2.add(F.getDesBaiduLatLng(it.point_y, it.point_x))
                     }
                     if (polylines.size < 1 && edgePolylines1.size < 1 && edgePolylines2.size < 1) {
                         Helper.toast(getString(R.string.dataerror_please_retry))
@@ -297,7 +302,12 @@ class FrgWorkDetail : BaseFrg() {
 
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
-        mHead.setShowPop(data, "FrgWorkDetail")
+        try {
+            mHead.setShowPop(data, "FrgWorkDetail")
+            mHead.setTitle(data.deviceName)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun initFragment() {

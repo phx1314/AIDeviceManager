@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import cn.jpush.android.api.JPushInterface
 import com.baidu.mapapi.model.LatLng
+import com.baidu.mapapi.utils.CoordinateConverter
 import com.deepblue.aidevicemanager.frg.FrgLogin
 import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelLogin
@@ -34,7 +35,7 @@ object F {
     var mModellogin: ModelLogin? = null
     var mModelStatus: ModelStatus? = null
     var hasRunPosints = ArrayList<LatLng>()
-//    var baseIP = "10.1.1.160:8081"
+    //    var baseIP = "10.1.1.160:8081"
     var baseIP = "58.216.158.85:8081"    //17321409967/12345678
 //    var baseIP = "192.168.16.91:8081"//开发
 
@@ -236,10 +237,10 @@ object F {
     fun setViewValue(s: String?, any: Any) {
         if (!TextUtils.isEmpty(s)) {
             when {
-                any.javaClass.name == "android.support.v7.widget.AppCompatTextView" -> {
+                any.javaClass.name == "android.widget.TextView" -> {
                     (any as TextView).text = "s"
                 }
-                any.javaClass.name == "android.support.v7.widget.AppCompatImageView" -> {
+                any.javaClass.name == "android.widget.ImageView" -> {
                     (any as ImageView).isSelected = (s == "1")
                 }
                 any.javaClass.name == "" -> {
@@ -251,6 +252,15 @@ object F {
             }
 
         }
+    }
+
+    val converter = CoordinateConverter().from(CoordinateConverter.CoordType.GPS)
+    fun getDesBaiduLatLng(latlng: LatLng): LatLng {
+        return converter.coord(latlng).convert()
+    }
+
+    fun getDesBaiduLatLng(lat: Double, lng: Double): LatLng {
+        return converter.coord(LatLng(lat, lng)).convert()
     }
 
 }
