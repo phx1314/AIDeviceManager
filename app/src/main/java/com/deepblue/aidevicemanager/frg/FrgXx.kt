@@ -65,10 +65,9 @@ class FrgXx : BaseFrg() {
                 mImageView_2.visibility = View.INVISIBLE
                 mImageView_3.visibility = View.INVISIBLE
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}task/queryTaskListWithPage",
-                    "POST",
                     this,
-                    F.mModellogin?.token
+                    "queryTaskListWithPage",
+                    "POST"
                 )
             }
             1 -> {
@@ -76,10 +75,9 @@ class FrgXx : BaseFrg() {
                 mImageView_2.visibility = View.VISIBLE
                 mImageView_3.visibility = View.INVISIBLE
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}task/queryAlarmBreakdowns",
-                    "POST",
                     this,
-                    F.mModellogin?.token
+                    "queryAlarmBreakdowns",
+                    "POST"
                 )
             }
             2 -> {
@@ -87,10 +85,9 @@ class FrgXx : BaseFrg() {
                 mImageView_2.visibility = View.INVISIBLE
                 mImageView_3.visibility = View.VISIBLE
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}task/queryBreakdowns",
-                    "POST",
                     this,
-                    F.mModellogin?.token
+                    "queryBreakdowns",
+                    "POST"
                 )
             }
 

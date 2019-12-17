@@ -104,19 +104,8 @@ class FrgLogin : BaseFrg() {
                 TitleAct::class.java
             )
         })
-//        mTextView_forget.setOnClickListener(this)
     }
 
-//    override fun onClick(v: View) {
-//        super.onClick(v)
-//        return
-//        Helper.startActivity(
-//            context,
-//            FrgForget::class.java,
-//            TitleAct::class.java
-//        )
-//
-//    }
 
     override fun loaddata() {
     }

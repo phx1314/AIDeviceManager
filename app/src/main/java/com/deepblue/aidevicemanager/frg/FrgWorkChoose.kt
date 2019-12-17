@@ -43,10 +43,9 @@ class FrgWorkChoose : BaseFrg() {
         when (type) {
             0 -> {
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}map/queryMapListByGroup",
-                    "POST",
                     this,
-                    F.mModellogin?.token, "mapGroupId", obj.toString()
+                    "queryMapListByGroup",
+                    "POST", obj.toString()
                 )
             }
             1 -> {
@@ -115,10 +114,9 @@ class FrgWorkChoose : BaseFrg() {
             mHorizontalListView.adapter = AdaWorkChooseBottom(context, mModelMap?.rows)
             if (mModelMap?.rows!!.isNotEmpty()) {
                 mAbPullListView.setApiLoadParams(
-                    "${F.baseUrl}map/queryMapListByGroup",
-                    "POST",
                     this,
-                    F.mModellogin?.token, "mapGroupId", mModelMap!!.rows[0].id.toInt()
+                    "queryMapListByGroup",
+                    "POST", mModelMap!!.rows[0].id.toInt()
                 )
             }
         } else if (method.equals("queryMapTaskInfo")) {

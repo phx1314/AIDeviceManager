@@ -12,7 +12,6 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.app.ProgressDialog
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
@@ -25,7 +24,6 @@ import com.mdx.framework.service.subscriber.HttpResultSubscriberListener
 import com.mdx.framework.service.subscriber.S
 import com.mdx.framework.util.AbAppUtil
 import com.mdx.framework.util.Helper
-import com.zhy.http.okhttp.OkHttpUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -35,8 +33,9 @@ import io.reactivex.schedulers.Schedulers
 abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriberListener {
     lateinit var mHead: Head
     fun isHeadInit() = ::mHead.isInitialized
-    private var lastClickTime = 0L
+    @JvmField
     var compositeDisposable: CompositeDisposable = CompositeDisposable()
+
     final override fun initV(view: View) {
         initView()
         loaddata()
@@ -45,11 +44,6 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
     abstract fun initView()
     abstract fun loaddata()
     override fun onClick(v: View) {
-        if (System.currentTimeMillis() - this.lastClickTime <= 1000L) {
-            Log.i("aa","aa")
-            return
-        }
-        this.lastClickTime = System.currentTimeMillis()
     }
 
     override fun disposeMsg(type: Int, obj: Any?) {
@@ -94,7 +88,6 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
 
     override fun onDestroy() {
         compositeDisposable.dispose()
-        OkHttpUtils.getInstance().cancelTag(this)
         super.onDestroy()
     }
 

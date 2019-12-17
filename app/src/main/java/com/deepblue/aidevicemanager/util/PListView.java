@@ -14,6 +14,7 @@ package com.deepblue.aidevicemanager.util;/*
  * limitations under the License.
  */
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -29,28 +30,41 @@ import android.widget.ListView;
 import android.widget.OverScroller;
 import android.widget.ProgressBar;
 
+import com.deepblue.aidevicemanager.F;
+import com.deepblue.aidevicemanager.R;
+import com.deepblue.aidevicemanager.frg.BaseFrg;
 import com.mdx.framework.Frame;
 import com.mdx.framework.adapter.MAdapter;
+import com.mdx.framework.service.subscriber.HttpResult;
+import com.mdx.framework.service.subscriber.HttpResultSubscriberListener;
+import com.mdx.framework.service.subscriber.S;
+import com.mdx.framework.util.AbAppUtil;
 import com.mdx.framework.util.AbLogUtil;
 import com.mdx.framework.util.AbViewUtil;
-import com.mdx.framework.util.HttpResponseListener;
-import com.mdx.framework.util.HttpResponseListenerSon;
-import com.mdx.framework.util.HttpUtil;
+import com.mdx.framework.util.Helper;
 import com.mdx.framework.view.listener.AbOnListListener;
 import com.mdx.framework.view.listener.AbOnListViewListener;
 import com.mdx.framework.view.pullview.AbListViewFooter;
 import com.mdx.framework.view.pullview.AbListViewHeader;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 // TODO: Auto-generated Javadoc
 
 /**
  * The Class AbPullListView.
  */
-public class PListView extends ListView implements HttpResponseListenerSon, AbsListView.OnScrollListener {
-    Object tag;
+public class PListView extends ListView implements AbsListView.OnScrollListener, HttpResultSubscriberListener {
     /**
      * The m last y.
      */
@@ -151,9 +165,8 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
      * 上一次的数量
      */
     private int count = 0;
-    private String method;
     private String type = "POST";
-    private String token = "";
+    private String method = "";
     private Object[] mparams;
     public int PageSize = 10;
     public int gridCount = -1;
@@ -163,6 +176,7 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
     public String PageSize_key = "size";
     public Handler mHandler = new Handler();
     public Runnable runnable;
+    public BaseFrg mBaseFrg;
 
     /**
      * 构造.
@@ -254,7 +268,7 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
         mAdapter = adapter;
         if (mIsFooterReady == false) {
             mIsFooterReady = true;
-            mFooterView.setGravity(Gravity.TOP);
+//            mFooterView.setGravity(Gravity.TOP);
             addFooterView(mFooterView);
         }
         super.setAdapter(adapter);
@@ -285,12 +299,12 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
             mFooterView.hide();
             mFooterView.setOnClickListener(null);
             if (getFooterView() != null) {
-                removeFooterView(mFooterView);
+//                removeFooterView(mFooterView);
             }
         } else {
             mPullLoading = false;
             if (getFooterView() == null) {
-                addFooterView(mFooterView);
+//                addFooterView(mFooterView);
             }
             mFooterView.setState(AbListViewFooter.STATE_READY);
             //load more点击事件.
@@ -369,7 +383,7 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
     /**
      * 开始加载更多.
      */
-    private void startLoadMore() {
+    private synchronized void startLoadMore() {
         Log.d("TAG", "startLoadMore");
         mFooterView.show();
         mPullLoading = true;
@@ -448,9 +462,36 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
         return super.onTouchEvent(ev);
     }
 
-    public void loadData(boolean isRefreash) {
+    public synchronized void loadData(boolean isRefreash) {
         this.isRefreash = isRefreash;
-        HttpUtil.load(getContext(), type, tag, token, method, new HttpResponseListener(getContext(), this, method, false), PageSize_key, PageSize + "", PageIndex_key, PageIndex + "", mparams);
+        try {
+            Object object = F.INSTANCE.gB(30);
+            Class<?> mClass = object.getClass();
+            Method m = getMethod(mClass, method);
+            ArrayList<Object> data = new ArrayList<>();
+            for (Object obj : mparams) {
+                data.add(obj.toString());
+            }
+            data.add(PageIndex + "");
+            data.add(PageSize + "");
+            Observable<HttpResult<Object>> o = (Observable<HttpResult<Object>>) m.invoke(object, com.mdx.framework.F.list2Array(data));
+            load(o, method);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 打印对象的构造函数的信息
+     */
+    public Method getMethod(Class<?> object, String method) {
+        Method[] methods = object.getDeclaredMethods();//自己的public方法
+        for (Method one : methods) {
+            if (method.equals(one.getName())) {
+                return one;
+            }
+        }
+        return null;
     }
 
     public void reLoad() {
@@ -476,27 +517,20 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
     }
 
     @Override
-    public void onSuccess(String methodName, String content) {
+    public void onSuccess(String content, String methodName) {
         try {
             JSONObject mJSONObject = new JSONObject(content);
-            String code = mJSONObject.optString("code");
-            if (code != null && !code.equals("1111")) {
-                if (code.equals("0020") || code.equals("0021") || code.equals("0022")) {
-                    Frame.HANDLES.sentAll("FrgMain", 110, null);
-                }
-                return;
-            }
             MAdapter mMAdapter = null;
-            AbLogUtil.d(mJSONObject.optString("data"));
-            mMAdapter = mListViewListener.onSuccess(methodName, mJSONObject.optString("data"));
+            AbLogUtil.d(content);
+            mMAdapter = mListViewListener.onSuccess(methodName, content);
             if (mMAdapter != null) {
                 try {
-                    if (new JSONObject(mJSONObject.optString("data")).optInt("pageSize") <= 0) {
+                    if (mJSONObject.optInt("pageSize") <= 0) {
                         if ((gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
                             setPullLoadEnable(false);
                         }
                     } else {
-                        if (new JSONObject(mJSONObject.optString("data")).optInt("pageNum") >= new JSONObject(mJSONObject.optString("data")).optInt("pages") || (gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
+                        if (mJSONObject.optInt("pageNum") >= mJSONObject.optInt("pages") || (gridCount != -1 ? gridCount * mMAdapter.getCount() : mMAdapter.getCount()) < PageSize) {
                             setPullLoadEnable(false);
                         }
                     }
@@ -520,12 +554,14 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
         }
     }
 
+
     @Override
-    public void onError(String methodName, String content) {
+    public void onError(@Nullable String code, @Nullable String msg, @Nullable String data, @NotNull String method) {
         stopAll();
     }
 
-    public void setApiLoadParams(String method, String type, Object tag, String token, Object... mparams) {
+
+    public void setApiLoadParams(BaseFrg mBaseFrg, String method, String type, Object... mparams) {
         setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
@@ -547,10 +583,9 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
                 return null;
             }
         });
+        this.mBaseFrg = mBaseFrg;
         this.method = method;
         this.type = type;
-        this.tag = tag;
-        this.token = token;
         this.mparams = mparams;
         if (mEnablePullRefresh) {
             pullLoad();
@@ -559,20 +594,19 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
         }
     }
 
-//    public void load(Observable<HttpResult<Object>> o, String m, Object obj) {
-//        S s = new S((HttpResultSubscriberListener) obj, null, m, false);
-////        ((BaseFrg) obj).compositeDisposable.add(s);
-//        if (!AbAppUtil.isNetworkAvailable(Frame.CONTEXT)) {
-//            Helper.toast(getContext().getString(R.string.net_error));
-//        }
-//        o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(s);
-//
-//    }
+    public void load(Observable<HttpResult<Object>> o, String m) {
+        S s = new S(this, new ProgressDialog(getContext()), m, false);
+        mBaseFrg.compositeDisposable.add(s);
+        if (!AbAppUtil.isNetworkAvailable(Frame.CONTEXT)) {
+            Helper.toast(getContext().getString(R.string.net_error));
+        }
+        o.subscribeOn(Schedulers.newThread()).unsubscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s);
+    }
 
 
-    public void toXiala() {
+    public synchronized void toXiala() {
         mPullRefreshing = true;
         mHeaderView.setState(AbListViewHeader.STATE_REFRESHING);
         mScroller.startScroll(0, 0, 0, (int) AbViewUtil.dip2px(getContext(), 50), SCROLL_DURATION);
@@ -669,5 +703,6 @@ public class PListView extends ListView implements HttpResponseListenerSon, AbsL
 
     void setStyle() {
     }
+
 
 }

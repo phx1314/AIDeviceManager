@@ -14,8 +14,6 @@ package com.deepblue.aidevicemanager.frg
 import android.os.Bundle
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
-import com.deepblue.aidevicemanager.F.baseUrl
-import com.deepblue.aidevicemanager.F.mModellogin
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaDeviceMainLeft
 import com.deepblue.aidevicemanager.ada.AdaDeviceMainRight
@@ -43,12 +41,7 @@ class FrgDeviceMain : BaseFrg() {
         when (type) {
             0 -> {
                 mModelModels_one = obj as ModelModels
-                mAbPullListView.setApiLoadParams(
-                    "${baseUrl}device/queryCleanRobotDeviceListByModel",
-                    "POST",
-                    this,
-                    mModellogin?.token, "deviceModelId", mModelModels_one.id.toInt()
-                )
+                mAbPullListView.setApiLoadParams(this, "queryCleanRobotDeviceListByModel", "POST", mModelModels_one.id.toInt())
             }
         }
 
@@ -103,12 +96,6 @@ class FrgDeviceMain : BaseFrg() {
             }
             AdaDeviceMainRight(context, data)
         }
-//        mAbPullListView.setApiLoadParams(
-//            "${baseUrl}device/queryCleanRobotDeviceListBySeries",
-//            "POST",
-//            this,
-//            mModellogin?.token, "deviceSeriesId", item.id.toInt()
-//        )
     }
 
     override fun onSuccess(data: String?, method: String) {
@@ -117,12 +104,7 @@ class FrgDeviceMain : BaseFrg() {
             mListView.adapter = AdaDeviceMainLeft(context, mModelModels?.toMutableList())
             mModelModels_one = mModelModels!![0]
             if (mModelModels?.isNotEmpty()) {
-                mAbPullListView.setApiLoadParams(
-                    "${baseUrl}device/queryCleanRobotDeviceListByModel",
-                    "POST",
-                    this,
-                    mModellogin?.token, "deviceModelId", mModelModels_one.id.toInt()
-                )
+                mAbPullListView.setApiLoadParams(this, "queryCleanRobotDeviceListByModel", "POST", mModelModels_one.id.toInt())
             }
         }
     }

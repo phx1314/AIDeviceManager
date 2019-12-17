@@ -119,4 +119,12 @@ interface ApiService {
     @POST("user/validCode")
     @FormUrlEncoded
     fun validCode(@Field("mobile") mobile: String?, @Field("smsCode") smsCode: String?): Observable<HttpResult<Any>>
+
+    @POST("device/queryCleanRobotDeviceListByModel")
+    @FormUrlEncoded
+    fun queryCleanRobotDeviceListByModel(@Field("deviceModelId") deviceModelId: String?, @Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
+
+    @POST("map/queryMapListByGroup")
+    @FormUrlEncoded
+    fun queryMapListByGroup(@Field("mapGroupId") mapGroupId: String?, @Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
 }
