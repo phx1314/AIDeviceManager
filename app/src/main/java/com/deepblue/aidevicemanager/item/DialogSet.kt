@@ -12,17 +12,14 @@
 package com.deepblue.aidevicemanager.item
 
 import android.content.Context
-import android.text.TextUtils
 import android.view.LayoutInflater
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.bean.BeanParam1
-import com.deepblue.aidevicemanager.bean.BeanParam2
 import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelCarSet
 import com.deepblue.aidevicemanager.model.ModelDevices
 import com.deepblue.aidevicemanager.pop.PopShowSet
-import com.google.gson.Gson
+import com.mdx.framework.Frame
 import com.mdx.framework.util.Helper
 import kotlinx.android.synthetic.main.item_dialog_set.view.*
 
@@ -99,6 +96,9 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean, from: Strin
                 F.gB().queryDeviceParamList(mdata.id.toString()),
                 "queryDeviceParamList"
             )
+        } else if (method.equals("cleanKingMapUpload")) {
+            Helper.toast("同步成功")
+            Frame.HANDLES.sentAll("FrgWorkChoose", 2, 0)
         }
     }
 
@@ -106,33 +106,39 @@ class DialogSet(context: Context?, var mdata: ModelDevices.RowsBean, from: Strin
     override fun disposeMsg(type: Int, obj: Any) {
         when (type) {
             0 -> {
-                var data = ArrayList<Any>()
-                mModelCarSets_new.forEach {
-                    if (TextUtils.isEmpty(it.rpParamValue)) {
-                        Helper.toast(it.paramShowName + context.getString(R.string.d_bnwk))
-                        return@forEach
-                    }
-                    if (TextUtils.isEmpty(it.rpParamMin)) {
-                        data.add(BeanParam1(it.rpParamId.toString(), it.rpParamValue))
-                    } else {
-                        data.add(
-                            BeanParam2(
-                                it.rpParamId.toString(),
-                                it.rpParamValue,
-                                it.rpParamMin,
-                                it.rpParamMax
-                            )
-                        )
-                    }
-                }
-                if (data.size > 0)
-                    load(
-                        F.gB().configDeviceParamBatch(
-                            mdata.deviceVersionId.toString(),
-                            mdata.id.toString(),
-                            Gson().toJson(data)
-                        ), "configDeviceParamBatch"
-                    )
+//                var data = ArrayList<Any>()
+//                mModelCarSets_new.forEach {
+//                    if (TextUtils.isEmpty(it.rpParamValue)) {
+//                        Helper.toast(it.paramShowName + context.getString(R.string.d_bnwk))
+//                        return@forEach
+//                    }
+//                    if (TextUtils.isEmpty(it.rpParamMin)) {
+//                        data.add(BeanParam1(it.rpParamId.toString(), it.rpParamValue))
+//                    } else {
+//                        data.add(
+//                            BeanParam2(
+//                                it.rpParamId.toString(),
+//                                it.rpParamValue,
+//                                it.rpParamMin,
+//                                it.rpParamMax
+//                            )
+//                        )
+//                    }
+//                }
+//                if (data.size > 0)
+//                    load(
+//                        F.gB().configDeviceParamBatch(
+//                            mdata.deviceVersionId.toString(),
+//                            mdata.id.toString(),
+//                            Gson().toJson(data)
+//                        ), "configDeviceParamBatch"
+//                    )
+                load(
+                    F.gB().cleanKingMapUpload(
+                        mdata.id.toString()
+                    ), "cleanKingMapUpload"
+                )
+
             }
             1 -> {
                 load(

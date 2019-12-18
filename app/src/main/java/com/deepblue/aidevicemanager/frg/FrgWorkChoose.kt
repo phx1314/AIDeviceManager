@@ -52,6 +52,9 @@ class FrgWorkChoose : BaseFrg() {
                 mModelMapLj = obj as ModelMapLj.RowsBean
                 load(F.gB().queryMapTaskInfo(mModelMapLj.id.toString()), "queryMapTaskInfo")
             }
+            2 -> {
+                load(F.gB().queryMapGroupList(mModelDeviceDetail?.id.toString(), page.toString(), size.toString()), "queryMapGroupList")
+            }
             1111 -> { //ws
                 try {
                     F.sendDb2a(F.mModelStatus?.mModelB, F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus)

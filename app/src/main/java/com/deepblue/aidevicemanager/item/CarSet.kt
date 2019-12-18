@@ -32,6 +32,8 @@ class CarSet(context: Context?, var from: String = "") : BaseItem(context) {
         mTextView_update4.setOnClickListener {
             if (!from.equals("FrgWorkDetail"))
                 Frame.HANDLES.sentAll("DialogSet$from", 0, "")
+
+
         }
         mTextView_update5.setOnClickListener {
             Frame.HANDLES.sentAll("DialogSet$from", 1, "")

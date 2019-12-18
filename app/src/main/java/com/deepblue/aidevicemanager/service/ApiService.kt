@@ -127,4 +127,8 @@ interface ApiService {
     @POST("map/queryMapListByGroup")
     @FormUrlEncoded
     fun queryMapListByGroup(@Field("mapGroupId") mapGroupId: String?, @Field("page") page: String, @Field("size") size: String): Observable<HttpResult<Any>>
+
+    @POST("device/cleanKingMapUpload")
+    @FormUrlEncoded
+    fun cleanKingMapUpload(@Field("receiverId") receiverId: String?): Observable<HttpResult<Any>>
 }

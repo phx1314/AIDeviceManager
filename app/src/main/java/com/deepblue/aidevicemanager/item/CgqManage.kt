@@ -90,9 +90,9 @@ fun getRightS(status: String?): String {
 
 fun getRightS2(status: String?): String {
     if (status.equals("0")) {
-        return "关"
+        return "异常"
     } else if (status.equals("1")) {
-        return "开"
+        return "正常"
     } else if (status.equals("2")) {
         return "N/A"
     } else {
