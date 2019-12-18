@@ -150,13 +150,13 @@ class FrgWorkDetail : BaseFrg() {
                     edgePolylines1.clear()
                     edgePolylines2.clear()
                     routePresetYZ?.forEach {
-                        polylines.add(F.getDesBaiduLatLng(it.point_y, it.point_x))
+                        polylines.add(F.getDesBaiduLatLng(it.data_latitude, it.data_longitude))
                     }
                     routePresetLY1?.forEach {
-                        edgePolylines1.add(F.getDesBaiduLatLng(it.point_y, it.point_x))
+                        edgePolylines1.add(F.getDesBaiduLatLng(it.data_latitude, it.data_longitude))
                     }
                     routePresetLY2?.forEach {
-                        edgePolylines2.add(F.getDesBaiduLatLng(it.point_y, it.point_x))
+                        edgePolylines2.add(F.getDesBaiduLatLng(it.data_latitude, it.data_longitude))
                     }
                     if (polylines.size < 1 && edgePolylines1.size < 1 && edgePolylines2.size < 1) {
                         Helper.toast(getString(R.string.dataerror_please_retry))
