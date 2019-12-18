@@ -6,6 +6,6 @@ public class ModelRoutePreset_Inter {
      * point_y : 26.87966789262
      */
 
-    public double point_x;
-    public double point_y;
+    public double data_longitude;
+    public double data_latitude;
 }
