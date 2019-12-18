@@ -73,14 +73,14 @@ class FrgWDOverView : BaseFrg() {
         when (type) {
             1111 -> {
                 try {
+                    val desBaiduLatLng = F.getDesBaiduLatLng(F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!, F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!)
                     val msu = MapStatusUpdateFactory.newLatLng(
                         LatLng(
-                            F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!,
-                            F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!
+                            desBaiduLatLng.latitude,
+                            desBaiduLatLng.longitude
                         )
                     )
 
-                    val desBaiduLatLng = F.getDesBaiduLatLng(F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!, F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!)
                     mMap.setMapStatus(msu)
                     locData = MyLocationData.Builder()
                         .direction(
