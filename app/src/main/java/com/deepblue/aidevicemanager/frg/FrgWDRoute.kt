@@ -28,11 +28,12 @@ class FrgWDRoute : BaseFrg() {
     private val mBitmapEnd = BitmapDescriptorFactory.fromResource(R.drawable.endpoint)
     private val DISTANCE = 0.00002  //默认间隔移动距离
     private val mEdgePolylineWith = 6  //路沿宽度
-    private val mPolylineWith = 10  //路线宽度
-    private val mHasRunPolylineWith = 8   //已行驶路线宽度
+    private val mPolylineWith = 9  //路线宽度
+    private val mHasRunPolylineWith = 9   //已行驶路线宽度
     private val mEdgePolylineColor = Color.GRAY   //路沿颜色
     private val mPolylineColor = Color.BLUE  //路线颜色
     private val mHasRunPolylineColor = Color.RED //已行驶路线颜色
+    private var mHasRunPolyline: Overlay? = null
     private val WSDuringTime: Long = 1000
     private val carMoveDuringTime: Long = 100
     private val distanceArr = intArrayOf(20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000)
@@ -174,14 +175,19 @@ class FrgWDRoute : BaseFrg() {
                 mMoveMarker?.position = endPoint
                 activity?.runOnUiThread {
                     //更新小车方向
-                    mMoveMarker?.rotate = getAngle(startPoint, endPoint).toFloat()
-                    //设置小车已行驶路径
-                    mMap.addOverlay(
-                        PolylineOptions()
+//                    mMoveMarker?.rotate = getAngle(startPoint, endPoint).toFloat()
+                    try {
+                        mMoveMarker?.rotate = F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!
+                        //设置小车已行驶路径
+                        mHasRunPolyline?.remove()
+                        val s = PolylineOptions()
                             .width(mHasRunPolylineWith)
                             .zIndex(8)
                             .color(mHasRunPolylineColor).points(F.hasRunPosints)
-                    )
+                        mHasRunPolyline = mMap.addOverlay(s)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }
         }.start()
