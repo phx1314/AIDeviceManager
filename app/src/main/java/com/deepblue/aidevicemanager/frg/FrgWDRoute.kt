@@ -31,8 +31,8 @@ class FrgWDRoute : BaseFrg() {
     private val mPolylineWith = 10  //路线宽度
     private val mHasRunPolylineWith = 8   //已行驶路线宽度
     private val mEdgePolylineColor = Color.GRAY   //路沿颜色
-    private val mPolylineColor = Color.RED  //路线颜色
-    private val mHasRunPolylineColor = Color.BLUE //已行驶路线颜色
+    private val mPolylineColor = Color.BLUE  //路线颜色
+    private val mHasRunPolylineColor = Color.RED //已行驶路线颜色
     private val WSDuringTime: Long = 1000
     private val carMoveDuringTime: Long = 100
     private val distanceArr = intArrayOf(20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000)
@@ -183,7 +183,6 @@ class FrgWDRoute : BaseFrg() {
                             .color(mHasRunPolylineColor).points(F.hasRunPosints)
                     )
                 }
-                Log.e("添加经纬度", F.hasRunPosints.toString())
             }
         }.start()
     }
