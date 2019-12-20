@@ -19,7 +19,7 @@ import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.util.PhoneFormatCheckUtils
 import com.google.gson.Gson
 import com.mdx.framework.Frame
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 import kotlinx.android.synthetic.main.frg_info_change.*
 
 

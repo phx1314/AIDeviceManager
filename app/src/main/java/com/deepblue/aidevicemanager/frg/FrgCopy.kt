@@ -23,8 +23,8 @@ import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.model.ModelLogin
 import com.deepblue.aidevicemanager.util.DesEncryptDecrypt
 import com.mdx.framework.activity.IndexAct
-import com.mdx.framework.permissions.PermissionRequest
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.permissions.PermissionRequest
+import com.mdx.framework.utility.Helper
 import kotlinx.android.synthetic.main.frg_login.*
 import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
 import android.text.InputType.TYPE_CLASS_TEXT

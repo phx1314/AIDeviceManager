@@ -20,7 +20,7 @@ import com.deepblue.aidevicemanager.item.Main;
 import com.deepblue.aidevicemanager.model.ModelMain;
 import com.mdx.framework.activity.TitleAct;
 import com.mdx.framework.adapter.MAdapter;
-import com.mdx.framework.util.Helper;
+import com.mdx.framework.utility.Helper;
 
 import java.util.List;
 

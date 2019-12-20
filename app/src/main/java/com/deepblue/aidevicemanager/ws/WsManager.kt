@@ -10,7 +10,7 @@ import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.BaseActivity
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 import okhttp3.*
 import okio.ByteString
 import java.util.concurrent.locks.Lock

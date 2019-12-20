@@ -23,7 +23,7 @@ import com.deepblue.aidevicemanager.model.ModelDevices
 import com.deepblue.aidevicemanager.pop.PopShowSet
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.BaseActivity
-import com.mdx.framework.util.AbDateUtil
+import com.mdx.framework.utility.AbDateUtil
 import kotlinx.android.synthetic.main.item_head.view.*
 
 

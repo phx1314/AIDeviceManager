@@ -19,7 +19,7 @@ import com.deepblue.aidevicemanager.ada.AdaWorkChooseBottom
 import com.deepblue.aidevicemanager.model.*
 import com.google.gson.Gson
 import com.mdx.framework.activity.TitleAct
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 import kotlinx.android.synthetic.main.frg_work_choose.*
 
 var selectID = -1

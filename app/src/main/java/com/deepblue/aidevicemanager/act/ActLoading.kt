@@ -25,7 +25,7 @@ import com.deepblue.aidevicemanager.frg.FrgMain
 import com.deepblue.aidevicemanager.model.ModelStatus
 import com.deepblue.aidevicemanager.service.BatteryService
 import com.mdx.framework.activity.IndexAct
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 
 class ActLoading : Activity() {
 

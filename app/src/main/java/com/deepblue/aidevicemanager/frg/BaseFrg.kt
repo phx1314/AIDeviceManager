@@ -22,8 +22,8 @@ import com.mdx.framework.activity.MFragment
 import com.mdx.framework.service.subscriber.HttpResult
 import com.mdx.framework.service.subscriber.HttpResultSubscriberListener
 import com.mdx.framework.service.subscriber.S
-import com.mdx.framework.util.AbAppUtil
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.AbAppUtil
+import com.mdx.framework.utility.Helper
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

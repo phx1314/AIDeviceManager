@@ -26,7 +26,7 @@ import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelDevices
 import com.deepblue.aidevicemanager.util.GlideLoader
 import com.mdx.framework.activity.TitleAct
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 import kotlinx.android.synthetic.main.item_device_main_right.view.*
 
 
@@ -37,7 +37,6 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
     init {
         val flater = LayoutInflater.from(context)
         flater.inflate(R.layout.item_device_main_right, this)
-
         mLinearLayout_1.setOnClickListener {
             item_son = item.mList[0]
 //            load(F.gB().queryDeviceLiveData(item.mList[0].id.toString()), "queryDeviceLiveData")
@@ -59,7 +58,7 @@ class DeviceMainRight(context: Context?) : BaseItem(context) {
 
     override fun onSuccess(data: String?, method: String) {
         if (method.equals("queryDeviceDetail")) {
-            var mModelDeviceDetail = F.data2Model(data?.replace("\\n",""), ModelDeviceDetail::class.java)
+            var mModelDeviceDetail = F.data2Model(data?.replace("\\n", ""), ModelDeviceDetail::class.java)
             F.mModelStatus?.mModelB = mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()
 
             if (mModelDeviceDetail?.deviceStatus?.equals("1") == true) {

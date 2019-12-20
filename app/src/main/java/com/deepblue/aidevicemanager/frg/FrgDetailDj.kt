@@ -18,12 +18,13 @@ import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaDetailTwo
 import com.deepblue.aidevicemanager.item.getRightS
+import com.deepblue.aidevicemanager.item.getRightSljx
 import com.deepblue.aidevicemanager.model.ModelA
 import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelDevices
 import com.mdx.framework.activity.TitleAct
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 import kotlinx.android.synthetic.main.frg_detail_dj.*
 
 
@@ -155,7 +156,7 @@ class FrgDetailDj : BaseFrg() {
         data.add(getString(R.string.d_sczt1) + getRightS(mModelB.data_manual_brake))
         data.add(getString(R.string.d_sszt) + getRightS(mModelB.data_brush_status))
         data.add(getString(R.string.d_sswz) + getRightS(mModelB.data_brush_position))
-        data.add(getString(R.string.d_ljxwz) + getRightS(mModelB.data_trash_level))
+        data.add(getString(R.string.d_ljxwz) + getRightSljx(mModelB.data_trash_level))
         data.add(getString(R.string.d_xfzt) + getRightS(mModelB.data_suction_status))
         data.add(getString(R.string.d_xfkwz) + getRightS(mModelB.data_suction_inlet_position))
         data.add(getString(R.string.d_pszt) + getRightS(mModelB.data_spout_water))

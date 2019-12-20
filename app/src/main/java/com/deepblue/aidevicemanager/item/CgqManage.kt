@@ -87,6 +87,13 @@ fun getRightS(status: String?): String {
         return if (status.equals("0")) "关" else "开"
     }
 }
+fun getRightSljx(status: String?): String {
+    if (TextUtils.isEmpty(status)) {
+        return "N/A"
+    } else {
+        return if (status.equals("0")) "上" else "下"
+    }
+}
 
 fun getRightS2(status: String?): String {
     if (status.equals("0")) {

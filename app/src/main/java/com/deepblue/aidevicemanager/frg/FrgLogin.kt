@@ -29,8 +29,8 @@ import com.deepblue.aidevicemanager.util.PhoneFormatCheckUtils
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.IndexAct
 import com.mdx.framework.activity.TitleAct
-import com.mdx.framework.permissions.PermissionRequest
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
+import com.mdx.framework.utility.permissions.PermissionRequest
 import kotlinx.android.synthetic.main.frg_login.*
 import kotlinx.android.synthetic.main.item_head.view.*
 
@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.item_head.view.*
 class FrgLogin : BaseFrg() {
     //    18151735217
     //    123456
-//    15510255253 189793
+//    15510255253 12345678
     var isChecked = true
 
     override fun create(savedInstanceState: Bundle?) {
@@ -47,6 +47,7 @@ class FrgLogin : BaseFrg() {
     }
 
     override fun initView() {
+
         Helper.requestPermissions(arrayOf(
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,

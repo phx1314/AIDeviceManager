@@ -17,7 +17,7 @@ import android.text.TextUtils
 import com.deepblue.aidevicemanager.F.gB
 import com.deepblue.aidevicemanager.R
 import com.mdx.framework.Frame
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 import kotlinx.android.synthetic.main.frg_input_new.*
 
 

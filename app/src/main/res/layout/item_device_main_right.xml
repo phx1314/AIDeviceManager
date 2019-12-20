@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
+
                 android:layout_margin="10dp"
                 android:scaleType="fitCenter"></ImageView>
 
@@ -50,7 +51,7 @@
             android:layout_below="@+id/mImageView_slw"
             android:ellipsize="end"
             android:gravity="center"
-            android:singleLine="true"
+            android:lines="2"
             android:text=""></TextView>
     </LinearLayout>
 
@@ -73,8 +74,9 @@
                 android:id="@+id/mImageView_slw_2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:scaleType="fitCenter"></ImageView>
 
             <ImageView
@@ -95,7 +97,7 @@
             android:layout_below="@+id/mImageView_slw"
             android:ellipsize="end"
             android:gravity="center"
-            android:singleLine="true"
+            android:lines="2"
             android:text=""></TextView>
     </LinearLayout>
 
@@ -140,7 +142,7 @@
             android:layout_below="@+id/mImageView_slw"
             android:ellipsize="end"
             android:gravity="center"
-            android:singleLine="true"
+            android:lines="2"
             android:text=""></TextView>
     </LinearLayout>
 
@@ -185,7 +187,7 @@
             android:layout_below="@+id/mImageView_slw"
             android:ellipsize="end"
             android:gravity="center"
-            android:singleLine="true"
+            android:lines="2"
             android:text=""></TextView>
     </LinearLayout>
 </LinearLayout>

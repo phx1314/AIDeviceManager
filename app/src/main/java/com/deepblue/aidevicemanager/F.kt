@@ -22,7 +22,7 @@ import com.deepblue.aidevicemanager.ws.WsManager
 import com.google.gson.Gson
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.IndexAct
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 import okhttp3.OkHttpClient
 import org.json.JSONObject
 import java.util.*

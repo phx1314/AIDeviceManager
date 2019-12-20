@@ -24,7 +24,7 @@ import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_ROUTE
 import com.deepblue.aidevicemanager.util.WorkDetailFrgIndex.Companion.PAGE_VEDIO
 import com.deepblue.aidevicemanager.ws.WsStatus
 import com.mdx.framework.Frame
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 import kotlinx.android.synthetic.main.frg_workdetail.*
 import java.util.*
 

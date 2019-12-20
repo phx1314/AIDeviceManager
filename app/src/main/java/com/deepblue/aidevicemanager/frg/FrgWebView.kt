@@ -18,7 +18,7 @@ import android.webkit.WebViewClient
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.util.HtmlFormat
-import com.mdx.framework.util.AbLogUtil
+import com.mdx.framework.utility.AbLogUtil
 import kotlinx.android.synthetic.main.frg_webview.*
 
 

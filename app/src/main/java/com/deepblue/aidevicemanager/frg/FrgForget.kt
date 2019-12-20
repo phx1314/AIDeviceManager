@@ -18,7 +18,7 @@ import com.deepblue.aidevicemanager.F.gB
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.util.PhoneFormatCheckUtils
 import com.mdx.framework.activity.TitleAct
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 import kotlinx.android.synthetic.main.frg_forget.*
 
 

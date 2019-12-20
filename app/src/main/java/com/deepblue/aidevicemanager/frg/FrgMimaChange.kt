@@ -17,7 +17,7 @@ import android.text.TextUtils
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.mdx.framework.Frame
-import com.mdx.framework.util.Helper
+import com.mdx.framework.utility.Helper
 import kotlinx.android.synthetic.main.frg_input_new.mImageView_kan2
 import kotlinx.android.synthetic.main.frg_mima_change.*
 
