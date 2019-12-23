@@ -178,8 +178,13 @@ class FrgWDRoute : BaseFrg() {
 //                    mMoveMarker?.rotate = getAngle(startPoint, endPoint).toFloat()
                     try {
                         mMoveMarker?.rotate =
-                            if (F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! > 0) F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!
-                            else F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! + 360
+                            if (F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! > 0) 360-F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!
+                            else Math.abs(F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!)
+
+                        Log.e(
+                            "websocket_route_angle",
+                            "route方向====(" + mMoveMarker?.rotate + ")"
+                        )
                         //设置小车已行驶路径
                         mHasRunPolyline?.remove()
                         if (F.hasRunPosints.size > 1) {

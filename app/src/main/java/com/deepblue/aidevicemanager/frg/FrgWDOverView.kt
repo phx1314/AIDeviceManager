@@ -2,6 +2,7 @@ package com.deepblue.aidevicemanager.frg
 
 import android.graphics.Point
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
@@ -84,6 +85,11 @@ class FrgWDOverView : BaseFrg() {
                         .latitude(desBaiduLatLng.latitude)
                         .longitude(desBaiduLatLng.longitude).build()
                     mMap.setMyLocationData(locData)
+                    Log.e(
+                        "websocket_route_angle",
+                        "overview方向====(" + (if (F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! > 0) F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!
+                        else F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! + 360) + ")"
+                    )
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
