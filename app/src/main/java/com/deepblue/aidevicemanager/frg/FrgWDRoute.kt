@@ -9,11 +9,10 @@ import com.baidu.mapapi.model.LatLngBounds
 import com.baidu.mapapi.utils.DistanceUtil
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.model.ModelA
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORKING
 import com.deepblue.aidevicemanager.util.CarWorkStateStatus.Companion.WORK_DEFAUT
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frg_wd_route.*
+import kotlin.math.abs
 
 
 class FrgWDRoute : BaseFrg() {
@@ -179,7 +178,7 @@ class FrgWDRoute : BaseFrg() {
                     try {
                         mMoveMarker?.rotate =
                             if (F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! > 0) 360-F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!
-                            else Math.abs(F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!)
+                            else abs(F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!)
 
                         Log.e(
                             "websocket_route_angle",
