@@ -33,9 +33,9 @@ object F {
     var checked = "-1"
     var wsManager: WsManager? = null
     var mModellogin: ModelLogin? = null
-    var mModelStatus: ModelStatus? = null
+    var mModelStatus: ModelStatus = ModelStatus()
     var hasRunPosints = ArrayList<LatLng>()
-        var baseIP = "10.1.1.160:8081"
+    var baseIP = "10.1.1.160:8081"
 //    var baseIP = "58.216.158.85:8081"    //17321409967/12345678
 //    var baseIP = "192.168.16.91:8081"//开发
 
@@ -46,6 +46,7 @@ object F {
 
     fun init() {
         mModellogin = Gson().fromJson(getJson("mModellogin"), ModelLogin::class.java)
+
     }
 
     fun <T> data2Model(data: String?, mclass: Class<T>): T? {
