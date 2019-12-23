@@ -80,16 +80,16 @@ class FrgWDRoute : BaseFrg() {
         super.disposeMsg(type, obj)
         when (type) {
             1111 -> {
-                Log.e(
-                    "实时经纬度",
-                    "本体未处理过的实时经纬度====(" + F.mModelStatus?.mModelB?.data_longitude?.toDouble()!! + "," + F.mModelStatus?.mModelB?.data_latitude?.toDouble()!! + ")"
-                )
                 try {
+                    Log.e(
+                        "实时经纬度",
+                        "本体未处理过的实时经纬度====(" + F.mModelStatus?.mModelB?.data_longitude?.toDouble() + "," + F.mModelStatus?.mModelB?.data_latitude?.toDouble() + ")"
+                    )
                     if (FrgWorkDetail.mWorkState == WORKING) {
                         val mA = F.getDesBaiduLatLng(F.mModelStatus?.mModelB?.data_latitude?.toDouble()!!, F.mModelStatus?.mModelB?.data_longitude?.toDouble()!!)
                         if (F.hasRunPosints.size == 0)
                             F.hasRunPosints.add(mA)
-                        moveLooper(F.hasRunPosints[F.hasRunPosints.size - 1], mA)
+                        moveLooper(mA)
 //                        moveLooper2(F.hasRunPosints[F.hasRunPosints.size - 1], mA)
                         F.hasRunPosints.add(mA)
                     }
@@ -169,7 +169,7 @@ class FrgWDRoute : BaseFrg() {
 //        }
     }
 
-    private fun moveLooper(startPoint: LatLng, endPoint: LatLng) {
+    private fun moveLooper(endPoint: LatLng) {
         object : Thread() {
             override fun run() {
                 mMoveMarker?.position = endPoint
@@ -177,14 +177,18 @@ class FrgWDRoute : BaseFrg() {
                     //更新小车方向
 //                    mMoveMarker?.rotate = getAngle(startPoint, endPoint).toFloat()
                     try {
-                        mMoveMarker?.rotate = F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!
+                        mMoveMarker?.rotate =
+                            if (F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! > 0) F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!!
+                            else F.mModelStatus?.mModelB?.data_yaw_angle?.toFloat()!! + 360
                         //设置小车已行驶路径
                         mHasRunPolyline?.remove()
-                        val s = PolylineOptions()
-                            .width(mHasRunPolylineWith)
-                            .zIndex(8)
-                            .color(mHasRunPolylineColor).points(F.hasRunPosints)
-                        mHasRunPolyline = mMap.addOverlay(s)
+                        if (F.hasRunPosints.size > 1) {
+                            val s = PolylineOptions()
+                                .width(mHasRunPolylineWith)
+                                .zIndex(8)
+                                .color(mHasRunPolylineColor).points(F.hasRunPosints)
+                            mHasRunPolyline = mMap.addOverlay(s)
+                        }
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
