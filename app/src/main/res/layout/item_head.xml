@@ -64,11 +64,13 @@
 
             <ImageView
                 android:id="@+id/mImageView"
+                android:src="@drawable/u1814"
                 android:layout_width="22dp"
                 android:layout_height="22dp" />
 
             <TextView
                 android:id="@+id/mTextView_d_status"
+                android:text="@string/d_no_connect"
                 style="@style/text_style_15_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

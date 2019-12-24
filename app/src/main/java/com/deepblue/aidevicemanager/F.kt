@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit
 
 
 object F {
+    var s: Int = -1
     var checked = "-1"
     var wsManager: WsManager? = null
     var mModellogin: ModelLogin? = null

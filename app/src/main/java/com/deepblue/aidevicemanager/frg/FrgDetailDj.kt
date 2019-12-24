@@ -109,7 +109,8 @@ class FrgDetailDj : BaseFrg() {
             mTextView_status.text = getString(R.string.d_lx)
             mButton.text = getString(R.string.d_qd)
             mButton.isEnabled = false
-            mButton.visibility=View.GONE
+            mButton.visibility = View.GONE
+            changeSate(-1)
         } else if (mModelDeviceDetail?.deviceStatus?.equals("2") == true) {
             if (mModelDeviceDetail?.breakdown?.equals("1") == true) {//故障
                 mTextView_status.text = getString(R.string.d_gz)
@@ -133,6 +134,7 @@ class FrgDetailDj : BaseFrg() {
         } else if (mModelDeviceDetail?.deviceStatus?.equals("3") == true) {//离线待机
             mTextView_status.text = getString(R.string.d_lxdj)
             mButton.text = getString(R.string.d_qd)
+            changeSate(-1)
         } else if (mModelDeviceDetail?.deviceStatus?.equals("0") == true) {//未激活
             mTextView_status.text = "未激活"
             mButton.visibility = View.GONE
@@ -201,18 +203,12 @@ class FrgDetailDj : BaseFrg() {
     override fun setActionBar(actionBar: LinearLayout?) {
         super.setActionBar(actionBar)
         mHead.setTitle(data.deviceName)
-
         mHead.setShowPop(data, "FrgDetailDj")
-//        mHead.mLinearLayout_status.visibility = View.VISIBLE
-//        mHead.mImageView.setBackgroundResource(R.drawable.u1844)
-//        mHead.mTextView_d_status.text = getString(R.string.d_connect)
-
-
-
     }
 
     override fun onDestroy() {
         F.mModelStatus?.mModelB = null
+        F.s = -1
         F.stopConnectWSocket()
         super.onDestroy()
     }

@@ -12,11 +12,13 @@
 package com.deepblue.aidevicemanager.frg
 
 import android.app.ProgressDialog
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.item.Head
+import com.deepblue.aidevicemanager.ws.WsStatus
 import com.mdx.framework.Frame
 import com.mdx.framework.activity.MFragment
 import com.mdx.framework.service.subscriber.HttpResult
@@ -28,10 +30,13 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.item_head.view.*
 
 
 abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriberListener {
     lateinit var mHead: Head
+
+
     fun isHeadInit() = ::mHead.isInitialized
     @JvmField
     var compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -51,8 +56,17 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
             1110 -> { //电池
                 if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
             }
-            1112 -> { //ws state
-                if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
+            1112 -> { //ws
+                try {
+                    F.s = obj as Int
+                    Log.i("状态", F.s.toString())
+                    if (isHeadInit()) {
+                        mHead?.setStatus(this.javaClass.simpleName)
+                        changeSate(F.s)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
 
@@ -100,6 +114,24 @@ abstract class BaseFrg : MFragment(), View.OnClickListener, HttpResultSubscriber
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
+        Log.i("赋值状态", F.s.toString())
+        changeSate(F.s)
+
     }
+
+    fun changeSate(s: Int) {
+        when (s) {
+            WsStatus.CONNECTED -> {
+                mHead.mImageView.setImageResource(R.drawable.u1844)
+                mHead.mTextView_d_status.text = getString(R.string.d_connect)
+            }
+            else -> {
+                mHead.mImageView.setImageResource(R.drawable.u1814)
+                mHead.mTextView_d_status.text = getString(R.string.d_no_connect)
+            }
+        }
+
+    }
+
 
 }

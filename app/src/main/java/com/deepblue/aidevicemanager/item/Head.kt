@@ -127,6 +127,7 @@ class Head(context: Context?) : LinearLayout(context) {
 
     fun setStatus(from: String = "") {
         if (mModelStatus?.mModelB != null && (from.equals("FrgDetailDj") || from.equals("FrgWorkDetail") || from.equals("FrgWorkChoose"))) {
+            mLinearLayout_status.visibility = View.VISIBLE
             when {
                 mModelStatus?.mModelB?.data_gps_signal?.toInt() in 0..25 -> {
                     mRelativeLayout_gps.visibility = View.VISIBLE
@@ -201,6 +202,7 @@ class Head(context: Context?) : LinearLayout(context) {
             setBatteryStatus(mModelStatus?.mModelB?.data_battery_remaining_capacity?.toInt() ?: -1, 0)
             mTextView_time.visibility = View.GONE
         } else {
+            mLinearLayout_status.visibility = View.GONE
             mTextView_time.visibility = View.VISIBLE
             mTextView_time.text = AbDateUtil.getCurrentDate("HH:mm")
             setBatteryStatus(mModelStatus?.batteryLevel ?: -1, 1)
