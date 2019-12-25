@@ -19,7 +19,7 @@ import com.deepblue.aidevicemanager.R
 import com.deepblue.aidevicemanager.ada.AdaDetailTwo
 import com.deepblue.aidevicemanager.item.getRightS
 import com.deepblue.aidevicemanager.item.getRightSljx
-import com.deepblue.aidevicemanager.model.ModelA
+import com.deepblue.aidevicemanager.model.ModelWSRealTimeData
 import com.deepblue.aidevicemanager.model.ModelB
 import com.deepblue.aidevicemanager.model.ModelDeviceDetail
 import com.deepblue.aidevicemanager.model.ModelDevices
@@ -41,8 +41,8 @@ class FrgDetailDj : BaseFrg() {
         when (type) {
             1111 -> { //ws
                 try {
-                    F.sendDb2a(F.mModelStatus?.mModelB, F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus)
-                    F.sendDb2a(mModelDeviceDetail?.cleanKingLiveStatus, F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus)
+                    F.sendDb2a(F.mModelStatus?.mModelB, F.data2Model(obj.toString(), ModelWSRealTimeData::class.java)?.cleanKingLiveStatus)
+                    F.sendDb2a(mModelDeviceDetail?.cleanKingLiveStatus, F.data2Model(obj.toString(), ModelWSRealTimeData::class.java)?.cleanKingLiveStatus)
                     setData((mModelDeviceDetail?.cleanKingLiveStatus ?: ModelB()))
                     if (isHeadInit()) mHead?.setStatus(this.javaClass.simpleName)
                 } catch (e: Exception) {

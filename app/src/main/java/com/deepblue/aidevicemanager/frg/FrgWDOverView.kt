@@ -8,19 +8,11 @@ import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.deepblue.aidevicemanager.F
 import com.deepblue.aidevicemanager.R
-import com.deepblue.aidevicemanager.model.ModelA
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frg_wd_overview.*
 
 class FrgWDOverView : BaseFrg() {
     private val mMap by lazy { baidumap_overview.map }
     private var locData: MyLocationData? = null
-//    private val mBitmapCompass by lazy {
-//        BitmapFactory.decodeResource(
-//            context?.resources,
-//            R.drawable.u2262
-//        )
-//    }
 
     override fun create(var1: Bundle?) {
         setContentView(R.layout.frg_wd_overview)

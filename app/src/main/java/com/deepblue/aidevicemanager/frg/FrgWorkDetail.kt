@@ -105,7 +105,7 @@ class FrgWorkDetail : BaseFrg() {
         when (type) {
             1111 -> {
                 try {
-                    F.sendDb2a(F.mModelStatus?.mModelB, F.data2Model(obj.toString(), ModelA::class.java)?.cleanKingLiveStatus)
+                    F.sendDb2a(F.mModelStatus?.mModelB, F.data2Model(obj.toString(), ModelWSRealTimeData::class.java)?.cleanKingLiveStatus)
                     mHead.set(F.mModelStatus?.mModelB!!)
                     if (isHeadInit()) mHead.setStatus(this.javaClass.simpleName)
                     setViewValue(F.mModelStatus?.mModelB?.data_high_beam_light, iv_high_light)
